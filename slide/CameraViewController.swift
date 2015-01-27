@@ -25,7 +25,6 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     var uploadTask: NSURLSessionUploadTask?
     var uploadFileURL: NSURL?
     let captureSession = AVCaptureSession()
-    let locationManager = CLLocationManager()
     var previewLayer : AVCaptureVideoPreviewLayer?
     var captureDevice : AVCaptureDevice?
     
@@ -34,23 +33,16 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // location
-        self.locationManager.requestAlwaysAuthorization()
-        if (CLLocationManager.locationServicesEnabled())
-        {
-            self.locationManager.delegate = self
-            self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            self.locationManager.requestAlwaysAuthorization()
-            self.locationManager.startUpdatingLocation()
-            NSLog("\n ****************************** location block") 
+        if CLLocationManager.authorizationStatus() == .NotDetermined {
+            // NSLog("\n ****************************** NotDetermined()")
+            manager.requestWhenInUseAuthorization()
         }
         
         if CLLocationManager.locationServicesEnabled() {
+            // NSLog("\n ****************************** startUpdatingLocation()")
+            manager.delegate = self
+            manager.desiredAccuracy = kCLLocationAccuracyBest
             manager.startUpdatingLocation()
-        }
-        
-        if CLLocationManager.authorizationStatus() == .NotDetermined {
-            manager.requestAlwaysAuthorization()
         }
         
         // NSLog("\n ------------------- viewDidLoad() -------------------------------------- ")
@@ -182,7 +174,6 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
                     var request = NSMutableURLRequest(URL: presignedURL)
                     request.cachePolicy = NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData
                     request.HTTPMethod = "PUT"
-                    //contentType in the URLRequest must be the same as the one in getPresignedURLRequest
                     request.setValue(fileContentTypeStr, forHTTPHeaderField: "Content-Type")
                     self.uploadTask = self.session?.uploadTaskWithRequest(request, fromFile: self.uploadFileURL!)
                     self.uploadTask!.resume()
@@ -192,19 +183,21 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         }
     }
     
-    // location
+    //     location
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
-        
         var locValue:CLLocationCoordinate2D = manager.location.coordinate
-        
         println("locations = \(locValue.latitude) \(locValue.longitude)")
         
     }
     
     func locationManager(manager: CLLocationManager!,
         didChangeAuthorizationStatus status: CLAuthorizationStatus)
+        
     {
+        NSLog("didChangeAuthorizationStatus() block")
+        
         if status == .Authorized || status == .AuthorizedWhenInUse {
+            NSLog(".Authorized || .AuthorizedWhenInUse block")
             manager.startUpdatingLocation()
             var locValue:CLLocationCoordinate2D = manager.location.coordinate
             println("locations = \(locValue.latitude) \(locValue.longitude)")
