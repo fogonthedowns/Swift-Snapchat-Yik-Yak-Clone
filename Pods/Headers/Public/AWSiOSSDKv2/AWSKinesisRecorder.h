@@ -1,0 +1,1 @@
+../../../AWSiOSSDKv2/Kinesis/AWSKinesisRecorder.h
