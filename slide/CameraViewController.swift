@@ -13,23 +13,32 @@ import AVFoundation
 // depends on adding to the plist: NSLocationAlwaysUsageDescription and NSLocationWhenInUseUsageDescription
 import CoreLocation
 
+// core data is used to save the user identity, likely this will move
+import CoreData
+
 
 class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSessionTaskDelegate, NSURLSessionDataDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, CLLocationManagerDelegate {
     
     @IBOutlet var progressView: UIProgressView!
     @IBOutlet var statusLabel: UILabel!
+    
     // location
     @IBOutlet var gpsResult : UILabel!
-
+    let manager = CLLocationManager()
+    
+    // amazon S3
     var session: NSURLSession?
     var uploadTask: NSURLSessionUploadTask?
     var uploadFileURL: NSURL?
+    
+    // camera
     let captureSession = AVCaptureSession()
     var previewLayer : AVCaptureVideoPreviewLayer?
     var captureDevice : AVCaptureDevice?
     
-    let manager = CLLocationManager()
-
+    // user identity
+    var userModel = [NSManagedObject]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -61,6 +70,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         self.session = Static.session;
         self.progressView.progress = 0;
         self.statusLabel.text = "Ready"
+        self.findUser();
     }
     
     override func didReceiveMemoryWarning() {
@@ -199,10 +209,92 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         if status == .Authorized || status == .AuthorizedWhenInUse {
             NSLog(".Authorized || .AuthorizedWhenInUse block")
             manager.startUpdatingLocation()
-            var locValue:CLLocationCoordinate2D = manager.location.coordinate
-            println("locations = \(locValue.latitude) \(locValue.longitude)")
+            if (manager.location != nil){
+              var locValue:CLLocationCoordinate2D = manager.location.coordinate
+              println("locations = \(locValue.latitude) \(locValue.longitude)")
+            }
             
         }
+    }
+    
+    // User Identity Save
+    func saveUser(name: String) {
+        //1
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as AppDelegate
+        
+        let managedContext = appDelegate.managedObjectContext!
+        
+        //2
+        let entity =  NSEntityDescription.entityForName("User",
+            inManagedObjectContext:
+            managedContext)
+        
+        let userName = NSManagedObject(entity: entity!,
+            insertIntoManagedObjectContext:managedContext)
+        
+        //3
+        userName.setValue(name, forKey: "identity")
+        
+        //4
+        var error: NSError?
+        if !managedContext.save(&error) {
+            println("Could not save \(error), \(error?.userInfo)")
+        }  
+        //5
+        userModel.append(userName)
+        println("User: \(userModel), \(userModel[0])")
+    }
+    
+    func findUser() {
+        println("***************** findUser()")
+        //1
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as AppDelegate
+        
+        let managedContext = appDelegate.managedObjectContext!
+        
+        //2
+        let fetchRequest = NSFetchRequest(entityName:"User")
+        
+        //3
+        var error: NSError?
+        
+        let fetchedResults =
+        managedContext.executeFetchRequest(fetchRequest,
+            error: &error) as [NSManagedObject]?
+        
+        if let results = fetchedResults {
+            userModel = results
+            println("Count: \(userModel), \(userModel.count)")
+            if (userModel.count == 0){
+                println("***************** no user found **********************")
+                var randomString = randomStringWithLength(50)
+                self.saveUser(randomString)
+            } else {
+               println("***************** I Found a user! **********************")
+               var userRow = userModel[0]
+               var userNameAtRow = userRow.valueForKey("identity") as String?
+               NSLog("User:%@", userNameAtRow!)
+            }
+        } else {
+            println("Could not fetch \(error), \(error!.userInfo)")
+        }
+    }
+    
+    func randomStringWithLength (len : Int) -> NSString {
+        
+        let letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        
+        var randomString : NSMutableString = NSMutableString(capacity: len)
+        
+        for (var i=0; i < len; i++){
+            var length = UInt32 (letters.length)
+            var rand = arc4random_uniform(length)
+            randomString.appendFormat("%C", letters.characterAtIndex(Int(rand)))
+        }
+        
+        return randomString
     }
     
 }
