@@ -89,9 +89,10 @@ class UserModel: NSObject {
             apiObject.userID = userRow.valueForKey("identity") as String!
             self.postUsertoSnapServer()
             NSLog("User:%@", apiObject.userID)
-        }
+        } // end saveUser() (create new user)
     
     // this function uses the APIModel() instance apiObject
+    // this will require completion checking, if this is not completed you will need to post again, with the saved id
     func postUsertoSnapServer()-> Bool {
         apiObject.createUser(apiObject.userID)
         return true;

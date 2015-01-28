@@ -8,6 +8,10 @@
 
 import UIKit
 
+
+// This class is responible for calls to the Snap API server
+
+
 class APIModel: NSObject {
     
     // var url: NSString // no need (!). It will be initialised from controller
@@ -20,6 +24,10 @@ class APIModel: NSObject {
     override init() {
         super.init()
     }
+    
+    // It doesn't look like Userid is used, rather self.userID is used. This is set by a chain method call apiObject.userid
+    // from the userObject.findUser() on ViewDidLoad. We always have a user, we find one, and with it from disk and we set
+    // the userid, accesstoken and other info
     
     func createUser(Userid:NSString) {
       NSLog("********************************************** createUser() called with Device Token=%@", Userid)
@@ -67,6 +75,11 @@ class APIModel: NSObject {
         self.processResults(jsonResult);
     }
     
+    // TODO this is still a bit messy, this function handles the response of all API calls made through connnection delegate
+    // It ended up this way because of a lack of being able to return a value to delegate functions
+    // all processing events get lopped together for now, until this can be fixed in the future with a 
+    // better understanding of delegate on NSURLConnection() (connection) method
+    
     func processResults(jsonResult: NSDictionary) {
         if jsonResult.count>0 {
             if (jsonResult["access_token"] != nil) {
@@ -83,6 +96,10 @@ class APIModel: NSObject {
         }
     }
     
+    // this should probably be moved to the User Model since its a CRUD event, even though its tied to the response
+    // function above, processResults(), this probably doesn't matter bc its saving something. This could be made
+    // more general by passing a key, to the update field and value of that being updated
+
     func updateUser(){
         let appDelegate =
         UIApplication.sharedApplication().delegate as AppDelegate
