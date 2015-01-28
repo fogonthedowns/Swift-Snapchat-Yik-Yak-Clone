@@ -353,13 +353,15 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         // Convert the retrieved data in to an object through JSON deserialization
         var err: NSError
         var jsonResult: NSDictionary = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary
-        
+        // TODO fucking ugly, this needs to be out of this function, yuck.
         if jsonResult.count>0 {
+            if (jsonResult["access_token"] != nil) {
               self.accessToken = jsonResult["access_token"] as NSString
               self.snapId = jsonResult["_id"] as NSString
               NSLog("accessToken:%@", accessToken)
               NSLog("snap ID:%@", snapId)
               self.updateUser()
+            }
         }
     }
     
@@ -394,7 +396,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     }
     
     func postSnap() -> Bool {
-        var url = "https://airimg.com/snaps/new?access_token=" + self.accessToken + "&token=17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY&snap[userId]=" + self.snapId +  "&snap[film]=" + self.lastVideoUploadID + "&snap[lat]=" + self.latitude + "&snap[long]=" + self.longitute
+        var url = "https://airimg.com/snaps/new?access_token=" + self.accessToken + "&token=17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY&snap[userId]=" + self.snapId +  "&snap[film]=" + self.lastVideoUploadID + "&snap[lat]=" + self.latitude + "&snap[long]=" + self.longitute + "&device_token=" + self.userID
         NSLog("url:%@", url)
         let fileUrl = NSURL(string: url)
         var request = NSMutableURLRequest(URL: NSURL(string: url)!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData, timeoutInterval: 5)
