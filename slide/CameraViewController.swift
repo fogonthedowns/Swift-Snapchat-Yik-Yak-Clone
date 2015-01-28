@@ -25,12 +25,12 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     // location
     @IBOutlet var gpsResult : UILabel!
     let manager = CLLocationManager()
-    
+
     // amazon S3
     var session: NSURLSession?
     var uploadTask: NSURLSessionUploadTask?
     var uploadFileURL: NSURL?
-    
+
     // camera
     let captureSession = AVCaptureSession()
     var previewLayer : AVCaptureVideoPreviewLayer?
@@ -40,11 +40,12 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     var userModel = [NSManagedObject]()
     
     // snap data
+    let apiObject = APIModel()
     var userID: String = ""
     var lastVideoUploadID: String = ""
     var data: NSMutableData = NSMutableData()
     var accessToken: String = ""
-    var snapId: String = ""
+    var apiUserId: String = ""
     var latitude: String = ""
     var longitute: String = ""
     
@@ -299,10 +300,10 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
                var userRow = userModel[0]
                userID = userRow.valueForKey("identity") as String!
                accessToken = userRow.valueForKey("accessToken") as String!
-               snapId = userRow.valueForKey("snapId") as String!
+               apiUserId = userRow.valueForKey("apiUserId") as String!
                NSLog("User:%@", userID)
                NSLog("User AccessToken:%@", accessToken)
-               NSLog("User SnapId:%@", snapId)
+               NSLog("User apiUserId:%@", apiUserId)
             }
         } else {
             println("Could not fetch \(error), \(error!.userInfo)")
@@ -320,83 +321,17 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         return randomString
     }
     
-    // 4 functions below post a new user
-    // connection delegate, methods grab the data returned by the api
-    // append the data to self.data
-    // and serialize the JSON so that updateUser() is called
+    // this function uses the APIModel() instance postUser
     
     func postUsertoSnapServer()-> Bool {
-        var url = "https://airimg.com/profiles/new?token=17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY&profile[device_token]=" + self.userID +  "&profile[email]=u@u.com&profile[password]=a&profile[os]=ios"
-        NSLog("url:%@", url)
-        let fileUrl = NSURL(string: url)
-        var request = NSMutableURLRequest(URL: NSURL(string: url)!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData, timeoutInterval: 5)
-        var response: NSURLResponse?
-        var error: NSError?
-        request.HTTPMethod = "POST"
-        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-        var connection: NSURLConnection = NSURLConnection(request: request, delegate: self, startImmediately: true)!;
+        apiObject.createUser(self.userID)
         return true;
     }
     
-    func connection(didReceiveResponse: NSURLConnection!, didReceiveResponse response: NSURLResponse!) {
-        // Received a new request, clear out the data object
-        self.data = NSMutableData()
-    }
-    
-    func connection(connection: NSURLConnection!, didReceiveData data: NSData!) {
-        // Append the received chunk of data to our data object
-        self.data.appendData(data)
-    }
-    
-    func connectionDidFinishLoading(connection: NSURLConnection!) {
-        // Request complete, self.data should now hold the resulting info
-        // Convert the retrieved data in to an object through JSON deserialization
-        var err: NSError
-        var jsonResult: NSDictionary = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary
-        // TODO fucking ugly, this needs to be out of this function, yuck.
-        if jsonResult.count>0 {
-            if (jsonResult["access_token"] != nil) {
-              self.accessToken = jsonResult["access_token"] as NSString
-              self.snapId = jsonResult["_id"] as NSString
-              NSLog("accessToken:%@", accessToken)
-              NSLog("snap ID:%@", snapId)
-              self.updateUser()
-            }
-        }
-    }
-    
-    // updateUser() called after a user is created, so the response can save the users access Token
-    
-    func updateUser(){
-        let appDelegate =
-        UIApplication.sharedApplication().delegate as AppDelegate
-        let managedContext = appDelegate.managedObjectContext!
-        var request = NSBatchUpdateRequest(entityName: "User")
-        request.predicate = NSPredicate(format: "identity == %@", self.userID)
-        request.propertiesToUpdate = ["accessToken":self.accessToken, "snapId":self.snapId]
-        request.resultType = .UpdatedObjectsCountResultType
-        var batchError: NSError?
-        let result = managedContext.executeRequest(request,
-            error: &batchError)
-        
-        if result != nil{
-            if let theResult = result as? NSBatchUpdateResult{
-                if let numberOfAffectedPersons = theResult.result as? Int{
-                    println("The number of records that match the predicate " +
-                        "and have an access token is \(numberOfAffectedPersons)")
-            
-                }
-            }
-        } else {
-            if let error = batchError{
-                println("Could not perform batch request. Error = \(error)")
-            }
-        }
-        
-    }
-    
+
+    // needs to move to API model
     func postSnap() -> Bool {
-        var url = "https://airimg.com/snaps/new?access_token=" + self.accessToken + "&token=17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY&snap[userId]=" + self.snapId +  "&snap[film]=" + self.lastVideoUploadID + "&snap[lat]=" + self.latitude + "&snap[long]=" + self.longitute + "&device_token=" + self.userID
+        var url = "https://airimg.com/snaps/new?access_token=" + apiObject.accessToken + "&token=17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY&snap[userId]=" + apiObject.apiUserId +  "&snap[film]=" + self.lastVideoUploadID + "&snap[lat]=" + self.latitude + "&snap[long]=" + self.longitute + "&device_token=" + apiObject.userID
         NSLog("url:%@", url)
         let fileUrl = NSURL(string: url)
         var request = NSMutableURLRequest(URL: NSURL(string: url)!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData, timeoutInterval: 5)
