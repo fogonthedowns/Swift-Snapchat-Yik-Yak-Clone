@@ -205,7 +205,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         }
     }
     
-    //     location
+    // location
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         var locValue:CLLocationCoordinate2D = manager.location.coordinate
         println("locations = \(locValue.latitude) \(locValue.longitude)")
@@ -231,83 +231,6 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         }
     }
     
-        // User Identity Save
-    //    func saveUser(name: String) {
-    //         println("***************** saveUser()")
-    //        //1
-    //        let appDelegate =
-    //        UIApplication.sharedApplication().delegate as AppDelegate
-    //        
-    //        let managedContext = appDelegate.managedObjectContext!
-    //        
-    //        //2
-    //        let entity =  NSEntityDescription.entityForName("User",
-    //            inManagedObjectContext:
-    //            managedContext)
-    //        
-    //        let userName = NSManagedObject(entity: entity!,
-    //            insertIntoManagedObjectContext:managedContext)
-    //        
-    //        //3
-    //        userName.setValue(name, forKey: "identity")
-    //        
-    //        //4
-    //        var error: NSError?
-    //        if !managedContext.save(&error) {
-    //            println("Could not save \(error), \(error?.userInfo)")
-    //        }  
-    //        //5
-    //        userModel.append(userName)
-    //        var userRow = userModel[0]
-    //        apiObject.userID = userRow.valueForKey("identity") as String!
-    //        self.postUsertoSnapServer()
-    //        NSLog("User:%@", apiObject.userID)
-    //    }
-        
-        // its really a find or create()
-        
-    //    func findUser() {
-    //        println("***************** findUser()")
-    //        //1
-    //        let appDelegate =
-    //        UIApplication.sharedApplication().delegate as AppDelegate
-    //        
-    //        let managedContext = appDelegate.managedObjectContext!
-    //        
-    //        //2
-    //        let fetchRequest = NSFetchRequest(entityName:"User")
-    //        
-    //        //3
-    //        var error: NSError?
-    //        
-    //        let fetchedResults =
-    //        managedContext.executeFetchRequest(fetchRequest,
-    //            error: &error) as [NSManagedObject]?
-    //        
-    //        if let results = fetchedResults {
-    //            userModel = results
-    //            println("Count: \(userModel), \(userModel.count)")
-    //            if (userModel.count == 0){
-    //                println("***************** no user found **********************")
-    //                // No User is found, so we generate a User Identity
-    //                // it is then passed to saveUser()
-    //                var randomString = CameraViewController.randomStringWithLength(50)
-    //                self.saveUser(randomString)
-    //            } else {
-    //               println("***************** I Found a user! **********************")
-    //               var userRow = userModel[0]
-    //               apiObject.userID = userRow.valueForKey("identity") as String!
-    //               apiObject.accessToken = userRow.valueForKey("accessToken") as String!
-    //               apiObject.apiUserId = userRow.valueForKey("apiUserId") as String!
-    //               NSLog("User:%@", apiObject.userID)
-    //               NSLog("User AccessToken:%@", apiObject.accessToken)
-    //               NSLog("User apiUserId:%@", apiObject.apiUserId)
-    //            }
-    //        } else {
-    //            println("Could not fetch \(error), \(error!.userInfo)")
-    //        }
-    //    }
-    
     class func randomStringWithLength (len : Int) -> NSString {
         let letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         var randomString : NSMutableString = NSMutableString(capacity: len)
@@ -319,13 +242,6 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         return randomString
     }
     
-    //    // this function uses the APIModel() instance apiObject
-    //    func postUsertoSnapServer()-> Bool {
-    //        userObject.apiObject.createUser(userObject.apiObject.userID)
-    //        return true;
-    //    }
-    
-
     // this function uses the APIModel() instance apiObject
     func postSnap() -> Bool {
         userObject.apiObject.createSnap(self.latitude,long: self.longitute,video: self.lastVideoUploadID)
