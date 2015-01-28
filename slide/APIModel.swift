@@ -14,6 +14,7 @@ class APIModel: NSObject {
     var data: NSMutableData = NSMutableData()
     var accessToken: NSString = ""
     var apiUserId: NSString = ""
+    // TODO rename to device token
     var userID: NSString = ""
     
     override init() {
@@ -24,6 +25,12 @@ class APIModel: NSObject {
       NSLog("********************************************** createUser() called with Device Token=:%@", Userid)
       userID = Userid
       var requestUrl = "https://airimg.com/profiles/new?token=17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY&profile[device_token]=" + self.userID +  "&profile[email]=u@u.com&profile[password]=a&profile[os]=ios"
+        self.postRequest(requestUrl)
+    }
+    
+    func createSnap(lat:NSString,long:NSString,video:NSString){
+        var requestUrl = "https://airimg.com/snaps/new?access_token=" + self.accessToken + "&token=17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY&snap[userId]=" + self.apiUserId +  "&snap[film]=" + video + "&snap[lat]=" + lat + "&snap[long]=" + long + "&device_token=" + self.userID
+        NSLog("********************************************** createSnap() called with request url= ", requestUrl)
         self.postRequest(requestUrl)
     }
     
@@ -68,6 +75,10 @@ class APIModel: NSObject {
                 NSLog("accessToken:%@", accessToken)
                 NSLog("snap ID:%@", apiUserId)
                 self.updateUser()
+            }
+            
+            if (jsonResult["succcess"] != nil){
+                NSLog(" ----------------------------- video uploaded ----------------------------- ")
             }
         }
     }

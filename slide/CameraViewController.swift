@@ -41,11 +41,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     
     // snap data
     let apiObject = APIModel()
-    var userID: String = ""
     var lastVideoUploadID: String = ""
-    var data: NSMutableData = NSMutableData()
-    var accessToken: String = ""
-    var apiUserId: String = ""
     var latitude: String = ""
     var longitute: String = ""
     
@@ -263,9 +259,9 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         //5
         userModel.append(userName)
         var userRow = userModel[0]
-        userID = userRow.valueForKey("identity") as String!
+        apiObject.userID = userRow.valueForKey("identity") as String!
         self.postUsertoSnapServer()
-        NSLog("User:%@", userID)
+        NSLog("User:%@", apiObject.userID)
     }
     
     func findUser() {
@@ -298,12 +294,12 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
             } else {
                println("***************** I Found a user! **********************")
                var userRow = userModel[0]
-               userID = userRow.valueForKey("identity") as String!
-               accessToken = userRow.valueForKey("accessToken") as String!
-               apiUserId = userRow.valueForKey("apiUserId") as String!
-               NSLog("User:%@", userID)
-               NSLog("User AccessToken:%@", accessToken)
-               NSLog("User apiUserId:%@", apiUserId)
+               apiObject.userID = userRow.valueForKey("identity") as String!
+               apiObject.accessToken = userRow.valueForKey("accessToken") as String!
+               apiObject.apiUserId = userRow.valueForKey("apiUserId") as String!
+               NSLog("User:%@", apiObject.userID)
+               NSLog("User AccessToken:%@", apiObject.accessToken)
+               NSLog("User apiUserId:%@", apiObject.apiUserId)
             }
         } else {
             println("Could not fetch \(error), \(error!.userInfo)")
@@ -321,25 +317,16 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         return randomString
     }
     
-    // this function uses the APIModel() instance postUser
-    
+    // this function uses the APIModel() instance apiObject
     func postUsertoSnapServer()-> Bool {
-        apiObject.createUser(self.userID)
+        apiObject.createUser(apiObject.userID)
         return true;
     }
     
 
-    // needs to move to API model
+    // this function uses the APIModel() instance apiObject
     func postSnap() -> Bool {
-        var url = "https://airimg.com/snaps/new?access_token=" + apiObject.accessToken + "&token=17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY&snap[userId]=" + apiObject.apiUserId +  "&snap[film]=" + self.lastVideoUploadID + "&snap[lat]=" + self.latitude + "&snap[long]=" + self.longitute + "&device_token=" + apiObject.userID
-        NSLog("url:%@", url)
-        let fileUrl = NSURL(string: url)
-        var request = NSMutableURLRequest(URL: NSURL(string: url)!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData, timeoutInterval: 5)
-        var response: NSURLResponse?
-        var error: NSError?
-        request.HTTPMethod = "POST"
-        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-        var connection: NSURLConnection = NSURLConnection(request: request, delegate: self, startImmediately: true)!;
+        apiObject.createSnap(self.latitude,long: self.longitute,video: self.lastVideoUploadID)
         return true;
     }
     
