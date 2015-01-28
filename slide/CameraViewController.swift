@@ -39,6 +39,13 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     // user identity
     var userModel = [NSManagedObject]()
     
+    // snap data
+    var userID: String = ""
+    var lastVideoUploadID: String = ""
+    var data: NSMutableData = NSMutableData()
+    var accessToken: String = ""
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -117,6 +124,9 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         if (error == nil) {
             dispatch_async(dispatch_get_main_queue()) {
                 self.statusLabel.text = "Upload Successfully"
+                // post to snap server 
+                // video id, user id, lat, long
+                self.postSnap()
             }
             NSLog("S3 UploadTask: %@ completed successfully", task);
             NSLog("S3 Session: %@ completed successfully", session);
@@ -163,9 +173,11 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
             NSLog("Error: %@",error!);
         }
         
+        lastVideoUploadID = randomStringWithLength(75) + ".mov"
+        
         let getPreSignedURLRequest = AWSS3GetPreSignedURLRequest()
         getPreSignedURLRequest.bucket = S3BucketName
-        getPreSignedURLRequest.key = S3UploadKeyName
+        getPreSignedURLRequest.key = lastVideoUploadID
         getPreSignedURLRequest.HTTPMethod = AWSHTTPMethod.PUT
         getPreSignedURLRequest.expires = NSDate(timeIntervalSinceNow: 36600)
         
@@ -219,6 +231,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     
     // User Identity Save
     func saveUser(name: String) {
+         println("***************** saveUser()")
         //1
         let appDelegate =
         UIApplication.sharedApplication().delegate as AppDelegate
@@ -243,7 +256,10 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         }  
         //5
         userModel.append(userName)
-        println("User: \(userModel), \(userModel[0])")
+        var userRow = userModel[0]
+        userID = userRow.valueForKey("identity") as String!
+        self.postUsertoSnapServer()
+        NSLog("User:%@", userID)
     }
     
     func findUser() {
@@ -274,8 +290,8 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
             } else {
                println("***************** I Found a user! **********************")
                var userRow = userModel[0]
-               var userNameAtRow = userRow.valueForKey("identity") as String?
-               NSLog("User:%@", userNameAtRow!)
+               userID = userRow.valueForKey("identity") as String!
+               NSLog("User:%@", userID)
             }
         } else {
             println("Could not fetch \(error), \(error!.userInfo)")
@@ -283,18 +299,58 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     }
     
     func randomStringWithLength (len : Int) -> NSString {
-        
         let letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        
         var randomString : NSMutableString = NSMutableString(capacity: len)
-        
         for (var i=0; i < len; i++){
             var length = UInt32 (letters.length)
             var rand = arc4random_uniform(length)
             randomString.appendFormat("%C", letters.characterAtIndex(Int(rand)))
         }
-        
         return randomString
+    }
+    
+    func postUsertoSnapServer()-> Bool {
+        var url = "https://airimg.com/profiles/new?token=17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY&profile[device_token]=" + self.userID +  "&profile[email]=u@u.com&profile[password]=a&profile[os]=ios"
+        NSLog("url:%@", url)
+        let fileUrl = NSURL(string: url)
+        var request = NSMutableURLRequest(URL: NSURL(string: url)!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData, timeoutInterval: 5)
+        var response: NSURLResponse?
+        var error: NSError?
+        request.HTTPMethod = "POST"
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        var connection: NSURLConnection = NSURLConnection(request: request, delegate: self, startImmediately: true)!;
+        return true;
+    }
+    
+    func connection(didReceiveResponse: NSURLConnection!, didReceiveResponse response: NSURLResponse!) {
+        // Received a new request, clear out the data object
+        self.data = NSMutableData()
+    }
+    
+    func connection(connection: NSURLConnection!, didReceiveData data: NSData!) {
+        // Append the received chunk of data to our data object
+        self.data.appendData(data)
+    }
+    
+    func connectionDidFinishLoading(connection: NSURLConnection!) {
+        // Request complete, self.data should now hold the resulting info
+        // Convert the retrieved data in to an object through JSON deserialization
+        var err: NSError
+        var jsonResult: NSDictionary = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary
+        
+        if jsonResult.count>0 {
+              self.accessToken = jsonResult["access_token"] as NSString
+              NSLog("accessToken:%@", accessToken)
+//            self.tableData = results
+//            self.appsTableView.reloadData()
+            
+        }
+    }
+    
+    // Post Snap
+    
+    func postSnap() -> Bool {
+        return true;
     }
     
 }
