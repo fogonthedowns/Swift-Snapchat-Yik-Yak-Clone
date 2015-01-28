@@ -44,6 +44,9 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     var lastVideoUploadID: String = ""
     var data: NSMutableData = NSMutableData()
     var accessToken: String = ""
+    var snapId: String = ""
+    var latitude: String = ""
+    var longitute: String = ""
     
     
     override func viewDidLoad() {
@@ -209,6 +212,8 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         var locValue:CLLocationCoordinate2D = manager.location.coordinate
         println("locations = \(locValue.latitude) \(locValue.longitude)")
+        self.latitude =  String(format: "%f", locValue.latitude)
+        self.longitute = String(format: "%f", locValue.longitude)
         
     }
     
@@ -285,13 +290,19 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
             println("Count: \(userModel), \(userModel.count)")
             if (userModel.count == 0){
                 println("***************** no user found **********************")
+                // No User is found, so we generate a User Identity
+                // it is then passed to saveUser()
                 var randomString = randomStringWithLength(50)
                 self.saveUser(randomString)
             } else {
                println("***************** I Found a user! **********************")
                var userRow = userModel[0]
                userID = userRow.valueForKey("identity") as String!
+               accessToken = userRow.valueForKey("accessToken") as String!
+               snapId = userRow.valueForKey("snapId") as String!
                NSLog("User:%@", userID)
+               NSLog("User AccessToken:%@", accessToken)
+               NSLog("User SnapId:%@", snapId)
             }
         } else {
             println("Could not fetch \(error), \(error!.userInfo)")
@@ -308,6 +319,11 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         }
         return randomString
     }
+    
+    // 4 functions below post a new user
+    // connection delegate, methods grab the data returned by the api
+    // append the data to self.data
+    // and serialize the JSON so that updateUser() is called
     
     func postUsertoSnapServer()-> Bool {
         var url = "https://airimg.com/profiles/new?token=17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY&profile[device_token]=" + self.userID +  "&profile[email]=u@u.com&profile[password]=a&profile[os]=ios"
@@ -340,16 +356,53 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         
         if jsonResult.count>0 {
               self.accessToken = jsonResult["access_token"] as NSString
+              self.snapId = jsonResult["_id"] as NSString
               NSLog("accessToken:%@", accessToken)
-//            self.tableData = results
-//            self.appsTableView.reloadData()
-            
+              NSLog("snap ID:%@", snapId)
+              self.updateUser()
         }
     }
     
-    // Post Snap
+    // updateUser() called after a user is created, so the response can save the users access Token
+    
+    func updateUser(){
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as AppDelegate
+        let managedContext = appDelegate.managedObjectContext!
+        var request = NSBatchUpdateRequest(entityName: "User")
+        request.predicate = NSPredicate(format: "identity == %@", self.userID)
+        request.propertiesToUpdate = ["accessToken":self.accessToken, "snapId":self.snapId]
+        request.resultType = .UpdatedObjectsCountResultType
+        var batchError: NSError?
+        let result = managedContext.executeRequest(request,
+            error: &batchError)
+        
+        if result != nil{
+            if let theResult = result as? NSBatchUpdateResult{
+                if let numberOfAffectedPersons = theResult.result as? Int{
+                    println("The number of records that match the predicate " +
+                        "and have an access token is \(numberOfAffectedPersons)")
+            
+                }
+            }
+        } else {
+            if let error = batchError{
+                println("Could not perform batch request. Error = \(error)")
+            }
+        }
+        
+    }
     
     func postSnap() -> Bool {
+        var url = "https://airimg.com/snaps/new?access_token=" + self.accessToken + "&token=17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY&snap[userId]=" + self.snapId +  "&snap[film]=" + self.lastVideoUploadID + "&snap[lat]=" + self.latitude + "&snap[long]=" + self.longitute
+        NSLog("url:%@", url)
+        let fileUrl = NSURL(string: url)
+        var request = NSMutableURLRequest(URL: NSURL(string: url)!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData, timeoutInterval: 5)
+        var response: NSURLResponse?
+        var error: NSError?
+        request.HTTPMethod = "POST"
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        var connection: NSURLConnection = NSURLConnection(request: request, delegate: self, startImmediately: true)!;
         return true;
     }
     
