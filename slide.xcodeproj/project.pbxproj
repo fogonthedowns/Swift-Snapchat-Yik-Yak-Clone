@@ -18,6 +18,7 @@
 		F1F2DE961A77F827005B75B0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F2DE951A77F827005B75B0 /* Constants.swift */; };
 		F1F2DE991A77FF3A005B75B0 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F2DE981A77FF3A005B75B0 /* CameraViewController.swift */; };
 		F1F2DE9B1A79483A005B75B0 /* APIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F2DE9A1A79483A005B75B0 /* APIModel.swift */; };
+		F1F2DE9E1A797BA9005B75B0 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F2DE9D1A797BA9005B75B0 /* UserModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		F1F2DE971A77FA2C005B75B0 /* S3-bridging-header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "S3-bridging-header.h"; sourceTree = "<group>"; };
 		F1F2DE981A77FF3A005B75B0 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		F1F2DE9A1A79483A005B75B0 /* APIModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIModel.swift; sourceTree = "<group>"; };
+		F1F2DE9D1A797BA9005B75B0 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		FBDF3BF5330EC98E63BC93A2 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -146,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				F1F2DE9A1A79483A005B75B0 /* APIModel.swift */,
+				F1F2DE9D1A797BA9005B75B0 /* UserModel.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -294,6 +297,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F1F2DE781A77F574005B75B0 /* ViewController.swift in Sources */,
+				F1F2DE9E1A797BA9005B75B0 /* UserModel.swift in Sources */,
 				F1F2DE991A77FF3A005B75B0 /* CameraViewController.swift in Sources */,
 				F1F2DE731A77F574005B75B0 /* AppDelegate.swift in Sources */,
 				F1F2DE761A77F574005B75B0 /* slide.xcdatamodeld in Sources */,

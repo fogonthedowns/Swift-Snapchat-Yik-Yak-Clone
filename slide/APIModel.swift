@@ -22,7 +22,7 @@ class APIModel: NSObject {
     }
     
     func createUser(Userid:NSString) {
-      NSLog("********************************************** createUser() called with Device Token=:%@", Userid)
+      NSLog("********************************************** createUser() called with Device Token=%@", Userid)
       userID = Userid
       var requestUrl = "https://airimg.com/profiles/new?token=17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY&profile[device_token]=" + self.userID +  "&profile[email]=u@u.com&profile[password]=a&profile[os]=ios"
         self.postRequest(requestUrl)
