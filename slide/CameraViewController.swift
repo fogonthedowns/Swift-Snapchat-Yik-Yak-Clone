@@ -30,6 +30,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     var session: NSURLSession?
     var uploadTask: NSURLSessionUploadTask?
     var uploadFileURL: NSURL?
+    var uploadImageURL: NSURL?
 
     // camera
     let captureSession = AVCaptureSession()
@@ -39,6 +40,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     // snap data
 
     var lastVideoUploadID: String = ""
+    var lastImgUploadID: String = ""
     var latitude: String = ""
     var longitute: String = ""
     
@@ -123,10 +125,13 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         
         if (error == nil) {
             dispatch_async(dispatch_get_main_queue()) {
-                self.statusLabel.text = "Upload Successfully"
+                // self.statusLabel.text = "Upload Successfully"
                 // post to snap server 
                 // video id, user id, lat, long
-                self.postSnap()
+                if (self.lastVideoUploadID != "" && self.lastImgUploadID != "") {
+                  self.statusLabel.text = "Upload Successfully"
+                  self.postSnap()
+                }
             }
             NSLog("S3 UploadTask: %@ completed successfully", task);
             NSLog("S3 Session: %@ completed successfully", session);
@@ -159,8 +164,25 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     func imagePickerController(picker: UIImagePickerController!, didFinishPickingMediaWithInfo info:NSDictionary!) {
         let tempImage = info[UIImagePickerControllerMediaURL] as NSURL!
         let pathString = tempImage.relativePath
+        
+        let asset1 = AVURLAsset(URL:tempImage, options:nil)
+        let generator = AVAssetImageGenerator(asset: asset1)
+        let time = CMTimeMakeWithSeconds(0, 30)
+        let size = CGSizeMake(425,355)
+        generator.maximumSize = size
+        let imgRef = generator.copyCGImageAtTime(time, actualTime: nil, error: nil)
+        let thumb = UIImage(CGImage:imgRef)
+        let data = UIImagePNGRepresentation(thumb)
+        var directory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString
+        directory = directory + "/img.img"
+        data.writeToFile(directory, atomically: true)
+        var myimg = UIImage(contentsOfFile: directory)
+        NSLog("my img:%@", myimg!)
+        self.uploadImageURL = NSURL.fileURLWithPath(directory)
+        
         self.dismissViewControllerAnimated(true, completion: {})
         self.uploadFileURL = NSURL.fileURLWithPath(pathString!)
+        self.saveImageToAWS()
         self.saveToAWS()
     }
     
@@ -203,7 +225,47 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
             }
             return nil;
         }
-    }
+    } // end saveToAws()
+    
+    func saveImageToAWS () {
+        NSLog("saveImageToAWS() url image: %@",  self.uploadImageURL as NSURL!)
+        var error: NSError? = nil
+        
+        if (error) != nil {
+            NSLog("Error: %@",error!);
+        }
+        
+        lastImgUploadID = CameraViewController.randomStringWithLength(75) + ".img"
+        
+        let getPreSignedURLRequest = AWSS3GetPreSignedURLRequest()
+        getPreSignedURLRequest.bucket = S3BucketName
+        getPreSignedURLRequest.key = lastImgUploadID
+        getPreSignedURLRequest.HTTPMethod = AWSHTTPMethod.PUT
+        getPreSignedURLRequest.expires = NSDate(timeIntervalSinceNow: 3660)
+        
+        //Important: must set contentType for PUT request
+        let fileContentTypeStr = "image/png"
+        getPreSignedURLRequest.contentType = fileContentTypeStr
+        
+        
+        AWSS3PreSignedURLBuilder.defaultS3PreSignedURLBuilder().getPreSignedURL(getPreSignedURLRequest).continueWithBlock { (task:BFTask!) -> (AnyObject!) in
+            if (task.error != nil) {
+                NSLog("Error: %@", task.error)
+            } else {
+                NSLog("\n !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! task.result: %@", task.result as NSURL!)
+                let presignedURL = task.result as NSURL!
+                if (presignedURL != nil) {
+                    var request = NSMutableURLRequest(URL: presignedURL)
+                    request.cachePolicy = NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData
+                    request.HTTPMethod = "PUT"
+                    request.setValue(fileContentTypeStr, forHTTPHeaderField: "Content-Type")
+                    self.uploadTask = self.session?.uploadTaskWithRequest(request, fromFile: self.uploadImageURL!)
+                    self.uploadTask!.resume()
+                }
+            }
+            return nil;
+        }
+    } // end saveImageToAWS
     
     // location
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
@@ -231,6 +293,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         }
     }
     
+    
     class func randomStringWithLength (len : Int) -> NSString {
         let letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         var randomString : NSMutableString = NSMutableString(capacity: len)
@@ -244,7 +307,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     
     // this function uses the APIModel() instance apiObject
     func postSnap() -> Bool {
-        userObject.apiObject.createSnap(self.latitude,long: self.longitute,video: self.lastVideoUploadID)
+        userObject.apiObject.createSnap(self.latitude,long: self.longitute,video: self.lastVideoUploadID, image: self.lastImgUploadID)
         return true;
     }
     
