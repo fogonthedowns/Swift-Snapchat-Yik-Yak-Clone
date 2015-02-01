@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 // This class is responible for calls to the Snap API server
 
 
@@ -16,18 +15,38 @@ class APIModel: NSObject {
     
     // var url: NSString // no need (!). It will be initialised from controller
     var data: NSMutableData = NSMutableData()
+//    var snapsResults: JSON = JSON()
     var accessToken: NSString = ""
     var apiUserId: NSString = ""
     // TODO rename to device token
     var userID: NSString = ""
-    
-    override init() {
-        super.init()
-    }
+
+
     
     // It doesn't look like Userid is used, rather self.userID is used. This is set by a chain method call apiObject.userid
     // from the userObject.findUser() on ViewDidLoad. We always have a user, we find one, and with it from disk and we set
     // the userid, accesstoken and other info
+    func getSnaps(lat:NSString,long:NSString, delegate:APIProtocol) {
+        var requestUrl = "https://airimg.com/snaps?token=17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY&device_token=" + self.userID + "&access_token=" + self.accessToken + "&lat=" + lat + "&long=" + long
+//        NSLog("getting Snaps")
+//        self.getRequest(requestUrl)
+        
+        request(.GET, requestUrl)
+            .responseJSON { (req, res, json, error) in
+                if(error != nil) {
+                    NSLog("GET Error: \(error)")
+                    println(res)
+                }
+                else {
+                    var json = JSON(json!)
+                    NSLog("GET Result: \(json)")
+                    
+                    // Call delegate
+                    delegate.didReceiveResult(json)
+                }
+        }
+        
+    }
     
     func createUser(Userid:NSString) {
       NSLog("********************************************** createUser() called with Device Token=%@", Userid)
@@ -54,12 +73,27 @@ class APIModel: NSObject {
         var connection: NSURLConnection = NSURLConnection(request: request, delegate: self, startImmediately: true)!;
     }
     
+    func getRequest(url:String) {
+        var url = url
+        NSLog("url:%@", url)
+        let fileUrl = NSURL(string: url)
+        var request = NSMutableURLRequest(URL: NSURL(string: url)!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData, timeoutInterval: 5)
+        var response: NSURLResponse?
+        var error: NSError?
+        request.HTTPMethod = "GET"
+        request.setValue("text/plain; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        var connection: NSURLConnection = NSURLConnection(request: request, delegate: self, startImmediately: true)!;
+    }
+    
     func connection(didReceiveResponse: NSURLConnection!, didReceiveResponse response: NSURLResponse!) {
         // Received a new request, clear out the data object
+        NSLog(" ----------------------------- didReceiveResponse() ----------------------------- ")
         self.data = NSMutableData()
     }
     
     func connection(connection: NSURLConnection!, didReceiveData data: NSData!) {
+        NSLog(" ----------------------------- didReceiveData() ----------------------------- ")
+
         // Append the received chunk of data to our data object
         self.data.appendData(data)
     }
@@ -67,35 +101,43 @@ class APIModel: NSObject {
     // returns jsonResult as NSDictionary
     
     func connectionDidFinishLoading(connection: NSURLConnection!) {
+         NSLog(" ----------------------------- connectionDidFinishLoading() ----------------------------- ")
         // Request complete, self.data should now hold the resulting info
         // Convert the retrieved data in to an object through JSON deserialization
         var err: NSError
-        var jsonResult: NSDictionary = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary
-        // TODO fucking ugly, this needs to be out of this function, yuck.
-        self.processResults(jsonResult);
+        let json = JSON(data: data)
+        self.processJson(json)
+        
     }
+    
     
     // TODO this is still a bit messy, this function handles the response of all API calls made through connnection delegate
     // It ended up this way because of a lack of being able to return a value to delegate functions
-    // all processing events get lopped together for now, until this can be fixed in the future with a 
+    // all processing events get lopped together for now, until this can be fixed in the future with a
     // better understanding of delegate on NSURLConnection() (connection) method
     
-    func processResults(jsonResult: NSDictionary) {
-        if jsonResult.count>0 {
-            if (jsonResult["access_token"] != nil) {
-                self.accessToken = jsonResult["access_token"] as NSString
-                self.apiUserId = jsonResult["_id"] as NSString
+
+    func processJson(json:JSON) {
+     
+        NSLog(" ----------------------------- processJson() ----------------------------- ")
+        if json.count>0 {
+            if (json["access_token"] != nil) {
+                NSLog(" ----------------------------- found access_token key ----------------------------- ")
+                self.accessToken = json["access_token"].stringValue as NSString
+                self.apiUserId = json["_id"].stringValue as NSString
                 NSLog("accessToken:%@", accessToken)
                 NSLog("snap ID:%@", apiUserId)
                 self.updateUser()
             }
             
-            if (jsonResult["succcess"] != nil){
+            if (json["success"] != nil){
                 NSLog(" ----------------------------- video uploaded ----------------------------- ")
             }
         }
     }
     
+    
+    // searches by a userID, then it updates the access token
     // this should probably be moved to the User Model since its a CRUD event, even though its tied to the response
     // function above, processResults(), this probably doesn't matter bc its saving something. This could be made
     // more general by passing a key, to the update field and value of that being updated
