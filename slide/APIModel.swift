@@ -55,8 +55,8 @@ class APIModel: NSObject {
         self.postRequest(requestUrl)
     }
     
-    func createSnap(lat:NSString,long:NSString,video:NSString){
-        var requestUrl = "https://airimg.com/snaps/new?access_token=" + self.accessToken + "&token=17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY&snap[userId]=" + self.apiUserId +  "&snap[film]=" + video + "&snap[lat]=" + lat + "&snap[long]=" + long + "&device_token=" + self.userID
+    func createSnap(lat:NSString,long:NSString,video:NSString,image:NSString){
+        var requestUrl = "https://airimg.com/snaps/new?access_token=" + self.accessToken + "&token=17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY&snap[userId]=" + self.apiUserId +  "&snap[img]=" + image + "&snap[film]=" + video + "&snap[lat]=" + lat + "&snap[long]=" + long + "&device_token=" + self.userID
         NSLog("********************************************** createSnap() called with request url= ", requestUrl)
         self.postRequest(requestUrl)
     }
