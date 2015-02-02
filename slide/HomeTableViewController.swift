@@ -60,17 +60,29 @@ class HomeTableViewController: UITableViewController, APIProtocol {
         cell.titleLabel.text = video.film
         var urlString = "https://s3-us-west-1.amazonaws.com/slideby/" + video.img
         NSLog("video url: %@", urlString)
-        let url = NSURL(string: urlString)        
+        let url = NSURL(string: urlString)
         let main_queue = dispatch_get_main_queue()
+        
+        // this allows images to load in the background
+        // and allows the page to load without the image
         let backgroundQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
         dispatch_async(backgroundQueue, {
+//            var imageData = NSData(contentsOfURL: url!)
+//            var image = UIImage(data:imageData!)
             
-            var imageData = NSData(contentsOfURL: url!)
-            var image = UIImage(data:imageData!)
+            SGImageCache.getImageForURL(urlString) { image in
+                if image != nil {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        cell.videoPreview.contentMode = UIViewContentMode.ScaleAspectFit
+                        cell.videoPreview.image = image;
+                    })
+//                    self.imageView.image = image
+                }
+            }
             
             dispatch_async(dispatch_get_main_queue(), {
-                cell.videoPreview.contentMode = UIViewContentMode.ScaleAspectFit
-                cell.videoPreview.image = image;
+//                cell.videoPreview.contentMode = UIViewContentMode.ScaleAspectFit
+//                cell.videoPreview.image = image;
             })
         })
         return cell

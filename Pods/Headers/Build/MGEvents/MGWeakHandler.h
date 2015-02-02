@@ -1,0 +1,1 @@
+../../../MGEvents/MGEvents/MGWeakHandler.h

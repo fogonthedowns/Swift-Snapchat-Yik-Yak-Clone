@@ -10,3 +10,4 @@
 
 #import <AWSiOSSDKv2/AWSCore.h>
 #import <AWSiOSSDKv2/S3.h>
+#import <SGImageCache/SGImageCache.h>

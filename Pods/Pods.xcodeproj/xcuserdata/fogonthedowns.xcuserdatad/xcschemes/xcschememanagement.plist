@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Pods-AFNetworking.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-AWSiOSSDKv2.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -24,12 +29,27 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-MGEvents.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Mantle.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
 		<key>Pods-Reachability.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-SGHTTPRequest.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-SGImageCache.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -57,52 +77,72 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1D61FCC9CCE6C21317EA648D</key>
+		<key>3FABEB0A1BEFC5CA18684CF9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>1F43CC774A1C47168654EB20</key>
+		<key>415658901553558FB497D714</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2C6AC13358431B9746BE4439</key>
+		<key>50E85C8D9F9152B73C1AAA7E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>472A244BEFFD7F0D1A6184B5</key>
+		<key>929CE855AFF9C8065EEF8EFB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4ED5D28D6AE278B98A496C81</key>
+		<key>97DD3091ECD882368002FECE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>58FBCC6DCCC143313276E8F2</key>
+		<key>A063C575181204DD978E36E2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A86709632D8898F97EF6B21F</key>
+		<key>A076A5CB1C67AACD39844D2A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AD1C18D1C0CEF8E03D03B0B4</key>
+		<key>AE302B1F686B92EBDDF67B43</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C436B151BDF17E305CAE7A29</key>
+		<key>B0757D2F82F922C128DAB359</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>FB6E714347D984E9F2578383</key>
+		<key>C1AE4EED462C86D053A619A1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C883859903C021380CC995EE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CDA20AC97CCFD47DEFC4287C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D4B20FE0E8F11069DE615487</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>ECA23175EECBB0E9FBF819A5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
