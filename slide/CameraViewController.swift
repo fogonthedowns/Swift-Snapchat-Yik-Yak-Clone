@@ -31,6 +31,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     var uploadTask: NSURLSessionUploadTask?
     var uploadFileURL: NSURL?
     var uploadImageURL: NSURL?
+    var successCount: NSNumber = 0
 
     // camera
     let captureSession = AVCaptureSession()
@@ -45,7 +46,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     var longitute: String = ""
     
     // user identity
-    //    var userModel = [NSManagedObject]()
+
     let userObject = UserModel()
     
     override func viewDidLoad() {
@@ -125,12 +126,14 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         
         if (error == nil) {
             dispatch_async(dispatch_get_main_queue()) {
-                // self.statusLabel.text = "Upload Successfully"
-                // post to snap server 
+                self.successCount = self.successCount.integerValue+1
+                NSLog("success count: %@", self.successCount.isEqual(2) )
+                // post to snap server
                 // video id, user id, lat, long
-                if (self.lastVideoUploadID != "" && self.lastImgUploadID != "") {
+                if ( self.successCount.isEqual(2) ) {
                   self.statusLabel.text = "Upload Successfully"
                   self.postSnap()
+                  self.successCount = 0
                 }
             }
             NSLog("S3 UploadTask: %@ completed successfully", task);
@@ -165,6 +168,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         let tempImage = info[UIImagePickerControllerMediaURL] as NSURL!
         let pathString = tempImage.relativePath
         
+        // process image
         let asset1 = AVURLAsset(URL:tempImage, options:nil)
         let generator = AVAssetImageGenerator(asset: asset1)
         let time = CMTimeMakeWithSeconds(0, 30)
@@ -176,8 +180,8 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         var directory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString
         directory = directory + "/img.img"
         data.writeToFile(directory, atomically: true)
-        var myimg = UIImage(contentsOfFile: directory)
-        NSLog("my img:%@", myimg!)
+         var myimg = UIImage(contentsOfFile: directory)
+         NSLog("my img:%@", myimg!)
         self.uploadImageURL = NSURL.fileURLWithPath(directory)
         
         self.dismissViewControllerAnimated(true, completion: {})
@@ -185,6 +189,9 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         self.saveImageToAWS()
         self.saveToAWS()
     }
+    
+    // TODO refactor this shit
+    // terribly undry 
     
     func saveToAWS () {
         NSLog("url: %@",  self.uploadFileURL as NSURL!)
@@ -235,13 +242,13 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
             NSLog("Error: %@",error!);
         }
         
-        lastImgUploadID = CameraViewController.randomStringWithLength(75) + ".img"
+        lastImgUploadID = CameraViewController.randomStringWithLength(75) + ".png"
         
         let getPreSignedURLRequest = AWSS3GetPreSignedURLRequest()
         getPreSignedURLRequest.bucket = S3BucketName
         getPreSignedURLRequest.key = lastImgUploadID
         getPreSignedURLRequest.HTTPMethod = AWSHTTPMethod.PUT
-        getPreSignedURLRequest.expires = NSDate(timeIntervalSinceNow: 3660)
+        getPreSignedURLRequest.expires = NSDate(timeIntervalSinceNow: 36600)
         
         //Important: must set contentType for PUT request
         let fileContentTypeStr = "image/png"
@@ -252,7 +259,6 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
             if (task.error != nil) {
                 NSLog("Error: %@", task.error)
             } else {
-                NSLog("\n !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! task.result: %@", task.result as NSURL!)
                 let presignedURL = task.result as NSURL!
                 if (presignedURL != nil) {
                     var request = NSMutableURLRequest(URL: presignedURL)
@@ -306,6 +312,9 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     }
     
     // this function uses the APIModel() instance apiObject
+    // Todo This requires some completion handler 
+    // maybe write a success row 
+    
     func postSnap() -> Bool {
         userObject.apiObject.createSnap(self.latitude,long: self.longitute,video: self.lastVideoUploadID, image: self.lastImgUploadID)
         return true;

@@ -10,6 +10,7 @@ import UIKit
 
 class VideoCellTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var videoPreview: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,5 +22,6 @@ class VideoCellTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
 
 }
