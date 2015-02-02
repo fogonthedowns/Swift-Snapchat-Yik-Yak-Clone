@@ -60,13 +60,19 @@ class HomeTableViewController: UITableViewController, APIProtocol {
         cell.titleLabel.text = video.film
         var urlString = "https://s3-us-west-1.amazonaws.com/slideby/" + video.img
         NSLog("video url: %@", urlString)
-        if let url = NSURL(string: urlString) {
-            if let data = NSData(contentsOfURL: url){
+        let url = NSURL(string: urlString)        
+        let main_queue = dispatch_get_main_queue()
+        let backgroundQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+        dispatch_async(backgroundQueue, {
+            
+            var imageData = NSData(contentsOfURL: url!)
+            var image = UIImage(data:imageData!)
+            
+            dispatch_async(dispatch_get_main_queue(), {
                 cell.videoPreview.contentMode = UIViewContentMode.ScaleAspectFit
-                cell.videoPreview.image = UIImage(data: data)
-            }
-        }
-        
+                cell.videoPreview.image = image;
+            })
+        })
         return cell
     }
 
