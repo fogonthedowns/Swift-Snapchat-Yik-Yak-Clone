@@ -1,4 +1,25 @@
 PODS:
+  - AFNetworking (2.5.0):
+    - AFNetworking/NSURLConnection (= 2.5.0)
+    - AFNetworking/NSURLSession (= 2.5.0)
+    - AFNetworking/Reachability (= 2.5.0)
+    - AFNetworking/Security (= 2.5.0)
+    - AFNetworking/Serialization (= 2.5.0)
+    - AFNetworking/UIKit (= 2.5.0)
+  - AFNetworking/NSURLConnection (2.5.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.5.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.5.0)
+  - AFNetworking/Security (2.5.0)
+  - AFNetworking/Serialization (2.5.0)
+  - AFNetworking/UIKit (2.5.0):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
   - AWSiOSSDKv2 (2.0.15):
     - AWSiOSSDKv2/AutoScaling (= 2.0.15)
     - AWSiOSSDKv2/AWSCore (= 2.0.15)
@@ -149,21 +170,36 @@ PODS:
   - Mantle (1.5.4):
     - Mantle/extobjc (= 1.5.4)
   - Mantle/extobjc (1.5.4)
+  - MGEvents (1.0.3)
   - Reachability (3.2)
+  - SGHTTPRequest (1.0.3):
+    - AFNetworking
+  - SGImageCache (1.2.0):
+    - MGEvents
+    - SGHTTPRequest
+    - SGImageCache/base (= 1.2.0)
+  - SGImageCache/base (1.2.0):
+    - MGEvents
+    - SGHTTPRequest
   - TMCache (1.2.3)
   - UICKeyChainStore (1.1.1)
   - XMLDictionary (1.4)
 
 DEPENDENCIES:
   - AWSiOSSDKv2
+  - SGImageCache
 
 SPEC CHECKSUMS:
+  AFNetworking: 0f54cb5d16ce38c1b76948faffb8d5fb705021c7
   AWSiOSSDKv2: 53c8f9aa2c61099e035755dd739aa91c2ab2765c
   Bolts: 3db0a875235e0c9042b013af13af0f00f79b102c
   FMDB: 0b2fa25e5264ef177973c0cb8c02c711107979aa
   GZIP: f27c434ffee5e9a9b34f4e9c19e91350fa8bbde1
   Mantle: d5fbaf30fbc58031223af13812c060e15934a1fe
+  MGEvents: e6254d7873bcb90b266801d171f9948194010927
   Reachability: 1ef8adf5c4e3d362f96515d4278f68dad3c26930
+  SGHTTPRequest: 6c9c51babed3eebd182945e61f5543c66d5df46e
+  SGImageCache: e7f9b353bac495d1c9698f50581eb47fb2022216
   TMCache: 11589ef8c40909114a5e60132711c9a559e01d97
   UICKeyChainStore: ea8f9851811284c6b9ff5b2133acd53342127cc3
   XMLDictionary: 735e81b9a043e220b0d24e9d4f16719606f2e0fc
