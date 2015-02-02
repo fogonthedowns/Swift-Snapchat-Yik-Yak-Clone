@@ -69,15 +69,19 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hoA-Mt-B7B">
-                                            <rect key="frame" x="19" y="8" width="224" height="28"/>
+                                            <rect key="frame" x="121" y="5" width="224" height="28"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MtF-wo-daK">
+                                            <rect key="frame" x="8" y="0.0" width="77" height="44"/>
+                                        </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="titleLabel" destination="hoA-Mt-B7B" id="Dui-EG-RUQ"/>
+                                    <outlet property="videoPreview" destination="MtF-wo-daK" id="yRY-Lb-g43"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

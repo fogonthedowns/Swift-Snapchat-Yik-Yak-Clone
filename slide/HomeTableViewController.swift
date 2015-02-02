@@ -54,31 +54,23 @@ class HomeTableViewController: UITableViewController, APIProtocol {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        // let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as UITableViewCell
 
-//        let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "VideoCell")
-//        let rowData: NSDictionary = videoModelList[indexPath.row] as NSDictionary
-        
-       // cell.textLabel!.text = rowData["film"] as? String
-        
-        
         let cell = tableView.dequeueReusableCellWithIdentifier("VideoCell") as VideoCellTableViewCell
         let video: VideoModel = videoModelList[indexPath.row] as VideoModel
         cell.titleLabel.text = video.film
-        
-        // Grab the artworkUrl60 key to get an image URL for the app's thumbnail
-//        let urlString: NSString = rowData["videoModelList"] as NSString
-//        let imgURL: NSURL? = NSURL(string: urlString)
-        
-        // Download an NSData representation of the image at the URL
-        // let imgData = NSData(contentsOfURL: imgURL!)
-        // cell.imageView.image = UIImage(data: imgData!)
-        
-        // cell.detailTextLabel?.text = formattedPrice
+        var urlString = "https://s3-us-west-1.amazonaws.com/slideby/" + video.img
+        NSLog("video url: %@", urlString)
+        if let url = NSURL(string: urlString) {
+            if let data = NSData(contentsOfURL: url){
+                cell.videoPreview.contentMode = UIViewContentMode.ScaleAspectFit
+                cell.videoPreview.image = UIImage(data: data)
+            }
+        }
         
         return cell
     }
 
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -132,7 +124,8 @@ class HomeTableViewController: UITableViewController, APIProtocol {
             
                 var videoModel = VideoModel(
                     id: rowAPIresult["film"].stringValue,
-                    user: rowAPIresult["userId"].stringValue
+                    user: rowAPIresult["userId"].stringValue,
+                    img: rowAPIresult["img"].stringValue
                 )
                 
                 videos.addObject(videoModel)

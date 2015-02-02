@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		EBD557C0DD742AA279A34FF3 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AB3DB53B69454BF2EF9B850 /* libPods.a */; };
+		F172A1901A7E8C12007E564C /* AWSImageDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = F172A18F1A7E8C12007E564C /* AWSImageDownload.swift */; };
 		F1F2DE731A77F574005B75B0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F2DE721A77F574005B75B0 /* AppDelegate.swift */; };
 		F1F2DE761A77F574005B75B0 /* slide.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F1F2DE741A77F574005B75B0 /* slide.xcdatamodeld */; };
 		F1F2DE781A77F574005B75B0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F2DE771A77F574005B75B0 /* ViewController.swift */; };
@@ -39,6 +40,7 @@
 /* Begin PBXFileReference section */
 		5AB3DB53B69454BF2EF9B850 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		85C73CE6E418DC9B8ED4F903 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		F172A18F1A7E8C12007E564C /* AWSImageDownload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AWSImageDownload.swift; sourceTree = "<group>"; };
 		F1F2DE6D1A77F574005B75B0 /* slide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = slide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1F2DE711A77F574005B75B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F1F2DE721A77F574005B75B0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -122,7 +124,6 @@
 				F1F2DEAA1A7D8228005B75B0 /* View */,
 				F1F2DEAB1A7D8237005B75B0 /* Lib */,
 				F1F2DE7C1A77F574005B75B0 /* Images.xcassets */,
-				F1F2DE7E1A77F574005B75B0 /* LaunchScreen.xib */,
 				F1F2DE741A77F574005B75B0 /* slide.xcdatamodeld */,
 				F1F2DE701A77F574005B75B0 /* Supporting Files */,
 			);
@@ -160,6 +161,7 @@
 				F1F2DE9A1A79483A005B75B0 /* APIModel.swift */,
 				F1F2DEA41A7D5FA2005B75B0 /* VideoModel.swift */,
 				F1F2DE9D1A797BA9005B75B0 /* UserModel.swift */,
+				F172A18F1A7E8C12007E564C /* AWSImageDownload.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -178,6 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				F1F2DE791A77F574005B75B0 /* Main.storyboard */,
+				F1F2DE7E1A77F574005B75B0 /* LaunchScreen.xib */,
 				F1F2DEAC1A7D8378005B75B0 /* VideoCellTableViewCell.swift */,
 			);
 			name = View;
@@ -345,6 +348,7 @@
 				F1F2DE761A77F574005B75B0 /* slide.xcdatamodeld in Sources */,
 				F1F2DE9B1A79483A005B75B0 /* APIModel.swift in Sources */,
 				F1F2DEAD1A7D8378005B75B0 /* VideoCellTableViewCell.swift in Sources */,
+				F172A1901A7E8C12007E564C /* AWSImageDownload.swift in Sources */,
 				F1F2DEA31A7ACC65005B75B0 /* SwiftyJSON.swift in Sources */,
 				F1F2DE961A77F827005B75B0 /* Constants.swift in Sources */,
 			);

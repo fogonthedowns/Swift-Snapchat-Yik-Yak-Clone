@@ -12,9 +12,12 @@ class VideoModel: NSObject {
 
     let film: String
     var userId: String
-    init(id: String, user:String) {
+    let img: String
+    
+    init(id: String, user:String, img:String) {
         self.film = id
         self.userId = user
+        self.img = img
     }
     
 }
