@@ -19,6 +19,8 @@ class AWSImageDownload: NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate
     var downloadTask: NSURLSessionDownloadTask?
     var downloadKeyName: NSString = ""
     
+    
+    
     func loadImages() {
         struct Static {
             static var session: NSURLSession?

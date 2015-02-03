@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import QuartzCore
 
 // the protocol, api protocol is referenced by the class below
 // the method outlined is included in the class
@@ -25,6 +26,17 @@ class HomeTableViewController: UITableViewController, APIProtocol {
         super.viewDidLoad()
         userObject.findUser();
         userObject.apiObject.getSnaps(self.latitude,long: self.longitute, delegate:self)
+        self.tableView.rowHeight = 115.0
+        
+        self.title = "Soma"
+        // change navigation item title color
+ 
+//        var homeButton : UIBarButtonItem = UIBarButtonItem(title: "Camera", style: UIBarButtonItemStyle.Plain, target: self, action: "")
+//        
+//        
+//        self.navigationItem.leftBarButtonItem = homeButton
+//        
+
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -67,26 +79,19 @@ class HomeTableViewController: UITableViewController, APIProtocol {
         // and allows the page to load without the image
         let backgroundQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
         dispatch_async(backgroundQueue, {
-//            var imageData = NSData(contentsOfURL: url!)
-//            var image = UIImage(data:imageData!)
-            
             SGImageCache.getImageForURL(urlString) { image in
                 if image != nil {
                     dispatch_async(dispatch_get_main_queue(), {
                         cell.videoPreview.contentMode = UIViewContentMode.ScaleAspectFit
                         cell.videoPreview.image = image;
                     })
-//                    self.imageView.image = image
+
                 }
             }
-            
-            dispatch_async(dispatch_get_main_queue(), {
-//                cell.videoPreview.contentMode = UIViewContentMode.ScaleAspectFit
-//                cell.videoPreview.image = image;
-            })
         })
         return cell
     }
+    
 
     
     /*

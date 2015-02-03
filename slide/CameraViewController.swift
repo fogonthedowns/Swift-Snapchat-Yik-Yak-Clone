@@ -39,11 +39,10 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     var captureDevice : AVCaptureDevice?
     
     // snap data
-
-    var lastVideoUploadID: String = ""
-    var lastImgUploadID: String = ""
-    var latitude: String = ""
-    var longitute: String = ""
+    // consider moving successsCount, progressView (if possible) and statusLabel (if possible)
+    // to sharedInstance 
+    
+    var sharedInstance = VideoDataToAPI.sharedInstance
     
     // user identity
 
@@ -90,8 +89,6 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     
     @IBAction func start(sender: UIButton) {
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
-            // NSLog("\n ------------------- start() -------------------------------------- ")
-            
             var imagePicker = UIImagePickerController()
             imagePicker.delegate = self
             imagePicker.sourceType = .Camera;
@@ -99,7 +96,6 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
             imagePicker.allowsEditing = false
             imagePicker.showsCameraControls = true
             self.presentViewController(imagePicker, animated: true, completion: nil)
-            
         }
             
         else {
@@ -113,7 +109,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         
         let progress = Float(totalBytesSent) / Float(totalBytesExpectedToSend)
         
-        NSLog("UploadTask progress: %lf", progress)
+        // NSLog("UploadTask progress: %lf", progress)
         
         dispatch_async(dispatch_get_main_queue()) {
             self.progressView.progress = progress
@@ -127,22 +123,20 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         if (error == nil) {
             dispatch_async(dispatch_get_main_queue()) {
                 self.successCount = self.successCount.integerValue+1
-                NSLog("success count: %@", self.successCount.isEqual(2) )
+                // NSLog("success count: %@", self.successCount.isEqual(2) )
                 // post to snap server
                 // video id, user id, lat, long
                 if ( self.successCount.isEqual(2) ) {
                   self.statusLabel.text = "Upload Successfully"
-                  self.postSnap()
+                  self.postSnap(self.sharedInstance.latitude,long: self.sharedInstance.longitute,video: self.sharedInstance.lastVideoUploadID, image: self.sharedInstance.lastImgUploadID)
                   self.successCount = 0
                 }
-            }
-            NSLog("S3 UploadTask: %@ completed successfully", task);
-            NSLog("S3 Session: %@ completed successfully", session);
+            } // end dispatch_async()
         } else {
             dispatch_async(dispatch_get_main_queue()) {
                 self.statusLabel.text = "Upload Failed"
             }
-            NSLog("S3 UploadTask: %@ completed with error: %@", task, error!.localizedDescription);
+            // NSLog("S3 UploadTask: %@ completed with error: %@", task, error!.localizedDescription);
         }
         
         dispatch_async(dispatch_get_main_queue()) {
@@ -180,8 +174,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         var directory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString
         directory = directory + "/img.img"
         data.writeToFile(directory, atomically: true)
-         var myimg = UIImage(contentsOfFile: directory)
-         NSLog("my img:%@", myimg!)
+        var myimg = UIImage(contentsOfFile: directory)
         self.uploadImageURL = NSURL.fileURLWithPath(directory)
         
         self.dismissViewControllerAnimated(true, completion: {})
@@ -194,19 +187,18 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     // terribly undry 
     
     func saveToAWS () {
-        NSLog("url: %@",  self.uploadFileURL as NSURL!)
-        NSLog("self %@", self)
+        
         var error: NSError? = nil
         
         if (error) != nil {
             NSLog("Error: %@",error!);
         }
         
-        lastVideoUploadID = CameraViewController.randomStringWithLength(75) + ".mov"
+        sharedInstance.lastVideoUploadID = CameraViewController.randomStringWithLength(75) + ".mov"
         
         let getPreSignedURLRequest = AWSS3GetPreSignedURLRequest()
         getPreSignedURLRequest.bucket = S3BucketName
-        getPreSignedURLRequest.key = lastVideoUploadID
+        getPreSignedURLRequest.key = sharedInstance.lastVideoUploadID
         getPreSignedURLRequest.HTTPMethod = AWSHTTPMethod.PUT
         getPreSignedURLRequest.expires = NSDate(timeIntervalSinceNow: 36600)
         
@@ -219,7 +211,6 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
             if (task.error != nil) {
                 NSLog("Error: %@", task.error)
             } else {
-                // NSLog("\n !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! task.result: %@", task.result as NSURL!)
                 let presignedURL = task.result as NSURL!
                 if (presignedURL != nil) {
                     var request = NSMutableURLRequest(URL: presignedURL)
@@ -235,18 +226,18 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     } // end saveToAws()
     
     func saveImageToAWS () {
-        NSLog("saveImageToAWS() url image: %@",  self.uploadImageURL as NSURL!)
+        // NSLog("saveImageToAWS() url image: %@",  self.uploadImageURL as NSURL!)
         var error: NSError? = nil
         
         if (error) != nil {
             NSLog("Error: %@",error!);
         }
         
-        lastImgUploadID = CameraViewController.randomStringWithLength(75) + ".png"
+        sharedInstance.lastImgUploadID = CameraViewController.randomStringWithLength(75) + ".png"
         
         let getPreSignedURLRequest = AWSS3GetPreSignedURLRequest()
         getPreSignedURLRequest.bucket = S3BucketName
-        getPreSignedURLRequest.key = lastImgUploadID
+        getPreSignedURLRequest.key = sharedInstance.lastImgUploadID
         getPreSignedURLRequest.HTTPMethod = AWSHTTPMethod.PUT
         getPreSignedURLRequest.expires = NSDate(timeIntervalSinceNow: 36600)
         
@@ -277,8 +268,8 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         var locValue:CLLocationCoordinate2D = manager.location.coordinate
         println("locations = \(locValue.latitude) \(locValue.longitude)")
-        self.latitude =  String(format: "%f", locValue.latitude)
-        self.longitute = String(format: "%f", locValue.longitude)
+        sharedInstance.latitude =  String(format: "%f", locValue.latitude)
+        sharedInstance.longitute = String(format: "%f", locValue.longitude)
         
     }
     
@@ -286,10 +277,8 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         didChangeAuthorizationStatus status: CLAuthorizationStatus)
         
     {
-        NSLog("didChangeAuthorizationStatus() block")
-        
         if status == .Authorized || status == .AuthorizedWhenInUse {
-            NSLog(".Authorized || .AuthorizedWhenInUse block")
+            // NSLog(".Authorized || .AuthorizedWhenInUse block")
             manager.startUpdatingLocation()
             if (manager.location != nil){
               var locValue:CLLocationCoordinate2D = manager.location.coordinate
@@ -315,8 +304,8 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     // Todo This requires some completion handler 
     // maybe write a success row 
     
-    func postSnap() -> Bool {
-        userObject.apiObject.createSnap(self.latitude,long: self.longitute,video: self.lastVideoUploadID, image: self.lastImgUploadID)
+    func postSnap(lat:NSString,long:NSString,video:NSString,image:NSString) -> Bool {
+        userObject.apiObject.createSnap(lat,long:long,video:video,image:image)
         return true;
     }
     
