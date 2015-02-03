@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		EBD557C0DD742AA279A34FF3 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AB3DB53B69454BF2EF9B850 /* libPods.a */; };
 		F172A1901A7E8C12007E564C /* AWSImageDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = F172A18F1A7E8C12007E564C /* AWSImageDownload.swift */; };
+		F19BC1D71A8070160096356C /* VideoDataToAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19BC1D61A8070160096356C /* VideoDataToAPI.swift */; };
+		F1D81CA41A7F274A00C0B728 /* CustomNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D81CA31A7F274A00C0B728 /* CustomNavigation.swift */; };
 		F1F2DE731A77F574005B75B0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F2DE721A77F574005B75B0 /* AppDelegate.swift */; };
 		F1F2DE761A77F574005B75B0 /* slide.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F1F2DE741A77F574005B75B0 /* slide.xcdatamodeld */; };
 		F1F2DE781A77F574005B75B0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F2DE771A77F574005B75B0 /* ViewController.swift */; };
@@ -41,6 +43,8 @@
 		5AB3DB53B69454BF2EF9B850 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		85C73CE6E418DC9B8ED4F903 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		F172A18F1A7E8C12007E564C /* AWSImageDownload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AWSImageDownload.swift; sourceTree = "<group>"; };
+		F19BC1D61A8070160096356C /* VideoDataToAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoDataToAPI.swift; sourceTree = "<group>"; };
+		F1D81CA31A7F274A00C0B728 /* CustomNavigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigation.swift; sourceTree = "<group>"; };
 		F1F2DE6D1A77F574005B75B0 /* slide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = slide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1F2DE711A77F574005B75B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F1F2DE721A77F574005B75B0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -162,6 +166,7 @@
 				F1F2DEA41A7D5FA2005B75B0 /* VideoModel.swift */,
 				F1F2DE9D1A797BA9005B75B0 /* UserModel.swift */,
 				F172A18F1A7E8C12007E564C /* AWSImageDownload.swift */,
+				F19BC1D61A8070160096356C /* VideoDataToAPI.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -170,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				F1F2DE981A77FF3A005B75B0 /* CameraViewController.swift */,
+				F1D81CA31A7F274A00C0B728 /* CustomNavigation.swift */,
 				F1F2DE771A77F574005B75B0 /* ViewController.swift */,
 				F1F2DE9F1A7ABB4A005B75B0 /* HomeTableViewController.swift */,
 			);
@@ -338,10 +344,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F1D81CA41A7F274A00C0B728 /* CustomNavigation.swift in Sources */,
 				F1F2DEA01A7ABB4A005B75B0 /* HomeTableViewController.swift in Sources */,
 				F1F2DE781A77F574005B75B0 /* ViewController.swift in Sources */,
 				F1F2DE9E1A797BA9005B75B0 /* UserModel.swift in Sources */,
 				F1F2DEA51A7D5FA2005B75B0 /* VideoModel.swift in Sources */,
+				F19BC1D71A8070160096356C /* VideoDataToAPI.swift in Sources */,
 				F1F2DE991A77FF3A005B75B0 /* CameraViewController.swift in Sources */,
 				F1F2DEA91A7D7F35005B75B0 /* alamofire.swift in Sources */,
 				F1F2DE731A77F574005B75B0 /* AppDelegate.swift in Sources */,
