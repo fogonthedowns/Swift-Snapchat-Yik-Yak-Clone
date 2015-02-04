@@ -14,6 +14,7 @@ class VideoDataToAPI {
     var lastImgUploadID: String = ""
     var latitude: String = ""
     var longitute: String = ""
+    var downloadName: String = ""
     
     class var sharedInstance :VideoDataToAPI {
         struct Singleton {
