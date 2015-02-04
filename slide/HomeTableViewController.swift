@@ -93,8 +93,10 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
             SGImageCache.getImageForURL(urlString) { image in
                 if image != nil {
                     dispatch_async(dispatch_get_main_queue(), {
-                        cell.videoPreview.contentMode = UIViewContentMode.ScaleAspectFit
+                        cell.videoPreview.contentMode = UIViewContentMode.ScaleAspectFill
                         cell.videoPreview.image = image;
+                        cell.videoPreview.layer.cornerRadius = cell.videoPreview.frame.size.width  / 2;
+                        cell.videoPreview.clipsToBounds = true;
                     })
 
                 }
@@ -128,12 +130,12 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
             println(url)
             self.moviePlayer = MPMoviePlayerController(contentURL: url)
             if var player = self.moviePlayer {
+                navigationController?.navigationBarHidden = true
                 player.view.frame = self.view.bounds
                 player.prepareToPlay()
                 player.scalingMode = .AspectFill
                 player.controlStyle = .None
                 self.view.addSubview(player.view)
-                navigationController?.navigationBarHidden = true
             }
         }
     }

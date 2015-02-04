@@ -11,6 +11,8 @@ import UIKit
 class VideoCellTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var videoPreview: UIImageView!
+    
+
     var video: NSString!
     
     override func awakeFromNib() {
