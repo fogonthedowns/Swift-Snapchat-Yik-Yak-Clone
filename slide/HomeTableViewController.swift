@@ -120,6 +120,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
             self.moviePlayer.stop()
             self.moviePlayer.view.removeFromSuperview()
             self.tableView.reloadData()
+            navigationController?.navigationBarHidden = false
         } else if (sender.state == UIGestureRecognizerState.Began) {
             println("Long press detected.");
             let path = NSBundle.mainBundle().pathForResource("video", ofType:"m4v")
@@ -130,7 +131,9 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
                 player.view.frame = self.view.bounds
                 player.prepareToPlay()
                 player.scalingMode = .AspectFill
+                player.controlStyle = .None
                 self.view.addSubview(player.view)
+                navigationController?.navigationBarHidden = true
             }
         }
     }
