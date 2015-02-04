@@ -123,6 +123,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
             self.moviePlayer.view.removeFromSuperview()
             self.tableView.reloadData()
             navigationController?.navigationBarHidden = false
+            UIApplication.sharedApplication().statusBarHidden=false;
         } else if (sender.state == UIGestureRecognizerState.Began) {
             println("Long press detected.");
             let path = NSBundle.mainBundle().pathForResource("video", ofType:"m4v")
@@ -131,6 +132,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
             self.moviePlayer = MPMoviePlayerController(contentURL: url)
             if var player = self.moviePlayer {
                 navigationController?.navigationBarHidden = true
+                UIApplication.sharedApplication().statusBarHidden=true
                 player.view.frame = self.view.bounds
                 player.prepareToPlay()
                 player.scalingMode = .AspectFill
