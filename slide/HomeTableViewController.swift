@@ -20,11 +20,18 @@ let getSnapsBecauseIhaveAUserLoaded = "com.snapAPI.specialNotificationKey"
 
 class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSURLSessionTaskDelegate, NSURLSessionDownloadDelegate, APIProtocol {
     let userObject = UserModel()
+
+    @IBOutlet var progressView: UIProgressView!
+    @IBOutlet var statusLabel: UILabel!
     
+    var session: NSURLSession?
+    var downloadTask: NSURLSessionDownloadTask?
+    var moviePlayer:MPMoviePlayerController!
     var latitude = "1"
     var longitute = "1"
     var videoModelList: NSMutableArray = [] // This is the array that my tableView
     var sharedInstance = VideoDataToAPI.sharedInstance
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,7 +94,6 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         cell.selectionStyle = .None
         self.start(video.film)
         var urlString = "https://s3-us-west-1.amazonaws.com/slideby/" + video.img
-        // NSLog("video url: %@", urlString)
         let url = NSURL(string: urlString)
         let main_queue = dispatch_get_main_queue()
         // This is the temporary image, that loads before the Async images below
@@ -119,10 +125,9 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         var indexPath = tableView.indexPathForRowAtPoint(locationInView)
         var cell = self.tableView.cellForRowAtIndexPath(indexPath!) as VideoCellTableViewCell
         var urlString = cell.titleLabel.text!
-        // NSLog(urlString)
-        let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
-        let documentsPath = paths.first as? String
-        let filePath = documentsPath! + "/" + cell.titleLabel.text!
+
+
+        let filePath = determineFilePath(cell.titleLabel.text!)
         
         if (sender.state == UIGestureRecognizerState.Ended) {
             println("Long press Ended");
@@ -187,14 +192,6 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
 // ------------------------------------------
 // Lots of code
     
-    @IBOutlet var progressView: UIProgressView!
-    @IBOutlet var statusLabel: UILabel!
-
-    var session: NSURLSession?
-    var downloadTask: NSURLSessionDownloadTask?
-    var moviePlayer:MPMoviePlayerController!
-
-
     func start(s3downloadname: NSString) {
          NSLog("************************************************%@", s3downloadname)
         if (self.downloadTask != nil) {
@@ -208,9 +205,8 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         // if so go forward
         // if not return
         
-        let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
-        let documentsPath = paths.first as? String
-        let filePath = documentsPath! + "/" + s3downloadname
+        let filePath = determineFilePath(s3downloadname)
+        
         NSLog("------------------------------- filePath -----------------%@", filePath)
         let url = NSURL.fileURLWithPath(filePath)
         
@@ -261,49 +257,31 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
 
     func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didFinishDownloadingToURL location: NSURL) {
         
-//        NSLog("[%@ %@]", reflect(self).summary, __FUNCTION__)
-        
-        let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
-        
-        let documentsPath = paths.first as? String
-        let filePath = documentsPath! + "/" + sharedInstance.downloadName
-//        NSLog("the filepath let:%@", filePath)
-//        NSLog("the downloadkename let %@", sharedInstance.downloadName)
+        let filePath = determineFilePath(sharedInstance.downloadName)
         NSFileManager.defaultManager().moveItemAtURL(location, toURL: NSURL.fileURLWithPath(filePath)!, error: nil)
         
         
-        //update UI elements
-        dispatch_async(dispatch_get_main_queue()) {
-//            let path = NSBundle.mainBundle().pathForResource("video", ofType:"m4v")
-//            let url = NSURL.fileURLWithPath(filePath)
-//            println(url)
-//            self.moviePlayer = MPMoviePlayerController(contentURL: url)
-//            if let player = self.moviePlayer {
-//                player.view.frame = self.view.bounds
-//                player.prepareToPlay()
-//                player.scalingMode = .AspectFill
-//                self.view.addSubview(player.view)
-//            }
-        }
+        // update UI elements
+        // dispatch_async(dispatch_get_main_queue()) {
+        // }
     }
 
 
     func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
         if (error == nil) {
-//            dispatch_async(dispatch_get_main_queue()) {
-//                self.statusLabel.text = "Download Successfully"
-//            }
-            // NSLog("S3 DownloadTask: %@ completed successfully", task);
+            //            dispatch_async(dispatch_get_main_queue()) {
+            //                self.statusLabel.text = "Download Successfully"
+            //            }
         } else {
             dispatch_async(dispatch_get_main_queue()) {
-//                self.statusLabel.text = "Download Failed"
+                //                self.statusLabel.text = "Download Failed"
             }
             NSLog("S3 DownloadTask: %@ completed with error: %@", task, error!.localizedDescription);
         }
         
-//        dispatch_async(dispatch_get_main_queue()) {
-//            self.progressView.progress = Float(task.countOfBytesReceived) / Float(task.countOfBytesExpectedToReceive)
-//        }
+        //        dispatch_async(dispatch_get_main_queue()) {
+        //            self.progressView.progress = Float(task.countOfBytesReceived) / Float(task.countOfBytesExpectedToReceive)
+        //        }
         
         self.downloadTask = nil
     }
@@ -318,6 +296,13 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         }
         
         // NSLog("Completion Handler has been invoked, background download task has finished.");
+    }
+    
+    func determineFilePath(file:NSString)-> NSString {
+        let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+        let documentsPath = paths.first as? String
+        let filePath = documentsPath! + "/" + file
+        return filePath
     }
     
     func loadSnaps() {
