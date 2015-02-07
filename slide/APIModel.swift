@@ -156,6 +156,8 @@ class APIModel: NSObject {
                 managedObject.setValue(self.apiUserId, forKey: "apiUserId")
                 managedObject.setValue(self.accessToken, forKey: "accessToken")
                 context.save(nil)
+                // notification center - Post Notification!
+                NSNotificationCenter.defaultCenter().postNotificationName(getSnapsBecauseIhaveAUserLoaded, object: self)
             }
         }
     } // end updateUser()
