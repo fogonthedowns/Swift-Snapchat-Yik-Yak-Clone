@@ -15,6 +15,7 @@ class VideoDataToAPI {
     var latitude: String = ""
     var longitute: String = ""
     var downloadName: String = ""
+    var listOfVideosToDownload: NSMutableArray = []
     
     class var sharedInstance :VideoDataToAPI {
         struct Singleton {

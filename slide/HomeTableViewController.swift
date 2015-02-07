@@ -31,24 +31,21 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
     var longitute = "1"
     var videoModelList: NSMutableArray = [] // This is the array that my tableView
     var sharedInstance = VideoDataToAPI.sharedInstance
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        // notification center - Receive Notification!
+        // Receive Notification and call loadSnaps once we have a user
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadSnaps", name: getSnapsBecauseIhaveAUserLoaded, object: nil)
         userObject.findUser();
-
+        
+        // Table Row Init
         self.tableView.rowHeight = 115.0
-        
         self.title = "Soma"
-        // ----------------
-        // lots of code
-        
         let longpress = UILongPressGestureRecognizer(target: self, action: "longPress:")
-        
         tableView.addGestureRecognizer(longpress)
-        
+
+        // singleton of session
+        // ie we can only download one object at a time from Amazon
         struct Static {
             static var session: NSURLSession?
             static var token: dispatch_once_t = 0
@@ -61,9 +58,6 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         
         self.session = Static.session;
         
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -131,7 +125,6 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         
         if (sender.state == UIGestureRecognizerState.Ended) {
             println("Long press Ended");
-            println("Long press Ended%@", self.view.subviews.count);
             self.moviePlayer.stop()
             self.moviePlayer.view.removeFromSuperview()
             self.tableView.reloadData()
@@ -141,7 +134,6 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
             println("Long press detected.");
             let path = NSBundle.mainBundle().pathForResource("video", ofType:"m4v")
             let url = NSURL.fileURLWithPath(filePath)
-            println(url)
             self.moviePlayer = MPMoviePlayerController(contentURL: url)
             if var player = self.moviePlayer {
                 navigationController?.navigationBarHidden = true
@@ -157,11 +149,8 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
     
     func longPressGestureRecognized(gestureRecognizer: UIGestureRecognizer) {
         let longPress = gestureRecognizer as UILongPressGestureRecognizer
-        
         let state = longPress.state
-        
         var locationInView = longPress.locationInView(tableView)
-        
         var indexPath = tableView.indexPathForRowAtPoint(locationInView)
     }
     
@@ -197,7 +186,8 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         if (self.downloadTask != nil) {
             // push current downloadtask into an array
             // array processes recursive function
-            NSLog("------------------------------- return -----------------%@", s3downloadname)
+            sharedInstance.listOfVideosToDownload.addObject(s3downloadname)
+            NSLog("------------------------------- number of videos in Array -----------------%@", sharedInstance.listOfVideosToDownload)
 
             return;
         }
@@ -259,8 +249,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         
         let filePath = determineFilePath(sharedInstance.downloadName)
         NSFileManager.defaultManager().moveItemAtURL(location, toURL: NSURL.fileURLWithPath(filePath)!, error: nil)
-        
-        
+
         // update UI elements
         // dispatch_async(dispatch_get_main_queue()) {
         // }
@@ -269,9 +258,20 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
 
     func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
         if (error == nil) {
-            //            dispatch_async(dispatch_get_main_queue()) {
-            //                self.statusLabel.text = "Download Successfully"
-            //            }
+            dispatch_async(dispatch_get_main_queue()) {
+                // self.statusLabel.text = "Download Successfully"
+                self.sharedInstance.listOfVideosToDownload.removeObjectIdenticalTo(self.sharedInstance.downloadName)
+               
+                print(self.sharedInstance.listOfVideosToDownload.count)
+                if ((self.sharedInstance.listOfVideosToDownload.count) == 0) {
+                    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                    NSLog("no videos left to process");
+                    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                } else {
+                    NSLog("................................................................")
+                    self.start(self.sharedInstance.listOfVideosToDownload[0] as NSString)
+                }
+            }
         } else {
             dispatch_async(dispatch_get_main_queue()) {
                 //                self.statusLabel.text = "Download Failed"
