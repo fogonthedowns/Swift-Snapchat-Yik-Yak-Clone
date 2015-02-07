@@ -182,29 +182,24 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
 // Lots of code
     
     func start(s3downloadname: NSString) {
-         NSLog("************************************************%@", s3downloadname)
-        if (self.downloadTask != nil) {
-            // push current downloadtask into an array
-            // array processes recursive function
-            sharedInstance.listOfVideosToDownload.addObject(s3downloadname)
-            NSLog("------------------------------- number of videos in Array -----------------%@", sharedInstance.listOfVideosToDownload)
-
-            return;
-        }
-        // test if file path is blank
-        // if so go forward
-        // if not return
         
         let filePath = determineFilePath(s3downloadname)
-        
-        NSLog("------------------------------- filePath -----------------%@", filePath)
-        let url = NSURL.fileURLWithPath(filePath)
-        
         // if the file exists return, don't start an asynch download
         if NSFileManager.defaultManager().fileExistsAtPath(filePath) {
             NSLog("FILE ALREADY DOWNLOADED")
             return;
         }
+        
+        if (self.downloadTask != nil) {
+            // push current downloadtask into an array
+            // array processes recursive function
+            sharedInstance.listOfVideosToDownload.addObject(s3downloadname)
+            NSLog("videos in array %@", sharedInstance.listOfVideosToDownload)
+            return;
+        }
+
+       
+        // NSLog("------------------------------- filePath -----------------%@", filePath)
         
         sharedInstance.downloadName = s3downloadname
         let getPreSignedURLRequest = AWSS3GetPreSignedURLRequest()
@@ -260,15 +255,15 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         if (error == nil) {
             dispatch_async(dispatch_get_main_queue()) {
                 // self.statusLabel.text = "Download Successfully"
+                // recursive completion handler function, we delete the video that was just processed,
+                // then we check if any videos are left to process
+                // if so we spawn a new download
                 self.sharedInstance.listOfVideosToDownload.removeObjectIdenticalTo(self.sharedInstance.downloadName)
-               
                 print(self.sharedInstance.listOfVideosToDownload.count)
                 if ((self.sharedInstance.listOfVideosToDownload.count) == 0) {
-                    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-                    NSLog("no videos left to process");
-                    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                    // NSLog("no videos left to process");
                 } else {
-                    NSLog("................................................................")
+                    // videos need to be downloaded, so start another download
                     self.start(self.sharedInstance.listOfVideosToDownload[0] as NSString)
                 }
             }
