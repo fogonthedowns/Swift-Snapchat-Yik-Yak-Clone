@@ -28,10 +28,10 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        userObject.findUser();
-        
         // notification center - Receive Notification!
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadSnaps", name: getSnapsBecauseIhaveAUserLoaded, object: nil)
+        userObject.findUser();
+
         self.tableView.rowHeight = 115.0
         
         self.title = "Soma"
@@ -55,7 +55,6 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         self.session = Static.session;
         
 
-        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
     }
