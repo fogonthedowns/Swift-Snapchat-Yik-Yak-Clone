@@ -52,7 +52,8 @@ class UserModel: NSObject {
                 NSLog("User:%@", apiObject.userID)
                 NSLog("User AccessToken:%@", apiObject.accessToken)
                 NSLog("User apiUserId:%@", apiObject.apiUserId)
-                
+                // notification center - Post Notification!
+                NSNotificationCenter.defaultCenter().postNotificationName(getSnapsBecauseIhaveAUserLoaded, object: self)
             }
         } else {
             println("Could not fetch \(error), \(error!.userInfo)")

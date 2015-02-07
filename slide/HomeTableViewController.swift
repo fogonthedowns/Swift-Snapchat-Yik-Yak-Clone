@@ -16,8 +16,11 @@ protocol APIProtocol {
     func didReceiveResult(results: JSON)
 }
 
+let getSnapsBecauseIhaveAUserLoaded = "com.snapAPI.specialNotificationKey"
+
 class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSURLSessionTaskDelegate, NSURLSessionDownloadDelegate, APIProtocol {
     let userObject = UserModel()
+    
     var latitude = "1"
     var longitute = "1"
     var videoModelList: NSMutableArray = [] // This is the array that my tableView
@@ -27,8 +30,8 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         super.viewDidLoad()
         userObject.findUser();
         
-        // TODO Notifications and call this After findUser()
-        userObject.apiObject.getSnaps(self.latitude,long: self.longitute, delegate:self)
+        // notification center - Receive Notification!
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadSnaps", name: getSnapsBecauseIhaveAUserLoaded, object: nil)
         self.tableView.rowHeight = 115.0
         
         self.title = "Soma"
@@ -316,5 +319,9 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         }
         
         // NSLog("Completion Handler has been invoked, background download task has finished.");
+    }
+    
+    func loadSnaps() {
+        userObject.apiObject.getSnaps(self.latitude,long: self.longitute, delegate:self)
     }
 }
