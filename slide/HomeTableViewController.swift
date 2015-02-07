@@ -80,6 +80,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         let cell = tableView.dequeueReusableCellWithIdentifier("VideoCell") as VideoCellTableViewCell
         let video: VideoModel = videoModelList[indexPath.row] as VideoModel
         cell.titleLabel.text = video.film
+        cell.selectionStyle = .None
         self.start(video.film)
         var urlString = "https://s3-us-west-1.amazonaws.com/slideby/" + video.img
         // NSLog("video url: %@", urlString)
@@ -92,6 +93,9 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         dispatch_async(backgroundQueue, {
             SGImageCache.getImageForURL(urlString) { image in
                 if image != nil {
+                    // TODO write cell loading logic here.
+                    // TODO find cell after video loads to indicate it is not loading
+                    cell.videoPreview.image = UIImage(named: ("placeholder"))
                     dispatch_async(dispatch_get_main_queue(), {
                         cell.videoPreview.contentMode = UIViewContentMode.ScaleAspectFill
                         cell.videoPreview.image = image;

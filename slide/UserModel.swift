@@ -52,6 +52,7 @@ class UserModel: NSObject {
                 NSLog("User:%@", apiObject.userID)
                 NSLog("User AccessToken:%@", apiObject.accessToken)
                 NSLog("User apiUserId:%@", apiObject.apiUserId)
+                
             }
         } else {
             println("Could not fetch \(error), \(error!.userInfo)")

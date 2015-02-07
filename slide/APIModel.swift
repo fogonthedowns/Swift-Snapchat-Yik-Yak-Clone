@@ -28,8 +28,8 @@ class APIModel: NSObject {
     // the userid, accesstoken and other info
     func getSnaps(lat:NSString,long:NSString, delegate:APIProtocol) {
         var requestUrl = "https://airimg.com/snaps?token=17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY&device_token=" + self.userID + "&access_token=" + self.accessToken + "&lat=" + lat + "&long=" + long
-//        NSLog("getting Snaps")
-//        self.getRequest(requestUrl)
+        NSLog("getting Snaps")
+        self.getRequest(requestUrl)
         
         request(.GET, requestUrl)
             .responseJSON { (req, res, json, error) in
@@ -142,29 +142,20 @@ class APIModel: NSObject {
     // function above, processResults(), this probably doesn't matter bc its saving something. This could be made
     // more general by passing a key, to the update field and value of that being updated
 
-    func updateUser(){
-        let appDelegate =
-        UIApplication.sharedApplication().delegate as AppDelegate
-        let managedContext = appDelegate.managedObjectContext!
-        var request = NSBatchUpdateRequest(entityName: "User")
-        request.predicate = NSPredicate(format: "identity == %@", self.userID)
-        request.propertiesToUpdate = ["accessToken":self.accessToken, "apiUserId":self.apiUserId]
-        request.resultType = .UpdatedObjectsCountResultType
-        var batchError: NSError?
-        let result = managedContext.executeRequest(request,
-            error: &batchError)
+    func updateUser() {
+        var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+        var context: NSManagedObjectContext = appDel.managedObjectContext!
         
-        if result != nil{
-            if let theResult = result as? NSBatchUpdateResult{
-                if let numberOfAffectedPersons = theResult.result as? Int{
-                    println("The number of records that match the predicate " +
-                        "and have an access token is \(numberOfAffectedPersons)")
-                    
-                }
-            }
-        } else {
-            if let error = batchError{
-                println("Could not perform batch request. Error = \(error)")
+        var fetchRequest = NSFetchRequest(entityName: "User")
+        fetchRequest.predicate = NSPredicate(format: "identity = %@", self.userID)
+        
+        if let fetchResults = appDel.managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [NSManagedObject] {
+            if fetchResults.count != 0{
+                NSLog("saving access token now :%@", self.accessToken)
+                var managedObject = fetchResults[0]
+                managedObject.setValue(self.apiUserId, forKey: "apiUserId")
+                managedObject.setValue(self.accessToken, forKey: "accessToken")
+                context.save(nil)
             }
         }
     } // end updateUser()
