@@ -26,6 +26,8 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
     override func viewDidLoad() {
         super.viewDidLoad()
         userObject.findUser();
+        
+        // TODO Notifications and call this After findUser()
         userObject.apiObject.getSnaps(self.latitude,long: self.longitute, delegate:self)
         self.tableView.rowHeight = 115.0
         
@@ -86,16 +88,16 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         // NSLog("video url: %@", urlString)
         let url = NSURL(string: urlString)
         let main_queue = dispatch_get_main_queue()
-        
+        // This is the temporary image, that loads before the Async images below
+        cell.videoPreview.image = UIImage(named: ("placeholder"))
         // this allows images to load in the background
         // and allows the page to load without the image
         let backgroundQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+        
+        // Load Images Asynchroniously
         dispatch_async(backgroundQueue, {
             SGImageCache.getImageForURL(urlString) { image in
                 if image != nil {
-                    // TODO write cell loading logic here.
-                    // TODO find cell after video loads to indicate it is not loading
-                    cell.videoPreview.image = UIImage(named: ("placeholder"))
                     dispatch_async(dispatch_get_main_queue(), {
                         cell.videoPreview.contentMode = UIViewContentMode.ScaleAspectFill
                         cell.videoPreview.image = image;
