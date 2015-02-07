@@ -31,6 +31,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
     var longitute = "1"
     var videoModelList: NSMutableArray = [] // This is the array that my tableView
     var sharedInstance = VideoDataToAPI.sharedInstance
+    let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -294,7 +295,6 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
     }
     
     func determineFilePath(file:NSString)-> NSString {
-        let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
         let documentsPath = paths.first as? String
         let filePath = documentsPath! + "/" + file
         return filePath
