@@ -17,11 +17,15 @@ import CoreLocation
 import CoreData
 
 
-class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSessionTaskDelegate, NSURLSessionDataDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, CLLocationManagerDelegate {
+class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSessionTaskDelegate, NSURLSessionDataDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, CLLocationManagerDelegate, AVCaptureFileOutputRecordingDelegate {
+    
+    // UIView 
+    @IBOutlet weak var cameraView: UIView!
     
     @IBOutlet var progressView: UIProgressView!
     @IBOutlet var statusLabel: UILabel!
     
+    @IBOutlet weak var takeVideoButton: UIButton!
     // location
     @IBOutlet var gpsResult : UILabel!
     let manager = CLLocationManager()
@@ -37,11 +41,13 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     let captureSession = AVCaptureSession()
     var previewLayer : AVCaptureVideoPreviewLayer?
     var captureDevice : AVCaptureDevice?
-    
+    private var stillImageOutput : AVCaptureStillImageOutput?
+    private var videoRecordingOutput : AVCaptureMovieFileOutput?
     // snap data
     // consider moving successsCount, progressView (if possible) and statusLabel (if possible)
     // to sharedInstance 
-    
+    var delegate : AVCaptureFileOutputRecordingDelegate?
+
     var sharedInstance = VideoDataToAPI.sharedInstance
     
     // user identity
@@ -63,9 +69,6 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
             manager.startUpdatingLocation()
         }
         
-        // NSLog("\n ------------------- viewDidLoad() -------------------------------------- ")
-        // Do any additional setup after loading the view, typically from a nib.
-        
         struct Static {
             static var session: NSURLSession?
             static var token: dispatch_once_t = 0
@@ -80,7 +83,120 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         self.progressView.progress = 0;
         self.statusLabel.text = "Ready"
         userObject.findUser();
+        
+        // new video code
+        
+        let longpress = UILongPressGestureRecognizer(target: self, action: "longPress:")
+        self.takeVideoButton.addGestureRecognizer(longpress)
+        
+        // Do any additional setup after loading the view, typically from a nib.
+        captureSession.sessionPreset = AVCaptureSessionPresetHigh
+        
+        let devices = AVCaptureDevice.devices()
+        
+        // Loop through all the capture devices on this phone
+        for device in devices {
+            // Make sure this particular device supports video
+            if (device.hasMediaType(AVMediaTypeVideo)) {
+                // Finally check the position and confirm we've got the back camera
+                if(device.position == AVCaptureDevicePosition.Back) {
+                    captureDevice = device as? AVCaptureDevice
+                    if captureDevice != nil {
+                        println("Capture device found")
+                        beginSession()
+                    }
+                }
+            }
+        }
+        
     }
+    
+    func focusTo(value : Float) {
+        if let device = captureDevice {
+            if(device.lockForConfiguration(nil)) {
+                device.setFocusModeLockedWithLensPosition(value, completionHandler: { (time) -> Void in
+                    //
+                })
+                device.unlockForConfiguration()
+            }
+        }
+    }
+    
+    let screenWidth = UIScreen.mainScreen().bounds.size.width
+    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+        var anyTouch = touches.anyObject() as UITouch
+        var touchPercent = anyTouch.locationInView(self.view).x / screenWidth
+        focusTo(Float(touchPercent))
+    }
+    
+    override func touchesMoved(touches: NSSet, withEvent event: UIEvent) {
+        var anyTouch = touches.anyObject() as UITouch
+        var touchPercent = anyTouch.locationInView(self.view).x / screenWidth
+        focusTo(Float(touchPercent))
+    }
+    
+    func configureDevice() {
+        if let device = captureDevice {
+            device.lockForConfiguration(nil)
+            device.focusMode = .Locked
+            device.unlockForConfiguration()
+        }
+        
+    }
+    
+    func beginSession() {
+        
+        configureDevice()
+        delegate = self
+        var err : NSError? = nil
+        
+        // try to open the device
+        // AVCaptureDeviceInput(device: captureDevice, error: &err)
+        // add video input
+        // if captureSession.canAddInput(videoCapture) {
+        //    captureSession.addInput(videoCapture)
+        // }
+        // or do it all on one line
+        captureSession.addInput(AVCaptureDeviceInput(device: captureDevice, error: &err))
+        
+        if err != nil {
+            println("error: \(err?.localizedDescription)")
+        }
+        
+        // this is the video display, on screen as one records video
+        previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        // this is where you could define a custom view
+        cameraView.layer.addSublayer(previewLayer)
+        previewLayer?.frame = self.view.layer.frame
+        
+        if !captureSession.running {
+            // set JPEG output
+            videoRecordingOutput = AVCaptureMovieFileOutput()
+            // stillImageOutput = AVCaptureStillImageOutput()
+            // let outputSettings = [ AVVideoCodecKey : AVVideoCodecJPEG ]
+            // stillImageOutput!.outputSettings = outputSettings
+        
+            
+            // add output to session
+            if captureSession.canAddOutput(videoRecordingOutput) {
+                captureSession.addOutput(videoRecordingOutput)
+            }
+            
+            // display camera in UI
+            previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+            cameraView.layer.addSublayer(previewLayer)
+            previewLayer?.frame = cameraView.layer.frame
+            previewLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
+            
+            // start camera
+            captureSession.startRunning()
+        }
+        
+    }
+    
+    
+    
+    // end video code -------------------------------------------
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -105,6 +221,58 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         
     }
     
+    func longPress(sender:UILongPressGestureRecognizer!) {
+        let longPress = sender as UILongPressGestureRecognizer
+            if (sender.state == UIGestureRecognizerState.Ended) {
+                NSLog("done with long press")
+              self.videoRecordingOutput?.stopRecording()
+                NSLog("Done Recording")
+            } else if (sender.state == UIGestureRecognizerState.Began) {
+                NSLog("long press detected")
+                var url:NSURL = tempFileUrl()
+                videoRecordingOutput?.startRecordingToOutputFileURL(url, recordingDelegate:delegate)
+        }
+    }
+    
+    
+    func captureOutput(captureOutput: AVCaptureFileOutput!,
+        didStartRecordingToOutputFileAtURL fileURL: NSURL!,
+        fromConnections connections: [AnyObject]!){
+            NSLog("recording has begain with %@", fileURL)
+            
+    }
+    
+    func captureOutput(captureOutput: AVCaptureFileOutput!,
+        didFinishRecordingToOutputFileAtURL outputFileURL: NSURL!,
+        fromConnections connections: [AnyObject]!,
+        error: NSError!) {
+             NSLog("*** recording has ended with %@", outputFileURL)
+            let tempImage = outputFileURL as NSURL!
+            let pathString = tempImage.relativePath
+            
+            // process image
+            let asset1 = AVURLAsset(URL:tempImage, options:nil)
+            let generator = AVAssetImageGenerator(asset: asset1)
+            let time = CMTimeMakeWithSeconds(0, 30)
+            let size = CGSizeMake(425,355)
+            generator.maximumSize = size
+            let imgRef = generator.copyCGImageAtTime(time, actualTime: nil, error: nil)
+            let thumb = UIImage(CGImage:imgRef)
+            let data = UIImagePNGRepresentation(thumb)
+            var directory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString
+            directory = directory + "/img.img"
+            data.writeToFile(directory, atomically: true)
+            var myimg = UIImage(contentsOfFile: directory)
+            self.uploadImageURL = NSURL.fileURLWithPath(directory)
+            
+            self.dismissViewControllerAnimated(true, completion: {})
+            self.uploadFileURL = NSURL.fileURLWithPath(pathString!)
+            self.saveImageToAWS()
+            self.saveToAWS()
+
+            
+    }
+    
     func URLSession(session: NSURLSession, task: NSURLSessionTask, didSendBodyData bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) {
         
         let progress = Float(totalBytesSent) / Float(totalBytesExpectedToSend)
@@ -115,6 +283,23 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
             self.progressView.progress = progress
             self.statusLabel.text = "Uploading..."
         }
+        
+    }
+    
+    func tempFileUrl()->NSURL{
+        // var movieString:NSString = "camera.mov"
+        
+        let tempDirectoryTemplate = NSTemporaryDirectory().stringByAppendingPathComponent("camera.mov")
+        let url = NSURL.fileURLWithPath(tempDirectoryTemplate)
+        // let url = NSURL.fileURLWithPath(movieString)
+        // let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+        // let documentsPath = paths.first as? String
+        // let filePath = documentsPath! + "/" + movieString
+        if NSFileManager.defaultManager().fileExistsAtPath(tempDirectoryTemplate) {
+            NSFileManager.defaultManager().removeItemAtPath(tempDirectoryTemplate, error: nil)
+        }
+        
+        return url!
         
     }
     
