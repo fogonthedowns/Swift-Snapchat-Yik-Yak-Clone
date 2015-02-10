@@ -117,33 +117,36 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
     func longPress(sender:UILongPressGestureRecognizer!) {
         let longPress = sender as UILongPressGestureRecognizer
         var locationInView = longPress.locationInView(tableView)
+        // returns nil
         var indexPath = tableView.indexPathForRowAtPoint(locationInView)
-        var cell = self.tableView.cellForRowAtIndexPath(indexPath!) as VideoCellTableViewCell
-        var urlString = cell.titleLabel.text!
+        if indexPath != nil {
+            var cell = self.tableView.cellForRowAtIndexPath(indexPath!) as VideoCellTableViewCell
+            var urlString = cell.titleLabel.text!
 
 
-        let filePath = determineFilePath(cell.titleLabel.text!)
-        
-        if (sender.state == UIGestureRecognizerState.Ended) {
-            println("Long press Ended");
-            self.moviePlayer.stop()
-            self.moviePlayer.view.removeFromSuperview()
-            self.tableView.reloadData()
-            navigationController?.navigationBarHidden = false
-            UIApplication.sharedApplication().statusBarHidden=false;
-        } else if (sender.state == UIGestureRecognizerState.Began) {
-            println("Long press detected.");
-            let path = NSBundle.mainBundle().pathForResource("video", ofType:"m4v")
-            let url = NSURL.fileURLWithPath(filePath)
-            self.moviePlayer = MPMoviePlayerController(contentURL: url)
-            if var player = self.moviePlayer {
-                navigationController?.navigationBarHidden = true
-                UIApplication.sharedApplication().statusBarHidden=true
-                player.view.frame = self.view.bounds
-                player.prepareToPlay()
-                player.scalingMode = .AspectFill
-                player.controlStyle = .None
-                self.view.addSubview(player.view)
+            let filePath = determineFilePath(cell.titleLabel.text!)
+            
+            if (sender.state == UIGestureRecognizerState.Ended) {
+                println("Long press Ended");
+                self.moviePlayer.stop()
+                self.moviePlayer.view.removeFromSuperview()
+                self.tableView.reloadData()
+                navigationController?.navigationBarHidden = false
+                UIApplication.sharedApplication().statusBarHidden=false;
+            } else if (sender.state == UIGestureRecognizerState.Began) {
+                println("Long press detected.");
+                let path = NSBundle.mainBundle().pathForResource("video", ofType:"m4v")
+                let url = NSURL.fileURLWithPath(filePath)
+                self.moviePlayer = MPMoviePlayerController(contentURL: url)
+                if var player = self.moviePlayer {
+                    navigationController?.navigationBarHidden = true
+                    UIApplication.sharedApplication().statusBarHidden=true
+                    player.view.frame = self.view.bounds
+                    player.prepareToPlay()
+                    player.scalingMode = .AspectFill
+                    player.controlStyle = .None
+                    self.view.addSubview(player.view)
+                }
             }
         }
     }

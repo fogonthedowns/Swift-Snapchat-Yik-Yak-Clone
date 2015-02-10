@@ -25,6 +25,10 @@
                                     <action selector="start:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Z3a-pz-0E4"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h4F-qV-Bcu">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="wGI-Hk-DGE">
                                 <rect key="frame" x="25" y="56" width="324" height="2"/>
                             </progressView>
@@ -43,13 +47,21 @@
                                     <segue destination="LAb-ds-gP8" kind="presentation" id="n3c-9e-Pvm"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WIF-1Y-Zi8">
+                                <rect key="frame" x="150" y="550" width="75" height="74"/>
+                                <state key="normal" title="Button" image="recordButton">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="cameraView" destination="h4F-qV-Bcu" id="3b6-Uk-R2B"/>
                         <outlet property="progressView" destination="wGI-Hk-DGE" id="AsA-9M-pks"/>
                         <outlet property="statusLabel" destination="6vb-Rs-oHI" id="nD8-I4-nrw"/>
+                        <outlet property="takeVideoButton" destination="WIF-1Y-Zi8" id="fnF-6J-EZ1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -129,4 +141,7 @@
             <point key="canvasLocation" x="356.5" y="710.5"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="recordButton" width="109" height="109"/>
+    </resources>
 </document>
