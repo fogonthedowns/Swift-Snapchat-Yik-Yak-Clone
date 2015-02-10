@@ -43,6 +43,9 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     var captureDevice : AVCaptureDevice?
     private var stillImageOutput : AVCaptureStillImageOutput?
     private var videoRecordingOutput : AVCaptureMovieFileOutput?
+    private var audioDevice : AVCaptureDevice?
+    private var audioInput : AVCaptureDeviceInput?
+    
     // snap data
     // consider moving successsCount, progressView (if possible) and statusLabel (if possible)
     // to sharedInstance 
@@ -144,6 +147,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         
     }
     
+    
     func beginSession() {
         
         configureDevice()
@@ -158,6 +162,10 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         // }
         // or do it all on one line
         captureSession.addInput(AVCaptureDeviceInput(device: captureDevice, error: &err))
+        
+        let audioDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeAudio)
+        let audioInput: AnyObject! = AVCaptureDeviceInput.deviceInputWithDevice(audioDevice, error:&err)
+        captureSession.addInput(audioInput as AVCaptureInput)
         
         if err != nil {
             println("error: \(err?.localizedDescription)")
