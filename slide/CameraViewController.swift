@@ -21,6 +21,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     
     // UIView 
     @IBOutlet weak var cameraView: UIView!
+    @IBOutlet weak var confirmationView: UIView!
     @IBOutlet var progressView: UIProgressView!
     @IBOutlet var statusLabel: UILabel!
     @IBOutlet weak var takeVideoButton: UIButton!
@@ -53,6 +54,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     
     // camera preview
     var moviePlayer:MPMoviePlayerController!
+    var stopPreview:Bool = false
     
     
     // user identity
@@ -249,6 +251,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
             let url = NSURL.fileURLWithPath(pathString!)
             self.moviePlayer = MPMoviePlayerController(contentURL: url)
             if var player = self.moviePlayer {
+                self.stopPreview = false
                 navigationController?.navigationBarHidden = true
                 UIApplication.sharedApplication().statusBarHidden=true
                 player.view.frame = self.view.bounds
@@ -256,6 +259,10 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
                 player.scalingMode = .AspectFill
                 player.controlStyle = .None
                 self.view.addSubview(player.view)
+        
+                // custom preview controlls
+                self.view.addSubview(self.confirmationView)
+                self.view.bringSubviewToFront(self.confirmationView)
             }
         
             
@@ -281,14 +288,19 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
 
     }
     
+    @IBAction func pressBackButtonfromConfirm(sender: AnyObject) {
+        self.stopPreview = true
+        self.moviePlayer.stop()
+        self.view.sendSubviewToBack(self.confirmationView)
+        self.view.sendSubviewToBack(self.moviePlayer.view)
+    }
+    
+    // needs more logic, so it doesn't get in infinate loop
+    // first check to see if the send button has been sent
     func MovieFinishedPlayingCallback() -> Void {
-//        if (note.userInfo[MPMoviePlayerPlaybackDidFinishNotification] == )
-//            NSLog("note: %@", note)
+        if (!self.stopPreview) {
             self.moviePlayer.play()
-//            if (reason == MPMovieFinishReasonPlaybackEnded)
-//            {
-//                [self.moviePlayer play];
-//            }
+        }
     }
     
     func URLSession(session: NSURLSession, task: NSURLSessionTask, didSendBodyData bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) {
@@ -304,6 +316,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         
     }
     
+    // used in longpress of camera button to make a temp file
     func tempFileUrl()->NSURL{
         let tempDirectoryTemplate = NSTemporaryDirectory().stringByAppendingPathComponent("camera.mov")
         let url = NSURL.fileURLWithPath(tempDirectoryTemplate)
@@ -443,9 +456,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     }
     
     func locationManager(manager: CLLocationManager!,
-        didChangeAuthorizationStatus status: CLAuthorizationStatus)
-        
-    {
+        didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         if status == .Authorized || status == .AuthorizedWhenInUse {
             // NSLog(".Authorized || .AuthorizedWhenInUse block")
             manager.startUpdatingLocation()
