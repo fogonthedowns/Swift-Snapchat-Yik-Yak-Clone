@@ -37,7 +37,7 @@
                                             <action selector="pressConfirmVideo:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="inj-ec-QSz"/>
                                         </connections>
                                     </button>
-                                    <textField opaque="NO" clipsSubviews="YES" alpha="0.25" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Please enter a description" textAlignment="center" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="lNk-Y2-vme">
+                                    <textField opaque="NO" clipsSubviews="YES" alpha="0.75" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Please enter a description" textAlignment="center" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="lNk-Y2-vme">
                                         <rect key="frame" x="0.0" y="325" width="375" height="30"/>
                                         <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="24"/>
