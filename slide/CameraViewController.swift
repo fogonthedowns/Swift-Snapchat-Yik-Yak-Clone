@@ -21,11 +21,10 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     
     // UIView 
     @IBOutlet weak var cameraView: UIView!
-    
     @IBOutlet var progressView: UIProgressView!
     @IBOutlet var statusLabel: UILabel!
-    
     @IBOutlet weak var takeVideoButton: UIButton!
+    
     // location
     @IBOutlet var gpsResult : UILabel!
     let manager = CLLocationManager()
@@ -36,6 +35,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     var uploadFileURL: NSURL?
     var uploadImageURL: NSURL?
     var successCount: NSNumber = 0
+    let ItemStatusContext:NSString?
 
     // camera
     let captureSession = AVCaptureSession()
@@ -45,20 +45,22 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     private var videoRecordingOutput : AVCaptureMovieFileOutput?
     private var audioDevice : AVCaptureDevice?
     private var audioInput : AVCaptureDeviceInput?
-    
-    // snap data
-    // consider moving successsCount, progressView (if possible) and statusLabel (if possible)
-    // to sharedInstance 
     var delegate : AVCaptureFileOutputRecordingDelegate?
-
+    // consider moving successsCount, progressView (if possible) and statusLabel (if possible)
+    // to sharedInstance
     var sharedInstance = VideoDataToAPI.sharedInstance
     
+    
+    // camera preview
+    var moviePlayer:MPMoviePlayerController!
+    
+    
     // user identity
-
     let userObject = UserModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        var ItemStatusContext = "com.foo.bar.jz"
         
         if CLLocationManager.authorizationStatus() == .NotDetermined {
             // NSLog("\n ****************************** NotDetermined()")
@@ -88,9 +90,16 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         userObject.findUser();
         
         // new video code
-        
+        // this is used to see if a user is recording a video or not
+        // long press, they are recording
+        // let go it stops
         let longpress = UILongPressGestureRecognizer(target: self, action: "longPress:")
         self.takeVideoButton.addGestureRecognizer(longpress)
+        
+        // this notifcation is to determine if a video preview has finished playing
+        // if so we loop it
+        
+         NSNotificationCenter.defaultCenter().addObserver(self, selector: "MovieFinishedPlayingCallback", name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
         
         // Do any additional setup after loading the view, typically from a nib.
         captureSession.sessionPreset = AVCaptureSessionPresetHigh
@@ -106,7 +115,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
                     captureDevice = device as? AVCaptureDevice
                     if captureDevice != nil {
                         println("Capture device found")
-                        beginSession()
+                        setupCamera()
                     }
                 }
             }
@@ -148,25 +157,22 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     }
     
     
-    func beginSession() {
+    func setupCamera() {
         
         configureDevice()
         delegate = self
         var err : NSError? = nil
         
         // try to open the device
-        // AVCaptureDeviceInput(device: captureDevice, error: &err)
-        // add video input
-        // if captureSession.canAddInput(videoCapture) {
-        //    captureSession.addInput(videoCapture)
-        // }
-        // or do it all on one line
-        captureSession.addInput(AVCaptureDeviceInput(device: captureDevice, error: &err))
-        
-        let audioDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeAudio)
-        let audioInput: AnyObject! = AVCaptureDeviceInput.deviceInputWithDevice(audioDevice, error:&err)
-        captureSession.addInput(audioInput as AVCaptureInput)
-        
+         let videoCapture = AVCaptureDeviceInput(device: captureDevice, error: &err)
+         let audioDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeAudio)
+         let audioInput: AnyObject! = AVCaptureDeviceInput.deviceInputWithDevice(audioDevice, error:&err)
+         // add video input
+         if captureSession.canAddInput(videoCapture) {
+            captureSession.addInput(videoCapture)
+            captureSession.addInput(audioInput as AVCaptureInput)
+         }
+  
         if err != nil {
             println("error: \(err?.localizedDescription)")
         }
@@ -178,7 +184,6 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         previewLayer?.frame = self.view.layer.frame
         
         if !captureSession.running {
-            // set JPEG output
             videoRecordingOutput = AVCaptureMovieFileOutput()
             // stillImageOutput = AVCaptureStillImageOutput()
             // let outputSettings = [ AVVideoCodecKey : AVVideoCodecJPEG ]
@@ -200,35 +205,15 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
             captureSession.startRunning()
         }
         
-    }
-    
-    
-    
-    // end video code -------------------------------------------
+    } // end setupCamera()
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func start(sender: UIButton) {
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
-            var imagePicker = UIImagePickerController()
-            imagePicker.delegate = self
-            imagePicker.sourceType = .Camera;
-            imagePicker.mediaTypes = [kUTTypeMovie!]
-            imagePicker.allowsEditing = false
-            imagePicker.showsCameraControls = true
-            self.presentViewController(imagePicker, animated: true, completion: nil)
-        }
-            
-        else {
-            println("Camera not available.")
-        }
 
-        
-    }
-    
+    // new
     func longPress(sender:UILongPressGestureRecognizer!) {
         let longPress = sender as UILongPressGestureRecognizer
             if (sender.state == UIGestureRecognizerState.Ended) {
@@ -242,7 +227,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         }
     }
     
-    
+    // new
     func captureOutput(captureOutput: AVCaptureFileOutput!,
         didStartRecordingToOutputFileAtURL fileURL: NSURL!,
         fromConnections connections: [AnyObject]!){
@@ -250,6 +235,9 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
             
     }
     
+    
+    // new 
+    // this function captures the output of a film
     func captureOutput(captureOutput: AVCaptureFileOutput!,
         didFinishRecordingToOutputFileAtURL outputFileURL: NSURL!,
         fromConnections connections: [AnyObject]!,
@@ -258,27 +246,49 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
             let tempImage = outputFileURL as NSURL!
             let pathString = tempImage.relativePath
             
+            let url = NSURL.fileURLWithPath(pathString!)
+            self.moviePlayer = MPMoviePlayerController(contentURL: url)
+            if var player = self.moviePlayer {
+                navigationController?.navigationBarHidden = true
+                UIApplication.sharedApplication().statusBarHidden=true
+                player.view.frame = self.view.bounds
+                player.prepareToPlay()
+                player.scalingMode = .AspectFill
+                player.controlStyle = .None
+                self.view.addSubview(player.view)
+            }
+        
+            
             // process image
-            let asset1 = AVURLAsset(URL:tempImage, options:nil)
-            let generator = AVAssetImageGenerator(asset: asset1)
-            let time = CMTimeMakeWithSeconds(0, 30)
-            let size = CGSizeMake(425,355)
-            generator.maximumSize = size
-            let imgRef = generator.copyCGImageAtTime(time, actualTime: nil, error: nil)
-            let thumb = UIImage(CGImage:imgRef)
-            let data = UIImagePNGRepresentation(thumb)
-            var directory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString
-            directory = directory + "/img.img"
-            data.writeToFile(directory, atomically: true)
-            var myimg = UIImage(contentsOfFile: directory)
-            self.uploadImageURL = NSURL.fileURLWithPath(directory)
-            
-            self.dismissViewControllerAnimated(true, completion: {})
-            self.uploadFileURL = NSURL.fileURLWithPath(pathString!)
-            self.saveImageToAWS()
-            self.saveToAWS()
+//            let asset1 = AVURLAsset(URL:tempImage, options:nil)
+//            let generator = AVAssetImageGenerator(asset: asset1)
+//            let time = CMTimeMakeWithSeconds(0, 30)
+//            let size = CGSizeMake(425,355)
+//            generator.maximumSize = size
+//            let imgRef = generator.copyCGImageAtTime(time, actualTime: nil, error: nil)
+//            let thumb = UIImage(CGImage:imgRef)
+//            let data = UIImagePNGRepresentation(thumb)
+//            var directory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString
+//            directory = directory + "/img.img"
+//            data.writeToFile(directory, atomically: true)
+//            var myimg = UIImage(contentsOfFile: directory)
+//            self.uploadImageURL = NSURL.fileURLWithPath(directory)
+//            
+//            self.dismissViewControllerAnimated(true, completion: {})
+//            self.uploadFileURL = NSURL.fileURLWithPath(pathString!)
+//            self.saveImageToAWS()
+//            self.saveToAWS()
 
-            
+    }
+    
+    func MovieFinishedPlayingCallback() -> Void {
+//        if (note.userInfo[MPMoviePlayerPlaybackDidFinishNotification] == )
+//            NSLog("note: %@", note)
+            self.moviePlayer.play()
+//            if (reason == MPMovieFinishReasonPlaybackEnded)
+//            {
+//                [self.moviePlayer play];
+//            }
     }
     
     func URLSession(session: NSURLSession, task: NSURLSessionTask, didSendBodyData bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) {
@@ -295,20 +305,12 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     }
     
     func tempFileUrl()->NSURL{
-        // var movieString:NSString = "camera.mov"
-        
         let tempDirectoryTemplate = NSTemporaryDirectory().stringByAppendingPathComponent("camera.mov")
         let url = NSURL.fileURLWithPath(tempDirectoryTemplate)
-        // let url = NSURL.fileURLWithPath(movieString)
-        // let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
-        // let documentsPath = paths.first as? String
-        // let filePath = documentsPath! + "/" + movieString
         if NSFileManager.defaultManager().fileExistsAtPath(tempDirectoryTemplate) {
             NSFileManager.defaultManager().removeItemAtPath(tempDirectoryTemplate, error: nil)
         }
-        
         return url!
-        
     }
     
     func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
@@ -316,7 +318,6 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         if (error == nil) {
             dispatch_async(dispatch_get_main_queue()) {
                 self.successCount = self.successCount.integerValue+1
-                // NSLog("success count: %@", self.successCount.isEqual(2) )
                 // post to snap server
                 // video id, user id, lat, long
                 if ( self.successCount.isEqual(2) ) {
@@ -350,31 +351,6 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         }
     }
     
-    
-    func imagePickerController(picker: UIImagePickerController!, didFinishPickingMediaWithInfo info:NSDictionary!) {
-        let tempImage = info[UIImagePickerControllerMediaURL] as NSURL!
-        let pathString = tempImage.relativePath
-        
-        // process image
-        let asset1 = AVURLAsset(URL:tempImage, options:nil)
-        let generator = AVAssetImageGenerator(asset: asset1)
-        let time = CMTimeMakeWithSeconds(0, 30)
-        let size = CGSizeMake(425,355)
-        generator.maximumSize = size
-        let imgRef = generator.copyCGImageAtTime(time, actualTime: nil, error: nil)
-        let thumb = UIImage(CGImage:imgRef)
-        let data = UIImagePNGRepresentation(thumb)
-        var directory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString
-        directory = directory + "/img.img"
-        data.writeToFile(directory, atomically: true)
-        var myimg = UIImage(contentsOfFile: directory)
-        self.uploadImageURL = NSURL.fileURLWithPath(directory)
-        
-        self.dismissViewControllerAnimated(true, completion: {})
-        self.uploadFileURL = NSURL.fileURLWithPath(pathString!)
-        self.saveImageToAWS()
-        self.saveToAWS()
-    }
     
     // TODO refactor this shit
     // terribly undry 
@@ -460,7 +436,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     // location
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         var locValue:CLLocationCoordinate2D = manager.location.coordinate
-        println("locations = \(locValue.latitude) \(locValue.longitude)")
+        // println("locations = \(locValue.latitude) \(locValue.longitude)")
         sharedInstance.latitude =  String(format: "%f", locValue.latitude)
         sharedInstance.longitute = String(format: "%f", locValue.longitude)
         
