@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="LAb-ds-gP8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6221" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="LAb-ds-gP8">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6213"/>
     </dependencies>
     <scenes>
         <!--Camera View Controller-->
@@ -28,6 +28,20 @@
                                             <action selector="pressBackButtonfromConfirm:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="DKH-Mw-gPN"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z1R-xh-ben">
+                                        <rect key="frame" x="290" y="578" width="46" height="30"/>
+                                        <state key="normal" title="Send">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="pressConfirmVideo:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="inj-ec-QSz"/>
+                                        </connections>
+                                    </button>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Please enter a description" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lNk-Y2-vme">
+                                        <rect key="frame" x="139" y="319" width="97" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
                                 </subviews>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nrb-WB-ZZu">
@@ -58,7 +72,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="LAb-ds-gP8" kind="presentation" id="n3c-9e-Pvm"/>
+                                    <segue destination="LAb-ds-gP8" kind="presentation" identifier="" id="n3c-9e-Pvm"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WIF-1Y-Zi8">
@@ -77,6 +91,7 @@
                         <outlet property="progressView" destination="wGI-Hk-DGE" id="AsA-9M-pks"/>
                         <outlet property="statusLabel" destination="6vb-Rs-oHI" id="nD8-I4-nrw"/>
                         <outlet property="takeVideoButton" destination="WIF-1Y-Zi8" id="fnF-6J-EZ1"/>
+                        <segue destination="LAb-ds-gP8" kind="presentation" identifier="goHome" modalTransitionStyle="flipHorizontal" id="O0n-7M-ItV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -123,7 +138,7 @@
                     <navigationItem key="navigationItem" id="s3i-hT-KRT">
                         <barButtonItem key="leftBarButtonItem" title="Add" id="2Dr-ZE-qnx">
                             <connections>
-                                <segue destination="vXZ-lx-hvc" kind="presentation" id="Vcg-H1-ocW"/>
+                                <segue destination="vXZ-lx-hvc" kind="show" identifier="" id="Vcg-H1-ocW"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -159,4 +174,7 @@
     <resources>
         <image name="recordButton" width="109" height="109"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="O0n-7M-ItV"/>
+    </inferredMetricsTieBreakers>
 </document>

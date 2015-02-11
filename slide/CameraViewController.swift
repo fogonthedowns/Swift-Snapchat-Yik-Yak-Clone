@@ -50,7 +50,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     // consider moving successsCount, progressView (if possible) and statusLabel (if possible)
     // to sharedInstance
     var sharedInstance = VideoDataToAPI.sharedInstance
-    
+    var tempVideo: NSURL?
     
     // camera preview
     var moviePlayer:MPMoviePlayerController!
@@ -63,6 +63,14 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     override func viewDidLoad() {
         super.viewDidLoad()
         var ItemStatusContext = "com.foo.bar.jz"
+        
+        // hide big blue bar
+        navigationController?.navigationBarHidden = true
+        
+        // add tap gesture recognizer
+        
+        var tap:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
+        self.confirmationView.addGestureRecognizer(tap)
         
         if CLLocationManager.authorizationStatus() == .NotDetermined {
             // NSLog("\n ****************************** NotDetermined()")
@@ -230,6 +238,8 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     }
     
     // new
+    // I think this is function implements a protocol
+    // so we can't change the name
     func captureOutput(captureOutput: AVCaptureFileOutput!,
         didStartRecordingToOutputFileAtURL fileURL: NSURL!,
         fromConnections connections: [AnyObject]!){
@@ -239,20 +249,23 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     
     
     // new 
+    // I think this is function implements a protocol
     // this function captures the output of a film
+    // so we can't change the name
     func captureOutput(captureOutput: AVCaptureFileOutput!,
         didFinishRecordingToOutputFileAtURL outputFileURL: NSURL!,
         fromConnections connections: [AnyObject]!,
         error: NSError!) {
              NSLog("*** recording has ended with %@", outputFileURL)
-            let tempImage = outputFileURL as NSURL!
-            let pathString = tempImage.relativePath
+            self.tempVideo = outputFileURL as NSURL!
+            var videoFile = self.tempVideo as NSURL!
+            let pathString = videoFile.relativePath
             
             let url = NSURL.fileURLWithPath(pathString!)
             self.moviePlayer = MPMoviePlayerController(contentURL: url)
             if var player = self.moviePlayer {
+                // let the preview loop
                 self.stopPreview = false
-                navigationController?.navigationBarHidden = true
                 UIApplication.sharedApplication().statusBarHidden=true
                 player.view.frame = self.view.bounds
                 player.prepareToPlay()
@@ -260,46 +273,70 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
                 player.controlStyle = .None
                 self.view.addSubview(player.view)
         
-                // custom preview controlls
+                // custom UI preview controlls
+                // Back button and send buttons
                 self.view.addSubview(self.confirmationView)
                 self.view.bringSubviewToFront(self.confirmationView)
             }
-        
-            
-            // process image
-//            let asset1 = AVURLAsset(URL:tempImage, options:nil)
-//            let generator = AVAssetImageGenerator(asset: asset1)
-//            let time = CMTimeMakeWithSeconds(0, 30)
-//            let size = CGSizeMake(425,355)
-//            generator.maximumSize = size
-//            let imgRef = generator.copyCGImageAtTime(time, actualTime: nil, error: nil)
-//            let thumb = UIImage(CGImage:imgRef)
-//            let data = UIImagePNGRepresentation(thumb)
-//            var directory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString
-//            directory = directory + "/img.img"
-//            data.writeToFile(directory, atomically: true)
-//            var myimg = UIImage(contentsOfFile: directory)
-//            self.uploadImageURL = NSURL.fileURLWithPath(directory)
-//            
-//            self.dismissViewControllerAnimated(true, completion: {})
-//            self.uploadFileURL = NSURL.fileURLWithPath(pathString!)
-//            self.saveImageToAWS()
-//            self.saveToAWS()
-
     }
     
+    // User pressed back button from video preview
+    // stop video, stop preview
+    // clear views
+    
     @IBAction func pressBackButtonfromConfirm(sender: AnyObject) {
+        UIApplication.sharedApplication().statusBarHidden=false
         self.stopPreview = true
         self.moviePlayer.stop()
         self.view.sendSubviewToBack(self.confirmationView)
         self.view.sendSubviewToBack(self.moviePlayer.view)
     }
     
+    // User pressed confirm video
+    // so start processing video and segue
+    
+    @IBAction func pressConfirmVideo(sender: AnyObject) {
+        UIApplication.sharedApplication().statusBarHidden=false
+        
+        // view logic
+        self.stopPreview = true
+        self.moviePlayer.stop()
+        
+        // process image
+        var videoFile = self.tempVideo as NSURL!
+        let pathString = videoFile.relativePath
+        
+        // process image from videoFile
+        let asset1 = AVURLAsset(URL:videoFile, options:nil)
+        let generator = AVAssetImageGenerator(asset: asset1)
+        let time = CMTimeMakeWithSeconds(0, 30)
+        let size = CGSizeMake(425,355)
+        generator.maximumSize = size
+        let imgRef = generator.copyCGImageAtTime(time, actualTime: nil, error: nil)
+        let thumb = UIImage(CGImage:imgRef)
+        let data = UIImagePNGRepresentation(thumb)
+        var directory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString
+        directory = directory + "/img.img"
+        data.writeToFile(directory, atomically: true)
+        var myimg = UIImage(contentsOfFile: directory)
+        self.uploadImageURL = NSURL.fileURLWithPath(directory)
+        
+        self.dismissViewControllerAnimated(true, completion: {})
+        self.uploadFileURL = NSURL.fileURLWithPath(pathString!)
+//        self.saveImageToAWS()
+//        self.saveToAWS()
+        // TODO - (bug) whose view is not in the window hierarchy!
+        self.performSegueWithIdentifier("goHome", sender: self)
+    }
+    
+    
     // needs more logic, so it doesn't get in infinate loop
     // first check to see if the send button has been sent
     func MovieFinishedPlayingCallback() -> Void {
         if (!self.stopPreview) {
-            self.moviePlayer.play()
+            if (self.moviePlayer != nil) {
+              self.moviePlayer.play()
+            }
         }
     }
     
@@ -478,6 +515,11 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
             randomString.appendFormat("%C", letters.characterAtIndex(Int(rand)))
         }
         return randomString
+    }
+    
+    func DismissKeyboard(){
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        self.confirmationView.endEditing(true)
     }
     
     // this function uses the APIModel() instance apiObject

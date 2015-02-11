@@ -35,6 +35,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         // Receive Notification and call loadSnaps once we have a user
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadSnaps", name: getSnapsBecauseIhaveAUserLoaded, object: nil)
         userObject.findUser();
@@ -60,7 +61,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         self.session = Static.session;
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
