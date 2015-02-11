@@ -17,7 +17,7 @@ import CoreLocation
 import CoreData
 
 
-class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSessionTaskDelegate, NSURLSessionDataDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, CLLocationManagerDelegate, AVCaptureFileOutputRecordingDelegate {
+class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSessionTaskDelegate, NSURLSessionDataDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, CLLocationManagerDelegate, AVCaptureFileOutputRecordingDelegate, UITextFieldDelegate {
     
     // UIView 
     @IBOutlet weak var cameraView: UIView!
@@ -26,6 +26,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     @IBOutlet var statusLabel: UILabel!
     @IBOutlet weak var takeVideoButton: UIButton!
     
+    @IBOutlet weak var userDescription: UITextField!
     // location
     @IBOutlet var gpsResult : UILabel!
     let manager = CLLocationManager()
@@ -66,6 +67,9 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         
         // hide big blue bar
         navigationController?.navigationBarHidden = true
+        
+        // bind keyboard
+        self.userDescription.delegate = self;
         
         // add tap gesture recognizer
         
@@ -520,6 +524,11 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     func DismissKeyboard(){
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         self.confirmationView.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(textField: UITextField!) -> Bool {
+        self.view.endEditing(true);
+        return false;
     }
     
     // this function uses the APIModel() instance apiObject
