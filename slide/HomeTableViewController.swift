@@ -44,6 +44,8 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         self.tableView.rowHeight = 115.0
         self.title = "Soma"
         let longpress = UILongPressGestureRecognizer(target: self, action: "longPress:")
+//        longpress.minimumPressDuration = 1.0
+        
         tableView.addGestureRecognizer(longpress)
 
         // singleton of session
@@ -86,7 +88,11 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
 
         let cell = tableView.dequeueReusableCellWithIdentifier("VideoCell") as VideoCellTableViewCell
         let video: VideoModel = videoModelList[indexPath.row] as VideoModel
+        
         cell.titleLabel.text = video.film
+        var lbl : UILabel? = cell.contentView.viewWithTag(1) as? UILabel
+        lbl?.text = video.userDescription
+        
         cell.selectionStyle = .None
         self.start(video.film)
         var urlString = "https://s3-us-west-1.amazonaws.com/slideby/" + video.img
@@ -168,7 +174,8 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
                 var videoModel = VideoModel(
                     id: rowAPIresult["film"].stringValue,
                     user: rowAPIresult["userId"].stringValue,
-                    img: rowAPIresult["img"].stringValue
+                    img: rowAPIresult["img"].stringValue,
+                    description: rowAPIresult["description"].stringValue
                 )
                 
                 videos.addObject(videoModel)
