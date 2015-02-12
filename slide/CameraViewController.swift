@@ -116,7 +116,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
          NSNotificationCenter.defaultCenter().addObserver(self, selector: "MovieFinishedPlayingCallback", name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
         
         // Do any additional setup after loading the view, typically from a nib.
-        captureSession.sessionPreset = AVCaptureSessionPresetHigh
+        captureSession.sessionPreset = AVCaptureSessionPresetMedium
         
         let devices = AVCaptureDevice.devices()
         
@@ -199,6 +199,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         
         if !captureSession.running {
             videoRecordingOutput = AVCaptureMovieFileOutput()
+            videoRecordingOutput?.maxRecordedDuration = CMTimeMake(660, 60)
             // stillImageOutput = AVCaptureStillImageOutput()
             // let outputSettings = [ AVVideoCodecKey : AVVideoCodecJPEG ]
             // stillImageOutput!.outputSettings = outputSettings
@@ -329,8 +330,10 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         self.uploadFileURL = NSURL.fileURLWithPath(pathString!)
         self.saveImageToAWS()
         self.saveToAWS()
+        
         self.view.sendSubviewToBack(self.confirmationView)
         self.view.sendSubviewToBack(self.moviePlayer.view)
+        
         // TODO - (bug) whose view is not in the window hierarchy!
        
     }
@@ -380,13 +383,14 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
                   self.statusLabel.text = "Upload Successfully"
                     
                   // I'm pretty sure postSnap fails with the bug described in the next comment. Try moving all into a singleton
-                    
-                  self.postSnap(self.sharedInstance.latitude,long: self.sharedInstance.longitute,video: self.sharedInstance.lastVideoUploadID, image: self.sharedInstance.lastImgUploadID, description: self.userDescription.text)
+                  let userText:NSString = self.userDescription.text
+                  self.postSnap(self.sharedInstance.latitude,long: self.sharedInstance.longitute,video: self.sharedInstance.lastVideoUploadID, image: self.sharedInstance.lastImgUploadID, description: userText)
                     
                   // TODO Post this right before sendtoAWS, move the above into a singleton, that can function in the background
                     
                   // self.performSegueWithIdentifier("goHome", sender: self)
                   self.successCount = 0
+                  // self.performSegueWithIdentifier("goHome", sender: self)
                 }
             } // end dispatch_async()
         } else {

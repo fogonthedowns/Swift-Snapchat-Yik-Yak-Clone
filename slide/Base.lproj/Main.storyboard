@@ -19,9 +19,9 @@
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HeY-DP-swx">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9nn-pJ-XCF">
-                                        <rect key="frame" x="25" y="20" width="46" height="30"/>
-                                        <state key="normal" title="Back">
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9nn-pJ-XCF">
+                                        <rect key="frame" x="25" y="20" width="48" height="48"/>
+                                        <state key="normal" title="Back" image="cancel">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -29,8 +29,11 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z1R-xh-ben">
-                                        <rect key="frame" x="290" y="578" width="46" height="30"/>
+                                        <rect key="frame" x="0.0" y="620" width="374" height="48"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="24"/>
                                         <state key="normal" title="Send">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -78,7 +81,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WIF-1Y-Zi8">
                                 <rect key="frame" x="150" y="550" width="75" height="74"/>
-                                <state key="normal" title="Button" image="recordButton">
+                                <state key="normal" image="recordButton">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
@@ -144,9 +147,9 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="s3i-hT-KRT">
-                        <barButtonItem key="leftBarButtonItem" title="Add" id="2Dr-ZE-qnx">
+                        <barButtonItem key="rightBarButtonItem" image="camera" id="Zl2-nl-jcj">
                             <connections>
-                                <segue destination="vXZ-lx-hvc" kind="show" identifier="" id="Vcg-H1-ocW"/>
+                                <segue destination="vXZ-lx-hvc" kind="show" id="jYa-2H-R5J"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -180,6 +183,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="camera" width="55" height="41"/>
+        <image name="cancel" width="109" height="109"/>
         <image name="recordButton" width="109" height="109"/>
     </resources>
     <inferredMetricsTieBreakers>

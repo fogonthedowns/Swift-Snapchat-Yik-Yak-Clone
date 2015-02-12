@@ -43,9 +43,8 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         // Table Row Init
         self.tableView.rowHeight = 115.0
         self.title = "Soma"
-        let longpress = UILongPressGestureRecognizer(target: self, action: "longPress:")
-//        longpress.minimumPressDuration = 1.0
-        
+        let longpress = UILongPressGestureRecognizer(target: self, action: "handleLongPress:")
+        longpress.minimumPressDuration = 0.35
         tableView.addGestureRecognizer(longpress)
 
         // singleton of session
@@ -63,6 +62,10 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         self.session = Static.session;
         
     }
+    
+    // override func viewDidAppear(animated: Bool) {
+    //     super.viewDidAppear(true)
+    // }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -121,15 +124,17 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         return cell
     }
     
-    func longPress(sender:UILongPressGestureRecognizer!) {
-        let longPress = sender as UILongPressGestureRecognizer
-        var locationInView = longPress.locationInView(tableView)
-        // returns nil
+    func handleLongPress(sender:UILongPressGestureRecognizer!) {
+        let localLongPress = sender as UILongPressGestureRecognizer
+        var locationInView = localLongPress.locationInView(tableView)
+        
+        // returns nil in the case of last cell
+        // but strangely only on EndedState
         var indexPath = tableView.indexPathForRowAtPoint(locationInView)
         if indexPath != nil {
             var cell = self.tableView.cellForRowAtIndexPath(indexPath!) as VideoCellTableViewCell
             var urlString = cell.titleLabel.text!
-
+            println("Long press Block .................");
 
             let filePath = determineFilePath(cell.titleLabel.text!)
             
@@ -152,18 +157,20 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
                     player.prepareToPlay()
                     player.scalingMode = .AspectFill
                     player.controlStyle = .None
-                    self.view.addSubview(player.view)
+                    self.tableView.addSubview(player.view)
                 }
             }
         }
     }
     
-    func longPressGestureRecognized(gestureRecognizer: UIGestureRecognizer) {
-        let longPress = gestureRecognizer as UILongPressGestureRecognizer
-        let state = longPress.state
-        var locationInView = longPress.locationInView(tableView)
-        var indexPath = tableView.indexPathForRowAtPoint(locationInView)
-    }
+    // what calls this?!
+    // global search shows nothing
+    //    func longPressGestureRecognized(gestureRecognizer: UIGestureRecognizer) {
+    //        let localLongPress = gestureRecognizer as UILongPressGestureRecognizer
+    //        let state = localLongPress.state
+    //        var locationInView = localLongPress.locationInView(tableView)
+    //        var indexPath = tableView.indexPathForRowAtPoint(locationInView)
+    //    }
     
     func didReceiveResult(result: JSON) {
         // local array var used in this function
