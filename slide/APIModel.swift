@@ -59,16 +59,19 @@ class APIModel: NSObject {
         self.postRequest(requestUrl)
     }
     
-    func postRequest(url:String) {
-        var url = url
-        NSLog("url:%@", url)
-        let fileUrl = NSURL(string: url)
-        var request = NSMutableURLRequest(URL: NSURL(string: url)!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData, timeoutInterval: 5)
-        var response: NSURLResponse?
-        var error: NSError?
-        request.HTTPMethod = "POST"
-        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-        var connection: NSURLConnection = NSURLConnection(request: request, delegate: self, startImmediately: true)!;
+    func postRequest(url:NSString) {
+        if var localURL = url as NSString? {
+            NSLog("localURL: %@", localURL)
+            let fileUrl:NSURL = NSURL(string: localURL)!
+
+            var request = NSMutableURLRequest(URL: NSURL(string: localURL)!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData, timeoutInterval: 5)
+            var response: NSURLResponse?
+            var error: NSError?
+            request.HTTPMethod = "POST"
+            request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+            var connection: NSURLConnection = NSURLConnection(request: request, delegate: self, startImmediately: true)!;
+            NSLog("posting")
+        }
     }
     
     func getRequest(url:String) {
