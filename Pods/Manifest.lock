@@ -20,7 +20,6 @@ PODS:
   - AFNetworking/UIKit (2.5.0):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - Alamofire (1.1.4)
   - AWSiOSSDKv2 (2.0.15):
     - AWSiOSSDKv2/AutoScaling (= 2.0.15)
     - AWSiOSSDKv2/AWSCore (= 2.0.15)
@@ -187,13 +186,11 @@ PODS:
   - XMLDictionary (1.4)
 
 DEPENDENCIES:
-  - Alamofire (~> 1.1)
   - AWSiOSSDKv2
   - SGImageCache
 
 SPEC CHECKSUMS:
   AFNetworking: 0f54cb5d16ce38c1b76948faffb8d5fb705021c7
-  Alamofire: 524225da382071ee3e6d0badd0ee4b4dc36740de
   AWSiOSSDKv2: 53c8f9aa2c61099e035755dd739aa91c2ab2765c
   Bolts: 3db0a875235e0c9042b013af13af0f00f79b102c
   FMDB: 0b2fa25e5264ef177973c0cb8c02c711107979aa
