@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-Alamofire.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Bolts.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -77,72 +82,77 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>3FABEB0A1BEFC5CA18684CF9</key>
+		<key>183753FA37A19D94D0F2C6BA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>415658901553558FB497D714</key>
+		<key>1E90D704AB3F45CEC8CE9A26</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>50E85C8D9F9152B73C1AAA7E</key>
+		<key>26168063ED6262B47C08C47B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>929CE855AFF9C8065EEF8EFB</key>
+		<key>2B758753620852B7260B68E0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>97DD3091ECD882368002FECE</key>
+		<key>2D986E38CCF50518F46FE333</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A063C575181204DD978E36E2</key>
+		<key>2FAEB6CE719EFDE74727C52D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A076A5CB1C67AACD39844D2A</key>
+		<key>31A4D1E29F898B39FBB4AB4D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AE302B1F686B92EBDDF67B43</key>
+		<key>34B1F382A11929733454916F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B0757D2F82F922C128DAB359</key>
+		<key>4512786B92108E41AB5B39BD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C1AE4EED462C86D053A619A1</key>
+		<key>8A98221E5761C19D1A2EE106</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C883859903C021380CC995EE</key>
+		<key>A4531F0F208C89DE87906BFA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CDA20AC97CCFD47DEFC4287C</key>
+		<key>A84FB0494B55E78A844BD6C6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D4B20FE0E8F11069DE615487</key>
+		<key>D2DBC5FA12F08AFDAD7573BF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>ECA23175EECBB0E9FBF819A5</key>
+		<key>E77900444ACC28A705F91195</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F782CA43A783AE6AF26A35F5</key>
 		<dict>
 			<key>primary</key>
 			<true/>

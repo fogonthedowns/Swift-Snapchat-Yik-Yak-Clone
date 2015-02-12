@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		EBD557C0DD742AA279A34FF3 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AB3DB53B69454BF2EF9B850 /* libPods.a */; };
+		F117D9771A8D39CA001CEB44 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F117D9761A8D39CA001CEB44 /* RootViewController.swift */; };
 		F172A1901A7E8C12007E564C /* AWSImageDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = F172A18F1A7E8C12007E564C /* AWSImageDownload.swift */; };
 		F19BC1D71A8070160096356C /* VideoDataToAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19BC1D61A8070160096356C /* VideoDataToAPI.swift */; };
 		F1D81CA41A7F274A00C0B728 /* CustomNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D81CA31A7F274A00C0B728 /* CustomNavigation.swift */; };
@@ -42,6 +43,7 @@
 /* Begin PBXFileReference section */
 		5AB3DB53B69454BF2EF9B850 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		85C73CE6E418DC9B8ED4F903 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		F117D9761A8D39CA001CEB44 /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		F172A18F1A7E8C12007E564C /* AWSImageDownload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AWSImageDownload.swift; sourceTree = "<group>"; };
 		F19BC1D61A8070160096356C /* VideoDataToAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoDataToAPI.swift; sourceTree = "<group>"; };
 		F1D81CA31A7F274A00C0B728 /* CustomNavigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigation.swift; sourceTree = "<group>"; };
@@ -97,6 +99,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		F117D9781A8D3C18001CEB44 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				F1F2DE971A77FA2C005B75B0 /* S3-bridging-header.h */,
+				F1F2DE951A77F827005B75B0 /* Constants.swift */,
+			);
+			name = Config;
+			sourceTree = "<group>";
+		};
 		F1F2DE641A77F574005B75B0 = {
 			isa = PBXGroup;
 			children = (
@@ -122,8 +133,7 @@
 			children = (
 				F1F2DEA11A7ABB59005B75B0 /* Controller */,
 				F1F2DE721A77F574005B75B0 /* AppDelegate.swift */,
-				F1F2DE971A77FA2C005B75B0 /* S3-bridging-header.h */,
-				F1F2DE951A77F827005B75B0 /* Constants.swift */,
+				F117D9781A8D3C18001CEB44 /* Config */,
 				F1F2DE9C1A794845005B75B0 /* Model */,
 				F1F2DEAA1A7D8228005B75B0 /* View */,
 				F1F2DEAB1A7D8237005B75B0 /* Lib */,
@@ -177,6 +187,7 @@
 				F1D81CA31A7F274A00C0B728 /* CustomNavigation.swift */,
 				F1F2DE771A77F574005B75B0 /* ViewController.swift */,
 				F1F2DE9F1A7ABB4A005B75B0 /* HomeTableViewController.swift */,
+				F117D9761A8D39CA001CEB44 /* RootViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -350,6 +361,7 @@
 				F1F2DE9E1A797BA9005B75B0 /* UserModel.swift in Sources */,
 				F1F2DEA51A7D5FA2005B75B0 /* VideoModel.swift in Sources */,
 				F19BC1D71A8070160096356C /* VideoDataToAPI.swift in Sources */,
+				F117D9771A8D39CA001CEB44 /* RootViewController.swift in Sources */,
 				F1F2DE991A77FF3A005B75B0 /* CameraViewController.swift in Sources */,
 				F1F2DEA91A7D7F35005B75B0 /* alamofire.swift in Sources */,
 				F1F2DE731A77F574005B75B0 /* AppDelegate.swift in Sources */,
