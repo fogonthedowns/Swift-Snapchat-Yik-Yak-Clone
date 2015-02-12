@@ -327,10 +327,12 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         
         self.dismissViewControllerAnimated(true, completion: {})
         self.uploadFileURL = NSURL.fileURLWithPath(pathString!)
-//        self.saveImageToAWS()
-//        self.saveToAWS()
+        self.saveImageToAWS()
+        self.saveToAWS()
+        self.view.sendSubviewToBack(self.confirmationView)
+        self.view.sendSubviewToBack(self.moviePlayer.view)
         // TODO - (bug) whose view is not in the window hierarchy!
-        self.performSegueWithIdentifier("goHome", sender: self)
+       
     }
     
     
@@ -376,7 +378,14 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
                 // video id, user id, lat, long
                 if ( self.successCount.isEqual(2) ) {
                   self.statusLabel.text = "Upload Successfully"
-                  self.postSnap(self.sharedInstance.latitude,long: self.sharedInstance.longitute,video: self.sharedInstance.lastVideoUploadID, image: self.sharedInstance.lastImgUploadID)
+                    
+                  // I'm pretty sure postSnap fails with the bug described in the next comment. Try moving all into a singleton
+                    
+                  self.postSnap(self.sharedInstance.latitude,long: self.sharedInstance.longitute,video: self.sharedInstance.lastVideoUploadID, image: self.sharedInstance.lastImgUploadID, description: self.userDescription.text)
+                    
+                  // TODO Post this right before sendtoAWS, move the above into a singleton, that can function in the background
+                    
+                  // self.performSegueWithIdentifier("goHome", sender: self)
                   self.successCount = 0
                 }
             } // end dispatch_async()
@@ -535,8 +544,9 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     // Todo This requires some completion handler 
     // maybe write a success row 
     
-    func postSnap(lat:NSString,long:NSString,video:NSString,image:NSString) -> Bool {
-        userObject.apiObject.createSnap(lat,long:long,video:video,image:image)
+    func postSnap(lat:NSString,long:NSString,video:NSString,image:NSString, description:NSString) -> Bool {
+        NSLog("description%@", description)
+        userObject.apiObject.createSnap(lat,long:long,video:video,image:image, description:description)
         return true;
     }
     

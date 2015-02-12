@@ -15,12 +15,10 @@ class APIModel: NSObject {
     
     // var url: NSString // no need (!). It will be initialised from controller
     var data: NSMutableData = NSMutableData()
-//    var snapsResults: JSON = JSON()
     var accessToken: NSString = ""
     var apiUserId: NSString = ""
     // TODO rename to device token
     var userID: NSString = ""
-
 
     
     // It doesn't look like Userid is used, rather self.userID is used. This is set by a chain method call apiObject.userid
@@ -55,8 +53,8 @@ class APIModel: NSObject {
         self.postRequest(requestUrl)
     }
     
-    func createSnap(lat:NSString,long:NSString,video:NSString,image:NSString){
-        var requestUrl = "https://airimg.com/snaps/new?access_token=" + self.accessToken + "&token=17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY&snap[userId]=" + self.apiUserId +  "&snap[img]=" + image + "&snap[film]=" + video + "&snap[lat]=" + lat + "&snap[long]=" + long + "&device_token=" + self.userID
+    func createSnap(lat:NSString,long:NSString,video:NSString,image:NSString, description:NSString){
+        var requestUrl = "https://airimg.com/snaps/new?access_token=" + self.accessToken + "&token=17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY&snap[userId]=" + self.apiUserId +  "&snap[img]=" + image + "&snap[film]=" + video + "&snap[lat]=" + lat + "&snap[long]=" + long + "&device_token=" + self.userID + "&snap[description]=" + description
         NSLog("********************************************** createSnap() called with request url= ", requestUrl)
         self.postRequest(requestUrl)
     }
