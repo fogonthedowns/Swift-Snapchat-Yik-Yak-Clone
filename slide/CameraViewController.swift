@@ -331,6 +331,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         self.saveImageToAWS()
         self.saveToAWS()
         
+        // self.performSegueWithIdentifier("goHome", sender: self)
         self.view.sendSubviewToBack(self.confirmationView)
         self.view.sendSubviewToBack(self.moviePlayer.view)
         

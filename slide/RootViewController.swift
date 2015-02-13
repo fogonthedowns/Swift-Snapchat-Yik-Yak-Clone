@@ -23,16 +23,16 @@ class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
         // Reference all of the view controllers on the storyboard
         self.navViewController = self.storyboard?.instantiateViewControllerWithIdentifier("navViewController") as? CustomNavigation
         self.navViewController.title = "Soma"
-        println("homeTableViewController has landed!")
+        // println("homeTableViewController has landed!")
         
         self.cameraViewController = self.storyboard?.instantiateViewControllerWithIdentifier("cameraViewController") as? CameraViewController
         self.cameraViewController.title = "Camera"
-        println("Camera has landed!")
+        // println("Camera has landed!")
         
         // Set starting view controllers
         var startingViewControllers : NSArray = [self.cameraViewController]
         self.setViewControllers(startingViewControllers, direction: .Forward, animated: false, completion: nil)
-        println("Hey swab. C'mere. Listen up.")
+        // println("Hey swab. C'mere. Listen up.")
         
         // Do any additional setup after loading the view.
     }

@@ -57,20 +57,22 @@ class APIModel: NSObject {
         var requestUrl = "https://airimg.com/snaps/new?access_token=" + self.accessToken + "&token=17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY&snap[userId]=" + self.apiUserId +  "&snap[img]=" + image + "&snap[film]=" + video + "&snap[lat]=" + lat + "&snap[long]=" + long + "&device_token=" + self.userID + "&snap[description]=" + description
         NSLog("********************************************** createSnap() called with request url= ", requestUrl)
         let parameters = [
+            "device_token":self.userID,
             "access_token": self.accessToken,
             "token": "17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY",
-            "userId": self.apiUserId,
-            "img": image,
-            "film": video,
-            "lat": lat,
-            "long":long,
-            "device_token":self.userID,
-            "description": description
+            "snap":[
+                "userId": self.apiUserId,
+                "img": image,
+                "film": video,
+                "lat": lat,
+                "long":long,
+                "description": description
+            ]
         ]
         
-     //   Alamofire.request(.POST, "https://airimg.com/snaps/new", parameters: parameters)
+        request(.POST, "https://airimg.com/snaps/new", parameters: parameters)
         
-        self.postRequest(requestUrl)
+        // self.postRequest(requestUrl)
     }
     
     func postRequest(url:NSString) {

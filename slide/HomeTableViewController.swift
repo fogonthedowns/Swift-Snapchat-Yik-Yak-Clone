@@ -160,6 +160,14 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
                     self.tableView.addSubview(player.view)
                 }
             }
+        // HACK
+        } else {
+            println("HACK - Long press Ended");
+            self.moviePlayer.stop()
+            self.moviePlayer.view.removeFromSuperview()
+            self.tableView.reloadData()
+            navigationController?.navigationBarHidden = false
+            UIApplication.sharedApplication().statusBarHidden=false;
         }
     }
     
