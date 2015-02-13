@@ -12,6 +12,7 @@ class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
     
     var navViewController : UINavigationController!
     var cameraViewController : CameraViewController!
+    var districtsViewController: DistrictsTableViewController!
     
     
     override func viewDidLoad() {
@@ -27,6 +28,9 @@ class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
         
         self.cameraViewController = self.storyboard?.instantiateViewControllerWithIdentifier("cameraViewController") as? CameraViewController
         self.cameraViewController.title = "Camera"
+        
+        self.districtsViewController = self.storyboard?.instantiateViewControllerWithIdentifier("districtsViewController") as? DistrictsTableViewController
+        self.districtsViewController.title = "San Francisco"
         // println("Camera has landed!")
         
         // Set starting view controllers
@@ -48,13 +52,15 @@ class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
         case "Camera":
             return navViewController
         case "Soma":
-            return cameraViewController
+            return districtsViewController
+        case "San Francisco":
+            return nil
         default:
             return nil
         }
     }
     
-    // pink green blue
+    //  order: San Francisco(districtsViewController) |soma (navViewController) |camera (cameraViewController)
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
         
@@ -62,6 +68,8 @@ class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
         case "Soma":
             return cameraViewController
         case "Camera":
+            return nil
+        case "San Francisco":
             return navViewController
         default:
             return nil
