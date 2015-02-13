@@ -331,9 +331,9 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         self.saveImageToAWS()
         self.saveToAWS()
         
-        // self.performSegueWithIdentifier("goHome", sender: self)
-        self.view.sendSubviewToBack(self.confirmationView)
-        self.view.sendSubviewToBack(self.moviePlayer.view)
+        self.performSegueWithIdentifier("goHome", sender: self)
+        // self.view.sendSubviewToBack(self.confirmationView)
+        // self.view.sendSubviewToBack(self.moviePlayer.view)
         
         // TODO - (bug) whose view is not in the window hierarchy!
        

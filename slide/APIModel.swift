@@ -46,6 +46,26 @@ class APIModel: NSObject {
         
     }
     
+    func getDistricts(lat:NSString,longitude: NSString, delegate:APIProtocol) {
+        var requestUrl = "https://airimg.com/locations?token=17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY&device_token=" + self.userID + "&access_token=" + self.accessToken + "&lat=" + lat + "&long=" + longitude
+        NSLog("getting districts")
+        self.getRequest(requestUrl)
+        request(.GET, requestUrl)
+            .responseJSON { (req, res, json, error) in
+                if(error != nil) {
+                    NSLog("GET Error: \(error)")
+                    println(res)
+                }
+                else {
+                    var json = JSON(json!)
+                    NSLog("GET Result: \(json)")
+                    
+                    // Call delegate
+                    delegate.didReceiveResult(json)
+                }
+        }
+    }
+    
     func createUser(Userid:NSString) {
       NSLog("********************************************** createUser() called with Device Token=%@", Userid)
       userID = Userid
