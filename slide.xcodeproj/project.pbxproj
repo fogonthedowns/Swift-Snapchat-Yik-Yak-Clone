@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		EBD557C0DD742AA279A34FF3 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AB3DB53B69454BF2EF9B850 /* libPods.a */; };
 		F117D9771A8D39CA001CEB44 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F117D9761A8D39CA001CEB44 /* RootViewController.swift */; };
+		F117D97C1A8E8176001CEB44 /* DistrictsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F117D97B1A8E8176001CEB44 /* DistrictsTableViewController.swift */; };
+		F117D97E1A8E84E0001CEB44 /* DistrictModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F117D97D1A8E84E0001CEB44 /* DistrictModel.swift */; };
+		F117D9801A8EAD67001CEB44 /* DistrictTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F117D97F1A8EAD67001CEB44 /* DistrictTableViewCell.swift */; };
 		F172A1901A7E8C12007E564C /* AWSImageDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = F172A18F1A7E8C12007E564C /* AWSImageDownload.swift */; };
 		F19BC1D71A8070160096356C /* VideoDataToAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19BC1D61A8070160096356C /* VideoDataToAPI.swift */; };
 		F1D81CA41A7F274A00C0B728 /* CustomNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D81CA31A7F274A00C0B728 /* CustomNavigation.swift */; };
@@ -44,6 +47,9 @@
 		5AB3DB53B69454BF2EF9B850 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		85C73CE6E418DC9B8ED4F903 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		F117D9761A8D39CA001CEB44 /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		F117D97B1A8E8176001CEB44 /* DistrictsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistrictsTableViewController.swift; sourceTree = "<group>"; };
+		F117D97D1A8E84E0001CEB44 /* DistrictModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistrictModel.swift; sourceTree = "<group>"; };
+		F117D97F1A8EAD67001CEB44 /* DistrictTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistrictTableViewCell.swift; sourceTree = "<group>"; };
 		F172A18F1A7E8C12007E564C /* AWSImageDownload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AWSImageDownload.swift; sourceTree = "<group>"; };
 		F19BC1D61A8070160096356C /* VideoDataToAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoDataToAPI.swift; sourceTree = "<group>"; };
 		F1D81CA31A7F274A00C0B728 /* CustomNavigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigation.swift; sourceTree = "<group>"; };
@@ -174,6 +180,7 @@
 				F1F2DE9A1A79483A005B75B0 /* APIModel.swift */,
 				F1F2DEA41A7D5FA2005B75B0 /* VideoModel.swift */,
 				F1F2DE9D1A797BA9005B75B0 /* UserModel.swift */,
+				F117D97D1A8E84E0001CEB44 /* DistrictModel.swift */,
 				F172A18F1A7E8C12007E564C /* AWSImageDownload.swift */,
 				F19BC1D61A8070160096356C /* VideoDataToAPI.swift */,
 			);
@@ -186,6 +193,7 @@
 				F1F2DE981A77FF3A005B75B0 /* CameraViewController.swift */,
 				F1D81CA31A7F274A00C0B728 /* CustomNavigation.swift */,
 				F1F2DE771A77F574005B75B0 /* ViewController.swift */,
+				F117D97B1A8E8176001CEB44 /* DistrictsTableViewController.swift */,
 				F1F2DE9F1A7ABB4A005B75B0 /* HomeTableViewController.swift */,
 				F117D9761A8D39CA001CEB44 /* RootViewController.swift */,
 			);
@@ -198,6 +206,7 @@
 				F1F2DE791A77F574005B75B0 /* Main.storyboard */,
 				F1F2DE7C1A77F574005B75B0 /* Images.xcassets */,
 				F1F2DEAC1A7D8378005B75B0 /* VideoCellTableViewCell.swift */,
+				F117D97F1A8EAD67001CEB44 /* DistrictTableViewCell.swift */,
 				F1F2DE7E1A77F574005B75B0 /* LaunchScreen.xib */,
 			);
 			name = View;
@@ -364,7 +373,10 @@
 				F117D9771A8D39CA001CEB44 /* RootViewController.swift in Sources */,
 				F1F2DE991A77FF3A005B75B0 /* CameraViewController.swift in Sources */,
 				F1F2DEA91A7D7F35005B75B0 /* alamofire.swift in Sources */,
+				F117D97E1A8E84E0001CEB44 /* DistrictModel.swift in Sources */,
+				F117D9801A8EAD67001CEB44 /* DistrictTableViewCell.swift in Sources */,
 				F1F2DE731A77F574005B75B0 /* AppDelegate.swift in Sources */,
+				F117D97C1A8E8176001CEB44 /* DistrictsTableViewController.swift in Sources */,
 				F1F2DE761A77F574005B75B0 /* slide.xcdatamodeld in Sources */,
 				F1F2DE9B1A79483A005B75B0 /* APIModel.swift in Sources */,
 				F1F2DEAD1A7D8378005B75B0 /* VideoCellTableViewCell.swift in Sources */,
