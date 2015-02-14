@@ -8,6 +8,8 @@
 
 import UIKit
 
+let didFinishUploadPresentNewPage = "com.snapAPI.presentNewPage"
+
 class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
     
     var navViewController : UINavigationController!
@@ -17,7 +19,7 @@ class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "navigateHome", name: didFinishUploadPresentNewPage, object: nil)
         // set UIPageViewControllerDataSource
         self.dataSource = self
         
@@ -77,6 +79,10 @@ class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
         }
     }
     
+    func navigateHome() {
+        var navigateToHome : NSArray = [self.navViewController]
+        self.setViewControllers(navigateToHome, direction: .Forward, animated: true, completion: nil)
+    }
 
     /*
     // MARK: - Navigation

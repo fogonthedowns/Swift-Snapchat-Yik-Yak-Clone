@@ -19,8 +19,15 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NSLog("shared instance before%@", self.latitude)
+        self.latitude = sharedInstance.latitude
+        self.longitute = sharedInstance.longitute
+        NSLog("shared instance before%@", self.latitude)
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadDistricts", name: getSnapsBecauseIhaveAUserLoaded, object: nil)
         userObject.findUser();
+        
+
         
         // Table Row Init
         self.tableView.rowHeight = 115.0

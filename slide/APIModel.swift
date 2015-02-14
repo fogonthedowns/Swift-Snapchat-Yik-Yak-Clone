@@ -14,6 +14,7 @@ import UIKit
 class APIModel: NSObject {
     
     // var url: NSString // no need (!). It will be initialised from controller
+    // These are set by the UserModel
     var data: NSMutableData = NSMutableData()
     var accessToken: NSString = ""
     var apiUserId: NSString = ""
@@ -75,7 +76,7 @@ class APIModel: NSObject {
     
     func createSnap(lat:NSString,long:NSString,video:NSString,image:NSString, description:NSString){
         var requestUrl = "https://airimg.com/snaps/new?access_token=" + self.accessToken + "&token=17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY&snap[userId]=" + self.apiUserId +  "&snap[img]=" + image + "&snap[film]=" + video + "&snap[lat]=" + lat + "&snap[long]=" + long + "&device_token=" + self.userID + "&snap[description]=" + description
-        NSLog("********************************************** createSnap() called with request url= ", requestUrl)
+
         let parameters = [
             "device_token":self.userID,
             "access_token": self.accessToken,

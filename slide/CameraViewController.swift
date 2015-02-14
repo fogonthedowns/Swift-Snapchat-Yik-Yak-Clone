@@ -302,7 +302,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     
     @IBAction func pressConfirmVideo(sender: AnyObject) {
         UIApplication.sharedApplication().statusBarHidden=false
-        
+        NSNotificationCenter.defaultCenter().postNotificationName(didFinishUploadPresentNewPage, object: self)
         // view logic
         self.stopPreview = true
         self.moviePlayer.stop()
@@ -331,9 +331,9 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         self.saveImageToAWS()
         self.saveToAWS()
         
-        self.performSegueWithIdentifier("goHome", sender: self)
-        // self.view.sendSubviewToBack(self.confirmationView)
-        // self.view.sendSubviewToBack(self.moviePlayer.view)
+        // self.performSegueWithIdentifier("goHome", sender: self)
+        self.view.sendSubviewToBack(self.confirmationView)
+        self.view.sendSubviewToBack(self.moviePlayer.view)
         
         // TODO - (bug) whose view is not in the window hierarchy!
        
