@@ -22,8 +22,6 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     // UIView 
     @IBOutlet weak var cameraView: UIView!
     @IBOutlet weak var confirmationView: UIView!
-    @IBOutlet var progressView: UIProgressView!
-    @IBOutlet var statusLabel: UILabel!
     @IBOutlet weak var takeVideoButton: UIButton!
     
     @IBOutlet weak var userDescription: UITextField!
@@ -48,8 +46,6 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     private var audioDevice : AVCaptureDevice?
     private var audioInput : AVCaptureDeviceInput?
     var delegate : AVCaptureFileOutputRecordingDelegate?
-    // consider moving successsCount, progressView (if possible) and statusLabel (if possible)
-    // to sharedInstance
     var sharedInstance = VideoDataToAPI.sharedInstance
     var tempVideo: NSURL?
     
@@ -99,8 +95,6 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         }
         
         self.session = Static.session;
-        self.progressView.progress = 0;
-        self.statusLabel.text = "Ready"
         userObject.findUser();
         
         // new video code
@@ -302,11 +296,18 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     
     @IBAction func pressConfirmVideo(sender: AnyObject) {
         UIApplication.sharedApplication().statusBarHidden=false
+        self.view.sendSubviewToBack(self.confirmationView)
+        self.view.sendSubviewToBack(self.moviePlayer.view)
         NSNotificationCenter.defaultCenter().postNotificationName(didFinishUploadPresentNewPage, object: self)
         // view logic
         self.stopPreview = true
         self.moviePlayer.stop()
-        
+        self.processImage()
+        self.saveImageToAWS()
+        self.saveToAWS()
+    }
+    
+    func processImage(){
         // process image
         var videoFile = self.tempVideo as NSURL!
         let pathString = videoFile.relativePath
@@ -325,18 +326,9 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         data.writeToFile(directory, atomically: true)
         var myimg = UIImage(contentsOfFile: directory)
         self.uploadImageURL = NSURL.fileURLWithPath(directory)
-        
+
         self.dismissViewControllerAnimated(true, completion: {})
         self.uploadFileURL = NSURL.fileURLWithPath(pathString!)
-        self.saveImageToAWS()
-        self.saveToAWS()
-        
-        // self.performSegueWithIdentifier("goHome", sender: self)
-        self.view.sendSubviewToBack(self.confirmationView)
-        self.view.sendSubviewToBack(self.moviePlayer.view)
-        
-        // TODO - (bug) whose view is not in the window hierarchy!
-       
     }
     
     
@@ -356,10 +348,9 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         
         // NSLog("UploadTask progress: %lf", progress)
         
-        dispatch_async(dispatch_get_main_queue()) {
-            self.progressView.progress = progress
-            self.statusLabel.text = "Uploading..."
-        }
+        // dispatch_async(dispatch_get_main_queue()) {
+           // TODO Status Status "UPLOADING"
+        // }
         
     }
     
@@ -381,7 +372,8 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
                 // post to snap server
                 // video id, user id, lat, long
                 if ( self.successCount.isEqual(2) ) {
-                  self.statusLabel.text = "Upload Successfully"
+                  // todo UPLOADED Successfully notification
+               
                     
                   // I'm pretty sure postSnap fails with the bug described in the next comment. Try moving all into a singleton
                   let userText:NSString = self.userDescription.text
@@ -395,14 +387,10 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
                 }
             } // end dispatch_async()
         } else {
-            dispatch_async(dispatch_get_main_queue()) {
-                self.statusLabel.text = "Upload Failed"
-            }
+            // dispatch_async(dispatch_get_main_queue()) {
+                // todo UPLOADED Failed notification
+            // }
             // NSLog("S3 UploadTask: %@ completed with error: %@", task, error!.localizedDescription);
-        }
-        
-        dispatch_async(dispatch_get_main_queue()) {
-            self.progressView.progress = Float(task.countOfBytesSent) / Float(task.countOfBytesExpectedToSend)
         }
         
         self.uploadTask = nil

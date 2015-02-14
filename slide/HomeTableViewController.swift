@@ -32,6 +32,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
     var videoModelList: NSMutableArray = [] // This is the array that my tableView
     var sharedInstance = VideoDataToAPI.sharedInstance
     let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+   
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,6 +61,12 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         }
         
         self.session = Static.session;
+        
+        var refresh = UIRefreshControl()
+        refresh.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refresh.addTarget(self, action: "pullToLoadSnaps:", forControlEvents:.ValueChanged)
+        
+        self.refreshControl = refresh
         
     }
     
@@ -324,6 +331,14 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         let documentsPath = paths.first as? String
         let filePath = documentsPath! + "/" + file
         return filePath
+    }
+    
+    func pullToLoadSnaps(sender:AnyObject)
+    {
+        NSLog("In Refresh Block..................")
+        self.loadSnaps()
+        self.tableView.reloadData()
+        self.refreshControl?.endRefreshing()
     }
     
     func loadSnaps() {

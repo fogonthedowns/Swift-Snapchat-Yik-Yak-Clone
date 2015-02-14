@@ -50,19 +50,8 @@
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h4F-qV-Bcu">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6vb-Rs-oHI">
-                                        <rect key="frame" x="25" y="205" width="324" height="37"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="wGI-Hk-DGE">
-                                <rect key="frame" x="25" y="56" width="324" height="2"/>
-                            </progressView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WIF-1Y-Zi8">
                                 <rect key="frame" x="150" y="550" width="75" height="74"/>
                                 <state key="normal" image="recordButton">
@@ -76,8 +65,6 @@
                     <connections>
                         <outlet property="cameraView" destination="h4F-qV-Bcu" id="3b6-Uk-R2B"/>
                         <outlet property="confirmationView" destination="HeY-DP-swx" id="LlC-JO-oG8"/>
-                        <outlet property="progressView" destination="wGI-Hk-DGE" id="AsA-9M-pks"/>
-                        <outlet property="statusLabel" destination="6vb-Rs-oHI" id="nD8-I4-nrw"/>
                         <outlet property="takeVideoButton" destination="WIF-1Y-Zi8" id="fnF-6J-EZ1"/>
                         <outlet property="userDescription" destination="lNk-Y2-vme" id="Br2-OA-e6B"/>
                         <segue destination="LAb-ds-gP8" kind="show" identifier="goHome" id="O0n-7M-ItV"/>
