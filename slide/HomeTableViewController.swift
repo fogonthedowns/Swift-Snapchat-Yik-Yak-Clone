@@ -61,13 +61,9 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         }
         
         self.session = Static.session;
-        
         var refresh = UIRefreshControl()
-        refresh.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refresh.addTarget(self, action: "pullToLoadSnaps:", forControlEvents:.ValueChanged)
-        
         self.refreshControl = refresh
-        
     }
     
     // override func viewDidAppear(animated: Bool) {
