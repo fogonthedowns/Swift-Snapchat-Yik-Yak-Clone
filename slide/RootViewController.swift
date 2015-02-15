@@ -25,7 +25,6 @@ class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "navigateHome", name: didFinishUploadPresentNewPage, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "navigateToCamera", name: didClickToNavigateToCamera, object: nil)
         
-        
         // set UIPageViewControllerDataSource
         self.dataSource = self
         
@@ -56,12 +55,12 @@ class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
         
-        switch viewController.title! {
-        case "Camera":
+        switch viewController.restorationIdentifier! {
+        case "cameraViewController":
             return navViewController
-        case "Soma":
+        case "navViewController":
             return districtsViewController
-        case "San Francisco":
+        case "districtsUINavigationController":
             return nil
         default:
             return nil
@@ -71,13 +70,13 @@ class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
     //  order: San Francisco(districtsViewController) |soma (navViewController) |camera (cameraViewController)
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
-        
-        switch viewController.title! {
-        case "Soma":
+        NSLog("restorationIdentifie@%", viewController.restorationIdentifier!)
+        switch viewController.restorationIdentifier! {
+        case "navViewController":
             return cameraViewController
-        case "Camera":
+        case "cameraViewController":
             return nil
-        case "San Francisco":
+        case "districtsUINavigationController":
             return navViewController
         default:
             return nil

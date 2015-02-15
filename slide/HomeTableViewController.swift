@@ -76,6 +76,8 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
           self.hood = sharedInstance.hood
           self.loadSnaps()
           self.tableView.reloadData()
+          self.title = self.hood
+            // .title = self.hood
         }
         
      }
