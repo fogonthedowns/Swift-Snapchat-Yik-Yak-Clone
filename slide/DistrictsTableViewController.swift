@@ -70,11 +70,9 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
         var districts: NSMutableArray = []
         
         for (index: String, rowAPIresult: JSON) in result {
-            let apipolygon: AnyObject = rowAPIresult["thepolygon"].arrayObject!
             var districtModel = DistrictModel(
-                polygon: apipolygon as NSArray,
                 name: rowAPIresult["name"].stringValue,
-                img: rowAPIresult["img"].stringValue
+                img: rowAPIresult["coverphoto"].stringValue
             )
             
             districts.addObject(districtModel)
@@ -95,6 +93,21 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
         let district: DistrictModel = districtModelList[indexPath.row] as DistrictModel
         cell.hood = district.name
         cell.titleLabel.text = district.name
+   
+        // Load Images Asynchroniously
+        let backgroundQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+        dispatch_async(backgroundQueue, {
+            SGImageCache.getImageForURL(district.img) { image in
+                if image != nil {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        
+                        // cell.coverPhoto.contentMode = UIViewContentMode.ScaleAspectFill
+                        cell.coverPhoto.image = image;
+                    })
+                    
+                }
+            }
+        })
         
 
         return cell

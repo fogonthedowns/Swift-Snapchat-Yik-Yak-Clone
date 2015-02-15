@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="RIP-oa-5aP">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6221" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="RIP-oa-5aP">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6213"/>
     </dependencies>
     <scenes>
         <!--Camera View Controller-->
@@ -118,7 +118,7 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="s3i-hT-KRT">
-                        <barButtonItem key="rightBarButtonItem" image="camera" style="plain" id="Zl2-nl-jcj" customClass="CameraButton" customModule="slide" customModuleProvider="target">
+                        <barButtonItem key="rightBarButtonItem" image="camera" id="Zl2-nl-jcj" customClass="CameraButton" customModule="slide" customModuleProvider="target">
                             <color key="tintColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                             <connections>
                                 <segue destination="RIP-oa-5aP" kind="show" id="SHC-GD-NPa"/>
@@ -146,25 +146,33 @@
         <scene sceneID="ljR-M6-v4E">
             <objects>
                 <tableViewController storyboardIdentifier="districtsViewController" id="POR-F8-INw" customClass="DistrictsTableViewController" customModule="slide" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="OAS-iJ-Q8w">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" id="OAS-iJ-Q8w">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DistrictCell" id="bdB-JD-Rbb" customClass="DistrictTableViewCell" customModule="slide" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DistrictCell" rowHeight="100" id="bdB-JD-Rbb" customClass="DistrictTableViewCell" customModule="slide" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bdB-JD-Rbb" id="hQI-Ay-VAG">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="DistrictCell" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gg3-2b-Uc4">
-                                            <rect key="frame" x="8" y="7" width="122" height="29"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PmJ-2D-12e">
+                                            <rect key="frame" x="1" y="-8" width="374" height="115"/>
+                                        </imageView>
+                                        <view alpha="0.69999999999999973" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H4f-kj-n1S">
+                                            <rect key="frame" x="66" y="25" width="250" height="48"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="DistrictCell" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gg3-2b-Uc4">
+                                            <rect key="frame" x="10" y="-7" width="354" height="114"/>
+                                            <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="26"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="coverPhoto" destination="PmJ-2D-12e" id="xqH-QO-RbF"/>
                                     <outlet property="titleLabel" destination="gg3-2b-Uc4" id="Oij-ix-tKw"/>
                                 </connections>
                             </tableViewCell>
