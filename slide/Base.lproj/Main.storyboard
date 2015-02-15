@@ -7,7 +7,7 @@
         <!--Camera View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController storyboardIdentifier="cameraViewController" id="vXZ-lx-hvc" customClass="CameraViewController" customModule="slide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="cameraViewController" storyboardIdentifier="cameraViewController" id="vXZ-lx-hvc" customClass="CameraViewController" customModule="slide" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -192,7 +192,7 @@
         <!--Custom Navigation-->
         <scene sceneID="xtN-r7-WPC">
             <objects>
-                <navigationController storyboardIdentifier="navViewController" automaticallyAdjustsScrollViewInsets="NO" id="LAb-ds-gP8" customClass="CustomNavigation" customModule="slide" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController restorationIdentifier="navViewController" storyboardIdentifier="navViewController" automaticallyAdjustsScrollViewInsets="NO" id="LAb-ds-gP8" customClass="CustomNavigation" customModule="slide" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="PC2-me-2dE">
@@ -213,7 +213,7 @@
         <!--DistrictsUI Navigation Controller-->
         <scene sceneID="133-Mo-bjh">
             <objects>
-                <navigationController storyboardIdentifier="districtsUINavigationController" automaticallyAdjustsScrollViewInsets="NO" id="XRr-8L-zPh" customClass="DistrictsUINavigationController" customModule="slide" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController restorationIdentifier="districtsUINavigationController" storyboardIdentifier="districtsUINavigationController" automaticallyAdjustsScrollViewInsets="NO" id="XRr-8L-zPh" customClass="DistrictsUINavigationController" customModule="slide" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="vmp-Cq-lqe">
