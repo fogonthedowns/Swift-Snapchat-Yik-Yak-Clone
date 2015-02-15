@@ -538,7 +538,6 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     // maybe write a success row 
     
     func postSnap(lat:NSString,long:NSString,video:NSString,image:NSString, description:NSString) -> Bool {
-        NSLog("description%@", description)
         userObject.apiObject.createSnap(lat,long:long,video:video,image:image, description:description)
         return true;
     }

@@ -93,11 +93,20 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("DistrictCell") as DistrictTableViewCell
         let district: DistrictModel = districtModelList[indexPath.row] as DistrictModel
-        
+        cell.polygon = district.polygon
         cell.titleLabel.text = district.name
         
 
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        let indexPath = tableView.indexPathForSelectedRow();
+        
+        let currentCell = tableView.cellForRowAtIndexPath(indexPath!) as DistrictTableViewCell
+        
+        sharedInstance.polygon = currentCell.polygon
     }
 
 

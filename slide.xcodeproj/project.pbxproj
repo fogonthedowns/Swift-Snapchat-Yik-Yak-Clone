@@ -12,6 +12,7 @@
 		F117D97C1A8E8176001CEB44 /* DistrictsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F117D97B1A8E8176001CEB44 /* DistrictsTableViewController.swift */; };
 		F117D97E1A8E84E0001CEB44 /* DistrictModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F117D97D1A8E84E0001CEB44 /* DistrictModel.swift */; };
 		F117D9801A8EAD67001CEB44 /* DistrictTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F117D97F1A8EAD67001CEB44 /* DistrictTableViewCell.swift */; };
+		F16F72B21A901185005A149A /* SharedInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16F72B11A901185005A149A /* SharedInstance.swift */; };
 		F172A1901A7E8C12007E564C /* AWSImageDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = F172A18F1A7E8C12007E564C /* AWSImageDownload.swift */; };
 		F19BC1D71A8070160096356C /* VideoDataToAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19BC1D61A8070160096356C /* VideoDataToAPI.swift */; };
 		F1D81CA41A7F274A00C0B728 /* CustomNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D81CA31A7F274A00C0B728 /* CustomNavigation.swift */; };
@@ -50,6 +51,7 @@
 		F117D97B1A8E8176001CEB44 /* DistrictsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistrictsTableViewController.swift; sourceTree = "<group>"; };
 		F117D97D1A8E84E0001CEB44 /* DistrictModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistrictModel.swift; sourceTree = "<group>"; };
 		F117D97F1A8EAD67001CEB44 /* DistrictTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistrictTableViewCell.swift; sourceTree = "<group>"; };
+		F16F72B11A901185005A149A /* SharedInstance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedInstance.swift; sourceTree = "<group>"; };
 		F172A18F1A7E8C12007E564C /* AWSImageDownload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AWSImageDownload.swift; sourceTree = "<group>"; };
 		F19BC1D61A8070160096356C /* VideoDataToAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoDataToAPI.swift; sourceTree = "<group>"; };
 		F1D81CA31A7F274A00C0B728 /* CustomNavigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigation.swift; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 				F117D97D1A8E84E0001CEB44 /* DistrictModel.swift */,
 				F172A18F1A7E8C12007E564C /* AWSImageDownload.swift */,
 				F19BC1D61A8070160096356C /* VideoDataToAPI.swift */,
+				F16F72B11A901185005A149A /* SharedInstance.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -383,6 +386,7 @@
 				F172A1901A7E8C12007E564C /* AWSImageDownload.swift in Sources */,
 				F1F2DEA31A7ACC65005B75B0 /* SwiftyJSON.swift in Sources */,
 				F1F2DE961A77F827005B75B0 /* Constants.swift in Sources */,
+				F16F72B21A901185005A149A /* SharedInstance.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

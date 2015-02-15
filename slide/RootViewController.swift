@@ -15,10 +15,11 @@ class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
     var navViewController : UINavigationController!
     var cameraViewController : CameraViewController!
     var districtsViewController: DistrictsTableViewController!
-    
-    
+    var currentViewController:UIViewController? = nil
+        
     override func viewDidLoad() {
         super.viewDidLoad()
+        NSLog("*****************************")
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "navigateHome", name: didFinishUploadPresentNewPage, object: nil)
         // set UIPageViewControllerDataSource
         self.dataSource = self
@@ -34,7 +35,7 @@ class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
         self.districtsViewController = self.storyboard?.instantiateViewControllerWithIdentifier("districtsViewController") as? DistrictsTableViewController
         self.districtsViewController.title = "San Francisco"
         // println("Camera has landed!")
-        
+        self.currentViewController = self.navViewController
         // Set starting view controllers
         var startingViewControllers : NSArray = [self.cameraViewController]
         self.setViewControllers(startingViewControllers, direction: .Forward, animated: false, completion: nil)
