@@ -25,15 +25,13 @@ class APIModel: NSObject {
     // It doesn't look like Userid is used, rather self.userID is used. This is set by a chain method call apiObject.userid
     // from the userObject.findUser() on ViewDidLoad. We always have a user, we find one, and with it from disk and we set
     // the userid, accesstoken and other info
-    func getSnaps(lat:NSString,long:NSString, polygon:NSArray, delegate:APIProtocol) {
-        var jsonpolygon = JSON(polygon)
+    func getSnaps(lat:NSString,long:NSString, hood:NSString, delegate:APIProtocol) {
        var requestUrl = "https://airimg.com/snaps"
         // ?token=17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY&device_token=" + self.userID + "&access_token=" + self.accessToken + "&lat=" + lat + "&long=" + polygon
         NSLog("getting Snaps")
-        println(polygon)
         //        self.getRequest(requestUrl)
       
-        request(.GET, requestUrl, parameters: ["polygon": polygon, "lat":lat, "long":long, "token":"17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY","device_token":self.userID, "access_token": self.accessToken])
+        request(.GET, requestUrl, parameters: ["hood": hood, "lat":lat, "long":long, "token":"17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY","device_token":self.userID, "access_token": self.accessToken])
             .responseJSON { (req, res, json, error) in
                 if(error != nil) {
                     NSLog("GET Error: \(error)")

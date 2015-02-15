@@ -17,8 +17,7 @@ class VideoDataToAPI {
     var downloadName: String = ""
     var listOfVideosToDownload: NSMutableArray = []
     // var userObject = UserModel()
-    var polygon: NSArray!
-    
+    var hood: NSString!
     
     class var sharedInstance :VideoDataToAPI {
         struct Singleton {
