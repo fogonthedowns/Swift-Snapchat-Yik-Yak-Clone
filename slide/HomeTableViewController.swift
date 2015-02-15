@@ -31,7 +31,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
     var longitute = "1"
     var videoModelList: NSMutableArray = [] // This is the array that my tableView
     var sharedInstance = VideoDataToAPI.sharedInstance
-
+    var polygon:NSArray = []
 
     let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
    
@@ -69,7 +69,13 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
     
      override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(true)
-        println(sharedInstance.polygon)
+        if (sharedInstance.polygon == nil) {
+        } else  {
+            let jsonArray = JSON(sharedInstance.polygon)
+            self.polygon = sharedInstance.polygon
+            // println(jsonArray)
+        }
+       
      }
     
     override func didReceiveMemoryWarning() {
@@ -339,6 +345,6 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
     }
     
     func loadSnaps() {
-        userObject.apiObject.getSnaps(self.latitude,long: self.longitute, delegate:self)
+        userObject.apiObject.getSnaps(self.latitude,long: self.longitute, polygon: self.polygon, delegate:self)
     }
 }
