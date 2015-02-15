@@ -18,12 +18,13 @@ protocol APIProtocol {
 
 let getSnapsBecauseIhaveAUserLoaded = "com.snapAPI.specialNotificationKey"
 
-class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSURLSessionTaskDelegate, NSURLSessionDownloadDelegate, APIProtocol {
+class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSURLSessionTaskDelegate, NSURLSessionDownloadDelegate, UIPageViewControllerDelegate, APIProtocol {
     let userObject = UserModel()
 
     @IBOutlet var progressView: UIProgressView!
     @IBOutlet var statusLabel: UILabel!
     
+
     var session: NSURLSession?
     var downloadTask: NSURLSessionDownloadTask?
     var moviePlayer:MPMoviePlayerController!
@@ -73,6 +74,8 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         if (sharedInstance.hood == nil) {
         } else {
           self.hood = sharedInstance.hood
+          self.loadSnaps()
+          self.tableView.reloadData()
         }
         
      }
@@ -80,6 +83,10 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @IBAction func navigateToCamera(sender: AnyObject) {
+        NSNotificationCenter.defaultCenter().postNotificationName(didClickToNavigateToCamera, object: self)
     }
 
     // MARK: - Table view data source

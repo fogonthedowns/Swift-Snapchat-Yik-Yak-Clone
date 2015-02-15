@@ -120,6 +120,7 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
         let currentCell = tableView.cellForRowAtIndexPath(indexPath!) as DistrictTableViewCell
         
         sharedInstance.hood = currentCell.titleLabel.text
+        NSNotificationCenter.defaultCenter().postNotificationName(didFinishUploadPresentNewPage, object: self)
     }
 
 
