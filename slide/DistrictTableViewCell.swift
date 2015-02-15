@@ -10,7 +10,9 @@ import UIKit
 
 class DistrictTableViewCell: UITableViewCell {
     var hood:NSString = ""
+    
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var coverPhoto: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

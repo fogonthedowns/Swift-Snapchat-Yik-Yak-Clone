@@ -10,12 +10,10 @@ import UIKit
 
 class DistrictModel: NSObject {
     
-    let polygon: NSArray
     var name: String
     let img: String
     
-    init(polygon: NSArray, name:String, img:String) {
-        self.polygon = polygon
+    init(name:String, img:String) {
         self.name = name
         self.img = img
     }
