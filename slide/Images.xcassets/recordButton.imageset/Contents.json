@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "camera button.png"
+      "filename" : "recordbutton.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "camera button-1.png"
+      "filename" : "recordbutton-1.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "camera button-2.png"
+      "filename" : "recordbutton-2.png"
     }
   ],
   "info" : {
