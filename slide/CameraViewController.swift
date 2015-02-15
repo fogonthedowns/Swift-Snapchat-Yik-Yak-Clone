@@ -57,6 +57,10 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     // user identity
     let userObject = UserModel()
     
+    // image processing
+    let time = CMTimeMakeWithSeconds(0, 30)
+    let size = CGSizeMake(425,355)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         var ItemStatusContext = "com.foo.bar.jz"
@@ -295,19 +299,21 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     // so start processing video and segue
     
     @IBAction func pressConfirmVideo(sender: AnyObject) {
-        UIApplication.sharedApplication().statusBarHidden=false
-        self.view.sendSubviewToBack(self.confirmationView)
-        self.view.sendSubviewToBack(self.moviePlayer.view)
         NSNotificationCenter.defaultCenter().postNotificationName(didFinishUploadPresentNewPage, object: self)
-        // view logic
-        self.stopPreview = true
-        self.moviePlayer.stop()
         self.processImage()
-        self.saveImageToAWS()
-        self.saveToAWS()
     }
     
     func processImage(){
+        
+        UIApplication.sharedApplication().statusBarHidden=false
+        self.view.sendSubviewToBack(self.confirmationView)
+        self.view.sendSubviewToBack(self.moviePlayer.view)
+        // view logic
+        self.stopPreview = true
+        self.moviePlayer.stop()
+        
+        
+        
         // process image
         var videoFile = self.tempVideo as NSURL!
         let pathString = videoFile.relativePath
@@ -315,8 +321,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         // process image from videoFile
         let asset1 = AVURLAsset(URL:videoFile, options:nil)
         let generator = AVAssetImageGenerator(asset: asset1)
-        let time = CMTimeMakeWithSeconds(0, 30)
-        let size = CGSizeMake(425,355)
+
         generator.maximumSize = size
         let imgRef = generator.copyCGImageAtTime(time, actualTime: nil, error: nil)
         let thumb = UIImage(CGImage:imgRef)
@@ -329,6 +334,8 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
 
         self.dismissViewControllerAnimated(true, completion: {})
         self.uploadFileURL = NSURL.fileURLWithPath(pathString!)
+        self.saveImageToAWS()
+        self.saveToAWS()
     }
     
     

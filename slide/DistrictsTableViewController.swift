@@ -93,7 +93,7 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("DistrictCell") as DistrictTableViewCell
         let district: DistrictModel = districtModelList[indexPath.row] as DistrictModel
-        cell.polygon = district.polygon
+        cell.hood = district.name
         cell.titleLabel.text = district.name
         
 
@@ -106,7 +106,7 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
         
         let currentCell = tableView.cellForRowAtIndexPath(indexPath!) as DistrictTableViewCell
         
-        sharedInstance.polygon = currentCell.polygon
+        sharedInstance.hood = currentCell.titleLabel.text
     }
 
 

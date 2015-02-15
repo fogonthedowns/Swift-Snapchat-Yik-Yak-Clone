@@ -14,7 +14,7 @@ class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
     
     var navViewController : UINavigationController!
     var cameraViewController : CameraViewController!
-    var districtsViewController: DistrictsTableViewController!
+    var districtsViewController: DistrictsUINavigationController!
     var currentViewController:UIViewController? = nil
         
     override func viewDidLoad() {
@@ -32,7 +32,7 @@ class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
         self.cameraViewController = self.storyboard?.instantiateViewControllerWithIdentifier("cameraViewController") as? CameraViewController
         self.cameraViewController.title = "Camera"
         
-        self.districtsViewController = self.storyboard?.instantiateViewControllerWithIdentifier("districtsViewController") as? DistrictsTableViewController
+        self.districtsViewController = self.storyboard?.instantiateViewControllerWithIdentifier("districtsUINavigationController") as? DistrictsUINavigationController
         self.districtsViewController.title = "San Francisco"
         // println("Camera has landed!")
         self.currentViewController = self.navViewController

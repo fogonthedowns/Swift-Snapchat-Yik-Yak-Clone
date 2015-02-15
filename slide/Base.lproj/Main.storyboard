@@ -118,9 +118,10 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="s3i-hT-KRT">
-                        <barButtonItem key="rightBarButtonItem" image="camera" id="Zl2-nl-jcj">
+                        <barButtonItem key="rightBarButtonItem" image="camera" style="plain" id="Zl2-nl-jcj" customClass="CameraButton" customModule="slide" customModuleProvider="target">
+                            <color key="tintColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                             <connections>
-                                <segue destination="vXZ-lx-hvc" kind="show" id="jYa-2H-R5J"/>
+                                <segue destination="RIP-oa-5aP" kind="show" id="SHC-GD-NPa"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -129,7 +130,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fez-xg-qz5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="827.5" y="710.5"/>
+            <point key="canvasLocation" x="1639.5" y="710.5"/>
         </scene>
         <!--Root View Controller-->
         <scene sceneID="0H3-Fm-6at">
@@ -173,11 +174,12 @@
                             <outlet property="delegate" destination="POR-F8-INw" id="Z5b-nS-hVJ"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="YBY-CR-1pB"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hsZ-tp-a19" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-185.5" y="709.5"/>
+            <point key="canvasLocation" x="319.5" y="750.5"/>
         </scene>
         <!--Custom Navigation-->
         <scene sceneID="xtN-r7-WPC">
@@ -198,7 +200,27 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0P0-af-p8O" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="356.5" y="710.5"/>
+            <point key="canvasLocation" x="1168.5" y="710.5"/>
+        </scene>
+        <!--DistrictsUI Navigation Controller-->
+        <scene sceneID="133-Mo-bjh">
+            <objects>
+                <navigationController storyboardIdentifier="districtsUINavigationController" automaticallyAdjustsScrollViewInsets="NO" id="XRr-8L-zPh" customClass="DistrictsUINavigationController" customModule="slide" customModuleProvider="target" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="vmp-Cq-lqe">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.97136193510000002" green="0.67824584249999997" blue="0.10124506799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="POR-F8-INw" kind="relationship" relationship="rootViewController" id="Qkc-eV-gPl"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="b0V-5I-UUz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-168" y="744"/>
         </scene>
     </scenes>
     <resources>
