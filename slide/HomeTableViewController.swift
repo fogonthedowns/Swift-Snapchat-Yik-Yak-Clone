@@ -31,13 +31,14 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
     var longitute = "1"
     var videoModelList: NSMutableArray = [] // This is the array that my tableView
     var sharedInstance = VideoDataToAPI.sharedInstance
+
+
     let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Receive Notification and call loadSnaps once we have a user
+               // Receive Notification and call loadSnaps once we have a user
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadSnaps", name: getSnapsBecauseIhaveAUserLoaded, object: nil)
         userObject.findUser();
         
@@ -66,9 +67,10 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         self.refreshControl = refresh
     }
     
-    // override func viewDidAppear(animated: Bool) {
-    //     super.viewDidAppear(true)
-    // }
+     override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(true)
+        println(sharedInstance.polygon)
+     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -204,7 +206,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         // Make sure we are on the main thread, and update the UI.
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
-              NSLog("refreshing \(self.videoModelList)")
+              // NSLog("refreshing \(self.videoModelList)")
             self.tableView.reloadData()
         })
     }
@@ -216,7 +218,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         let filePath = determineFilePath(s3downloadname)
         // if the file exists return, don't start an asynch download
         if NSFileManager.defaultManager().fileExistsAtPath(filePath) {
-            NSLog("FILE ALREADY DOWNLOADED")
+            // NSLog("FILE ALREADY DOWNLOADED")
             return;
         }
         
@@ -224,7 +226,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
             // push current downloadtask into an array
             // array processes recursive function
             sharedInstance.listOfVideosToDownload.addObject(s3downloadname)
-            NSLog("videos in array %@", sharedInstance.listOfVideosToDownload)
+            // NSLog("videos in array %@", sharedInstance.listOfVideosToDownload)
             return;
         }
 
@@ -331,7 +333,6 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
     
     func pullToLoadSnaps(sender:AnyObject)
     {
-        NSLog("In Refresh Block..................")
         self.loadSnaps()
         self.tableView.reloadData()
         self.refreshControl?.endRefreshing()
