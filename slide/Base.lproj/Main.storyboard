@@ -119,9 +119,9 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="s3i-hT-KRT">
                         <barButtonItem key="rightBarButtonItem" image="camera" id="Zl2-nl-jcj" customClass="CameraButton" customModule="slide" customModuleProvider="target">
-                            <color key="tintColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <segue destination="RIP-oa-5aP" kind="show" id="SHC-GD-NPa"/>
+                                <action selector="navigateToCamera:" destination="JDP-CG-fzf" id="LF3-Rd-WI2"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
