@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "cancel icon + circle.png"
+      "filename" : "cancel icon.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "cancel icon + circle-1.png"
+      "filename" : "cancel icon-1.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "cancel icon + circle-2.png"
+      "filename" : "cancel icon-2.png"
     }
   ],
   "info" : {
