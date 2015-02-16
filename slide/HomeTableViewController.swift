@@ -123,8 +123,18 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         // possible point for dictionary integration, key is video.film
         // but how to solve this when there are many districts? many dictionaries?
         cell.titleLabel.text = video.film
+        println("votes")
+        println(video.votes)
         var lbl : UILabel? = cell.contentView.viewWithTag(1) as? UILabel
         lbl?.text = video.userDescription
+        if (video.votes > 0) {
+            cell.starImage.image = UIImage(named:("starwithvotes"))
+            cell.voteCount.text = video.votes.stringValue
+        } else {
+            cell.starImage.image = UIImage(named:("starnovotes"))
+        }
+        
+        cell.userVote.addTarget(self, action: "checkButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
         
         cell.selectionStyle = .None
         self.start(video.film)
@@ -220,7 +230,8 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
                     id: rowAPIresult["film"].stringValue,
                     user: rowAPIresult["userId"].stringValue,
                     img: rowAPIresult["img"].stringValue,
-                    description: rowAPIresult["description"].stringValue
+                    description: rowAPIresult["description"].stringValue,
+                    votes: rowAPIresult["votes"].count
                 )
                 
                 videos.addObject(videoModel)
@@ -348,6 +359,17 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         }
         
         // NSLog("Completion Handler has been invoked, background download task has finished.");
+    }
+    
+    
+    func checkButtonTapped(sender:AnyObject){
+        println("clicked me")
+        
+        var btnPos: CGPoint = sender.convertPoint(CGPointZero, toView: self.tableView)
+        var indexPath: NSIndexPath = self.tableView.indexPathForRowAtPoint(btnPos)!
+        let video: VideoModel = videoModelList[indexPath.row] as VideoModel
+        println(video.userDescription)
+        
     }
     
     func determineFilePath(file:NSString)-> NSString {
