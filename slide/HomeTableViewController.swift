@@ -90,6 +90,9 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         NSNotificationCenter.defaultCenter().postNotificationName(didClickToNavigateToCamera, object: self)
     }
 
+    @IBAction func navigateToDistricts(sender: AnyObject) {
+        NSNotificationCenter.defaultCenter().postNotificationName(didClickToNavigateToDistricts, object: self)
+    }
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
