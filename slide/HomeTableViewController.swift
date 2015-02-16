@@ -36,17 +36,14 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
     
     let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
    
-
     override func viewDidLoad() {
         super.viewDidLoad()
                // Receive Notification and call loadSnaps once we have a user
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadSnaps", name: getSnapsBecauseIhaveAUserLoaded, object: nil)
         userObject.findUser();
-    
-        
+
         // Table Row Init
-        self.tableView.rowHeight = 115.0
-        self.title = "Soma"
+        self.tableView.rowHeight = 70.0
         let longpress = UILongPressGestureRecognizer(target: self, action: "handleLongPress:")
         longpress.minimumPressDuration = 0.35
         tableView.addGestureRecognizer(longpress)
@@ -72,6 +69,8 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
      override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(true)
         if (sharedInstance.hood == nil) {
+        } else if (self.title == sharedInstance.hood) {
+            println("title didn't change")
         } else {
           self.hood = sharedInstance.hood
           self.loadSnaps()

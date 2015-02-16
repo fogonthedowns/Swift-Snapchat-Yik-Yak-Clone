@@ -299,21 +299,25 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     // so start processing video and segue
     
     @IBAction func pressConfirmVideo(sender: AnyObject) {
-        NSNotificationCenter.defaultCenter().postNotificationName(didFinishUploadPresentNewPage, object: self)
-        self.processImage()
-    }
-    
-    func processImage(){
-        
         UIApplication.sharedApplication().statusBarHidden=false
         self.view.sendSubviewToBack(self.confirmationView)
         self.view.sendSubviewToBack(self.moviePlayer.view)
         // view logic
         self.stopPreview = true
         self.moviePlayer.stop()
+        NSNotificationCenter.defaultCenter().postNotificationName(didFinishUploadPresentNewPage, object: self)
+        
+        let qualityOfServiceClass = QOS_CLASS_BACKGROUND
+        let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
+        dispatch_async(backgroundQueue, {
+            //println("This is run on the background queue")
+            self.processImage()
+        })
         
         
-        
+    }
+    
+    func processImage(){
         // process image
         var videoFile = self.tempVideo as NSURL!
         let pathString = videoFile.relativePath
