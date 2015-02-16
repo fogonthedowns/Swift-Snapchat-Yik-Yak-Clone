@@ -17,6 +17,7 @@ protocol APIProtocol {
 }
 
 let getSnapsBecauseIhaveAUserLoaded = "com.snapAPI.specialNotificationKey"
+let didCompleteUploadWithNoErrors = "com.snapAPI.didCompleteUpload"
 
 class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSURLSessionTaskDelegate, NSURLSessionDownloadDelegate, UIPageViewControllerDelegate, APIProtocol {
     let userObject = UserModel()
@@ -35,12 +36,18 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
     var hood:NSString = ""
     
     let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+    
+    // notification
+    // var localNotification:UILocalNotification = UILocalNotification()
    
     override func viewDidLoad() {
         super.viewDidLoad()
                // Receive Notification and call loadSnaps once we have a user
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadSnaps", name: getSnapsBecauseIhaveAUserLoaded, object: nil)
         userObject.findUser();
+        
+        
+        //// end notification
 
         // Table Row Init
         self.tableView.rowHeight = 70.0
@@ -113,6 +120,8 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         let cell = tableView.dequeueReusableCellWithIdentifier("VideoCell") as VideoCellTableViewCell
         let video: VideoModel = videoModelList[indexPath.row] as VideoModel
         
+        // possible point for dictionary integration, key is video.film
+        // but how to solve this when there are many districts? many dictionaries?
         cell.titleLabel.text = video.film
         var lbl : UILabel? = cell.contentView.viewWithTag(1) as? UILabel
         lbl?.text = video.userDescription
@@ -353,6 +362,13 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         self.tableView.reloadData()
         self.refreshControl?.endRefreshing()
     }
+    
+//    func sendNotification() {
+//        localNotification.alertAction = "Testing notifications on iOS8"
+//        localNotification.alertBody = "Woww it works!!"
+//        localNotification.fireDate = NSDate(timeIntervalSinceNow: 30)
+//        UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
+//    }
     
     func loadSnaps() {
         userObject.apiObject.getSnaps(self.latitude,long: self.longitute, hood: self.hood, delegate:self)
