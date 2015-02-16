@@ -12,6 +12,7 @@ let didFinishUploadPresentNewPage = "com.snapAPI.presentNewPage"
 let didClickToNavigateToCamera = "com.snapAPI.presentCamera"
 let didClickToNavigateToDistricts = "com.snapAPI.presentDistricts"
 
+
 class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
     
     var navViewController : UINavigationController!

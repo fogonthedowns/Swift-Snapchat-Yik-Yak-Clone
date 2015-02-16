@@ -92,7 +92,17 @@ class APIModel: NSObject {
             ]
         ]
         
-        request(.POST, "https://airimg.com/snaps/new", parameters: parameters)
+        request(.POST, "https://airimg.com/snaps/new", parameters: parameters).validate().response { (request, response, data, error) in
+            println(request)
+            println(response)
+             if (error == nil){
+                 println("we have a good! response")
+                didCompleteUploadWithNoErrors
+                 NSNotificationCenter.defaultCenter().postNotificationName(getSnapsBecauseIhaveAUserLoaded, object: self)
+             } else {
+                println(error)
+            }
+        }
         
         // self.postRequest(requestUrl)
     }
