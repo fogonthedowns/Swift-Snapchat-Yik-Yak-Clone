@@ -67,6 +67,8 @@ class APIModel: NSObject {
         }
     }
     
+    
+    
     func createUser(Userid:NSString) {
       NSLog("********************************************** createUser() called with Device Token=%@", Userid)
       userID = Userid
@@ -75,8 +77,6 @@ class APIModel: NSObject {
     }
     
     func createSnap(lat:NSString,long:NSString,video:NSString,image:NSString, description:NSString){
-        var requestUrl = "https://airimg.com/snaps/new?access_token=" + self.accessToken + "&token=17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY&snap[userId]=" + self.apiUserId +  "&snap[img]=" + image + "&snap[film]=" + video + "&snap[lat]=" + lat + "&snap[long]=" + long + "&device_token=" + self.userID + "&snap[description]=" + description
-
         let parameters = [
             "device_token":self.userID,
             "access_token": self.accessToken,
@@ -106,6 +106,32 @@ class APIModel: NSObject {
         // self.postRequest(requestUrl)
     }
     
+    //
+    func voteforSnap(video:NSString){
+        let parameters = [
+            "device_token":self.userID,
+            "access_token": self.accessToken,
+            "token": "17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY",
+            "user_id": self.apiUserId,
+            "film": video
+        ]
+        
+        request(.PUT, "https://airimg.com/snaps/update", parameters: parameters).validate().response { (request, response, data, error) in
+            println(request)
+            println(response)
+            if (error == nil){
+                println("we have a good! update response")
+                didCompleteUploadWithNoErrors
+                NSNotificationCenter.defaultCenter().postNotificationName(getSnapsBecauseIhaveAUserLoaded, object: self)
+            } else {
+                println(error)
+            }
+        }
+        
+        // self.postRequest(requestUrl)
+    }
+    
+    //
     func postRequest(url:NSString) {
         if var localURL = url as NSString? {
             NSLog("localURL: %@", localURL)

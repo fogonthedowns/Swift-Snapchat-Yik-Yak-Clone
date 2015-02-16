@@ -132,6 +132,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
             cell.voteCount.text = video.votes.stringValue
         } else {
             cell.starImage.image = UIImage(named:("starnovotes"))
+            cell.voteCount.text = ""
         }
         
         cell.userVote.addTarget(self, action: "checkButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -363,12 +364,11 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
     
     
     func checkButtonTapped(sender:AnyObject){
-        println("clicked me")
-        
         var btnPos: CGPoint = sender.convertPoint(CGPointZero, toView: self.tableView)
         var indexPath: NSIndexPath = self.tableView.indexPathForRowAtPoint(btnPos)!
         let video: VideoModel = videoModelList[indexPath.row] as VideoModel
         println(video.userDescription)
+        self.vote(video.film)
         
     }
     
@@ -394,5 +394,9 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
     
     func loadSnaps() {
         userObject.apiObject.getSnaps(self.latitude,long: self.longitute, hood: self.hood, delegate:self)
+    }
+    
+    func vote(video:NSString) {
+        userObject.apiObject.voteforSnap(video)
     }
 }

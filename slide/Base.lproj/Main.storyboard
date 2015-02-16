@@ -104,10 +104,10 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="joK-7s-x1s">
-                                            <rect key="frame" x="332" y="16" width="20" height="20"/>
+                                            <rect key="frame" x="332" y="21" width="20" height="20"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pf1-Yo-G29">
-                                            <rect key="frame" x="332" y="41" width="20" height="20"/>
+                                            <rect key="frame" x="332" y="46" width="20" height="20"/>
                                             <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="20"/>
                                             <color key="textColor" red="0.97136193510000002" green="0.67824584249999997" blue="0.10124506799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
