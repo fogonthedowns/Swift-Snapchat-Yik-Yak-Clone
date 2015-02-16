@@ -12,7 +12,10 @@ class VideoCellTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var videoPreview: UIImageView!
     
-
+    @IBOutlet weak var starImage: UIImageView!
+    @IBOutlet weak var voteCount: UILabel!
+    
+    @IBOutlet weak var userVote: UIButton!
     var video: NSString!
     
     override func awakeFromNib() {
