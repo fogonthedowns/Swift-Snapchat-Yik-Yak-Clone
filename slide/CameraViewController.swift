@@ -289,6 +289,8 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     
     @IBAction func pressBackButtonfromConfirm(sender: AnyObject) {
         UIApplication.sharedApplication().statusBarHidden=false
+        self.DismissKeyboard()
+        self.userDescription.text = ""
         self.stopPreview = true
         self.moviePlayer.stop()
         self.view.sendSubviewToBack(self.confirmationView)
@@ -550,6 +552,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     
     func postSnap(lat:NSString,long:NSString,video:NSString,image:NSString, description:NSString) -> Bool {
         userObject.apiObject.createSnap(lat,long:long,video:video,image:image, description:description)
+        self.userDescription.text = ""
         return true;
     }
     
