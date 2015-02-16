@@ -32,6 +32,10 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
         // Table Row Init
         self.tableView.rowHeight = 115.0
         self.title = "San Francisco"
+        
+        var refresh = UIRefreshControl()
+        refresh.addTarget(self, action: "pullToLoadDistricts:", forControlEvents:.ValueChanged)
+        self.refreshControl = refresh
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -121,6 +125,12 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
         
         sharedInstance.hood = currentCell.titleLabel.text
         NSNotificationCenter.defaultCenter().postNotificationName(didFinishUploadPresentNewPage, object: self)
+    }
+    
+    func pullToLoadDistricts(sender:AnyObject) {
+        self.loadDistricts()
+        self.tableView.reloadData()
+        self.refreshControl?.endRefreshing()
     }
 
 

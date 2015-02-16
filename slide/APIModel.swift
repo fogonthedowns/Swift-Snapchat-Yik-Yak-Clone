@@ -34,7 +34,6 @@ class APIModel: NSObject {
         request(.GET, requestUrl, parameters: ["hood": hood, "lat":lat, "long":long, "token":"17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY","device_token":self.userID, "access_token": self.accessToken])
             .responseJSON { (req, res, json, error) in
                 if(error != nil) {
-                    NSLog("GET Error: \(error)")
                     println(res)
                 }
                 else {
