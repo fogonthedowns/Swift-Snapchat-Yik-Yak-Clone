@@ -17,8 +17,10 @@ class APIModel: NSObject {
     // These are set by the UserModel
     var data: NSMutableData = NSMutableData()
     var accessToken: NSString = ""
+    
+    // TODO apiUserId is the snap row ID
     var apiUserId: NSString = ""
-    // TODO rename to device token
+    // TODO rename to deviceToken stored as identity
     var userID: NSString = ""
 
     
@@ -180,6 +182,7 @@ class APIModel: NSObject {
         // Convert the retrieved data in to an object through JSON deserialization
         var err: NSError
         let json = JSON(data: data)
+         NSLog("connnectionDIDFINISH Result: \(json)")
         self.processJson(json)
         
     }
@@ -198,9 +201,10 @@ class APIModel: NSObject {
             if (json["access_token"] != nil) {
                 NSLog(" ----------------------------- found access_token key ----------------------------- ")
                 self.accessToken = json["access_token"].stringValue as NSString
-                self.apiUserId = json["_id"].stringValue as NSString
+                self.apiUserId = json["_id"]["$oid"].stringValue as NSString
                 NSLog("accessToken:%@", accessToken)
-                NSLog("snap ID:%@", apiUserId)
+                NSLog("snap row ID:%@", apiUserId)
+                
                 self.updateUser()
             }
             
