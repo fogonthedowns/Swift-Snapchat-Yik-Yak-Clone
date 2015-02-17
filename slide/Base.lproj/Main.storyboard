@@ -67,7 +67,6 @@
                         <outlet property="confirmationView" destination="HeY-DP-swx" id="LlC-JO-oG8"/>
                         <outlet property="takeVideoButton" destination="WIF-1Y-Zi8" id="fnF-6J-EZ1"/>
                         <outlet property="userDescription" destination="lNk-Y2-vme" id="Br2-OA-e6B"/>
-                        <segue destination="LAb-ds-gP8" kind="show" identifier="goHome" id="O0n-7M-ItV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -107,7 +106,7 @@
                                             <rect key="frame" x="332" y="21" width="20" height="20"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pf1-Yo-G29">
-                                            <rect key="frame" x="332" y="46" width="20" height="20"/>
+                                            <rect key="frame" x="332" y="46" width="25" height="20"/>
                                             <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="20"/>
                                             <color key="textColor" red="0.97136193510000002" green="0.67824584249999997" blue="0.10124506799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -155,6 +154,34 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fez-xg-qz5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1639.5" y="709.5"/>
+        </scene>
+        <!--Comments Table View Controller-->
+        <scene sceneID="rkc-uy-vul">
+            <objects>
+                <tableViewController id="ljy-an-viE" customClass="CommentsTableViewController" customModule="slide" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Z6g-TY-Yfp">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="aQA-cI-BzV">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aQA-cI-BzV" id="BdE-ft-9YF">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="ljy-an-viE" id="tf4-eb-3tb"/>
+                            <outlet property="delegate" destination="ljy-an-viE" id="GEX-Y1-VcI"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="dxC-YL-0m2"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6yL-OI-ret" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3452.5" y="710.5"/>
         </scene>
         <!--Root View Controller-->
         <scene sceneID="0H3-Fm-6at">
@@ -253,6 +280,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b0V-5I-UUz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-168" y="744"/>
+        </scene>
+        <!--CommentsUI Navigation Controller-->
+        <scene sceneID="RvI-Rs-Eta">
+            <objects>
+                <navigationController restorationIdentifier="commentsUINavigationController" storyboardIdentifier="commentsUINavigationController" automaticallyAdjustsScrollViewInsets="NO" id="OfN-iQ-l7X" customClass="CommentsUINavigationController" customModule="slide" customModuleProvider="target" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="eRl-y6-C4m">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ljy-an-viE" kind="relationship" relationship="rootViewController" id="orF-BG-pRh"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YFM-JB-ZKi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2640" y="710"/>
         </scene>
     </scenes>
     <resources>
