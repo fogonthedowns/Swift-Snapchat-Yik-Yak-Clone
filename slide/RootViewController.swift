@@ -9,6 +9,7 @@
 import UIKit
 
 let didFinishUploadPresentNewPage = "com.snapAPI.presentNewPage"
+let didClickToNavigateBackHome = "com.snapAPI.navigateBackHome"
 let didClickToNavigateToCamera = "com.snapAPI.presentCamera"
 let didClickToNavigateToDistricts = "com.snapAPI.presentDistricts"
 let didClickToNavigateToComments = "com.snapAPI.presentComments"
@@ -26,6 +27,7 @@ class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
         super.viewDidLoad()
         NSLog("*****************************")
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "navigateHome", name: didFinishUploadPresentNewPage, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "navigateBackHome", name: didClickToNavigateBackHome, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "navigateToCamera", name: didClickToNavigateToCamera, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "navigateToDistricts", name: didClickToNavigateToDistricts, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "navigateToComments", name: didClickToNavigateToComments, object: nil)
@@ -95,6 +97,11 @@ class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
     func navigateHome() {
         var navigateToHome : NSArray = [self.navViewController]
         self.setViewControllers(navigateToHome, direction: .Forward, animated: true, completion: nil)
+    }
+    
+    func navigateBackHome() {
+        var navigateToHome : NSArray = [self.navViewController]
+        self.setViewControllers(navigateToHome, direction: .Reverse, animated: true, completion: nil)
     }
     
     func navigateToCamera() {
