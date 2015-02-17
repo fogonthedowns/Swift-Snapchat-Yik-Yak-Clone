@@ -119,7 +119,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
 
         let cell = tableView.dequeueReusableCellWithIdentifier("VideoCell") as VideoCellTableViewCell
         let video: VideoModel = videoModelList[indexPath.row] as VideoModel
-        
+        cell.videoModel = video
         // possible point for dictionary integration, key is video.film
         // but how to solve this when there are many districts? many dictionaries?
         cell.titleLabel.text = video.film
@@ -163,7 +163,18 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
             }
         })
         return cell
-    }
+    } // func tableView(cellForRowAtIndexPath)
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        let indexPath = tableView.indexPathForSelectedRow();
+        
+        let currentCell = tableView.cellForRowAtIndexPath(indexPath!) as VideoCellTableViewCell
+        
+        sharedInstance.videoForCommentController = currentCell.videoModel
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(didClickToNavigateToComments, object: self)
+    } // tableView(didSelectRowAtIndexPath)
     
     func handleLongPress(sender:UILongPressGestureRecognizer!) {
         let localLongPress = sender as UILongPressGestureRecognizer
@@ -211,15 +222,6 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
             UIApplication.sharedApplication().statusBarHidden=false;
         }
     }
-    
-    // what calls this?!
-    // global search shows nothing
-    //    func longPressGestureRecognized(gestureRecognizer: UIGestureRecognizer) {
-    //        let localLongPress = gestureRecognizer as UILongPressGestureRecognizer
-    //        let state = localLongPress.state
-    //        var locationInView = localLongPress.locationInView(tableView)
-    //        var indexPath = tableView.indexPathForRowAtPoint(locationInView)
-    //    }
     
     func didReceiveResult(result: JSON) {
         // local array var used in this function
