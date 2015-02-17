@@ -16,6 +16,7 @@ class VideoDataToAPI {
     var longitute: String = ""
     var downloadName: String = ""
     var listOfVideosToDownload: NSMutableArray = []
+    var videoForCommentController: VideoModel!
     // var userObject = UserModel()
     var hood: NSString!
     

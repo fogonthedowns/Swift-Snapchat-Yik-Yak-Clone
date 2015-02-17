@@ -17,6 +17,7 @@ class VideoCellTableViewCell: UITableViewCell {
     
     @IBOutlet weak var userVote: UIButton!
     var video: NSString!
+    var videoModel: VideoModel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

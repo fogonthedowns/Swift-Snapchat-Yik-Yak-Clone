@@ -11,6 +11,7 @@ import UIKit
 let didFinishUploadPresentNewPage = "com.snapAPI.presentNewPage"
 let didClickToNavigateToCamera = "com.snapAPI.presentCamera"
 let didClickToNavigateToDistricts = "com.snapAPI.presentDistricts"
+let didClickToNavigateToComments = "com.snapAPI.presentComments"
 
 
 class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
@@ -18,6 +19,7 @@ class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
     var navViewController : UINavigationController!
     var cameraViewController : CameraViewController!
     var districtsViewController: DistrictsUINavigationController!
+    var commentsUINavigationController: CommentsUINavigationController!
     var currentViewController:UIViewController? = nil
         
     override func viewDidLoad() {
@@ -26,6 +28,7 @@ class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "navigateHome", name: didFinishUploadPresentNewPage, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "navigateToCamera", name: didClickToNavigateToCamera, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "navigateToDistricts", name: didClickToNavigateToDistricts, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "navigateToComments", name: didClickToNavigateToComments, object: nil)
         
         // set UIPageViewControllerDataSource
         self.dataSource = self
@@ -40,6 +43,9 @@ class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
         
         self.districtsViewController = self.storyboard?.instantiateViewControllerWithIdentifier("districtsUINavigationController") as? DistrictsUINavigationController
         self.districtsViewController.title = "San Francisco"
+        
+        self.commentsUINavigationController = self.storyboard?.instantiateViewControllerWithIdentifier("commentsUINavigationController") as? CommentsUINavigationController
+        
         // println("Camera has landed!")
         self.currentViewController = self.navViewController
         // Set starting view controllers
@@ -100,6 +106,12 @@ class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
         var navigateToHome : NSArray = [self.districtsViewController]
         self.setViewControllers(navigateToHome, direction: .Reverse, animated: true, completion: nil)
     }
+    
+    func navigateToComments() {
+        var navigateToComments : NSArray = [self.commentsUINavigationController]
+        self.setViewControllers(navigateToComments, direction: .Forward, animated: true, completion: nil)
+    }
+    
     /*
     // MARK: - Navigation
 
