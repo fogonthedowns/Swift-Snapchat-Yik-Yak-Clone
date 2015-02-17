@@ -123,8 +123,8 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         // possible point for dictionary integration, key is video.film
         // but how to solve this when there are many districts? many dictionaries?
         cell.titleLabel.text = video.film
-        println("votes")
-        println(video.votes)
+        // println("votes")
+        // println(video.votes)
         var lbl : UILabel? = cell.contentView.viewWithTag(1) as? UILabel
         lbl?.text = video.userDescription
         if (video.votes > 0) {
@@ -170,9 +170,9 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         let indexPath = tableView.indexPathForSelectedRow();
         
         let currentCell = tableView.cellForRowAtIndexPath(indexPath!) as VideoCellTableViewCell
-        
         sharedInstance.videoForCommentController = currentCell.videoModel
-        
+        println(currentCell.videoModel.userDescription)
+        println(self.sharedInstance.videoForCommentController.userDescription)
         NSNotificationCenter.defaultCenter().postNotificationName(didClickToNavigateToComments, object: self)
     } // tableView(didSelectRowAtIndexPath)
     
@@ -184,8 +184,8 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         // but strangely only on EndedState
         var indexPath = tableView.indexPathForRowAtPoint(locationInView)
         if indexPath != nil {
-            var cell = self.tableView.cellForRowAtIndexPath(indexPath!) as VideoCellTableViewCell
-            var urlString = cell.titleLabel.text!
+            let cell = self.tableView.cellForRowAtIndexPath(indexPath!) as VideoCellTableViewCell
+            let urlString = cell.titleLabel.text!
             println("Long press Block .................");
 
             let filePath = determineFilePath(cell.titleLabel.text!)

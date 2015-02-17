@@ -14,6 +14,7 @@
 		F117D9801A8EAD67001CEB44 /* DistrictTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F117D97F1A8EAD67001CEB44 /* DistrictTableViewCell.swift */; };
 		F154CA6D1A93BBE100C6076A /* CommentsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F154CA6C1A93BBE100C6076A /* CommentsTableViewController.swift */; };
 		F154CA6F1A93BC4900C6076A /* CommentsUINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F154CA6E1A93BC4900C6076A /* CommentsUINavigationController.swift */; };
+		F154CA711A93F4A300C6076A /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F154CA701A93F4A300C6076A /* CommentTableViewCell.swift */; };
 		F16319C01A90319D005B2FC1 /* camerabutton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16319BF1A90319D005B2FC1 /* camerabutton.swift */; };
 		F16319C41A907532005B2FC1 /* DistrictsUINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16319C31A907532005B2FC1 /* DistrictsUINavigationController.swift */; };
 		F16F72B21A901185005A149A /* SharedInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16F72B11A901185005A149A /* SharedInstance.swift */; };
@@ -57,6 +58,7 @@
 		F117D97F1A8EAD67001CEB44 /* DistrictTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistrictTableViewCell.swift; sourceTree = "<group>"; };
 		F154CA6C1A93BBE100C6076A /* CommentsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsTableViewController.swift; sourceTree = "<group>"; };
 		F154CA6E1A93BC4900C6076A /* CommentsUINavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsUINavigationController.swift; sourceTree = "<group>"; };
+		F154CA701A93F4A300C6076A /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		F16319BF1A90319D005B2FC1 /* camerabutton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = camerabutton.swift; sourceTree = "<group>"; };
 		F16319C31A907532005B2FC1 /* DistrictsUINavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistrictsUINavigationController.swift; sourceTree = "<group>"; };
 		F16F72B11A901185005A149A /* SharedInstance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedInstance.swift; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 				F16319BF1A90319D005B2FC1 /* camerabutton.swift */,
 				F1F2DE7C1A77F574005B75B0 /* Images.xcassets */,
 				F1F2DEAC1A7D8378005B75B0 /* VideoCellTableViewCell.swift */,
+				F154CA701A93F4A300C6076A /* CommentTableViewCell.swift */,
 				F117D97F1A8EAD67001CEB44 /* DistrictTableViewCell.swift */,
 				F1F2DE7E1A77F574005B75B0 /* LaunchScreen.xib */,
 			);
@@ -381,6 +384,7 @@
 			files = (
 				F1D81CA41A7F274A00C0B728 /* CustomNavigation.swift in Sources */,
 				F1F2DEA01A7ABB4A005B75B0 /* HomeTableViewController.swift in Sources */,
+				F154CA711A93F4A300C6076A /* CommentTableViewCell.swift in Sources */,
 				F1F2DE781A77F574005B75B0 /* ViewController.swift in Sources */,
 				F1F2DE9E1A797BA9005B75B0 /* UserModel.swift in Sources */,
 				F1F2DEA51A7D5FA2005B75B0 /* VideoModel.swift in Sources */,
