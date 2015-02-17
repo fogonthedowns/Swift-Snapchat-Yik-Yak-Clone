@@ -394,9 +394,9 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
                     
                   // TODO Post this right before sendtoAWS, move the above into a singleton, that can function in the background
                     
-                  // self.performSegueWithIdentifier("goHome", sender: self)
+                  
                   self.successCount = 0
-                  // self.performSegueWithIdentifier("goHome", sender: self)
+                  
                 }
             } // end dispatch_async()
         } else {
