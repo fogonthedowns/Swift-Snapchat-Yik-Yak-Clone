@@ -78,12 +78,13 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         if (sharedInstance.hood == nil) {
         } else if (self.title == sharedInstance.hood) {
             println("title didn't change")
+            self.loadSnaps()
+            self.tableView.reloadData()
         } else {
           self.hood = sharedInstance.hood
           self.loadSnaps()
           self.tableView.reloadData()
           self.title = self.hood
-            // .title = self.hood
         }
         
      }
