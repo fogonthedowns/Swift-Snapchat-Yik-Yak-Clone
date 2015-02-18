@@ -307,7 +307,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         // view logic
         self.stopPreview = true
         self.moviePlayer.stop()
-        NSNotificationCenter.defaultCenter().postNotificationName(didFinishUploadPresentNewPage, object: self)
+        NSNotificationCenter.defaultCenter().postNotificationName(didClickToNavigateBackHome, object: self)
         
         let qualityOfServiceClass = QOS_CLASS_BACKGROUND
         let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
