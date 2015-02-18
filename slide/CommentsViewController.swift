@@ -16,6 +16,7 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var snapImage: UIImageView!
     @IBOutlet weak var commentBody: UITextField!
     let sharedInstance = VideoDataToAPI.sharedInstance
+    var commentModelList: NSMutableArray = [] // This is the array that my tableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,9 +33,11 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     
 
     override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(true)
+        self.processComments()
         // setup the snap cell, text, links, image etc.
         // lots of repeated code, but we use the sharedInstance to pass data between controllers
-        println("comment count: %@", VideoDataToAPI.sharedInstance.videoForCommentController.comments)
+        println("comments: %@", VideoDataToAPI.sharedInstance.videoForCommentController.comments)
         self.snapBody.text = sharedInstance.videoForCommentController.userDescription
         var urlString = "https://s3-us-west-1.amazonaws.com/slideby/" + sharedInstance.videoForCommentController.img
         let url = NSURL(string: urlString)
@@ -86,12 +89,14 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return 1
+        return commentModelList.count
     }
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("CommentCell") as CommentTableViewCell
+        let comment: CommentModel = commentModelList[indexPath.row] as CommentModel
+        cell.commentBody.text = comment.body
         return cell
     }
 
@@ -101,6 +106,28 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         
         let row = indexPath.row
         println(row)
+    }
+    
+    func processComments() {
+        // local array var used in this function
+        var comments: NSMutableArray = []
+        
+        for (key, value) in VideoDataToAPI.sharedInstance.videoForCommentController.comments {
+            var commentModel = CommentModel(
+                body: value as NSString,
+                user: key as NSString
+            )
+            comments.addObject(commentModel)
+        }
+        
+        // Set our array of new models
+        commentModelList = comments
+        // Make sure we are on the main thread, and update the UI.
+        
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            // NSLog("refreshing \(self.videoModelList)")
+            self.tableView.reloadData()
+        })
     }
 
 }
