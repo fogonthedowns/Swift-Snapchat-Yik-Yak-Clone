@@ -32,6 +32,9 @@ class CommentsTableViewController: UITableViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
+        // setup the snap cell, text, links, image etc.
+        // lots of repeated code, but we use the sharedInstance to pass data between controllers
+        
         self.snapTitle.text = sharedInstance.videoForCommentController.userDescription
         var urlString = "https://s3-us-west-1.amazonaws.com/slideby/" + sharedInstance.videoForCommentController.img
         let url = NSURL(string: urlString)

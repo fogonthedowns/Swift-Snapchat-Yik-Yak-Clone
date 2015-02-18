@@ -15,14 +15,15 @@ class VideoModel: NSObject {
     let img: String
     let userDescription: String
     let votes: NSNumber
+    let comments: NSNumber
     
-    init(id: String, user:String, img:String, description:String, votes:NSNumber) {
-        NSLog("description.....%@", description)
+    init(id: String, user:String, img:String, description:String, votes:NSNumber, comments:NSNumber) {
         self.film = id
         self.userId = user
         self.img = img
         self.userDescription = description
         self.votes = votes
+        self.comments = comments
     }
     
 }
