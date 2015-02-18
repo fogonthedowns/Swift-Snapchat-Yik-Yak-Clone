@@ -234,7 +234,8 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
                     user: rowAPIresult["userId"].stringValue,
                     img: rowAPIresult["img"].stringValue,
                     description: rowAPIresult["description"].stringValue,
-                    votes: rowAPIresult["votes"].count
+                    votes: rowAPIresult["votes"].count,
+                    comments: rowAPIresult["comments"].count
                 )
                 
                 videos.addObject(videoModel)
