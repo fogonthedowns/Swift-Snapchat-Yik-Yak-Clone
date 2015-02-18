@@ -8,8 +8,10 @@
 
 import UIKit
 
-class CommentsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class CommentsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
+    @IBOutlet weak var commentCreateView: UIView!
+    @IBOutlet var primaryView: UIView!
     @IBOutlet var tableView: UITableView!
     @IBOutlet weak var snapBody: UILabel!
     @IBOutlet weak var likeImage: UIImageView!
@@ -18,6 +20,7 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     let sharedInstance = VideoDataToAPI.sharedInstance
     let userObject = UserModel()
     
+    
     var commentModelList: NSMutableArray = [] // This is the array that my tableView
     
     override func viewDidLoad() {
@@ -25,11 +28,14 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         userObject.findUser()
         
         var tap:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
-        self.tableView.addGestureRecognizer(tap)
-
+        self.primaryView.addGestureRecognizer(tap)
+//        self.snapView.addGestureRecognizer(tap)
+        
         // self.tableView.registerClass(CommentTableViewCell.self, forCellReuseIdentifier: "CommentCell")
         tableView.delegate = self
         tableView.dataSource = self
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name:UIKeyboardWillShowNotification, object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name:UIKeyboardWillHideNotification, object: nil);
     }
 
     override func didReceiveMemoryWarning() {
@@ -72,7 +78,6 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     
     // User Clicked to Post Comment
     @IBAction func userPostComment(sender: AnyObject) {
-        self.postComment(self.newCommentBody.text)
         var commentModel = CommentModel(
             body: self.newCommentBody.text as NSString,
             user: "blank" as NSString
@@ -82,11 +87,21 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
             // NSLog("refreshing \(self.videoModelList)")
             self.tableView.reloadData()
         })
+        self.postComment(self.newCommentBody.text)
+        self.DismissKeyboard()
     }
     
     @IBAction func clickBackHome(sender: AnyObject) {
+        self.DismissKeyboard()
         NSNotificationCenter.defaultCenter().postNotificationName(didClickToNavigateBackHome, object: self)
     }
+    
+    
+    func textFieldShouldReturn(textField: UITextField!) -> Bool {
+        self.view.endEditing(true);
+        return false;
+    }
+    
     
     override func viewDidDisappear(animated: Bool) {
         self.snapBody.text = ""
@@ -145,14 +160,22 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         })
     }
     
+    func keyboardWillShow(sender: NSNotification) {
+        self.view.frame.origin.y -= 255
+    }
+    func keyboardWillHide(sender: NSNotification) {
+        self.view.frame.origin.y += 255
+    }
+    
     func DismissKeyboard(){
+        println("tap" )
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
-        self.tableView.endEditing(true)
+        self.commentCreateView.endEditing(true)
     }
     
     func postComment(body:NSString) -> Bool {
-        self.newCommentBody.text = ""
         userObject.apiObject.createComment(body, film:self.sharedInstance.videoForCommentController.film)
+        self.newCommentBody.text = ""
         return true;
     }
 
