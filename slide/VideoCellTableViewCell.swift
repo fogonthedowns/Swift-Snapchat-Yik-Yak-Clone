@@ -11,7 +11,7 @@ import UIKit
 class VideoCellTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var videoPreview: UIImageView!
-    
+    @IBOutlet weak var commentCount: UILabel!
     @IBOutlet weak var starImage: UIImageView!
     @IBOutlet weak var voteCount: UILabel!
     

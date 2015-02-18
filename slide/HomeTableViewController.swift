@@ -136,6 +136,14 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
             cell.voteCount.text = ""
         }
         
+        if (video.comments.count > 0){
+           var commentCount = video.comments.count as NSNumber
+           var commentString = commentCount.stringValue + " reply"
+           cell.commentCount.text = commentString
+        } else {
+            cell.commentCount.text = ""
+        }
+        
         cell.userVote.addTarget(self, action: "checkButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
         
         cell.selectionStyle = .None
