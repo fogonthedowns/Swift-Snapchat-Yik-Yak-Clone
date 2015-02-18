@@ -116,7 +116,7 @@ class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
     
     func navigateToComments() {
         var navigateToComments : NSArray = [self.commentsUINavigationController]
-        self.setViewControllers(navigateToComments, direction: .Forward, animated: false, completion: nil)
+        self.setViewControllers(navigateToComments, direction: .Forward, animated: true, completion: nil)
     }
     
     /*
