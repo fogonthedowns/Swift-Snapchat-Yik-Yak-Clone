@@ -347,8 +347,8 @@
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
-                        <outlet property="commentBody" destination="o3l-A8-e5n" id="U51-EJ-Jdv"/>
                         <outlet property="likeImage" destination="ib2-IN-8eC" id="zdV-yK-PJC"/>
+                        <outlet property="newCommentBody" destination="o3l-A8-e5n" id="uSl-2X-Mdm"/>
                         <outlet property="snapBody" destination="7uS-bl-sRF" id="ZhZ-C0-yvS"/>
                         <outlet property="snapImage" destination="1FD-cy-ul2" id="Cy9-5p-lgR"/>
                         <outlet property="tableView" destination="uiE-89-cps" id="NLG-12-mjW"/>

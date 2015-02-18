@@ -108,6 +108,31 @@ class APIModel: NSObject {
         // self.postRequest(requestUrl)
     }
     
+    func createComment(body:NSString, film:NSString){
+        let parameters = [
+            "device_token":self.userID,
+            "access_token": self.accessToken,
+            "token": "17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY",
+            "user_id": self.apiUserId,
+            "comment": body,
+            "film": film
+        ]
+        
+        request(.PUT, "https://airimg.com/snaps/comment", parameters: parameters).validate().response { (request, response, data, error) in
+            println(request)
+            println(response)
+            if (error == nil){
+                println("created a new comment")
+                didCompleteUploadWithNoErrors
+                // NSNotificationCenter.defaultCenter().postNotificationName(getSnapsBecauseIhaveAUserLoaded, object: self)
+            } else {
+                println(error)
+            }
+        }
+        
+        // self.postRequest(requestUrl)
+    }
+    
     //
     func voteforSnap(video:NSString){
         let parameters = [
