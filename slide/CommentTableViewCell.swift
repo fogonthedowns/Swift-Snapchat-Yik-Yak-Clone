@@ -9,11 +9,10 @@
 import UIKit
 
 class CommentTableViewCell: UITableViewCell {
-
+    
     @IBOutlet weak var commentBody: UILabel!
-    
+
     @IBOutlet weak var commentTime: UILabel!
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -21,7 +20,7 @@ class CommentTableViewCell: UITableViewCell {
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+println("foobar")
         // Configure the view for the selected state
     }
 
