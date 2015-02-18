@@ -235,7 +235,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
                     img: rowAPIresult["img"].stringValue,
                     description: rowAPIresult["description"].stringValue,
                     votes: rowAPIresult["votes"].count,
-                    comments: rowAPIresult["comments"].count
+                    comments: processComments(rowAPIresult["comments"])
                 )
                 
                 videos.addObject(videoModel)
@@ -249,6 +249,15 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
               // NSLog("refreshing \(self.videoModelList)")
             self.tableView.reloadData()
         })
+    }
+    
+    func processComments(comments:JSON) -> NSMutableDictionary {
+        var commentDictionary:NSMutableDictionary = [:]
+        
+        for (index: String, rowAPIresult: JSON) in comments {
+           commentDictionary.setObject(rowAPIresult["body"].stringValue, forKey: rowAPIresult["user_id"].stringValue)
+        }
+        return commentDictionary as NSMutableDictionary
     }
 // ------------------------------------------
 // Lots of code

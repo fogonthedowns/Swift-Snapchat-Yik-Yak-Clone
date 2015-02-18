@@ -15,9 +15,9 @@ class VideoModel: NSObject {
     let img: String
     let userDescription: String
     let votes: NSNumber
-    let comments: NSNumber
+    let comments: NSMutableDictionary
     
-    init(id: String, user:String, img:String, description:String, votes:NSNumber, comments:NSNumber) {
+    init(id: String, user:String, img:String, description:String, votes:NSNumber, comments:NSMutableDictionary) {
         self.film = id
         self.userId = user
         self.img = img
