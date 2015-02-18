@@ -14,6 +14,7 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var snapBody: UILabel!
     @IBOutlet weak var likeImage: UIImageView!
     @IBOutlet weak var snapImage: UIImageView!
+    @IBOutlet weak var commentBody: UITextField!
     let sharedInstance = VideoDataToAPI.sharedInstance
     
     override func viewDidLoad() {
@@ -33,7 +34,7 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidAppear(animated: Bool) {
         // setup the snap cell, text, links, image etc.
         // lots of repeated code, but we use the sharedInstance to pass data between controllers
-        
+        println("comment count: %@", VideoDataToAPI.sharedInstance.videoForCommentController.comments)
         self.snapBody.text = sharedInstance.videoForCommentController.userDescription
         var urlString = "https://s3-us-west-1.amazonaws.com/slideby/" + sharedInstance.videoForCommentController.img
         let url = NSURL(string: urlString)
@@ -60,6 +61,15 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         })
     }
     
+    // User Clicked to Post Comment
+    @IBAction func userPostComment(sender: AnyObject) {
+    
+    }
+    
+    @IBAction func clickBackHome(sender: AnyObject) {
+        NSNotificationCenter.defaultCenter().postNotificationName(didClickToNavigateBackHome, object: self)
+    }
+    
     override func viewDidDisappear(animated: Bool) {
         self.snapBody.text = ""
         self.snapImage.image = UIImage(named: ("placeholder"))
@@ -82,7 +92,6 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("CommentCell") as CommentTableViewCell
-        println("foobar2")
         return cell
     }
 

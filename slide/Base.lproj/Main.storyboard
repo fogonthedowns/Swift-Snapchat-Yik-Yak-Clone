@@ -309,6 +309,9 @@
                                         <state key="normal" title="Button">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="userPostComment:" destination="2Q8-eQ-uPE" eventType="touchUpInside" id="AfK-Bn-BQV"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -334,9 +337,17 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="UTD-x1-YLq"/>
+                    <navigationItem key="navigationItem" id="UTD-x1-YLq">
+                        <barButtonItem key="leftBarButtonItem" title="back" id="VyG-s3-S6K">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="clickBackHome:" destination="2Q8-eQ-uPE" id="6oL-OB-WyR"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="commentBody" destination="o3l-A8-e5n" id="U51-EJ-Jdv"/>
                         <outlet property="likeImage" destination="ib2-IN-8eC" id="zdV-yK-PJC"/>
                         <outlet property="snapBody" destination="7uS-bl-sRF" id="ZhZ-C0-yvS"/>
                         <outlet property="snapImage" destination="1FD-cy-ul2" id="Cy9-5p-lgR"/>
