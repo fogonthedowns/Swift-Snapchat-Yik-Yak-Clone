@@ -14,12 +14,18 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var snapBody: UILabel!
     @IBOutlet weak var likeImage: UIImageView!
     @IBOutlet weak var snapImage: UIImageView!
-    @IBOutlet weak var commentBody: UITextField!
+    @IBOutlet weak var newCommentBody: UITextField!
     let sharedInstance = VideoDataToAPI.sharedInstance
+    let userObject = UserModel()
+    
     var commentModelList: NSMutableArray = [] // This is the array that my tableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        userObject.findUser()
+        
+        var tap:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
+        self.tableView.addGestureRecognizer(tap)
 
         // self.tableView.registerClass(CommentTableViewCell.self, forCellReuseIdentifier: "CommentCell")
         tableView.delegate = self
@@ -66,7 +72,16 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     
     // User Clicked to Post Comment
     @IBAction func userPostComment(sender: AnyObject) {
-    
+        self.postComment(self.newCommentBody.text)
+        var commentModel = CommentModel(
+            body: self.newCommentBody.text as NSString,
+            user: "blank" as NSString
+        )
+        commentModelList.addObject(commentModel)
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            // NSLog("refreshing \(self.videoModelList)")
+            self.tableView.reloadData()
+        })
     }
     
     @IBAction func clickBackHome(sender: AnyObject) {
@@ -123,11 +138,22 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         // Set our array of new models
         commentModelList = comments
         // Make sure we are on the main thread, and update the UI.
-        
+        println(commentModelList)
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             // NSLog("refreshing \(self.videoModelList)")
             self.tableView.reloadData()
         })
+    }
+    
+    func DismissKeyboard(){
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        self.tableView.endEditing(true)
+    }
+    
+    func postComment(body:NSString) -> Bool {
+        self.newCommentBody.text = ""
+        userObject.apiObject.createComment(body, film:self.sharedInstance.videoForCommentController.film)
+        return true;
     }
 
 }

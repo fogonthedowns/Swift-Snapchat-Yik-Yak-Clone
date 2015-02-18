@@ -255,7 +255,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         var commentDictionary:NSMutableDictionary = [:]
         
         for (index: String, rowAPIresult: JSON) in comments {
-           commentDictionary.setObject(rowAPIresult["body"].stringValue, forKey: rowAPIresult["user_id"].stringValue)
+           commentDictionary.setObject(rowAPIresult["body"].stringValue, forKey: rowAPIresult["_id"]["$oid"].stringValue)
         }
         return commentDictionary as NSMutableDictionary
     }
