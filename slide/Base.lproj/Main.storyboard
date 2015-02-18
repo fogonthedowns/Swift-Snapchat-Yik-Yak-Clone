@@ -355,6 +355,7 @@
                         <outlet property="primaryView" destination="b3h-hL-5kq" id="OD0-dJ-GWy"/>
                         <outlet property="snapBody" destination="7uS-bl-sRF" id="ZhZ-C0-yvS"/>
                         <outlet property="snapImage" destination="1FD-cy-ul2" id="Cy9-5p-lgR"/>
+                        <outlet property="snapView" destination="Yid-gu-KKy" id="Q2b-Oj-U8q"/>
                         <outlet property="tableView" destination="uiE-89-cps" id="NLG-12-mjW"/>
                     </connections>
                 </viewController>

@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import MediaPlayer
 
 class CommentsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
+    @IBOutlet weak var snapView: UIView!
     @IBOutlet weak var commentCreateView: UIView!
     @IBOutlet var primaryView: UIView!
     @IBOutlet var tableView: UITableView!
@@ -19,7 +21,8 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var newCommentBody: UITextField!
     let sharedInstance = VideoDataToAPI.sharedInstance
     let userObject = UserModel()
-    
+    var moviePlayer:MPMoviePlayerController!
+     let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
     
     var commentModelList: NSMutableArray = [] // This is the array that my tableView
     
@@ -47,6 +50,9 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(true)
         self.processComments()
+        let longpress = UILongPressGestureRecognizer(target: self, action: "handleLongPress:")
+        longpress.minimumPressDuration = 0.35
+        snapView.addGestureRecognizer(longpress)
         // setup the snap cell, text, links, image etc.
         // lots of repeated code, but we use the sharedInstance to pass data between controllers
         println("comments: %@", VideoDataToAPI.sharedInstance.videoForCommentController.comments)
@@ -137,6 +143,41 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         let row = indexPath.row
         println(row)
     }
+    
+    func handleLongPress(sender:UILongPressGestureRecognizer!) {
+        println("Long press Block .................");
+        let filePath = determineFilePath(self.sharedInstance.videoForCommentController.film)
+        
+        if (sender.state == UIGestureRecognizerState.Ended) {
+            println("Long press Ended");
+            self.moviePlayer.stop()
+            self.moviePlayer.view.removeFromSuperview()
+            self.tableView.reloadData()
+            navigationController?.navigationBarHidden = false
+            UIApplication.sharedApplication().statusBarHidden=false;
+        } else if (sender.state == UIGestureRecognizerState.Began) {
+            println("Long press detected.");
+            let path = NSBundle.mainBundle().pathForResource("video", ofType:"m4v")
+            let url = NSURL.fileURLWithPath(filePath)
+            self.moviePlayer = MPMoviePlayerController(contentURL: url)
+            if var player = self.moviePlayer {
+                navigationController?.navigationBarHidden = true
+                UIApplication.sharedApplication().statusBarHidden=true
+                player.view.frame = self.view.bounds
+                player.prepareToPlay()
+                player.scalingMode = .AspectFill
+                player.controlStyle = .None
+                self.view.addSubview(player.view)
+            }
+        }
+    } // longPress
+    
+    
+    func determineFilePath(file:NSString)-> NSString {
+        let documentsPath = paths.first as? String
+        let filePath = documentsPath! + "/" + file
+        return filePath
+    } // determineFilePath
     
     func processComments() {
         // local array var used in this function
