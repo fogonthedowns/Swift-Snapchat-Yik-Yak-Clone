@@ -27,8 +27,7 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadDistricts", name: getSnapsBecauseIhaveAUserLoaded, object: nil)
         userObject.findUser();
         
-
-        
+    
         // Table Row Init
         self.tableView.rowHeight = 115.0
         self.title = "San Francisco"

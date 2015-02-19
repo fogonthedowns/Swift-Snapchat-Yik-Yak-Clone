@@ -30,6 +30,10 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         super.viewDidLoad()
         userObject.findUser()
         
+        var alert = UIAlertController(title: "Title", message: "Message", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
+        
         var tap:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
         self.primaryView.addGestureRecognizer(tap)
 //        self.snapView.addGestureRecognizer(tap)
