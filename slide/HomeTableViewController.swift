@@ -14,6 +14,7 @@ import MediaPlayer
 
 protocol APIProtocol {
     func didReceiveResult(results: JSON)
+    func addResult(results:JSON)
 }
 
 let getSnapsBecauseIhaveAUserLoaded = "com.snapAPI.specialNotificationKey"
@@ -34,6 +35,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
     var videoModelList: NSMutableArray = [] // This is the array that my tableView
     var sharedInstance = VideoDataToAPI.sharedInstance
     var hood:NSString = ""
+    var offset:Int = 0
     
     let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
     
@@ -89,6 +91,11 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         
      }
     
+     override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(true)
+        self.offset = 0
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -137,8 +144,13 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         }
         
         if (video.comments.count > 0){
+            var reply = " replies"
+            if (video.comments.count == 1) {
+                reply = " reply"
+            }
+            
            var commentCount = video.comments.count as NSNumber
-           var commentString = commentCount.stringValue + " reply"
+           var commentString = commentCount.stringValue + reply
            cell.commentCount.text = commentString
         } else {
             cell.commentCount.text = ""
@@ -244,7 +256,8 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
                     img: rowAPIresult["img"].stringValue,
                     description: rowAPIresult["description"].stringValue,
                     votes: rowAPIresult["votes"].count,
-                    comments: processComments(rowAPIresult["comments"])
+                    comments: processComments(rowAPIresult["comments"]),
+                    voters: processVotes(rowAPIresult["votes"])
                 )
                 
                 videos.addObject(videoModel)
@@ -260,6 +273,35 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         })
     }
     
+    func addResult(result: JSON) {
+        // local array var used in this function
+        var videos = videoModelList
+        
+        for (index: String, rowAPIresult: JSON) in result {
+            
+            var videoModel = VideoModel(
+                id: rowAPIresult["film"].stringValue,
+                user: rowAPIresult["userId"].stringValue,
+                img: rowAPIresult["img"].stringValue,
+                description: rowAPIresult["description"].stringValue,
+                votes: rowAPIresult["votes"].count,
+                comments: processComments(rowAPIresult["comments"]),
+                voters: processVotes(rowAPIresult["votes"])
+            )
+            
+            videos.addObject(videoModel)
+        }
+        
+        // Set our array of new models
+        videoModelList = videos
+        // Make sure we are on the main thread, and update the UI.
+        
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            // NSLog("refreshing \(self.videoModelList)")
+            self.tableView.reloadData()
+        })
+    }
+    
     func processComments(comments:JSON) -> NSMutableDictionary {
         var commentDictionary:NSMutableDictionary = [:]
         
@@ -268,6 +310,16 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         }
         return commentDictionary as NSMutableDictionary
     }
+    
+    func processVotes(votes:JSON) -> NSMutableDictionary {
+        var voteDictionary:NSMutableDictionary = [:]
+        
+        for (index: String, rowAPIresult: JSON) in votes {
+            voteDictionary.setObject(rowAPIresult["user_id"].stringValue, forKey: rowAPIresult["_id"]["$oid"].stringValue)
+        }
+        return voteDictionary as NSMutableDictionary
+    }
+    
 // ------------------------------------------
 // Lots of code
     
@@ -399,6 +451,22 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         return filePath
     }
     
+    override func scrollViewDidEndDragging(scrollView: UIScrollView,
+        willDecelerate decelerate: Bool) {
+        if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) {
+            println("reach bottom")
+            self.loadOffsetSnaps()
+        }
+        
+//        if (scrollView.contentOffset.y < 0){
+//            //reach top
+//        }
+//        
+//        if (scrollView.contentOffset.y >= 0 && scrollView.contentOffset.y < (scrollView.contentSize.height - scrollView.frame.size.height)){
+//            //not top and not bottom
+//        }
+    }
+    
     func pullToLoadSnaps(sender:AnyObject)
     {
         self.loadSnaps()
@@ -406,15 +474,16 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         self.refreshControl?.endRefreshing()
     }
     
-//    func sendNotification() {
-//        localNotification.alertAction = "Testing notifications on iOS8"
-//        localNotification.alertBody = "Woww it works!!"
-//        localNotification.fireDate = NSDate(timeIntervalSinceNow: 30)
-//        UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
-//    }
-    
     func loadSnaps() {
         userObject.apiObject.getSnaps(self.latitude,long: self.longitute, hood: self.hood, delegate:self)
+    }
+    
+    func loadOffsetSnaps() {
+        offset = offset + 10
+        let offsetAPI = NSNumber(integer:offset)
+        
+        userObject.apiObject.getOffsetSnaps(self.latitude,long: self.longitute, hood: self.hood, offset: offsetAPI, delegate:self)
+        println(offsetAPI)
     }
     
     func vote(video:NSString) {

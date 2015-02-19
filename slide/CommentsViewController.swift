@@ -11,6 +11,8 @@ import MediaPlayer
 
 class CommentsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
+    @IBOutlet weak var commentCount: UILabel!
+    @IBOutlet weak var likeCount: UILabel!
     @IBOutlet weak var snapView: UIView!
     @IBOutlet weak var commentCreateView: UIView!
     @IBOutlet var primaryView: UIView!
@@ -31,9 +33,6 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         userObject.findUser()
         var tap:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
         self.primaryView.addGestureRecognizer(tap)
-//        self.snapView.addGestureRecognizer(tap)
-        
-        // self.tableView.registerClass(CommentTableViewCell.self, forCellReuseIdentifier: "CommentCell")
         tableView.delegate = self
         tableView.dataSource = self
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name:UIKeyboardWillShowNotification, object: nil);
@@ -56,6 +55,27 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         // lots of repeated code, but we use the sharedInstance to pass data between controllers
         println("comments: %@", VideoDataToAPI.sharedInstance.videoForCommentController.comments)
         self.snapBody.text = sharedInstance.videoForCommentController.userDescription
+        
+        if (sharedInstance.videoForCommentController.votes > 0) {
+            self.likeImage.image = UIImage(named:("starwithvotes"))
+            self.likeCount.text = sharedInstance.videoForCommentController.votes.stringValue
+        } else {
+            self.likeImage.image = UIImage(named:("starnovotes"))
+            self.likeCount.text = ""
+        }
+        
+        if (sharedInstance.videoForCommentController.comments.count > 0){
+            var reply = " replies"
+            if (sharedInstance.videoForCommentController.comments.count == 1) {
+                reply = " reply"
+            }
+            var commentCount = sharedInstance.videoForCommentController.comments.count as NSNumber
+            var commentString = commentCount.stringValue + reply
+            self.commentCount.text = commentString
+        } else {
+            self.commentCount.text = ""
+        }
+        
         var urlString = "https://s3-us-west-1.amazonaws.com/slideby/" + sharedInstance.videoForCommentController.img
         let url = NSURL(string: urlString)
         let main_queue = dispatch_get_main_queue()
@@ -95,6 +115,11 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         self.postComment(self.newCommentBody.text)
         self.DismissKeyboard()
     }
+    
+    @IBAction func starPost(sender: AnyObject) {
+        self.vote(self.sharedInstance.videoForCommentController.film)
+    }
+    
     
     @IBAction func clickBackHome(sender: AnyObject) {
         self.DismissKeyboard()
@@ -236,6 +261,19 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     
     func postFlag() {
         userObject.apiObject.createFlag(self.sharedInstance.videoForCommentController.film)
+    }
+    
+    
+    func vote(video:NSString) {
+        userObject.apiObject.voteforSnap(video)
+        
+        if (sharedInstance.videoForCommentController.votes > 0) {
+            self.likeImage.image = UIImage(named:("starwithvotes"))
+            self.likeCount.text = sharedInstance.videoForCommentController.votes.stringValue
+        } else {
+            self.likeImage.image = UIImage(named:("starnovotes"))
+            self.likeCount.text = ""
+        }
     }
 
 }
