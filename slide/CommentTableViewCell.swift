@@ -19,8 +19,7 @@ class CommentTableViewCell: UITableViewCell {
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-println("foobar")
-        // Configure the view for the selected state
+     
     }
 
 }

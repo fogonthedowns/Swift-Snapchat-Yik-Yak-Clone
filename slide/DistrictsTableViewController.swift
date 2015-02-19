@@ -90,6 +90,10 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
             self.tableView.reloadData()
         })
     }
+    
+    func addResult(results:JSON) {
+        
+    }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("DistrictCell") as DistrictTableViewCell

@@ -49,6 +49,25 @@ class APIModel: NSObject {
         
     }
     
+    func getOffsetSnaps(lat:NSString,long:NSString, hood:NSString, offset:NSNumber, delegate:APIProtocol) {
+        var requestUrl = "https://airimg.com/snaps"
+        NSLog("getting offset Snaps")
+        request(.GET, requestUrl, parameters: ["hood": hood, "lat":lat, "long":long, "token":"17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY","device_token":self.userID, "access_token": self.accessToken, "offset": offset])
+            .responseJSON { (req, res, json, error) in
+                if(error != nil) {
+                    println(res)
+                }
+                else {
+                    var json = JSON(json!)
+                    NSLog("GET Result: \(json)")
+                    
+                    // Call delegate
+                    delegate.addResult(json)
+                }
+        }
+        
+    }
+    
     func getDistricts(lat:NSString,longitude: NSString, delegate:APIProtocol) {
         var requestUrl = "https://airimg.com/locations?token=17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY&device_token=" + self.userID + "&access_token=" + self.accessToken + "&lat=" + lat + "&long=" + longitude
         NSLog("getting districts")
