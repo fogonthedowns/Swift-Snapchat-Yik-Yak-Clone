@@ -29,11 +29,6 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         userObject.findUser()
-        
-        var alert = UIAlertController(title: "Title", message: "Message", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
-        
         var tap:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
         self.primaryView.addGestureRecognizer(tap)
 //        self.snapView.addGestureRecognizer(tap)
@@ -106,6 +101,21 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         NSNotificationCenter.defaultCenter().postNotificationName(didClickToNavigateBackHome, object: self)
     }
     
+    
+    @IBAction func clickReport(sender: AnyObject) {
+        func handler(act:UIAlertAction!) {
+           println("user clicked report")
+           self.postFlag()
+           var ty = UIAlertController(title: "Report created", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+            ty.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(ty, animated: true, completion: nil)
+        }
+        
+        var alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+        alert.addAction(UIAlertAction(title: "Report Inappropriate", style: .Destructive, handler: handler))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
+      self.presentViewController(alert, animated: true, completion: nil)
+    }
     
     func textFieldShouldReturn(textField: UITextField!) -> Bool {
         self.view.endEditing(true);
@@ -222,6 +232,10 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         userObject.apiObject.createComment(body, film:self.sharedInstance.videoForCommentController.film)
         self.newCommentBody.text = ""
         return true;
+    }
+    
+    func postFlag() {
+        userObject.apiObject.createFlag(self.sharedInstance.videoForCommentController.film)
     }
 
 }
