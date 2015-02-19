@@ -154,6 +154,7 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidDisappear(animated: Bool) {
         self.snapBody.text = ""
+        self.newCommentBody.text = ""
         self.snapImage.image = UIImage(named: ("placeholder"))
     }
         
