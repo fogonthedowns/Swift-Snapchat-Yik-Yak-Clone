@@ -19,6 +19,8 @@ class VideoDataToAPI {
     var videoForCommentController: VideoModel!
     // var userObject = UserModel()
     var hood: NSString!
+    // used for background processing of uploads
+    var userDescription: NSString!
     
     class var sharedInstance :VideoDataToAPI {
         struct Singleton {

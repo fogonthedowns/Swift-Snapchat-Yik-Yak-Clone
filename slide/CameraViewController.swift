@@ -48,6 +48,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     var delegate : AVCaptureFileOutputRecordingDelegate?
     var sharedInstance = VideoDataToAPI.sharedInstance
     var tempVideo: NSURL?
+    // var screentap: UITapGestureRecognizer!
     
     // camera preview
     var moviePlayer:MPMoviePlayerController!
@@ -105,6 +106,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         // this is used to see if a user is recording a video or not
         // long press, they are recording
         // let go it stops
+        
         let longpress = UILongPressGestureRecognizer(target: self, action: "longPress:")
         self.takeVideoButton.addGestureRecognizer(longpress)
         
@@ -135,39 +137,27 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         
     }
     
-    func focusTo(value : Float) {
-        if let device = captureDevice {
-            if(device.lockForConfiguration(nil)) {
-                device.setFocusModeLockedWithLensPosition(value, completionHandler: { (time) -> Void in
-                    //
-                })
-                device.unlockForConfiguration()
-            }
-        }
-    }
-    
-    let screenWidth = UIScreen.mainScreen().bounds.size.width
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
-        var anyTouch = touches.anyObject() as UITouch
-        var touchPercent = anyTouch.locationInView(self.view).x / screenWidth
-        focusTo(Float(touchPercent))
-    }
-    
-    override func touchesMoved(touches: NSSet, withEvent event: UIEvent) {
-        var anyTouch = touches.anyObject() as UITouch
-        var touchPercent = anyTouch.locationInView(self.view).x / screenWidth
-        focusTo(Float(touchPercent))
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(true)
+        self.DismissKeyboard()
+        self.sharedInstance.userDescription = self.userDescription.text
+        self.userDescription.text = ""
+        self.stopPreview = true
+        self.moviePlayer.stop()
+        self.view.sendSubviewToBack(self.confirmationView)
+        self.view.sendSubviewToBack(self.moviePlayer.view)
     }
     
     func configureDevice() {
         if let device = captureDevice {
             device.lockForConfiguration(nil)
-            device.focusMode = .Locked
+            device.focusMode = .ContinuousAutoFocus
+            // device.focusPointOfInterest = screentap.locationInView(self) CGPOINT
             device.unlockForConfiguration()
+            
         }
         
     }
-    
     
     func setupCamera() {
         
@@ -389,7 +379,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
                
                     
                   // I'm pretty sure postSnap fails with the bug described in the next comment. Try moving all into a singleton
-                  let userText:NSString = self.userDescription.text
+                  let userText:NSString = self.sharedInstance.userDescription
                   self.postSnap(self.sharedInstance.latitude,long: self.sharedInstance.longitute,video: self.sharedInstance.lastVideoUploadID, image: self.sharedInstance.lastImgUploadID, description: userText)
                     
                   // TODO Post this right before sendtoAWS, move the above into a singleton, that can function in the background
