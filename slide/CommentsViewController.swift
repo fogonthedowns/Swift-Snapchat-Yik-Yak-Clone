@@ -21,6 +21,10 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var likeImage: UIImageView!
     @IBOutlet weak var snapImage: UIImageView!
     @IBOutlet weak var newCommentBody: UITextField!
+    var keyboardOpen = false
+    var keyboardEmoji = false
+    var language = UITextInputMode.activeInputModes()
+    
     let sharedInstance = VideoDataToAPI.sharedInstance
     let userObject = UserModel()
     var moviePlayer:MPMoviePlayerController!
@@ -241,10 +245,35 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func keyboardWillShow(sender: NSNotification) {
-        self.view.frame.origin.y -= 255
+        let userInfo = sender.userInfo!
+        let keyboardSize = (userInfo[UIKeyboardFrameEndUserInfoKey] as NSValue).CGRectValue()
+        
+        if (self.keyboardOpen == true) {
+            if (self.keyboardEmoji == true) {
+              self.keyboardEmoji = false
+              self.view.frame.origin.y -= 40
+            } else {
+              self.view.frame.origin.y += 40
+              self.keyboardEmoji = true
+            }
+            
+        } else {
+          self.view.frame.origin.y -= 255
+          self.keyboardOpen = true
+        }
     }
     func keyboardWillHide(sender: NSNotification) {
-        self.view.frame.origin.y += 255
+        
+        if (self.keyboardEmoji == true) {
+            self.keyboardEmoji = false
+            self.view.frame.origin.y += 215
+            println("case")
+        } else {
+            self.view.frame.origin.y += 255
+        }
+        
+        // self.view.frame.origin.y += 255
+        self.keyboardOpen = false
     }
     
     func DismissKeyboard(){
