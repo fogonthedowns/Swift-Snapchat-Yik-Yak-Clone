@@ -52,7 +52,7 @@ class APIModel: NSObject {
     func getDistricts(lat:NSString,longitude: NSString, delegate:APIProtocol) {
         var requestUrl = "https://airimg.com/locations?token=17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY&device_token=" + self.userID + "&access_token=" + self.accessToken + "&lat=" + lat + "&long=" + longitude
         NSLog("getting districts")
-        self.getRequest(requestUrl)
+        
         request(.GET, requestUrl)
             .responseJSON { (req, res, json, error) in
                 if(error != nil) {
@@ -129,11 +129,30 @@ class APIModel: NSObject {
                 println(error)
             }
         }
-        
-        // self.postRequest(requestUrl)
-    }
+    } //createComment
     
-    //
+    func createFlag(film:NSString){
+        let parameters = [
+            "device_token":self.userID,
+            "access_token": self.accessToken,
+            "token": "17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY",
+            "user_id": self.apiUserId,
+            "film": film
+        ]
+        
+        request(.PUT, "https://airimg.com/snaps/flag", parameters: parameters).validate().response { (request, response, data, error) in
+            println(request)
+            println(response)
+            if (error == nil){
+                println("created a new flag")
+                didCompleteUploadWithNoErrors
+                // NSNotificationCenter.defaultCenter().postNotificationName(getSnapsBecauseIhaveAUserLoaded, object: self)
+            } else {
+                println(error)
+            }
+        }
+    } // createFlag
+    
     func voteforSnap(video:NSString){
         let parameters = [
             "device_token":self.userID,
@@ -158,7 +177,6 @@ class APIModel: NSObject {
         // self.postRequest(requestUrl)
     }
     
-    //
     func postRequest(url:NSString) {
         if var localURL = url as NSString? {
             NSLog("localURL: %@", localURL)
