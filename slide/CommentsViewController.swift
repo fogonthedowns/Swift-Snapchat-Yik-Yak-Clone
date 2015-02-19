@@ -106,8 +106,8 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         func handler(act:UIAlertAction!) {
            println("user clicked report")
            self.postFlag()
-           var ty = UIAlertController(title: "Report created", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
-            ty.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
+           var ty = UIAlertController(title: "Report created", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+            ty.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
             self.presentViewController(ty, animated: true, completion: nil)
         }
         

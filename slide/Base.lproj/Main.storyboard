@@ -358,7 +358,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="UTD-x1-YLq">
-                        <barButtonItem key="leftBarButtonItem" title="back" id="VyG-s3-S6K">
+                        <barButtonItem key="leftBarButtonItem" image="back" id="VyG-s3-S6K">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="clickBackHome:" destination="2Q8-eQ-uPE" id="6oL-OB-WyR"/>
@@ -403,9 +403,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="back" width="24" height="42"/>
         <image name="camera" width="55" height="41"/>
         <image name="cancel" width="68" height="68"/>
-        <image name="city" width="79" height="55"/>
+        <image name="city" width="65" height="45"/>
         <image name="recordButton" width="171" height="171"/>
     </resources>
     <color key="tintColor" red="0.97136193510000002" green="0.67824584249999997" blue="0.10124506799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
