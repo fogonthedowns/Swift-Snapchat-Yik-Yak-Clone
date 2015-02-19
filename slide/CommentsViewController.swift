@@ -248,7 +248,12 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         let userInfo = sender.userInfo!
         let keyboardSize = (userInfo[UIKeyboardFrameEndUserInfoKey] as NSValue).CGRectValue()
         
+        // keyboard could be open, so do not adjust .y
+        // of view if it is open already
+        // user could be switching between two keyboard types (emoji/english)
         if (self.keyboardOpen == true) {
+            // emoji keybard does not have suggested words
+             // suggested words is .y 40
             if (self.keyboardEmoji == true) {
               self.keyboardEmoji = false
               self.view.frame.origin.y -= 40
@@ -256,7 +261,6 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
               self.view.frame.origin.y += 40
               self.keyboardEmoji = true
             }
-            
         } else {
           self.view.frame.origin.y -= 255
           self.keyboardOpen = true
@@ -264,6 +268,8 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     func keyboardWillHide(sender: NSNotification) {
         
+        // emoji keybard does not have suggested words
+        // suggested words is .y 40
         if (self.keyboardEmoji == true) {
             self.keyboardEmoji = false
             self.view.frame.origin.y += 215
