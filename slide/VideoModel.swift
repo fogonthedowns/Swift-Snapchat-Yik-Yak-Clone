@@ -17,8 +17,9 @@ class VideoModel: NSObject {
     let votes: NSNumber
     let comments: NSMutableDictionary
     let voters: NSMutableDictionary
+    let flags: NSNumber
     
-    init(id: String, user:String, img:String, description:String, votes:NSNumber, comments:NSMutableDictionary, voters:NSMutableDictionary) {
+    init(id: String, user:String, img:String, description:String, votes:NSNumber, comments:NSMutableDictionary, voters:NSMutableDictionary, flags:NSNumber) {
         self.film = id
         self.userId = user
         self.img = img
@@ -26,6 +27,7 @@ class VideoModel: NSObject {
         self.votes = votes
         self.comments = comments
         self.voters = voters
+        self.flags = flags
     }
     
 }

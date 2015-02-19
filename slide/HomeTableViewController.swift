@@ -257,10 +257,14 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
                     description: rowAPIresult["description"].stringValue,
                     votes: rowAPIresult["votes"].count,
                     comments: processComments(rowAPIresult["comments"]),
-                    voters: processVotes(rowAPIresult["votes"])
+                    voters: processVotes(rowAPIresult["votes"]),
+                    flags: rowAPIresult["flags"].count
                 )
-                
-                videos.addObject(videoModel)
+                if (videoModel.flags >= 2){
+                    
+                } else {
+                    videos.addObject(videoModel)
+                }
             }
             
         // Set our array of new models
@@ -272,6 +276,12 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
             self.tableView.reloadData()
         })
     }
+    
+    // doesn't work because offset is always reset, or native loadSnaps call returns just 10.
+    // offset is set to zero when we navigate away for other cities case
+    // but poses a problem when we check out a snap
+    // we must reload the snap, to persist the comments between clicks, but the reload calls loadSnaps
+    // its pretty messy
     
     func addResult(result: JSON) {
         // local array var used in this function
@@ -286,7 +296,8 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
                 description: rowAPIresult["description"].stringValue,
                 votes: rowAPIresult["votes"].count,
                 comments: processComments(rowAPIresult["comments"]),
-                voters: processVotes(rowAPIresult["votes"])
+                voters: processVotes(rowAPIresult["votes"]),
+                flags: rowAPIresult["flags"].count
             )
             
             videos.addObject(videoModel)
@@ -451,21 +462,13 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         return filePath
     }
     
-    override func scrollViewDidEndDragging(scrollView: UIScrollView,
-        willDecelerate decelerate: Bool) {
-        if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) {
-            println("reach bottom")
-            self.loadOffsetSnaps()
-        }
-        
-//        if (scrollView.contentOffset.y < 0){
-//            //reach top
-//        }
-//        
-//        if (scrollView.contentOffset.y >= 0 && scrollView.contentOffset.y < (scrollView.contentSize.height - scrollView.frame.size.height)){
-//            //not top and not bottom
-//        }
-    }
+    //    override func scrollViewDidEndDragging(scrollView: UIScrollView,
+    //        willDecelerate decelerate: Bool) {
+    //        if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) {
+    //            println("reach bottom")
+    //            self.loadOffsetSnaps()
+    //        }
+    //    }
     
     func pullToLoadSnaps(sender:AnyObject)
     {
