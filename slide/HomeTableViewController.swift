@@ -344,7 +344,12 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         let filePath = determineFilePath(s3downloadname)
         // if the file exists return, don't start an asynch download
         if NSFileManager.defaultManager().fileExistsAtPath(filePath) {
-            // NSLog("FILE ALREADY DOWNLOADED")
+            if self.sharedInstance.playList.containsObject(filePath) {
+                println("FILE IS IN playlist !!!!!!!!!!!")
+            } else {
+                self.sharedInstance.playList.addObject(filePath)
+            }
+            NSLog("FILE ALREADY DOWNLOADED")
             return;
         }
         
@@ -418,7 +423,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
                 // if so we spawn a new download
                 // Todo integration point for new model
                 
-            
+            self.sharedInstance.playList.addObject(self.sharedInstance.downloadName)
             self.sharedInstance.listOfVideosToDownload.removeObjectIdenticalTo(self.sharedInstance.downloadName)
                 print(self.sharedInstance.listOfVideosToDownload.count)
             VideoModel.saveFilmAsDownloaded(self.sharedInstance.downloadName)
