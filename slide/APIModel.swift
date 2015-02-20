@@ -40,7 +40,7 @@ class APIModel: NSObject {
                 }
                 else {
                     var json = JSON(json!)
-                    NSLog("GET Result: \(json)")
+                    // NSLog("GET Result: \(json)")
                     
                     // Call delegate
                     delegate.didReceiveResult(json)
@@ -59,7 +59,7 @@ class APIModel: NSObject {
                 }
                 else {
                     var json = JSON(json!)
-                    NSLog("GET Result: \(json)")
+                    // NSLog("GET Result: \(json)")
                     
                     // Call delegate
                     // delegate.addResult(json)
@@ -80,7 +80,7 @@ class APIModel: NSObject {
                 }
                 else {
                     var json = JSON(json!)
-                    NSLog("GET Result: \(json)")
+                    // NSLog("GET Result: \(json)")
                     
                     // Call delegate
                     delegate.didReceiveResult(json)

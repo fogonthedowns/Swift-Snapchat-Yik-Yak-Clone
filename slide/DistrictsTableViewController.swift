@@ -154,6 +154,9 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
     func processFetchResults(results:NSArray, key:NSString) {
         let results = results
         var playList: NSMutableArray = []
+//        println("******************* processing results")
+//        println(results.count)
+//        println(key)
         
         for (video) in results {
             let videoUrl:NSManagedObject = video as NSManagedObject
@@ -161,6 +164,8 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
             playList.insertObject(videoString, atIndex: 0)
         }
         playListHash[key] = playList
+//        println(playListHash)
+//        println("******************* done processing results")
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -173,17 +178,6 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
         var results = VideoModel.findByDistrict(district.id)
         self.processFetchResults(results!, key:district.id)
         
-        
-        // as NSManagedObject
-        println(results)
-//        var managedObject = fetchResults[0]
-//        managedObject.setValue(true, forKey: "downloaded")
-//        var date = NSDate()
-//        managedObject.setValue(date, forKey: "date")
-//        context.save(nil)
-        
-        
-   
         // Load Images Asynchroniously
         let backgroundQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
         dispatch_async(backgroundQueue, {
@@ -229,13 +223,13 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
         
         if (sender.state == UIGestureRecognizerState.Ended) {
             self.userIntendsToWatchVideo = false
-            self.currentIndex = 0
+            self.currentIndex = 1
             println("Long press Ended");
             if (self.moviePlayer != nil) {
               self.moviePlayer.stop()
               self.moviePlayer.view.removeFromSuperview()
             }
-            self.tableView.reloadData()
+            // self.tableView.reloadData()
             navigationController?.navigationBarHidden = false
             UIApplication.sharedApplication().statusBarHidden=false;
         }
@@ -248,6 +242,7 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
             if let localPlaylist = self.playListHash[cell.hoodID] as NSMutableArray? {
                 currentID = cell.hoodID
                 println("Long press Block 2 .................");
+                println(localPlaylist.count)
                 if (localPlaylist.count != 0) {
                     if let filmString:String = localPlaylist[0] as? String {
                         println(filmString)
@@ -269,11 +264,11 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
                                 self.tableView.addSubview(player.view)
                             }  else if (sender.state == UIGestureRecognizerState.Ended) {
                                 self.userIntendsToWatchVideo = false
-                                self.currentIndex = 0
+                                self.currentIndex = 1
                                 println("two");
                                 self.moviePlayer.stop()
                                 self.moviePlayer.view.removeFromSuperview()
-                                self.tableView.reloadData()
+                                // self.tableView.reloadData()
                                 navigationController?.navigationBarHidden = false
                                 UIApplication.sharedApplication().statusBarHidden=false;
                             }
@@ -288,7 +283,7 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
               self.moviePlayer.stop()
               self.moviePlayer.view.removeFromSuperview()
             }
-            self.tableView.reloadData()
+            // self.tableView.reloadData()
             navigationController?.navigationBarHidden = false
             UIApplication.sharedApplication().statusBarHidden=false;
         }
@@ -315,6 +310,7 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
                 println(localPlaylist.count)
                 println(self.currentIndex)
                 println(self.currentID)
+                println("..................cell id................")
                 if (currentIndex < localPlaylist.count) {
                     // self.moviePlayer.view.removeFromSuperview()
                     if (self.userIntendsToWatchVideo == true) {
