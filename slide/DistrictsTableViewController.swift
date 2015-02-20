@@ -47,8 +47,9 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
         self.title = "San Francisco"
         
         let longpress = UILongPressGestureRecognizer(target: self, action: "handleLongPress:")
-        longpress.minimumPressDuration = 0.35
-        tableView.addGestureRecognizer(longpress)
+        longpress.minimumPressDuration = 0.30
+        longpress.allowableMovement = CGFloat.max
+        self.tableView.addGestureRecognizer(longpress)
         
         var refresh = UIRefreshControl()
         refresh.addTarget(self, action: "pullToLoadDistricts:", forControlEvents:.ValueChanged)
@@ -224,7 +225,7 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
         if (sender.state == UIGestureRecognizerState.Ended) {
             self.userIntendsToWatchVideo = false
             self.currentIndex = 1
-            println("Long press Ended");
+            println("Long press Cancelled");
             if (self.moviePlayer != nil) {
               self.moviePlayer.stop()
               self.moviePlayer.view.removeFromSuperview()
