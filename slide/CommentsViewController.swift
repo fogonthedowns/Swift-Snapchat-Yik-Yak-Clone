@@ -189,7 +189,7 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func handleLongPress(sender:UILongPressGestureRecognizer!) {
-        println("Long press Block .................");
+        println("Long press Block Comments .................");
         let filePath = determineFilePath(self.sharedInstance.videoForCommentController.film)
         
         if (sender.state == UIGestureRecognizerState.Ended) {

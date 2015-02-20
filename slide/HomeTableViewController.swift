@@ -36,6 +36,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
     var sharedInstance = VideoDataToAPI.sharedInstance
     var hood:NSString = ""
     var offset:Int = 0
+    var hoodId:String!
     
     let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
     
@@ -53,7 +54,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
 
         // Table Row Init
         self.tableView.rowHeight = 70.0
-        let longpress = UILongPressGestureRecognizer(target: self, action: "handleLongPress:")
+        let longpress = UILongPressGestureRecognizer(target: self, action: "handleLongPressHome:")
         longpress.minimumPressDuration = 0.35
         tableView.addGestureRecognizer(longpress)
 
@@ -80,10 +81,14 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         if (sharedInstance.hood == nil) {
         } else if (self.title == sharedInstance.hood) {
             println("title didn't change")
+            // TODO ensure that hoodId is set, if we consider a default neighborhood to load for each user
+            self.hoodId = sharedInstance.hoodId
             self.loadSnaps()
             self.tableView.reloadData()
         } else {
           self.hood = sharedInstance.hood
+          // TODO ensure that hoodId is set, if we consider a default neighborhood to load for each user
+          self.hoodId = sharedInstance.hoodId
           self.loadSnaps()
           self.tableView.reloadData()
           self.title = self.hood
@@ -197,7 +202,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         NSNotificationCenter.defaultCenter().postNotificationName(didClickToNavigateToComments, object: self)
     } // tableView(didSelectRowAtIndexPath)
     
-    func handleLongPress(sender:UILongPressGestureRecognizer!) {
+    func handleLongPressHome(sender:UILongPressGestureRecognizer!) {
         let localLongPress = sender as UILongPressGestureRecognizer
         var locationInView = localLongPress.locationInView(tableView)
         
@@ -207,9 +212,10 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         if indexPath != nil {
             let cell = self.tableView.cellForRowAtIndexPath(indexPath!) as VideoCellTableViewCell
             let urlString = cell.titleLabel.text!
-            println("Long press Block .................");
+            println("Long press Block Home .................");
 
             let filePath = determineFilePath(cell.titleLabel.text!)
+            println(cell.titleLabel.text!)
             
             if (sender.state == UIGestureRecognizerState.Ended) {
                 println("Long press Ended");
@@ -260,7 +266,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
                     voters: processVotes(rowAPIresult["votes"]),
                     flags: rowAPIresult["flags"].count
                 )
-                videoModel.findOrCreate()
+                videoModel.findOrCreate(self.hoodId)
                 if (videoModel.flags >= 2){
                     
                 } else {
@@ -284,39 +290,39 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
     // we must reload the snap, to persist the comments between clicks, but the reload calls loadSnaps
     // its pretty messy
     
-    func addResult(result: JSON) {
-        // local array var used in this function
-        var videos = videoModelList
-        
-        for (index: String, rowAPIresult: JSON) in result {
-            
-            var videoModel = VideoModel(
-                id: rowAPIresult["film"].stringValue,
-                user: rowAPIresult["userId"].stringValue,
-                img: rowAPIresult["img"].stringValue,
-                description: rowAPIresult["description"].stringValue,
-                votes: rowAPIresult["votes"].count,
-                comments: processComments(rowAPIresult["comments"]),
-                voters: processVotes(rowAPIresult["votes"]),
-                flags: rowAPIresult["flags"].count
-            )
-            // TODO
-            // performacne problem, but a minor one
-            // could create a mutablearray and share it, with known videos
-            // to avoid the lookup
-            videoModel.findOrCreate()
-            videos.addObject(videoModel)
-        }
-        
-        // Set our array of new models
-        videoModelList = videos
-        // Make sure we are on the main thread, and update the UI.
-        
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            // NSLog("refreshing \(self.videoModelList)")
-            self.tableView.reloadData()
-        })
-    }
+//    func addResult(result: JSON) {
+//        // local array var used in this function
+//        var videos = videoModelList
+//        
+//        for (index: String, rowAPIresult: JSON) in result {
+//            
+//            var videoModel = VideoModel(
+//                id: rowAPIresult["film"].stringValue,
+//                user: rowAPIresult["userId"].stringValue,
+//                img: rowAPIresult["img"].stringValue,
+//                description: rowAPIresult["description"].stringValue,
+//                votes: rowAPIresult["votes"].count,
+//                comments: processComments(rowAPIresult["comments"]),
+//                voters: processVotes(rowAPIresult["votes"]),
+//                flags: rowAPIresult["flags"].count
+//            )
+//            // TODO
+//            // performacne problem, but a minor one
+//            // could create a mutablearray and share it, with known videos
+//            // to avoid the lookup
+//            videoModel.findOrCreate()
+//            videos.addObject(videoModel)
+//        }
+//        
+//        // Set our array of new models
+//        videoModelList = videos
+//        // Make sure we are on the main thread, and update the UI.
+//        
+//        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+//            // NSLog("refreshing \(self.videoModelList)")
+//            self.tableView.reloadData()
+//        })
+//    }
     
     func processComments(comments:JSON) -> NSMutableDictionary {
         var commentDictionary:NSMutableDictionary = [:]
