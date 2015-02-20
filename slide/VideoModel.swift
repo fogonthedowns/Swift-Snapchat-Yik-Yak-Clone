@@ -110,4 +110,23 @@ class VideoModel: NSObject {
         }
     } //  saveFilmAsDownloaded()
     
+    class func deleteOldFilms() {
+        var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+        var context: NSManagedObjectContext = appDel.managedObjectContext!
+        var managedObject: NSManagedObject!
+        var fetchRequest = NSFetchRequest(entityName: "Video")
+        let date = NSCalendar.currentCalendar().dateByAddingUnit(.DayCalendarUnit,
+            value: -2, toDate: NSDate(), options: nil)
+        fetchRequest.predicate = NSPredicate(format: "date <= %@", date!)
+        
+        if let fetchResults = appDel.managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [NSManagedObject] {
+            if fetchResults.count != 0{
+                NSLog("***************** found film! updating status %@", fetchResults)
+            } else {
+                println("***************** no films found")
+            } // else
+        }
+    } //  saveFilmAsDownloaded()
+
+    
 }
