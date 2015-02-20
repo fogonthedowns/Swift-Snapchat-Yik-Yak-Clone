@@ -21,6 +21,7 @@ class VideoDataToAPI {
     var hood: NSString!
     // used for background processing of uploads
     var userDescription: NSString!
+    var playList: NSMutableArray = []
     
     class var sharedInstance :VideoDataToAPI {
         struct Singleton {

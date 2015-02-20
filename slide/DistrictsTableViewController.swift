@@ -11,7 +11,7 @@ import MediaPlayer
 
 let getDistrictsBecauseIhaveAUserLoaded = "com.snapAPI.getDistricts"
 
-class DistrictsTableViewController: UITableViewController, APIProtocol {
+class DistrictsTableViewController: UITableViewController, NSURLSessionDelegate, NSURLSessionTaskDelegate, APIProtocol {
     let userObject = UserModel()
     var latitude = "1"
     var longitute = "1"
@@ -23,7 +23,7 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
     var moviePlayerTwo:MPMoviePlayerController!
     let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
     var userIntendsToWatchVideo = false
-    var currentIndex = 0
+    var currentIndex = 1
     
     // file download 
     var session: NSURLSession?
@@ -67,6 +67,20 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        // singleton of session
+        // ie we can only download one object at a time from Amazon
+        struct Static {
+            static var session: NSURLSession?
+            static var token: dispatch_once_t = 0
+        }
+        
+        dispatch_once(&Static.token) {
+            let configuration = NSURLSessionConfiguration.backgroundSessionConfiguration(BackgroundSessionDownloadIdentifier)
+            Static.session = NSURLSession(configuration: configuration, delegate: self, delegateQueue: nil)
+        }
+        
+        self.session = Static.session;
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -102,6 +116,7 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
         for (index: String, rowAPIresult: JSON) in result {
             if (rowAPIresult["film"] != nil) {
                 // VideoModel
+                println("***************************** videoModel blcok *****************************")
                 var videoModel = VideoModel(
                     id: rowAPIresult["film"].stringValue,
                     user: rowAPIresult["userId"].stringValue,
@@ -116,6 +131,7 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
                 if (videoModel.flags >= 2){
                    // skip flagged videos
                 } else {
+                    println("***************************** self.start block *****************************")
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
                         self.start(videoModel.film)
                     })
@@ -214,37 +230,34 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
         if indexPath != nil {
             let cell = self.tableView.cellForRowAtIndexPath(indexPath!) as DistrictTableViewCell
             println("Long press Block .................");
-            
-            let filePath = self.playList[0] as NSString
-            
-            if (sender.state == UIGestureRecognizerState.Ended) {
-                self.userIntendsToWatchVideo = false
-                self.currentIndex = 0
-                println("Long press Ended");
-                self.moviePlayer.stop()
-                self.moviePlayer.view.removeFromSuperview()
-//                self.moviePlayerTwo.stop()
-//                self.moviePlayerTwo.view.removeFromSuperview()
-                self.tableView.reloadData()
-                navigationController?.navigationBarHidden = false
-                UIApplication.sharedApplication().statusBarHidden=false;
-            } else if (sender.state == UIGestureRecognizerState.Began) {
-                 self.userIntendsToWatchVideo = true
-                println("Long press detected.");
-//                let path = NSBundle.mainBundle().pathForResource("video", ofType:"m4v")
-                let url = NSURL.fileURLWithPath(filePath)
-                self.moviePlayer = MPMoviePlayerController(contentURL: url)
-                if var player = self.moviePlayer {
-                    navigationController?.navigationBarHidden = true
-                    UIApplication.sharedApplication().statusBarHidden=true
-                    player.view.frame = self.view.bounds
-                    player.prepareToPlay()
-                    player.scalingMode = .AspectFill
-                    player.controlStyle = .None
-                    self.tableView.addSubview(player.view)
+            if (self.sharedInstance.playList.count != 0) {
+                let filePath = self.sharedInstance.playList[0] as NSString
+                if (sender.state == UIGestureRecognizerState.Ended) {
+                    self.userIntendsToWatchVideo = false
+                    self.currentIndex = 0
+                    println("Long press Ended");
+                    self.moviePlayer.stop()
+                    self.moviePlayer.view.removeFromSuperview()
+                    self.tableView.reloadData()
+                    navigationController?.navigationBarHidden = false
+                    UIApplication.sharedApplication().statusBarHidden=false;
+                } else if (sender.state == UIGestureRecognizerState.Began) {
+                     self.userIntendsToWatchVideo = true
+                    println("Long press detected.");
+                    let url = NSURL.fileURLWithPath(filePath)
+                    self.moviePlayer = MPMoviePlayerController(contentURL: url)
+                    if var player = self.moviePlayer {
+                        navigationController?.navigationBarHidden = true
+                        UIApplication.sharedApplication().statusBarHidden=true
+                        player.view.frame = self.view.bounds
+                        player.prepareToPlay()
+                        player.scalingMode = .AspectFill
+                        player.controlStyle = .None
+                        self.tableView.addSubview(player.view)
+                    }
                 }
-            }
-            // HACK
+            }// playlist Count
+        // HACK
         } else {
             println("HACK - Long press Ended");
             self.moviePlayer.stop()
@@ -257,10 +270,11 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
     
     func switchPlayerOrQuit(){
         println("FIRED! :)")
-        if (currentIndex <= self.playList.count) {
+        println(self.sharedInstance.playList.count)
+        if (currentIndex < self.sharedInstance.playList.count) {
             self.moviePlayer.view.removeFromSuperview()
             if  (self.userIntendsToWatchVideo == true) {
-                let filePath = self.playList[self.currentIndex] as NSString
+                let filePath = self.sharedInstance.playList[self.currentIndex] as NSString
                 let url = NSURL.fileURLWithPath(filePath)
                 self.moviePlayer = MPMoviePlayerController(contentURL: url)
                 if var player = self.moviePlayer {
@@ -332,11 +346,15 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
     // Lots of code
     
     func start(s3downloadname: NSString) {
-        
+        println("***************************** start block *****************************")
         let filePath = determineFilePath(s3downloadname)
         // if the file exists return, don't start an asynch download
         if NSFileManager.defaultManager().fileExistsAtPath(filePath) {
-            self.playList.addObject(filePath)
+            if self.sharedInstance.playList.containsObject(filePath) {
+                println("FILE IS IN playlist !!!!!!!!!!!")
+            } else {
+              self.sharedInstance.playList.addObject(filePath)
+            }
             NSLog("FILE ALREADY DOWNLOADED")
             return;
         }
@@ -348,10 +366,7 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
             // NSLog("videos in array %@", sharedInstance.listOfVideosToDownload)
             return;
         }
-        
-        
-        // NSLog("------------------------------- filePath -----------------%@", filePath)
-        
+
         sharedInstance.downloadName = s3downloadname
         let getPreSignedURLRequest = AWSS3GetPreSignedURLRequest()
         getPreSignedURLRequest.bucket = S3BucketName
@@ -366,8 +381,7 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
             } else {
                 let presignedURL = task.result as NSURL!
                 if (presignedURL != nil) {
-                    NSLog("download presignedURL is: \n%@", presignedURL)
-                    
+                    NSLog("district download presignedURL is: \n%@", presignedURL)
                     let request = NSURLRequest(URL: presignedURL)
                     self.downloadTask = self.session?.downloadTaskWithRequest(request)
                     self.downloadTask?.resume()
@@ -377,68 +391,7 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
         }
     }
     
-    func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
-        
-        let progress = Float(totalBytesWritten) / Float(totalBytesExpectedToWrite)
-        
-        NSLog("DownloadTask progress: %lf", progress)
-        
-        dispatch_async(dispatch_get_main_queue()) {
-            //            self.progressView.progress = progress
-            //            self.statusLabel.text = "Downloading..."
-        }
-        
-    }
-    
-    
-    func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didFinishDownloadingToURL location: NSURL) {
-        
-        let filePath = determineFilePath(sharedInstance.downloadName)
-        NSFileManager.defaultManager().moveItemAtURL(location, toURL: NSURL.fileURLWithPath(filePath)!, error: nil)
-        
-        // update UI elements
-        // dispatch_async(dispatch_get_main_queue()) {
-        // }
-    }
-    
-    
-    func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
-        if (error == nil) {
-            dispatch_async(dispatch_get_main_queue()) {
-                // self.statusLabel.text = "Download Successfully"
-                // recursive completion handler function, we delete the video that was just processed,
-                // then we check if any videos are left to process
-                // if so we spawn a new download
-                // Todo integration point for new model
-                
-                
-                self.sharedInstance.listOfVideosToDownload.removeObjectIdenticalTo(self.sharedInstance.downloadName)
-                print(self.sharedInstance.listOfVideosToDownload.count)
-                VideoModel.saveFilmAsDownloaded(self.sharedInstance.downloadName)
-                if ((self.sharedInstance.listOfVideosToDownload.count) == 0) {
-                    // NSLog("no videos left to process");
-                } else {
-                    // videos need to be downloaded, so start another download
-                    self.start(self.sharedInstance.listOfVideosToDownload[0] as NSString)
-                }
-            }
-        } else {
-            dispatch_async(dispatch_get_main_queue()) {
-                //                self.statusLabel.text = "Download Failed"
-            }
-            NSLog("S3 DownloadTask: %@ completed with error: %@", task, error!.localizedDescription);
-        }
-        
-        //        dispatch_async(dispatch_get_main_queue()) {
-        //            self.progressView.progress = Float(task.countOfBytesReceived) / Float(task.countOfBytesExpectedToReceive)
-        //        }
-        
-        self.downloadTask = nil
-    }
-    
     func loadSnaps() {
         userObject.apiObject.getSnaps(self.latitude,long: self.longitute, hood: "Potrero Hill", delegate:self)
     }
-    
-
 }
