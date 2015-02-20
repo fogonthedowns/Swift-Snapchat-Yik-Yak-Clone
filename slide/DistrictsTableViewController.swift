@@ -110,6 +110,8 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
                         
                         // cell.coverPhoto.contentMode = UIViewContentMode.ScaleAspectFill
                         cell.coverPhoto.image = image;
+                        cell.coverPhoto.layer.cornerRadius = cell.coverPhoto.frame.size.width  / 2;
+                        cell.coverPhoto.clipsToBounds = true;
                     })
                     
                 }
