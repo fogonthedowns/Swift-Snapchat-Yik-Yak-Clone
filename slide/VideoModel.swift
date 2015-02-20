@@ -18,6 +18,7 @@ class VideoModel: NSObject {
     let comments: NSMutableDictionary
     let voters: NSMutableDictionary
     let flags: NSNumber
+    var videoNSManagedObject = [NSManagedObject]()
     
     init(id: String, user:String, img:String, description:String, votes:NSNumber, comments:NSMutableDictionary, voters:NSMutableDictionary, flags:NSNumber) {
         self.film = id
@@ -29,5 +30,84 @@ class VideoModel: NSObject {
         self.voters = voters
         self.flags = flags
     }
+    
+    // searches by a userID, then it updates the access token
+    // this should probably be moved to the User Model since its a CRUD event, even though its tied to the response
+    // function above, processResults(), this probably doesn't matter bc its saving something. This could be made
+    // more general by passing a key, to the update field and value of that being updated
+    
+    func findOrCreate() {
+        var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+        var context: NSManagedObjectContext = appDel.managedObjectContext!
+        var managedObject: NSManagedObject!
+        var fetchRequest = NSFetchRequest(entityName: "Video")
+        fetchRequest.predicate = NSPredicate(format: "film = %@", self.film)
+        
+        if let fetchResults = appDel.managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [NSManagedObject] {
+            if fetchResults.count != 0{
+                NSLog("***************** found film, no need to create %@", self.film)
+                var managedObject = fetchResults[0]
+                println("***************** date %@", managedObject.valueForKey("date"))
+                 println("***************** id %@", managedObject.valueForKey("film"))
+                 println("***************** bool %@", managedObject.valueForKey("downloaded"))
+                // managedObject.setValue(self.apiUserId, forKey: "apiUserId")
+                // managedObject.setValue(self.accessToken, forKey: "accessToken")
+                // context.save(nil)
+                // notification center - Post Notification!
+                // NSNotificationCenter.defaultCenter().postNotificationName(getSnapsBecauseIhaveAUserLoaded, object: self)
+            } else {
+                println("***************** creating a new video record")
+                let entity =  NSEntityDescription.entityForName("Video",
+                    inManagedObjectContext:
+                    context)
+                
+                let managedObject = NSManagedObject(entity: entity!,
+                    insertIntoManagedObjectContext:context)
+                
+                //  set film id to film row
+                managedObject.setValue(self.film, forKey: "film")
+                
+                // handle errors
+                var error: NSError?
+                if !context.save(&error) {
+                    println("Could not save")
+                }
+                //5
+                videoNSManagedObject.append(managedObject)
+                var row = videoNSManagedObject[0]
+                var logforrecord = row.valueForKey("film") as String!
+                NSLog("Video:%@", logforrecord)
+            } // else
+        }
+    } // end findOrCreate()
+    
+    class func saveFilmAsDownloaded(film:NSString) {
+        var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+        var context: NSManagedObjectContext = appDel.managedObjectContext!
+        var managedObject: NSManagedObject!
+        var fetchRequest = NSFetchRequest(entityName: "Video")
+        fetchRequest.predicate = NSPredicate(format: "film = %@", film)
+        
+        if let fetchResults = appDel.managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [NSManagedObject] {
+            if fetchResults.count != 0{
+                NSLog("***************** found film! updating status %@", film)
+                var managedObject = fetchResults[0]
+                managedObject.setValue(true, forKey: "downloaded")
+                var date = NSDate()
+                managedObject.setValue(date, forKey: "date")
+                context.save(nil)
+                // notification center - Post Notification!
+                // NSNotificationCenter.defaultCenter().postNotificationName(getSnapsBecauseIhaveAUserLoaded, object: self)
+            } else {
+                println("***************** crap, no record found, so create it.")
+                // TODO
+                // Create an API endpoint to warn us that something very bad is happening in nature
+                // this could be a general api endpoint, used to report bugs
+                // it could simply accept a string
+                // for the error description
+                // in this case no record found
+            } // else
+        }
+    } //  saveFilmAsDownloaded()
     
 }
