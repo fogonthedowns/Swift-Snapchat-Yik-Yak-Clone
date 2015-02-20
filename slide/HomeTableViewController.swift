@@ -260,6 +260,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
                     voters: processVotes(rowAPIresult["votes"]),
                     flags: rowAPIresult["flags"].count
                 )
+                videoModel.findOrCreate()
                 if (videoModel.flags >= 2){
                     
                 } else {
@@ -299,7 +300,11 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
                 voters: processVotes(rowAPIresult["votes"]),
                 flags: rowAPIresult["flags"].count
             )
-            
+            // TODO
+            // performacne problem, but a minor one
+            // could create a mutablearray and share it, with known videos
+            // to avoid the lookup
+            videoModel.findOrCreate()
             videos.addObject(videoModel)
         }
         
@@ -411,8 +416,12 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
                 // recursive completion handler function, we delete the video that was just processed,
                 // then we check if any videos are left to process
                 // if so we spawn a new download
-                self.sharedInstance.listOfVideosToDownload.removeObjectIdenticalTo(self.sharedInstance.downloadName)
+                // Todo integration point for new model
+                
+            
+            self.sharedInstance.listOfVideosToDownload.removeObjectIdenticalTo(self.sharedInstance.downloadName)
                 print(self.sharedInstance.listOfVideosToDownload.count)
+            VideoModel.saveFilmAsDownloaded(self.sharedInstance.downloadName)
                 if ((self.sharedInstance.listOfVideosToDownload.count) == 0) {
                     // NSLog("no videos left to process");
                 } else {

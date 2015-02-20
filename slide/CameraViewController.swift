@@ -143,9 +143,12 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         self.sharedInstance.userDescription = self.userDescription.text
         self.userDescription.text = ""
         self.stopPreview = true
-        self.moviePlayer.stop()
-        self.view.sendSubviewToBack(self.confirmationView)
-        self.view.sendSubviewToBack(self.moviePlayer.view)
+        if (self.moviePlayer != nil) {
+          self.moviePlayer.stop()
+          self.view.sendSubviewToBack(self.confirmationView)
+          self.view.sendSubviewToBack(self.moviePlayer.view)
+        }
+
     }
     
     func configureDevice() {
