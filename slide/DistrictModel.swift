@@ -12,10 +12,12 @@ class DistrictModel: NSObject {
     
     var name: String
     let img: String
+    let id: String
     
-    init(name:String, img:String) {
+    init(name:String, img:String, id:String) {
         self.name = name
         self.img = img
+        self.id = id
     }
     
 }

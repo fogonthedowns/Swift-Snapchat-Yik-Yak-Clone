@@ -38,16 +38,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "slide/DistrictsTableViewController.swift"
-            timestampString = "446110120.615032"
+            filePath = "slide/HomeTableViewController.swift"
+            timestampString = "446153153.569716"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "233"
-            endingLineNumber = "233"
-            landmarkName = "handleLongPress(_:)"
+            startingLineNumber = "277"
+            endingLineNumber = "277"
+            landmarkName = "didReceiveResult(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

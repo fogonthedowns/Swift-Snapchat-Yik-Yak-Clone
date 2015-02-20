@@ -13,6 +13,8 @@ class DistrictTableViewCell: UITableViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var coverPhoto: UIImageView!
+    var hoodID:NSString!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

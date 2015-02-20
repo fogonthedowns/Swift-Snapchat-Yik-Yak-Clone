@@ -19,9 +19,11 @@ class VideoDataToAPI {
     var videoForCommentController: VideoModel!
     // var userObject = UserModel()
     var hood: NSString!
+    var hoodId: NSString!
     // used for background processing of uploads
     var userDescription: NSString!
     var playList: NSMutableArray = []
+    var playListHash: NSMutableDictionary = [:]
     
     class var sharedInstance :VideoDataToAPI {
         struct Singleton {

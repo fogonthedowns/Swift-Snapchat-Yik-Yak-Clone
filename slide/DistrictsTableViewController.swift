@@ -11,7 +11,7 @@ import MediaPlayer
 
 let getDistrictsBecauseIhaveAUserLoaded = "com.snapAPI.getDistricts"
 
-class DistrictsTableViewController: UITableViewController, NSURLSessionDelegate, NSURLSessionTaskDelegate, APIProtocol {
+class DistrictsTableViewController: UITableViewController, APIProtocol {
     let userObject = UserModel()
     var latitude = "1"
     var longitute = "1"
@@ -24,21 +24,10 @@ class DistrictsTableViewController: UITableViewController, NSURLSessionDelegate,
     let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
     var userIntendsToWatchVideo = false
     var currentIndex = 1
-    
-    // file download 
-    var session: NSURLSession?
-    var downloadTask: NSURLSessionDownloadTask?
-    var videoModelList: NSMutableArray = [] // This is the array that my tableView
-    var playList: NSMutableArray = [] // list of urls to play
-    
-    
-   
+    var currentID:String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadSnaps", name: getSnapsBecauseIhaveAUserLoaded, object: nil)
-        userObject.findUser();
-
         NSLog("shared instance before%@", self.latitude)
         self.latitude = sharedInstance.latitude
         self.longitute = sharedInstance.longitute
@@ -61,25 +50,6 @@ class DistrictsTableViewController: UITableViewController, NSURLSessionDelegate,
         var refresh = UIRefreshControl()
         refresh.addTarget(self, action: "pullToLoadDistricts:", forControlEvents:.ValueChanged)
         self.refreshControl = refresh
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        // singleton of session
-        // ie we can only download one object at a time from Amazon
-        struct Static {
-            static var session: NSURLSession?
-            static var token: dispatch_once_t = 0
-        }
-        
-        dispatch_once(&Static.token) {
-            let configuration = NSURLSessionConfiguration.backgroundSessionConfiguration(BackgroundSessionDownloadIdentifier)
-            Static.session = NSURLSession(configuration: configuration, delegate: self, delegateQueue: nil)
-        }
-        
-        self.session = Static.session;
         
     }
 
@@ -115,36 +85,37 @@ class DistrictsTableViewController: UITableViewController, NSURLSessionDelegate,
         
         for (index: String, rowAPIresult: JSON) in result {
             if (rowAPIresult["film"] != nil) {
-                // VideoModel
-                println("***************************** videoModel blcok *****************************")
-                var videoModel = VideoModel(
-                    id: rowAPIresult["film"].stringValue,
-                    user: rowAPIresult["userId"].stringValue,
-                    img: rowAPIresult["img"].stringValue,
-                    description: rowAPIresult["description"].stringValue,
-                    votes: rowAPIresult["votes"].count,
-                    comments: processComments(rowAPIresult["comments"]),
-                    voters: processVotes(rowAPIresult["votes"]),
-                    flags: rowAPIresult["flags"].count
-                )
-                videoModel.findOrCreate()
-                if (videoModel.flags >= 2){
-                   // skip flagged videos
-                } else {
-                    println("***************************** self.start block *****************************")
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        self.start(videoModel.film)
-                    })
-                    videos.addObject(videoModel)
-                } // end video
-                // Set our array of new models
-                videoModelList = videos
-                
+//                // VideoModel
+//                println("***************************** videoModel blcok *****************************")
+//                var videoModel = VideoModel(
+//                    id: rowAPIresult["film"].stringValue,
+//                    user: rowAPIresult["userId"].stringValue,
+//                    img: rowAPIresult["img"].stringValue,
+//                    description: rowAPIresult["description"].stringValue,
+//                    votes: rowAPIresult["votes"].count,
+//                    comments: processComments(rowAPIresult["comments"]),
+//                    voters: processVotes(rowAPIresult["votes"]),
+//                    flags: rowAPIresult["flags"].count
+//                )
+//                videoModel.findOrCreate()
+//                if (videoModel.flags >= 2){
+//                   // skip flagged videos
+//                } else {
+//                    println("***************************** self.start block *****************************")
+//                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+//                        self.start(videoModel.film)
+//                    })
+//                    videos.addObject(videoModel)
+//                } // end video
+//                // Set our array of new models
+//                videoModelList = videos
+//                
             } else { // there is no ["film"] object from the returned protocol call
                 // DistrictModel
                 var districtModel = DistrictModel(
                     name: rowAPIresult["name"].stringValue,
-                    img: rowAPIresult["coverphoto"].stringValue
+                    img: rowAPIresult["coverphoto"].stringValue,
+                    id: rowAPIresult["_id"]["$oid"].stringValue
                 )
                 districts.addObject(districtModel)
                 districtModelList = districts
@@ -181,6 +152,7 @@ class DistrictsTableViewController: UITableViewController, NSURLSessionDelegate,
         let cell = tableView.dequeueReusableCellWithIdentifier("DistrictCell") as DistrictTableViewCell
         let district: DistrictModel = districtModelList[indexPath.row] as DistrictModel
         cell.hood = district.name
+        cell.hoodID = district.id
         cell.titleLabel.text = district.name
    
         // Load Images Asynchroniously
@@ -211,6 +183,7 @@ class DistrictsTableViewController: UITableViewController, NSURLSessionDelegate,
         let currentCell = tableView.cellForRowAtIndexPath(indexPath!) as DistrictTableViewCell
         
         sharedInstance.hood = currentCell.titleLabel.text
+        sharedInstance.hoodId = currentCell.hoodID
         NSNotificationCenter.defaultCenter().postNotificationName(didFinishUploadPresentNewPage, object: self)
     }
     
@@ -223,45 +196,57 @@ class DistrictsTableViewController: UITableViewController, NSURLSessionDelegate,
     func handleLongPress(sender:UILongPressGestureRecognizer!) {
         let localLongPress = sender as UILongPressGestureRecognizer
         var locationInView = localLongPress.locationInView(tableView)
+        // var localPlaylist: NSMutableArray = []
+        
+        if (sender.state == UIGestureRecognizerState.Ended) {
+            self.userIntendsToWatchVideo = false
+            self.currentIndex = 0
+            println("top - Long press Ended");
+        }
         
         // returns nil in the case of last cell
         // but strangely only on EndedState
         var indexPath = tableView.indexPathForRowAtPoint(locationInView)
-        if indexPath != nil {
+        if (indexPath != nil) && (self.sharedInstance.playListHash.count != 0){
             let cell = self.tableView.cellForRowAtIndexPath(indexPath!) as DistrictTableViewCell
-            println("Long press Block .................");
-            if (self.sharedInstance.playList.count != 0) {
-                let filePath = self.sharedInstance.playList[0] as NSString
-                if (sender.state == UIGestureRecognizerState.Ended) {
-                    self.userIntendsToWatchVideo = false
-                    self.currentIndex = 0
-                    println("Long press Ended");
-                    self.moviePlayer.stop()
-                    self.moviePlayer.view.removeFromSuperview()
-                    self.tableView.reloadData()
-                    navigationController?.navigationBarHidden = false
-                    UIApplication.sharedApplication().statusBarHidden=false;
-                } else if (sender.state == UIGestureRecognizerState.Began) {
-                     self.userIntendsToWatchVideo = true
-                    println("Long press detected.");
-                    let url = NSURL.fileURLWithPath(filePath)
-                    self.moviePlayer = MPMoviePlayerController(contentURL: url)
-                    if var player = self.moviePlayer {
-                        navigationController?.navigationBarHidden = true
-                        UIApplication.sharedApplication().statusBarHidden=true
-                        player.view.frame = self.view.bounds
-                        player.prepareToPlay()
-                        player.scalingMode = .AspectFill
-                        player.controlStyle = .None
-                        self.tableView.addSubview(player.view)
+            if let localPlaylist = self.sharedInstance.playListHash[cell.hoodID] as NSMutableArray? {
+                currentID = cell.hoodID
+                println("Long press Block .................");
+                if (localPlaylist.count != 0) {
+                    let filePath = localPlaylist[0] as NSString
+                    if (sender.state == UIGestureRecognizerState.Ended) {
+                        self.userIntendsToWatchVideo = false
+                        self.currentIndex = 0
+                        println("Long press Ended");
+                        self.moviePlayer.stop()
+                        self.moviePlayer.view.removeFromSuperview()
+                        self.tableView.reloadData()
+                        navigationController?.navigationBarHidden = false
+                        UIApplication.sharedApplication().statusBarHidden=false;
+                    } else if (sender.state == UIGestureRecognizerState.Began) {
+                         self.userIntendsToWatchVideo = true
+                        println("Long press detected.");
+                        let url = NSURL.fileURLWithPath(filePath)
+                        self.moviePlayer = MPMoviePlayerController(contentURL: url)
+                        if var player = self.moviePlayer {
+                            navigationController?.navigationBarHidden = true
+                            UIApplication.sharedApplication().statusBarHidden=true
+                            player.view.frame = self.view.bounds
+                            player.prepareToPlay()
+                            player.scalingMode = .AspectFill
+                            player.controlStyle = .None
+                            self.tableView.addSubview(player.view)
+                        }
                     }
-                }
+                } // if localplaylist?
             }// playlist Count
         // HACK
         } else {
-            println("HACK - Long press Ended");
-            self.moviePlayer.stop()
-            self.moviePlayer.view.removeFromSuperview()
+            println("no index path or no playListHash");
+            if (self.moviePlayer != nil) {
+              self.moviePlayer.stop()
+              self.moviePlayer.view.removeFromSuperview()
+            }
             self.tableView.reloadData()
             navigationController?.navigationBarHidden = false
             UIApplication.sharedApplication().statusBarHidden=false;
@@ -269,26 +254,44 @@ class DistrictsTableViewController: UITableViewController, NSURLSessionDelegate,
     }
     
     func switchPlayerOrQuit(){
-        println("FIRED! :)")
-        println(self.sharedInstance.playList.count)
-        if (currentIndex < self.sharedInstance.playList.count) {
-            self.moviePlayer.view.removeFromSuperview()
-            if  (self.userIntendsToWatchVideo == true) {
-                let filePath = self.sharedInstance.playList[self.currentIndex] as NSString
-                let url = NSURL.fileURLWithPath(filePath)
-                self.moviePlayer = MPMoviePlayerController(contentURL: url)
-                if var player = self.moviePlayer {
-                    navigationController?.navigationBarHidden = true
-                    UIApplication.sharedApplication().statusBarHidden=true
-                    player.view.frame = self.view.bounds
-                    player.prepareToPlay()
-                    player.scalingMode = .AspectFill
-                    player.controlStyle = .None
-                    self.tableView.addSubview(player.view)
-                }
-            }
-        currentIndex += 1
+        println("----------------------------- switchPlayerOrQuit block, user intent:")
+        println(self.userIntendsToWatchVideo)
+        
+        // always remove moviePlayer
+        if (self.moviePlayer != nil) {
+           self.moviePlayer.view.removeFromSuperview()
         }
+        
+        // When the user is done tidy things up more
+        if (self.userIntendsToWatchVideo == false) {
+            navigationController?.navigationBarHidden = false
+            UIApplication.sharedApplication().statusBarHidden = false
+        }
+        
+        // currentID corresponds to the current cell neighborhood id
+        if (self.currentID != nil) && (self.userIntendsToWatchVideo == true) {
+            if let localPlaylist = self.sharedInstance.playListHash[currentID] as NSMutableArray? {
+                println(localPlaylist.count)
+                if (currentIndex < localPlaylist.count) {
+                    // self.moviePlayer.view.removeFromSuperview()
+                    if (self.userIntendsToWatchVideo == true) {
+                        let filePath = localPlaylist[self.currentIndex] as NSString
+                        let url = NSURL.fileURLWithPath(filePath)
+                        self.moviePlayer = MPMoviePlayerController(contentURL: url)
+                        if var player = self.moviePlayer {
+                            navigationController?.navigationBarHidden = true
+                            UIApplication.sharedApplication().statusBarHidden=true
+                            player.view.frame = self.view.bounds
+                            player.prepareToPlay()
+                            player.scalingMode = .AspectFill
+                            player.controlStyle = .None
+                            self.tableView.addSubview(player.view)
+                        }
+                    }
+                currentIndex += 1
+                }
+            } // if let localPlayList
+        } // if self.currentID
     }
 
     func determineFilePath(file:NSString)-> NSString {
@@ -345,53 +348,5 @@ class DistrictsTableViewController: UITableViewController, NSURLSessionDelegate,
     // ------------------------------------------
     // Lots of code
     
-    func start(s3downloadname: NSString) {
-        println("***************************** start block *****************************")
-        let filePath = determineFilePath(s3downloadname)
-        // if the file exists return, don't start an asynch download
-        if NSFileManager.defaultManager().fileExistsAtPath(filePath) {
-            if self.sharedInstance.playList.containsObject(filePath) {
-                println("FILE IS IN playlist !!!!!!!!!!!")
-            } else {
-              self.sharedInstance.playList.addObject(filePath)
-            }
-            NSLog("FILE ALREADY DOWNLOADED")
-            return;
-        }
-        
-        if (self.downloadTask != nil) {
-            // push current downloadtask into an array
-            // array processes recursive function
-            sharedInstance.listOfVideosToDownload.addObject(s3downloadname)
-            // NSLog("videos in array %@", sharedInstance.listOfVideosToDownload)
-            return;
-        }
 
-        sharedInstance.downloadName = s3downloadname
-        let getPreSignedURLRequest = AWSS3GetPreSignedURLRequest()
-        getPreSignedURLRequest.bucket = S3BucketName
-        getPreSignedURLRequest.key = s3downloadname
-        getPreSignedURLRequest.HTTPMethod = AWSHTTPMethod.GET
-        getPreSignedURLRequest.expires = NSDate(timeIntervalSinceNow: 3600)
-        
-        
-        AWSS3PreSignedURLBuilder.defaultS3PreSignedURLBuilder().getPreSignedURL(getPreSignedURLRequest) .continueWithBlock { (task:BFTask!) -> (AnyObject!) in
-            if (task.error != nil) {
-                NSLog("Error: %@", task.error)
-            } else {
-                let presignedURL = task.result as NSURL!
-                if (presignedURL != nil) {
-                    NSLog("district download presignedURL is: \n%@", presignedURL)
-                    let request = NSURLRequest(URL: presignedURL)
-                    self.downloadTask = self.session?.downloadTaskWithRequest(request)
-                    self.downloadTask?.resume()
-                }
-            }
-            return nil;
-        }
-    }
-    
-    func loadSnaps() {
-        userObject.apiObject.getSnaps(self.latitude,long: self.longitute, hood: "Potrero Hill", delegate:self)
-    }
 }
