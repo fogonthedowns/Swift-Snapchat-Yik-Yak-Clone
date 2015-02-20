@@ -14,7 +14,7 @@ import MediaPlayer
 
 protocol APIProtocol {
     func didReceiveResult(results: JSON)
-    func addResult(results:JSON)
+    // func addResult(results:JSON)
 }
 
 let getSnapsBecauseIhaveAUserLoaded = "com.snapAPI.specialNotificationKey"

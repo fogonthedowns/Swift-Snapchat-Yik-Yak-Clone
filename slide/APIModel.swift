@@ -62,7 +62,7 @@ class APIModel: NSObject {
                     NSLog("GET Result: \(json)")
                     
                     // Call delegate
-                    delegate.addResult(json)
+                    // delegate.addResult(json)
                 }
         }
         
