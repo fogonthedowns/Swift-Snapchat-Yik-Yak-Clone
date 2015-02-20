@@ -26,6 +26,9 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
     var currentIndex = 1
     var currentID:String!
     
+    // video list
+    var playListHash: NSMutableDictionary = [:]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         NSLog("shared instance before%@", self.latitude)
@@ -147,6 +150,18 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
         }
         return voteDictionary as NSMutableDictionary
     }
+    
+    func processFetchResults(results:NSArray, key:NSString) {
+        let results = results
+        var playList: NSMutableArray = []
+        
+        for (video) in results {
+            let videoUrl:NSManagedObject = video as NSManagedObject
+            let videoString:NSString = videoUrl.valueForKey("film") as NSString
+            playList.insertObject(videoString, atIndex: 0)
+        }
+        playListHash[key] = playList
+    }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("DistrictCell") as DistrictTableViewCell
@@ -154,6 +169,20 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
         cell.hood = district.name
         cell.hoodID = district.id
         cell.titleLabel.text = district.name
+        
+        var results = VideoModel.findByDistrict(district.id)
+        self.processFetchResults(results!, key:district.id)
+        
+        
+        // as NSManagedObject
+        println(results)
+//        var managedObject = fetchResults[0]
+//        managedObject.setValue(true, forKey: "downloaded")
+//        var date = NSDate()
+//        managedObject.setValue(date, forKey: "date")
+//        context.save(nil)
+        
+        
    
         // Load Images Asynchroniously
         let backgroundQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
@@ -201,41 +230,53 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
         if (sender.state == UIGestureRecognizerState.Ended) {
             self.userIntendsToWatchVideo = false
             self.currentIndex = 0
-            println("top - Long press Ended");
+            println("Long press Ended");
+            if (self.moviePlayer != nil) {
+              self.moviePlayer.stop()
+              self.moviePlayer.view.removeFromSuperview()
+            }
+            self.tableView.reloadData()
+            navigationController?.navigationBarHidden = false
+            UIApplication.sharedApplication().statusBarHidden=false;
         }
         
         // returns nil in the case of last cell
         // but strangely only on EndedState
         var indexPath = tableView.indexPathForRowAtPoint(locationInView)
-        if (indexPath != nil) && (self.sharedInstance.playListHash.count != 0){
+        if (indexPath != nil) && (self.playListHash.count != 0){
             let cell = self.tableView.cellForRowAtIndexPath(indexPath!) as DistrictTableViewCell
-            if let localPlaylist = self.sharedInstance.playListHash[cell.hoodID] as NSMutableArray? {
+            if let localPlaylist = self.playListHash[cell.hoodID] as NSMutableArray? {
                 currentID = cell.hoodID
-                println("Long press Block .................");
+                println("Long press Block 2 .................");
                 if (localPlaylist.count != 0) {
-                    let filePath = localPlaylist[0] as NSString
-                    if (sender.state == UIGestureRecognizerState.Ended) {
-                        self.userIntendsToWatchVideo = false
-                        self.currentIndex = 0
-                        println("Long press Ended");
-                        self.moviePlayer.stop()
-                        self.moviePlayer.view.removeFromSuperview()
-                        self.tableView.reloadData()
-                        navigationController?.navigationBarHidden = false
-                        UIApplication.sharedApplication().statusBarHidden=false;
-                    } else if (sender.state == UIGestureRecognizerState.Began) {
-                         self.userIntendsToWatchVideo = true
-                        println("Long press detected.");
-                        let url = NSURL.fileURLWithPath(filePath)
-                        self.moviePlayer = MPMoviePlayerController(contentURL: url)
-                        if var player = self.moviePlayer {
-                            navigationController?.navigationBarHidden = true
-                            UIApplication.sharedApplication().statusBarHidden=true
-                            player.view.frame = self.view.bounds
-                            player.prepareToPlay()
-                            player.scalingMode = .AspectFill
-                            player.controlStyle = .None
-                            self.tableView.addSubview(player.view)
+                    if let filmString:String = localPlaylist[0] as? String {
+                        println(filmString)
+                        let filePath = determineFilePath(filmString)
+                        if (sender.state == UIGestureRecognizerState.Began) {
+                            self.userIntendsToWatchVideo = true
+                            println("Long press detected.");
+                            // let path = NSBundle.mainBundle().pathForResource("video", ofType:"m4v")
+                            let url = NSURL.fileURLWithPath(filePath)
+                            
+                            self.moviePlayer = MPMoviePlayerController(contentURL: url)
+                            if var player = self.moviePlayer {
+                                navigationController?.navigationBarHidden = true
+                                UIApplication.sharedApplication().statusBarHidden = true
+                                player.view.frame = self.view.bounds
+                                player.prepareToPlay()
+                                player.scalingMode = .AspectFill
+                                player.controlStyle = .None
+                                self.tableView.addSubview(player.view)
+                            }  else if (sender.state == UIGestureRecognizerState.Ended) {
+                                self.userIntendsToWatchVideo = false
+                                self.currentIndex = 0
+                                println("two");
+                                self.moviePlayer.stop()
+                                self.moviePlayer.view.removeFromSuperview()
+                                self.tableView.reloadData()
+                                navigationController?.navigationBarHidden = false
+                                UIApplication.sharedApplication().statusBarHidden=false;
+                            }
                         }
                     }
                 } // if localplaylist?
@@ -270,12 +311,14 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
         
         // currentID corresponds to the current cell neighborhood id
         if (self.currentID != nil) && (self.userIntendsToWatchVideo == true) {
-            if let localPlaylist = self.sharedInstance.playListHash[currentID] as NSMutableArray? {
+            if let localPlaylist = self.playListHash[currentID] as NSMutableArray? {
                 println(localPlaylist.count)
+                println(self.currentIndex)
+                println(self.currentID)
                 if (currentIndex < localPlaylist.count) {
                     // self.moviePlayer.view.removeFromSuperview()
                     if (self.userIntendsToWatchVideo == true) {
-                        let filePath = localPlaylist[self.currentIndex] as NSString
+                        let filePath = determineFilePath(localPlaylist[self.currentIndex] as NSString)
                         let url = NSURL.fileURLWithPath(filePath)
                         self.moviePlayer = MPMoviePlayerController(contentURL: url)
                         if var player = self.moviePlayer {
@@ -294,10 +337,10 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
         } // if self.currentID
     }
 
-    func determineFilePath(file:NSString)-> NSString {
+    func determineFilePath(file:String)-> String {
         let documentsPath = paths.first as? String
         let filePath = documentsPath! + "/" + file
-        return filePath
+        return filePath as String
     }
 
     /*

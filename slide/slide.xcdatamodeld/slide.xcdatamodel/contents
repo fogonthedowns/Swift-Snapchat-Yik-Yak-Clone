@@ -7,11 +7,12 @@
     </entity>
     <entity name="Video" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="districtId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="downloaded" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="film" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
         <element name="User" positionX="-63" positionY="-18" width="128" height="88"/>
-        <element name="Video" positionX="-63" positionY="9" width="128" height="88"/>
+        <element name="Video" positionX="-63" positionY="9" width="128" height="103"/>
     </elements>
 </model>

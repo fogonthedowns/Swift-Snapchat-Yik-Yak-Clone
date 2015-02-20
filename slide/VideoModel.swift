@@ -36,7 +36,7 @@ class VideoModel: NSObject {
     // function above, processResults(), this probably doesn't matter bc its saving something. This could be made
     // more general by passing a key, to the update field and value of that being updated
     
-    func findOrCreate() {
+    func findOrCreate(districtId:String) {
         var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
         var context: NSManagedObjectContext = appDel.managedObjectContext!
         var managedObject: NSManagedObject!
@@ -47,14 +47,10 @@ class VideoModel: NSObject {
             if fetchResults.count != 0{
                 NSLog("***************** found film, no need to create %@", self.film)
                 var managedObject = fetchResults[0]
-                println("***************** date %@", managedObject.valueForKey("date"))
-                 println("***************** id %@", managedObject.valueForKey("film"))
-                 println("***************** bool %@", managedObject.valueForKey("downloaded"))
-                // managedObject.setValue(self.apiUserId, forKey: "apiUserId")
-                // managedObject.setValue(self.accessToken, forKey: "accessToken")
-                // context.save(nil)
-                // notification center - Post Notification!
-                // NSNotificationCenter.defaultCenter().postNotificationName(getSnapsBecauseIhaveAUserLoaded, object: self)
+                println("date %@", managedObject.valueForKey("date"))
+                println("id %@", managedObject.valueForKey("film"))
+                println("bool %@", managedObject.valueForKey("downloaded"))
+                println("hoodId %@", managedObject.valueForKey("districtId"))
             } else {
                 println("***************** creating a new video record")
                 let entity =  NSEntityDescription.entityForName("Video",
@@ -66,6 +62,7 @@ class VideoModel: NSObject {
                 
                 //  set film id to film row
                 managedObject.setValue(self.film, forKey: "film")
+                managedObject.setValue(districtId, forKey: "districtId")
                 
                 // handle errors
                 var error: NSError?
@@ -109,6 +106,27 @@ class VideoModel: NSObject {
             } // else
         }
     } //  saveFilmAsDownloaded()
+    
+    class func findByDistrict(district:NSString) -> NSArray? {
+        var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+        var context: NSManagedObjectContext = appDel.managedObjectContext!
+        var managedObject: NSManagedObject!
+        var results: NSArray?
+        var fetchRequest = NSFetchRequest(entityName: "Video")
+        fetchRequest.predicate = NSPredicate(format: "districtId = %@ AND downloaded = %@", district, true)
+        
+        if let fetchResults = appDel.managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [NSManagedObject] {
+            if fetchResults.count != 0{
+                NSLog("***************** found film for district id: %@", district)
+                results = fetchResults
+                
+            } else {
+                println("***************** crap, no record found, so create it.")
+                results = []
+            } // else
+        }
+        return results
+    } //  findByDistrict()
     
     class func deleteOldFilms() {
         var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
