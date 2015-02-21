@@ -79,6 +79,14 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
      override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(true)
         if (sharedInstance.hood == nil) {
+            // TODO default location
+            // The user must be able to change this location
+            // and assign a default, for now its just SF Mission District
+            self.hood = "Mission"
+            self.title = "Mission"
+            self.hoodId = "54e02f65736134b1010000"
+            self.loadSnaps()
+            self.tableView.reloadData()
         } else if (self.title == sharedInstance.hood) {
             println("title didn't change")
             // TODO ensure that hoodId is set, if we consider a default neighborhood to load for each user
@@ -242,8 +250,10 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         // HACK
         } else {
             println("HACK - Long press Ended");
-            self.moviePlayer.stop()
-            self.moviePlayer.view.removeFromSuperview()
+            if (self.moviePlayer != nil) {
+              self.moviePlayer.stop()
+              self.moviePlayer.view.removeFromSuperview()
+            }
             self.tableView.reloadData()
             navigationController?.navigationBarHidden = false
             UIApplication.sharedApplication().statusBarHidden=false;
