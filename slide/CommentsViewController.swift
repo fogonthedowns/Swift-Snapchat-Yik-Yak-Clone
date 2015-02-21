@@ -24,6 +24,7 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     var keyboardOpen = false
     var keyboardEmoji = false
     var language = UITextInputMode.activeInputModes()
+    var voteCount:Int!
     
     let sharedInstance = VideoDataToAPI.sharedInstance
     let userObject = UserModel()
@@ -52,6 +53,7 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(true)
         self.processComments()
+        self.voteCount = self.sharedInstance.videoForCommentController.votes.integerValue
         let longpress = UILongPressGestureRecognizer(target: self, action: "handleLongPress:")
         longpress.minimumPressDuration = 0.35
         snapView.addGestureRecognizer(longpress)
@@ -121,7 +123,8 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     @IBAction func starPost(sender: AnyObject) {
-        self.vote(self.sharedInstance.videoForCommentController.film)
+       self.vote(self.sharedInstance.videoForCommentController.film)
+        
     }
     
     
@@ -302,11 +305,17 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     
     func vote(video:NSString) {
         userObject.apiObject.voteforSnap(video)
-        
-        if (sharedInstance.videoForCommentController.votes > 0) {
+        println("VOTE")
+
+        println(voteCount)
+        if (self.voteCount <= 0) {
+            println("star with votes")
+            self.voteCount = self.voteCount + 1
             self.likeImage.image = UIImage(named:("starwithvotes"))
             self.likeCount.text = sharedInstance.videoForCommentController.votes.stringValue
         } else {
+            voteCount = 0
+            println("no votes")
             self.likeImage.image = UIImage(named:("starnovotes"))
             self.likeCount.text = ""
         }
