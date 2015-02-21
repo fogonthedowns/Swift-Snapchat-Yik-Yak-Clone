@@ -223,8 +223,11 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
         // var localPlaylist: NSMutableArray = []
         
         if (sender.state == UIGestureRecognizerState.Ended) {
+            
             self.userIntendsToWatchVideo = false
             self.currentIndex = 1
+            println(sender.view)
+            println(sender)
             println("Long press Cancelled");
             if (self.moviePlayer != nil) {
               self.moviePlayer.stop()
@@ -233,6 +236,8 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
             // self.tableView.reloadData()
             navigationController?.navigationBarHidden = false
             UIApplication.sharedApplication().statusBarHidden=false;
+            self.tableView.rowHeight = 115.0
+             self.tableView.reloadData()
         }
         
         // returns nil in the case of last cell
@@ -248,7 +253,12 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
                     if let filmString:String = localPlaylist[0] as? String {
                         println(filmString)
                         let filePath = determineFilePath(filmString)
+                        
+                        // Begin Gesture
                         if (sender.state == UIGestureRecognizerState.Began) {
+                            
+                            self.tableView.rowHeight = 700.0
+                            self.tableView.reloadRowsAtIndexPaths([indexPath!], withRowAnimation:  UITableViewRowAnimation.None)
                             self.userIntendsToWatchVideo = true
                             println("Long press detected.");
                             // let path = NSBundle.mainBundle().pathForResource("video", ofType:"m4v")
@@ -264,6 +274,8 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
                                 player.controlStyle = .None
                                 self.tableView.addSubview(player.view)
                             }  else if (sender.state == UIGestureRecognizerState.Ended) {
+                                self.tableView.rowHeight = 115.0
+                                self.tableView.reloadRowsAtIndexPaths([indexPath!], withRowAnimation:  UITableViewRowAnimation.None)
                                 self.userIntendsToWatchVideo = false
                                 self.currentIndex = 1
                                 println("two");
@@ -279,6 +291,8 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
             }// playlist Count
         // HACK
         } else {
+            self.tableView.rowHeight = 115.0
+            self.tableView.reloadData()
             println("no index path or no playListHash");
             if (self.moviePlayer != nil) {
               self.moviePlayer.stop()
