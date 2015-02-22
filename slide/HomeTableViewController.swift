@@ -504,7 +504,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
     }
     
     func loadSnaps() {
-        userObject.apiObject.getSnaps(self.latitude,long: self.longitute, hood: self.hood, delegate:self)
+        userObject.apiObject.getSnaps(sharedInstance.latitude,long: sharedInstance.longitute, hood: self.hood, delegate:self)
     }
     
     func loadOffsetSnaps() {
