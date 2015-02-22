@@ -79,7 +79,7 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
             var commentString = commentCount.stringValue + reply
             self.commentCount.text = commentString
         } else {
-            self.commentCount.text = ""
+            self.commentCount.text = "no replies"
         }
         
         var urlString = "https://s3-us-west-1.amazonaws.com/slideby/" + sharedInstance.videoForCommentController.img

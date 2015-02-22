@@ -164,7 +164,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
            var commentString = commentCount.stringValue + reply
            cell.commentCount.text = commentString
         } else {
-            cell.commentCount.text = ""
+            cell.commentCount.text = "no replies"
         }
         
         cell.userVote.addTarget(self, action: "checkButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
