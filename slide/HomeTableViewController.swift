@@ -224,6 +224,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
             println(cell.titleLabel.text!)
             
             if (sender.state == UIGestureRecognizerState.Ended) {
+                // self.tableView.rowHeight = 70.0
                 println("Long press Ended");
                 self.moviePlayer.stop()
                 self.moviePlayer.view.removeFromSuperview()
@@ -231,6 +232,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
                 navigationController?.navigationBarHidden = false
                 UIApplication.sharedApplication().statusBarHidden=false;
             } else if (sender.state == UIGestureRecognizerState.Began) {
+                // self.tableView.rowHeight = 700.0
                 println("Long press detected.");
                 let path = NSBundle.mainBundle().pathForResource("video", ofType:"m4v")
                 let url = NSURL.fileURLWithPath(filePath)
@@ -247,6 +249,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
             }
         // HACK
         } else {
+            // self.tableView.rowHeight = 70.0
             println("HACK - Long press Ended");
             if (self.moviePlayer != nil) {
               self.moviePlayer.stop()
