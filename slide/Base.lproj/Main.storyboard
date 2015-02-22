@@ -464,7 +464,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7uS-bl-sRF">
-                                        <rect key="frame" x="102" y="8.5" width="49" height="27.5"/>
+                                        <rect key="frame" x="102" y="9" width="49" height="28"/>
                                         <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="20"/>
                                         <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>

@@ -69,8 +69,7 @@ class APIModel: NSObject {
     }
     
     func getDistricts(lat:NSString,longitude: NSString, delegate:APIProtocol) {
-        var sharedInstance = VideoDataToAPI.sharedInstance
-        var requestUrl = "https://www.airimg.com/locations?token=17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY&device_token=" + self.userID + "&access_token=" + self.accessToken + "&lat=" + sharedInstance.latitude + "&long=" + sharedInstance.longitute
+        var requestUrl = "https://www.airimg.com/locations?token=17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY&device_token=" + self.userID + "&access_token=" + self.accessToken + "&lat=" + lat + "&long=" + longitude
         NSLog("getting districts")
         
         request(.GET, requestUrl)
