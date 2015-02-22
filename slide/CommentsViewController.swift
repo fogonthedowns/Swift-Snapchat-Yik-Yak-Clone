@@ -312,7 +312,7 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
             println("star with votes")
             self.voteCount = self.voteCount + 1
             self.likeImage.image = UIImage(named:("starwithvotes"))
-            self.likeCount.text = sharedInstance.videoForCommentController.votes.stringValue
+            self.likeCount.text = String(self.voteCount)
         } else {
             voteCount = 0
             println("no votes")

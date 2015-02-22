@@ -16,6 +16,9 @@ class CustomNavigation: UINavigationController {
         var image : UIImage = UIImage(named:"camera")!
         image.imageWithRenderingMode(.AlwaysOriginal)
         cameraButton.setBackButtonBackgroundImage(image, forState: .Normal, barMetrics: .Default)
+        
+       
+        
         // Do any additional setup after loading the view.
     }
 

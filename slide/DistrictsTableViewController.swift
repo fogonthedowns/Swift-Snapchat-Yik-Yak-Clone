@@ -31,6 +31,7 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        UIApplication.sharedApplication().statusBarStyle = .LightContent
         NSLog("shared instance before%@", self.latitude)
         self.latitude = sharedInstance.latitude
         self.longitute = sharedInstance.longitute
