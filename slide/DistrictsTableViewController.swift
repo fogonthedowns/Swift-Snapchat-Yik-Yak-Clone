@@ -44,7 +44,7 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
         
     
         // Table Row Init
-        self.tableView.rowHeight = 115.0
+        self.tableView.rowHeight = 80.0
         self.title = "San Francisco"
         
         let longpress = UILongPressGestureRecognizer(target: self, action: "handleLongPress:")
@@ -237,7 +237,7 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
             // self.tableView.reloadData()
             navigationController?.navigationBarHidden = false
             UIApplication.sharedApplication().statusBarHidden=false;
-            self.tableView.rowHeight = 115.0
+            self.tableView.rowHeight = 80.0
              self.tableView.reloadData()
         }
         
@@ -275,7 +275,7 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
                                 player.controlStyle = .None
                                 self.tableView.addSubview(player.view)
                             }  else if (sender.state == UIGestureRecognizerState.Ended) {
-                                self.tableView.rowHeight = 115.0
+                                self.tableView.rowHeight = 80.0
                                 self.tableView.reloadRowsAtIndexPaths([indexPath!], withRowAnimation:  UITableViewRowAnimation.None)
                                 self.userIntendsToWatchVideo = false
                                 self.currentIndex = 1
@@ -292,7 +292,7 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
             }// playlist Count
         // HACK
         } else {
-            self.tableView.rowHeight = 115.0
+            self.tableView.rowHeight = 80.0
             self.tableView.reloadData()
             println("no index path or no playListHash");
             if (self.moviePlayer != nil) {
