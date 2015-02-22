@@ -45,13 +45,11 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
    
     override func viewDidLoad() {
         super.viewDidLoad()
+        UIApplication.sharedApplication().statusBarStyle = .LightContent
                // Receive Notification and call loadSnaps once we have a user
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadSnaps", name: getSnapsBecauseIhaveAUserLoaded, object: nil)
         userObject.findUser();
-        
-        
-        //// end notification
-
+    
         // Table Row Init
         self.tableView.rowHeight = 70.0
         let longpress = UILongPressGestureRecognizer(target: self, action: "handleLongPressHome:")

@@ -64,6 +64,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        UIApplication.sharedApplication().statusBarStyle = .LightContent
         var ItemStatusContext = "com.foo.bar.jz"
         
         // hide big blue bar
