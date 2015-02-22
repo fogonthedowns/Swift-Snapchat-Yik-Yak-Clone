@@ -122,6 +122,8 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
                     img: rowAPIresult["coverphoto"].stringValue,
                     id: rowAPIresult["_id"]["$oid"].stringValue
                 )
+                println(rowAPIresult)
+                self.title = rowAPIresult["location"]["city"].stringValue
                 districts.addObject(districtModel)
                 districtModelList = districts
                 // Set our array of new models

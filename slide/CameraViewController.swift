@@ -79,12 +79,12 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         self.confirmationView.addGestureRecognizer(tap)
         
         if CLLocationManager.authorizationStatus() == .NotDetermined {
-            // NSLog("\n ****************************** NotDetermined()")
+            NSLog("\n ****************************** NotDetermined()")
             manager.requestWhenInUseAuthorization()
         }
         
         if CLLocationManager.locationServicesEnabled() {
-            // NSLog("\n ****************************** startUpdatingLocation()")
+            NSLog("\n ****************************** if CLLocationManager.locationServicesEnabled() startUpdatingLocation()")
             manager.delegate = self
             manager.desiredAccuracy = kCLLocationAccuracyBest
             manager.startUpdatingLocation()
@@ -138,8 +138,27 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         
     }
     
+    override func viewDidAppear(animated:Bool) {
+        super.viewDidAppear(true)
+        if CLLocationManager.locationServicesEnabled() {
+            NSLog("\n ******************************viewdidappear startUpdatingLocation()")
+            manager.delegate = self
+            manager.desiredAccuracy = kCLLocationAccuracyBest
+            manager.startUpdatingLocation()
+        }
+    }
+//
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(true)
+        
+        if CLLocationManager.locationServicesEnabled() {
+            NSLog("\n ****************************** startUpdatingLocation()")
+            manager.delegate = self
+            manager.desiredAccuracy = kCLLocationAccuracyBest
+            manager.startUpdatingLocation()
+        }
+        
+        
         self.DismissKeyboard()
         self.sharedInstance.userDescription = self.userDescription.text
         self.userDescription.text = ""
@@ -499,7 +518,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     // location
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         var locValue:CLLocationCoordinate2D = manager.location.coordinate
-        // println("locations = \(locValue.latitude) \(locValue.longitude)")
+        println("locations = \(locValue.latitude) \(locValue.longitude)")
         sharedInstance.latitude =  String(format: "%f", locValue.latitude)
         sharedInstance.longitute = String(format: "%f", locValue.longitude)
         
@@ -508,7 +527,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     func locationManager(manager: CLLocationManager!,
         didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         if status == .Authorized || status == .AuthorizedWhenInUse {
-            // NSLog(".Authorized || .AuthorizedWhenInUse block")
+            NSLog(".Authorized || .AuthorizedWhenInUse block")
             manager.startUpdatingLocation()
             if (manager.location != nil){
               var locValue:CLLocationCoordinate2D = manager.location.coordinate
