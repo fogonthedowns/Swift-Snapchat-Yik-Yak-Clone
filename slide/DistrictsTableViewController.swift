@@ -215,6 +215,8 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
     }
     
     func pullToLoadDistricts(sender:AnyObject) {
+        self.latitude = sharedInstance.latitude
+        self.longitute = sharedInstance.longitute
         self.loadDistricts()
         self.tableView.reloadData()
         self.refreshControl?.endRefreshing()
