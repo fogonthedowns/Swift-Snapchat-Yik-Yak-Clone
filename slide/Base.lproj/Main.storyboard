@@ -21,8 +21,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HeY-DP-swx">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9nn-pJ-XCF">
-                                        <rect key="frame" x="20" y="20" width="48" height="48"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9nn-pJ-XCF">
+                                        <rect key="frame" x="20" y="20" width="68" height="68"/>
                                         <state key="normal" image="cancel">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -46,8 +46,8 @@
                                             <action selector="pressConfirmVideo:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="inj-ec-QSz"/>
                                         </connections>
                                     </button>
-                                    <textField opaque="NO" clipsSubviews="YES" alpha="0.75" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Please enter a description" textAlignment="center" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="lNk-Y2-vme">
-                                        <rect key="frame" x="0.0" y="325" width="374" height="30"/>
+                                    <textField opaque="NO" clipsSubviews="YES" alpha="0.75" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Please enter a description" textAlignment="center" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="lNk-Y2-vme">
+                                        <rect key="frame" x="0.0" y="319" width="374" height="30"/>
                                         <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="gH0-P4-3tn"/>
@@ -85,29 +85,48 @@
                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="667" id="S8m-8H-UhN"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WIF-1Y-Zi8">
-                                <rect key="frame" x="150" y="550" width="75" height="74"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WIF-1Y-Zi8">
+                                <rect key="frame" x="102" y="516" width="171" height="171"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="171" id="1k0-cK-r8Y"/>
+                                    <constraint firstAttribute="width" constant="171" id="rTi-7P-SuO"/>
+                                </constraints>
                                 <state key="normal" image="recordButton">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" restorationIdentifier="pulse" image="recorddot" translatesAutoresizingMaskIntoConstraints="NO" id="kPS-mX-0pd">
+                                <rect key="frame" x="335" y="35" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="abh-hu-dhR"/>
+                                    <constraint firstAttribute="width" constant="20" id="rF5-r2-gxV"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="h4F-qV-Bcu" firstAttribute="top" secondItem="HeY-DP-swx" secondAttribute="top" id="00k-Fi-BDz"/>
                             <constraint firstItem="h4F-qV-Bcu" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="6qK-Nl-Aid"/>
                             <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="h4F-qV-Bcu" secondAttribute="trailing" constant="-16" id="8IV-eg-c5p"/>
+                            <constraint firstAttribute="centerX" secondItem="WIF-1Y-Zi8" secondAttribute="centerX" id="A7y-ad-Ihs"/>
                             <constraint firstItem="h4F-qV-Bcu" firstAttribute="leading" secondItem="HeY-DP-swx" secondAttribute="leading" id="DHm-yO-hF8"/>
+                            <constraint firstItem="kPS-mX-0pd" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="15" id="DJm-s4-WTH"/>
                             <constraint firstAttribute="centerY" secondItem="h4F-qV-Bcu" secondAttribute="centerY" id="Esz-CM-sa3"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="WIF-1Y-Zi8" secondAttribute="bottom" constant="-20" id="Tf2-bH-Hid"/>
                             <constraint firstItem="WIF-1Y-Zi8" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="h4F-qV-Bcu" secondAttribute="bottom" constant="-40" id="UoZ-nH-7II"/>
                             <constraint firstAttribute="trailingMargin" relation="lessThanOrEqual" secondItem="WIF-1Y-Zi8" secondAttribute="trailing" constant="134" id="V9y-6H-BFr"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="kPS-mX-0pd" secondAttribute="trailing" constant="15" id="VsP-FN-oij"/>
                             <constraint firstItem="Z1R-xh-ben" firstAttribute="bottom" secondItem="h4F-qV-Bcu" secondAttribute="bottom" id="WU1-Ve-v67"/>
                             <constraint firstItem="h4F-qV-Bcu" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-16" id="ZTR-Nx-BzS"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="kPS-mX-0pd" secondAttribute="trailing" constant="-10" id="aIQ-mo-jfN"/>
                             <constraint firstAttribute="centerX" secondItem="h4F-qV-Bcu" secondAttribute="centerX" id="cDQ-RH-clk"/>
                             <constraint firstItem="h4F-qV-Bcu" firstAttribute="centerX" relation="greaterThanOrEqual" secondItem="WIF-1Y-Zi8" secondAttribute="centerX" id="ceI-dm-7q1"/>
                             <constraint firstItem="WIF-1Y-Zi8" firstAttribute="leading" relation="lessThanOrEqual" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="134" id="dTT-Xs-ldk"/>
                             <constraint firstItem="h4F-qV-Bcu" firstAttribute="bottom" secondItem="HeY-DP-swx" secondAttribute="bottom" id="eqc-tM-5ne"/>
+                            <constraint firstItem="WIF-1Y-Zi8" firstAttribute="top" relation="greaterThanOrEqual" secondItem="h4F-qV-Bcu" secondAttribute="bottom" constant="-191" id="o8I-op-n7S"/>
+                            <constraint firstItem="kPS-mX-0pd" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="15" id="qMG-Dn-0DO"/>
                             <constraint firstAttribute="trailing" secondItem="h4F-qV-Bcu" secondAttribute="trailing" id="ueB-XO-P5n"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="kPS-mX-0pd" secondAttribute="trailing" constant="-5" id="vg5-xb-dvb"/>
                             <constraint firstItem="h4F-qV-Bcu" firstAttribute="trailing" secondItem="HeY-DP-swx" secondAttribute="trailing" id="xTT-5Y-BYi"/>
                             <constraint firstItem="h4F-qV-Bcu" firstAttribute="bottom" secondItem="2fi-mo-0CV" secondAttribute="top" id="ycA-sE-Elr"/>
                         </constraints>
@@ -119,6 +138,7 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="cameraIsRecording" destination="kPS-mX-0pd" id="MMB-GX-t5M"/>
                         <outlet property="cameraView" destination="h4F-qV-Bcu" id="3b6-Uk-R2B"/>
                         <outlet property="confirmationView" destination="HeY-DP-swx" id="LlC-JO-oG8"/>
                         <outlet property="takeVideoButton" destination="WIF-1Y-Zi8" id="fnF-6J-EZ1"/>
@@ -294,7 +314,14 @@
                             <outlet property="delegate" destination="POR-F8-INw" id="Z5b-nS-hVJ"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="YBY-CR-1pB"/>
+                    <navigationItem key="navigationItem" id="YBY-CR-1pB">
+                        <barButtonItem key="leftBarButtonItem" image="gear" id="PYK-Xa-DkB">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="clickGearIcon:" destination="POR-F8-INw" id="3XW-hZ-uOt"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hsZ-tp-a19" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -347,6 +374,326 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b0V-5I-UUz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-168" y="744"/>
+        </scene>
+        <!--Looped Privacy Policy-->
+        <scene sceneID="vHw-2M-AtY">
+            <objects>
+                <viewController id="Ihw-CH-xxJ" customClass="PrivacyViewController" customModule="slide" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="yLh-xy-EUe"/>
+                        <viewControllerLayoutGuide type="bottom" id="Ru3-Hu-LXG"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Pav-i4-cL9">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ez6-PP-CKK">
+                                <rect key="frame" x="42" y="7" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">Looped Privacy Policy
+
+Last Updated: February 21, 2015
+
+The Looped services and mobile app (collectively, the “Services”) gives users a medium to interact with other Looped users in the same location, in order post and share comments, and to respond to comments posted by others. In this Privacy Policy (“Policy”), we describe how we collect, use, and disclose information that we obtain about users of our Services, which are available via mobile applications offered in the Apple stores. Your use of our Services, and any dispute over privacy, is subject to this Policy and our Terms of Service, including its applicable limitations on damages and the resolution of disputes, which is available at [http://www.trylooped.com/terms] and incorporated by reference into this Policy.
+What Information Do We Collect About You and Why?
+
+Account Information. When you download and use our mobile app, we assign you a username, but we do not collect your name or email address. We also collect the following information:
+Geolocation Data. We ask you to share your location information from your mobile device. If you choose not to, the Services will not function. Location information is used to place you in your local Looped group, and as explained below.
+Your Content and Usage.We collect the content you submit to the Services (posts, replies and votes), as well as information about when you submitted the content, when it was viewed, and other activities.
+Information We Collect Automatically.We may automatically collect the following information about your use Services: access time, device ID, application ID or other unique identifier; domain name, IP address, screen views; geo-location data (with your permission); language information; device name and model; operating system information; your activities within the Services; and the length of time that you are logged in. We may combine this information with other information that we have collected about you.
+Social Media Sites. You can like us on Facebook, follow us on Twitter, and promote us on other social media sites. We collect information about who has liked us or followed us. However, we don’t associate your social media account with your Looped account. You may also share Yaks through Facebook, Twitter, Instagram, and other social media accounts.
+How We Use Your Information.
+
+You cannot control who views your content. So, if you don’t want to share something publicly, don’t post it. Looped is a social network, and the content you post may be shared with and viewable by others. We do not identify you by name or contact information to other Looped users. However, we cannot prevent others from determining your identify from the content you posts or how you share content through third party sites.
+
+Any information that you post, including comments, replies and other information may become public. We cannot control how your information is used by others. Your posts are available to all other users. Users can also freely share any Looped content, no matter who posted it, though other third party sites like Facebook, Twitter and Instagram.
+
+We may disclose the information we collect from you to third party vendors, service providers, contractors or agents who perform functions on our behalf.
+
+If we are acquired by or merged with another company, if substantially all of our assets are transferred to another company, or as part of a bankruptcy proceeding, we may transfer the information we have collected from you to the other company.
+
+We may share the information we gather about you and other users with our third party business partners, including advertisers. For example, if you post content that mentions one of our business partners, we may share that content with them. As noted, we don’t collect name or contact information (unless you post it in your comment or reply).
+
+We also may disclose the information we collect about you in order to comply with the law, a judicial proceeding, court order, subpoena, or other legal process. While we don’t collect your name or contact information, we may share your IP address or other identifier, your location information, or any other information we have collected about you and your device.
+
+We also may disclose the information we collect from you where we believe it is necessary to investigate, prevent, or take action regarding illegal activities, suspected fraud, situations involving potential threats to the safety of any person, violations of our Terms of Use or this Policy, or as evidence in litigation in which Looped is involved.
+
+If you have questions about the privacy aspects of our Services or would like to make a complaint, please contact us at [http://www.trylooped.com/contact].
+
+Changes to this Policy
+
+This Policy is current as of the Effective Date set forth above. We may change this Policy from time to time, so please be sure to check back periodically. We will post any changes to this Policy on our Site, at [http://www.trylooped.com/privacy-policy/]. If we make any changes to this Policy that materially affect our practices with regard to the personal information we have previously collected from you, we will endeavor to provide you with notice in advance of such change by highlighting the change on our Site, or providing notice in our mobile app.
+
+
+
+
+</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="Ez6-PP-CKK" secondAttribute="trailing" id="B73-Zr-bdE"/>
+                            <constraint firstItem="Ez6-PP-CKK" firstAttribute="leading" secondItem="Pav-i4-cL9" secondAttribute="leadingMargin" id="Fwe-7Y-UpL"/>
+                            <constraint firstItem="Ez6-PP-CKK" firstAttribute="top" secondItem="Pav-i4-cL9" secondAttribute="topMargin" id="Ua3-IO-vaG"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Looped Privacy Policy" id="OEi-DP-Pjy">
+                        <barButtonItem key="leftBarButtonItem" image="back" id="Eje-Cv-PJh">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="goBack:" destination="Ihw-CH-xxJ" id="fQ4-ab-U2Y"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2O6-Tv-5xA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1265" y="1537"/>
+        </scene>
+        <!--Looped Terms of Service-->
+        <scene sceneID="V7E-7h-ru3">
+            <objects>
+                <viewController id="ZNe-iS-UJc" customClass="TOSViewController" customModule="slide" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="r36-af-K5N"/>
+                        <viewControllerLayoutGuide type="bottom" id="XHU-IR-GFf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="RVo-QL-n2r">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3O2-bM-OHF">
+                                <rect key="frame" x="0.0" y="64" width="600" height="580"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">These Terms and Conditions (the “Terms”) are a legal contract between you and Looped. These Terms explain how you are permitted to use the Looped mobile application and services, as well as the Looped website located www.trylooped.com and any content therein (collectively, the “Services). Unless otherwise specified, all references to the “Services” include the services available through the Looped mobile application and the Looped website, as well as any software that Looped provides to you that allows you to access the Services from a mobile device. By using the Services, you are agreeing to all of the Terms; if you do not agree with any of these Terms, do not access or otherwise use the Services. You may download and/or print a copy of these Terms for you records at: [http://www.trylooped.com/terms].
+
+Important Note: These Terms contain a dispute resolution and arbitration provision, including class action waiver, which affects your rights under these Terms and with respect to any dispute you may have with Looped. You may opt out of the binding individual arbitration and class action waiver as provided below.
+
+Changes.
+
+Looped may make changes to the content and Services at any time. Looped can change, update, or add or remove provisions of these Terms, at any time by posting the updated Terms on the Services or by notifying you via the App. By using the Services after Looped has updated the Terms, you are agreeing to all the updated Terms; if you do not agree with any of the updated Terms, you must stop using Services.
+
+General Use.
+
+The Services may not be available in all locations, and we may block access to the Services from certain locations based on your device’s geolocation information; we may add to or remove the areas in which the Services are not available at any time, without notice to you.
+
+By using, you represent, acknowledge and agree that you are at least 18 years of age, or if you are under 18 years of age, but are at least 17 years old (a “Minor”), that that you have received your parent’s or legal guardian’s permission to use the Services and agree to these Terms. If you are a parent or legal guardian of a Minor, you hereby agree to bind the Minor to these Terms and to fully indemnify and hold harmless Looped if the Minor breaches any of these Terms. If you are not at least 17 years old, you may not use the Services at any time or in any manner or submit any information to the Looped or the Services.
+
+Looped provides content through the Services that is copyrighted and/or trademarked work of Looped or Looped’s third-party licensors and suppliers or other users of the Services (collectively, the “Materials”). Materials may include logos, graphics, video, images, software and other content.
+
+Subject to the terms and conditions of these Terms, and your compliance with these Terms, Looped hereby grants you a limited, personal, non-exclusive and non-transferable license to use and to display the Materials and to use the Services solely for your personal use. Except for the foregoing license, you have no other rights in the Services or any Materials and you may not modify, edit, copy, reproduce, create derivative works of, reverse engineer, alter, enhance or in any way exploit any of the Services or Materials in any manner.
+
+If you breach any of these Terms, the above license will terminate automatically and you must immediately destroy any downloaded or printed Materials.
+
+Mobile Applications.
+
+The Services are made available via Mobile Applications. To use the Mobile Application you must have a mobile device that is compatible with the mobile service. Looped does not warrant that the Mobile Application will be compatible with your mobile device. Looped hereby grants to you a non-exclusive, non-transferable, revocable license to use an object code copy of the Mobile Application for one registered account on one mobile device owned or leased solely by you, for your personal use. You may not: (i) modify, disassemble, decompile or reverse engineer the Mobile Application, except to the extent that such restriction is expressly prohibited by law; (ii) rent, lease, loan, resell, sublicense, distribute or otherwise transfer the Mobile Application to any third-party or use the Mobile Application to provide time sharing or similar services for any third-party; (iii) make any copies of the Mobile Application; (iv) remove, circumvent, disable, damage or otherwise interfere with security-related features of the Mobile Application, features that prevent or restrict use or copying of any content accessible through the Mobile Application, or features that enforce limitations on use of the Mobile Application; or (v) delete the copyright and other proprietary rights notices on the Mobile Application. You acknowledge that Looped may from time to time issue upgraded versions of the Mobile Application, and may automatically electronically upgrade the version of the Mobile Application that you are using on your mobile device. You consent to such automatic upgrading on your mobile device, and agree that these Terms will apply to all such upgrades. The foregoing license grant is not a sale of the Mobile Application or any copy thereof, and Looped and its third-party licensors or suppliers retain all right, title, and interest in and to the Mobile Application (and any copy of the Mobile Application). Standard carrier data charges may apply to your use of the Mobile Application.
+
+The following additional terms and conditions apply with respect to any Mobile Application that Looped provides to you designed for use on an Apple iOS-powered mobile device (an “iOS App”):
+You acknowledge that these Terms are between you and Looped only, and not with Apple, Inc. (“Apple”).
+Your use of Looped’s iOS App must comply with Apple’s then-current App Store Terms of Service.
+Looped, and not Apple, are solely responsible for our iOS App and the Services and Content available thereon. You acknowledge that Apple has no obligation to provide maintenance and support services with respect to our iOS App. To the maximum extent permitted by applicable law, Apple will have no warranty obligation whatsoever with respect to our iOS App.
+You agree that Looped, and not Apple, are responsible for addressing any claims by you or any third-party relating to our iOS App or your possession and/or use of our iOS App.
+You agree that Looped, and not Apple, shall be responsible, to the extent required by these Terms, for the investigation, defense, settlement and discharge of any third-party intellectual property infringement claim related to our iOS App or your possession and use of our iOS App.
+You represent and warrant that (i) you are not located in a country that is subject to a U.S. Government embargo, or that has been designated by the U.S. Government as a “terrorist supporting” country; and (ii) You are not listed on any U.S. Government list of prohibited or restricted parties.
+You agree to comply with all applicable third-party terms of agreement when using our iOS App (e.g., you must not be in violation of your wireless data service terms of agreement when using the iOS App).
+The parties agree that Apple and Apple’s subsidiaries are third-party beneficiaries to these Terms as they relate to your license of Looped’s iOS App. Upon your acceptance of these Terms, Apple will have the right (and will be deemed to have accepted the right) to enforce these Terms against you as they relate to your license of the iOS App as a third-party beneficiary thereof.
+The following additional terms and conditions apply with respect to any Mobile Application that Looped provides to you designed for use on an Android-powered mobile device (an “Android App”):
+You acknowledge that these Terms are between you and Looped only, and not with Google, Inc. (“Google”).
+Your use of Looped’s Android App must comply with Google’s then-current Android Market Terms of Service.
+Google is only a provider of the Android Market where you obtained the Android App. Looped, and not Google, are solely responsible for Looped’s Android App and the Services and Content available thereon. Google has no obligation or liability to you with respect to Looped’s Android App or these Terms.
+You acknowledge and agree that Google is a third-party beneficiary to the Terms as they relate to Looped’s Android App.
+
+Registration.
+If you desire to register for an account with Looped to use the Services, you must download the App on your mobile device. When you open the app, you must agree to let Looped gather your location information; if you do not agree, the Services will not function. You are not required to submit your name or contact information. We also collect your IP address and generate or collect a unique identifier for your mobile device, which will serve as your user ID.
+Electronic Communications.
+By using the Services, you consent to receiving electronic communications from Looped. These electronic communications may include notices about applicable fees and charges, transactional information and other information concerning or related to the Services. These electronic communications are part of your relationship with Looped. You agree that any notices, agreements, disclosures or other communications that we send you electronically will satisfy any legal communication requirements, including that such communications be in writing.
+Privacy Policy.
+Please review Looped Privacy Policy (the “Privacy Policy”), available at [http://www.trylooped.com] which explains how we use information that we collect about you. By using our Services, you agree that we may use and disclose the information we collect about you as stated in the Privacy Policy. Without limiting the foregoing, you expressly acknowledge that any Submissions (defined below) or other information you submit to the Services may be viewable by all other users of the Services and any third party.
+Submissions.
+You are responsible for any information, opinions, messages, comments, photos, videos, graphics, sounds and other content or material that you submit, upload, post or otherwise make available on or through the Services (each a “Submission”) and through the Services available in connection with the Services. We reserve the right to retain your Submissions, even after they have expired from view within the App or even after you have deleted them. However, you agree that we have no obligation to retain any Submission for any period of time, nor shall we be responsible or liable to you or any third party for any lost content or losses related to the expiration or deletion of a Submission.
+
+You may not upload, post or otherwise make available on the Services any material protected by copyright, trademark, or any other proprietary right without the express permission of the owner of such copyright, trademark or other proprietary right owned by a third-party, and the burden of determining whether any material is protected by any such right is on you. You shall be solely liable for any damage resulting from any infringement of copyrights, trademarks, proprietary rights, violation of contract, privacy or publicity rights or any other harm resulting from any Submission that you make. You have full responsibility for each Submission you make, including its legality, reliability and appropriateness.
+
+Unless otherwise explicitly stated herein or in Looped Privacy Policy, you agree that any Submission provided by you in connection with the Services is provided on a non-proprietary and non-confidential basis. You hereby grant to Looped a non-exclusive, perpetual, irrevocable, royalty-free, fully paid-up, worldwide license (including the right to sublicense through multiple tiers) to use, reproduce, process, adapt, publicly perform, publicly display, modify, prepare derivative works, publish, transmit and distribute each of your Submissions, or any portion thereof, in any form, medium or distribution method now known or hereafter existing, known or developed, and authorize others to use the Submissions. We may modify or adapt your Submissions in order to transmit, display or distribute them over computer networks and in various media and/or make changes to the Submissions as necessary to conform and adapt them to any requirements or limitations of any networks, devices, services or media.
+
+You agree to pay for all royalties, fees, damages and any other monies owing any person by reason of any Submissions posted by you to or through the Services. When you provide Submissions you agree that those Submissions shall not be in violation of the “Unauthorized Activities” paragraph below. Those prohibitions do not require Looped to monitor, police or remove any Submissions or other information submitted by you or any other user.
+
+Unauthorized Activities.
+When using the Services and/or the services, you agree not to:
+Defame, abuse, harass, stalk, threaten, or otherwise violate the legal rights (such as rights of privacy and publicity) of others.
+Use racially or ethnically offensive language.
+Discuss or incite illegal activity.
+Post anything that exploits children or minors (including pornography that depicts minors) or that depicts cruelty to animals.
+Post any copyrighted or trademarked materials without the express permission from the owner.
+Disseminate any unsolicited or unauthorized advertising, promotional materials, ‘junk mail’, ‘spam’, ‘chain letters’, ‘pyramid schemes’, or any other form of such solicitation.
+Use any robot, spider, scraper or other automated means to access the Services.
+Take any action that imposes an unreasonable or disproportionately large load on our infrastructure.
+Alter the opinions or comments posted by others on the Services.
+Post anything contrary to our public image, goodwill or reputation.
+This list of prohibitions provides examples and is not complete or exclusive. Looped reserves the right to (a) terminate access to your account, your ability to post to the Services (or use the Services) and (b) refuse, delete or remove any Submissions; with or without cause and with or without notice, for any reason or no reason, or for any action that Looped determines is inappropriate or disruptive to the Services or to any other user of the Services. Looped may report to law enforcement authorities any actions that may be illegal, and any reports it receives of such conduct. When legally required or at Looped’s discretion, Looped will cooperate with law enforcement agencies in any investigation of alleged illegal activity on the Services or on the Internet.
+Unauthorized use of any Materials or Third-Party Content contained in the Services may violate certain laws and regulations. You agree to indemnify and hold Looped and its officers, directors, employees, affiliates, agents, licensors, and business partners harmless from and against any and all costs, damages, liabilities, and expenses (including attorneys’ fees and costs of defense) Looped or any other indemnified party suffers in relation to, arising from, or for the purpose of avoiding, any claim or demand from a third-party that your use of the Services or the use of the Services by any person using your user name and/or password (including without limitation, your participation in the posting areas or, your Submissions) violates any applicable law or regulation, or the copyrights, trademark rights or other rights of any third-party.
+Proprietary Rights.
+Looped is a trademark of Looped, Inc. in the United States. Other trademarks, names and logos on the Services are the property of their respective owners. Unless otherwise specified in these Terms, all information and screens appearing on the Services, including documents, services, site design, text, graphics, logos, images and icons, as well as the arrangement thereof, are the sole property of Looped, Copyright © 2014, Looped, Inc. All rights not expressly granted herein are reserved. Except as otherwise required or limited by applicable law, any reproduction, distribution, modification, retransmission, or publication of any copyrighted material is strictly prohibited without the express written consent of the copyright owner or license.
+The Mobile Application software that is provided to you through the Services and related documentation are “Commercial Items”, as that term is defined at 48 C.F.R. §2.101, consisting of “Commercial Computer Software” and “Commercial Computer Software Documentation”, as such terms are used in 48 C.F.R. §12.212 or 48 C.F.R. §227.7202, as applicable. Consistent with 48 C.F.R. §12.212 or 48 C.F.R. §227.7202-1 through 227.7202-4, as applicable, if You are a government entity, the Commercial Computer Software and Commercial Computer Software Documentation are being licensed to U.S. Government end users (a) only as Commercial Items and (b) with only those rights as are granted to all other end users pursuant to the terms and conditions herein. Unpublished-rights reserved under the copyright laws of the United States.
+Intellectual Property Infringement.
+Looped respects the intellectual property rights of others, and we ask you to do the same. Looped may, in appropriate circumstances and at our discretion, terminate service and/or access to the Services for users who infringe the intellectual property rights of others. If you believe that your work is the subject of copyright infringement and/or trademark infringement and appears on our Site, please provide Looped’s designated agent the following information:
+A physical or electronic signature of a person authorized to act on behalf of the owner of an exclusive right that is allegedly infringed.
+Identification of the copyrighted and/or trademarked work claimed to have been infringed, or, if multiple works at a single online site are covered by a single notification, a representative list of such works at that site.
+Identification of the material that is claimed to be infringing or to be the subject of infringing activity and that is to be removed or access to which is to be disabled at the Services, and information reasonably sufficient to permit Looped to locate the material.
+Information reasonably sufficient to permit Looped to contact you as the complaining party, such as an address, telephone number, and, if available, an electronic mail address at which you may be contacted.
+A statement that you have a good faith belief that use of the material in the manner complained of is not authorized by the copyright and/or trademark owner, its agent, or the law.
+A statement that the information in the notification is accurate, and under penalty of perjury, that you are authorized to act on behalf of the owner of an exclusive right that is allegedly infringed.
+Looped’s agent for notice of claims of copyright or trademark infringement on the Services can be reached as follows:
+Looped
+Attn: Copyright Agent
+slideiosapp@gmail.com
+Please also note that for copyright infringements under Section 512(f) of the Copyright Act, any person who knowingly materially misrepresents that material or activity is infringing may be subject to liability.
+Submitting a DMCA Counter-Notification
+We will notify you that we have removed or disabled access to copyright-protected material that you provided, if such removal is pursuant to a valid DMCA take-down notice that we have received. If you receive such notice from us, you may provide us with a counter-notification in writing to Looped designated agent that includes all of the following information:
+Your physical or electronic signature;
+Identification of the material that has been removed or to which access has been disabled, and the location at which the material appeared before it was removed or access to it was disabled;
+A statement from you under the penalty of perjury, that you have a good faith belief that the material was removed or disabled as a result of a mistake or misidentification; and
+Your name, physical address and telephone number, and a statement that you consent to the jurisdiction of a court for the judicial district in which your physical address is located, or if your physical address is outside of the United States, for any judicial district in which Looped may be located, and that you will accept service of process from the person who provided notification of allegedly infringing material or an agent of such person.
+Termination of Repeat Infringers
+Looped reserves the right, in its sole discretion, to terminate the account or access of any user of our web site and/or service who is the subject or repeated DMCA or other infringement notifications.
+Disclaimer of Warranties.
+Your use of the Services and/or the Services is at your own risk. The Materials have not been verified or authenticated in whole or in part by Looped, and they may include inaccuracies or typographical or other errors. Looped does not warrant the accuracy of timeliness of the Materials contained on the Services. Looped has no liability for any loss of, or errors or omissions in Submissions, or for any errors or omissions in the Materials, whether provided by Looped, our licensors or suppliers or other users.
+Looped, FOR ITSELF AND ITS LICENSORS, MAKES NO EXPRESS, IMPLIED OR STATUTORY REPRESENTATIONS, WARRANTIES, OR GUARANTEES IN CONNECTION WITH THE SERVICES, THE SERVICES, OR ANY MATERIALS RELATING TO THE QUALITY, SUITABILITY, TRUTH, ACCURACY OR COMPLETENESS OF ANY INFORMATION OR MATERIAL CONTAINED OR PRESENTED ON THE SERVICES, INCLUDING WITHOUT LIMITATION THE MATERIALS. UNLESS OTHERWISE EXPLICITLY STATED, TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, THE SERVICES, THE SERVICES, AND MATERIALS AND ANY INFORMATION OR MATERIAL CONTAINED OR PRESENTED ON THE SERVICES IS PROVIDED TO YOU ON AN “AS IS,” “AS AVAILABLE” AND “WHERE-IS” BASIS WITH NO WARRANTY OF IMPLIED WARRANTY OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT OF THIRD-PARTY RIGHTS. Looped DOES NOT PROVIDE ANY WARRANTIES AGAINST VIRUSES, SPYWARE OR MALWARE THAT MAY BE INSTALLED ON YOUR COMPUTER.
+
+Limitation of Liability.
+Looped SHALL NOT BE LIABLE TO YOU FOR ANY DAMAGES RESULTING FROM YOUR DISPLAYING, COPYING, OR DOWNLOADING ANY MATERIALS TO OR FROM THE SERVICES. IN NO EVENT SHALL Looped BE LIABLE TO YOU FOR ANY INDIRECT, EXTRAORDINARY, EXEMPLARY, PUNITIVE, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES (INCLUDING LOSS OF DATA, REVENUE, PROFITS, USE OR OTHER ECONOMIC ADVANTAGE) HOWEVER ARISING, EVEN IF Looped KNOWS THERE IS A POSSIBILITY OF SUCH DAMAGE.
+Local Laws; Export Control.
+Looped controls and operates the Services from its headquarters in the United States of America and the Materials may not be appropriate or available for use in other locations. If you use the Services outside the United States of America, you are responsible for following applicable local laws.
+Feedback.
+If you send or transmit any communications, comments, questions, suggestions, or related materials to Looped, whether by letter, email, telephone, or otherwise (collectively, “Feedback”), suggesting or recommending changes to the Services, any Services offered through the Services or Materials, including, without limitation, new features or functionality relating thereto, all such Feedback is, and will be treated as, non-confidential and non-proprietary. You hereby assign all right, title, and interest in, and Looped is free to use, without any attribution or compensation to you, any ideas, know-how, concepts, techniques, or other intellectual property and proprietary rights contained in the Feedback, whether or not patentable, for any purpose whatsoever, including but not limited to, developing, manufacturing, having manufactured, licensing, marketing, and selling, directly or indirectly, products and services using such Feedback. You understand and agree that Looped is not obligated to use, display, reproduce, or distribute any such ideas, know-how, concepts, or techniques contained in the Feedback, and you have no right to compel such use, display, reproduction, or distribution.
+
+Dispute Resolution and Arbitration; Class Action Waiver.
+Please read this carefully. It affects your rights.
+Most customer concerns can be resolved quickly and to a customer’s satisfaction by contacting us at [http://www.trylooped.com/contact]. This Provision facilitates the prompt and efficient resolution of any disputes that may arise between you and Looped. Arbitration is a form of private dispute resolution in which persons with a dispute waive their rights to file a lawsuit, to proceed in court and to a jury trial, and instead submit their disputes to a neutral third person (or arbitrator) for a binding decision. You have the right to opt-out of this Provision (as explained below), which means you would retain your right to litigate your disputes in a court, either before a judge or jury.
+Please read this Provision carefully. It provides that all Disputes between you and Looped shall be resolved by binding arbitration. Arbitration replaces the right to go to court. In the absence of this arbitration agreement, you may otherwise have a right or opportunity to bring claims in a court, before a judge or jury, and/or to participate in or be represented in a case filed in court by others (including, but not limited to, class actions). Except as otherwise provided, entering into this agreement constitutes a waiver of your right to litigate claims and all opportunity to be heard by a judge or jury. There is no judge or jury in arbitration, and court review of an arbitration award is limited. The arbitrator must follow this agreement and can award the same damages and relief as a court (including attorney’s fees).
+For the purpose of this Provision, “Looped” means Looped and its parents, subsidiary, and affiliate companies, and each of their respective officers, directors, employees, and agents. The term “Dispute” means any dispute, claim, or controversy between you and Looped regarding any aspect of your relationship with Looped, whether based in contract, statute, regulation, ordinance, tort (including, but not limited to, fraud, misrepresentation, fraudulent inducement, or negligence), or any other legal or equitable theory, and includes the validity, enforceability or scope of this Provision (with the exception of the enforceability of the Class Action Waiver clause below). “Dispute” is to be given the broadest possible meaning that will be enforced, and shall include any claims against other parties relating to services or products provided or billed to you (such as Looped’s licensors, suppliers, dealers or third-party vendors) whenever you also assert claims against us in the same proceeding.
+WE EACH AGREE THAT, EXCEPT AS PROVIDED BELOW, ANY AND ALL DISPUTES, AS DEFINED ABOVE, WHETHER PRESENTLY IN EXISTENCE OR BASED ON ACTS OR OMISSIONS IN THE PAST OR IN THE FUTURE, WILL BE RESOLVED EXCLUSIVELY AND FINALLY BY BINDING ARBITRATION RATHER THAN IN COURT IN ACCORDANCE WITH THIS PROVISION.
+Pre-Arbitration Claim Resolution
+For all Disputes, whether pursued in court or arbitration, you must first give Looped an opportunity to resolve the Dispute. You must commence this process by mailing written notification to Looped, [3423 Piedmont Rd NE Atlanta, GA 30305]. That written notification must include (1) your name, (2) your address, (3) a written description of your Claim, and (4) a description of the specific relief you seek. If Looped does not resolve the Dispute within 45 days after it receives your written notification, you may pursue your Dispute in arbitration. You may pursue your Dispute in a court only under the circumstances described below.
+Exclusions from Arbitration/Right to Opt Out
+Notwithstanding the above, you or Looped may choose to pursue a Dispute in court and not by arbitration if (a) the Dispute qualifies, it may be initiated in small claims court; or (b) YOU OPT-OUT OF THESE ARBITRATION PROCEDURES WITHIN 30 DAYS FROM THE DATE THAT YOU FIRST CONSENT TO THIS AGREEMENT (the “Opt-Out Deadline”). You may opt out of this Provision by mailing written notification to Looped, [3423 Piedmont Rd NE Atlanta, GA 30305]. Your written notification must include (1) your name, (2) your address, and (3) a clear statement that you do not wish to resolve disputes with Looped through arbitration. Your decision to opt-out of this Arbitration Provision will have no adverse effect on your relationship with Looped. Any opt-out request received after the Opt-Out Deadline will not be valid and you must pursue your Dispute in arbitration or small claims court.
+Arbitration Procedures
+If this Provision applies and the Dispute is not resolved as provided above (Pre-Arbitration Claim Resolution) either you or Looped may initiate arbitration proceedings. The American Arbitration Association (“AAA”), www.adr.org, or JAMS, www.jamsadr.com, will arbitrate all Disputes, and the arbitration will be conducted before a single arbitrator. The arbitration shall be commenced as an individual arbitration, and shall in no event be commenced as a class arbitration. All issues shall be for the arbitrator to decide, including the scope of this Provision.
+For arbitration before AAA, for Disputes of less than $75,000, the AAA’s Supplementary Procedures for Consumer-Related Disputes will apply; for Disputes involving $75,000 or more, the AAA’s Commercial Arbitration Rules will apply. In either instance, the AAA’s Optional Rules For Emergency Measures Of Protection shall apply. The AAA rules are available at www.adr.org or by calling 1-800-778-7879. For arbitration before JAMS, the JAMS Comprehensive Arbitration Rules &amp; Procedures and the JAMS Recommended Arbitration Discovery Protocols For Domestic, Commercial Cases will apply. The JAMS rules are available at www.jamsadr.com or by calling 1-800-352-5267. This Provision governs in the event it conflicts with the applicable arbitration rules. Under no circumstances will class action procedures or rules apply to the arbitration.
+Because the Services and these Terms concern interstate commerce, the Federal Arbitration Act (“FAA”) governs the arbitrability of all Disputes. However, the arbitrator will apply applicable substantive law consistent with the FAA and the applicable statute of limitations or condition precedent to suit.
+Arbitration Award – The arbitrator may award on an individual basis any relief that would be available pursuant to applicable law, and will not have the power to award relief to, against or for the benefit of any person who is not a party to the proceeding. The arbitrator will make any award in writing but need not provide a statement of reasons unless requested by a party. Such award will be final and binding on the parties, except for any right of appeal provided by the FAA, and may be entered in any court having jurisdiction over the parties for purposes of enforcement.
+Location of Arbitration – You or Looped may initiate arbitration in either King County, Washington or the federal judicial district that includes your billing address. In the event that you select the federal judicial district that includes your billing address, Looped may transfer the arbitration to King County, Washington in the event that it agrees to pay any additional fees or costs you incur as a result of the transfer, as determined by the arbitrator.
+Payment of Arbitration Fees and Costs – Looped will pay all arbitration filing fees and arbitrator’s costs and expenses upon your written request given prior to the commencement of the arbitration. You are responsible for all additional fees and costs that you incur in the arbitration, including, but not limited to, attorneys or expert witnesses. Fees and costs may be awarded as provided pursuant to applicable law. In addition to any rights to recover fees and costs under applicable law, if you provide notice and negotiate in good faith with Looped as provided in the section above titled “Pre-Arbitration Claim Resolution” and the arbitrator concludes that you are the prevailing party in the arbitration, you will be entitled to recover reasonable attorney’s fees and costs as determined by the arbitrator.
+Class Action Waiver
+Except as otherwise provided in this Provision, the arbitrator may not consolidate more than one person’s claims, and may not otherwise preside over any form of a class or representative proceeding or claims (such as a class action, consolidated action or private attorney general action) unless both you and Looped specifically agree to do so following initiation of the arbitration. If you choose to pursue your Dispute in court by opting out of the Arbitration Provision, as specified above, this Class Action Waiver will not apply to you. Neither you, nor any other user of the Services can be a class representative, class member, or otherwise participate in a class, consolidated, or representative proceeding without having complied with the opt-out requirements above.
+Jury Waiver
+You understand and agree that by entering into this Agreement you and Looped are each waiving the right to a jury trial or a trial before a judge in a public court. In the absence of this Provision, you and Looped might otherwise have had a right or opportunity to bring Disputes in a court, before a judge or jury, and/or to participate or be represented in a case filed in court by others (including class actions). Except as otherwise provided below, those rights are waived. Other rights that you would have if you went to court, such as the right to appeal and to certain types of discovery, may be more limited or may also be waived.
+Severability
+If any clause within this Provision (other than the Class Action Waiver clause above) is found to be illegal or unenforceable, that clause will be severed from this Provision, and the remainder of this Provision will be given full force and effect. If the Class Action Waiver clause is found to be illegal or unenforceable, this entire Provision will be unenforceable and the Dispute will be decided by a court.
+Continuation
+This Provision shall survive the termination of your service with Looped or its affiliates. Notwithstanding any provision in this Agreement to the contrary, we agree that if Looped makes any change to this Provision (other than a change to the Notice Address), you may reject any such change and require Looped to adhere to the language in this Provision if a dispute between us arises.
+General.
+Looped prefers to advise you if we feel you are not complying with these Terms and to recommend any necessary corrective action. However, certain violations of these Terms, as determined by Looped, may result in immediate termination of your access to the Services without prior notice to you. The Federal Arbitration Act, Washington state law and applicable U.S. federal law, without regard to the choice or conflicts of law provisions, will govern these Terms. Foreign laws do not apply. The United Nations on Contracts for the International Sale of Goods and any laws based on the Uniform Computer Information Transactions Act (UCITA) shall not apply to this Agreement. Except for Disputes subject to arbitration as described above, any disputes relating to these Terms or the Services will be heard in the courts located in King County in the State of Washington. If any of these Terms is found to be inconsistent with applicable law, then such term shall be interpreted to reflect the intentions of the parties, and no other terms will be modified. Looped’s failure to enforce any of these Terms is not a waiver of such term. These Terms are the entire agreement between you and Looped and supersede all prior or contemporaneous negotiations, discussions or agreements between you and Looped about the Services. The proprietary rights, disclaimer of warranties, representations made by you, indemnities, limitations of liability and general provisions shall survive any termination of these Terms.
+Contact Us.
+If you have any questions about these Terms or otherwise need to contact Looped for any reason, you can reach us at [http://www.trylooped.com/contact].
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="3O2-bM-OHF" secondAttribute="trailing" id="9c9-SU-3Uh"/>
+                            <constraint firstItem="3O2-bM-OHF" firstAttribute="leading" secondItem="RVo-QL-n2r" secondAttribute="leadingMargin" id="JUt-Va-X2h"/>
+                            <constraint firstItem="3O2-bM-OHF" firstAttribute="top" secondItem="r36-af-K5N" secondAttribute="bottom" id="nos-Nw-79V"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Looped Terms of Service" id="YA0-LR-u8s">
+                        <barButtonItem key="leftBarButtonItem" image="back" id="1hC-aD-sWh">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="userClickedBack:" destination="ZNe-iS-UJc" id="6MZ-XP-aFP"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gAQ-aF-Rp5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2077" y="2274"/>
         </scene>
         <!--Comments View Controller-->
         <scene sceneID="Xxz-jv-LnU">
@@ -403,10 +750,10 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6SV-dJ-VRc" userLabel="Comment View">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6SV-dJ-VRc" userLabel="Comment View">
                                 <rect key="frame" x="0.0" y="612" width="375" height="55"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Comment" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="o3l-A8-e5n">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Comment" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="o3l-A8-e5n">
                                         <rect key="frame" x="8" y="13" width="282" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="Pzi-pi-k29"/>
@@ -416,7 +763,7 @@
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cBi-zJ-a6V">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cBi-zJ-a6V">
                                         <rect key="frame" x="306" y="13" width="61" height="30"/>
                                         <color key="backgroundColor" red="0.12892401154596822" green="0.4972508274317643" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -440,17 +787,17 @@
                                     <constraint firstItem="cBi-zJ-a6V" firstAttribute="top" secondItem="6SV-dJ-VRc" secondAttribute="top" constant="13" id="WQb-4V-GaW"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yid-gu-KKy" userLabel="Snap View">
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yid-gu-KKy" userLabel="Snap View">
                                 <rect key="frame" x="0.0" y="64" width="375" height="79"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1FD-cy-ul2">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1FD-cy-ul2">
                                         <rect key="frame" x="8" y="8" width="60" height="60"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="60" id="2DK-Bh-s3d"/>
                                             <constraint firstAttribute="height" constant="60" id="xeP-LF-N1w"/>
                                         </constraints>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ib2-IN-8eC">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ib2-IN-8eC">
                                         <rect key="frame" x="333" y="15" width="27" height="27"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="27" id="2wB-wO-1el"/>
@@ -463,7 +810,7 @@
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7uS-bl-sRF">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7uS-bl-sRF">
                                         <rect key="frame" x="102" y="9" width="49" height="28"/>
                                         <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="20"/>
                                         <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -486,7 +833,7 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yKS-AZ-WXr">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yKS-AZ-WXr">
                                         <rect key="frame" x="319" y="15" width="45" height="39"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="45" id="Ljv-O8-Uw2"/>
@@ -586,13 +933,63 @@
             </objects>
             <point key="canvasLocation" x="2195.5" y="717.5"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="mzD-w8-6Fh">
+            <objects>
+                <navigationController restorationIdentifier="privacyPolicy" storyboardIdentifier="privacyPolicy" automaticallyAdjustsScrollViewInsets="NO" id="mDR-tU-JbD" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="O8N-HH-FAR">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.97136193510000002" green="0.67824584249999997" blue="0.10124506799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textShadowColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Ihw-CH-xxJ" kind="relationship" relationship="rootViewController" id="Zpq-nc-TJz"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QLH-s3-MIu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="459" y="1537"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="oYL-SF-Q7l">
+            <objects>
+                <navigationController restorationIdentifier="tos" storyboardIdentifier="tos" automaticallyAdjustsScrollViewInsets="NO" id="NSC-bP-GjV" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="V9P-bZ-a3U">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="0.97136193510000002" green="0.67824584249999997" blue="0.10124506799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="0.97136193510000002" green="0.67824584249999997" blue="0.10124506799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textShadowColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ZNe-iS-UJc" kind="relationship" relationship="rootViewController" id="U9Z-cr-ORf"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KUt-ym-WHz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1265" y="2254"/>
+        </scene>
     </scenes>
     <resources>
         <image name="back" width="24" height="42"/>
         <image name="camera" width="55" height="41"/>
         <image name="cancel" width="68" height="68"/>
         <image name="city" width="65" height="45"/>
+        <image name="gear" width="45" height="45"/>
         <image name="recordButton" width="171" height="171"/>
+        <image name="recorddot" width="68" height="68"/>
     </resources>
     <color key="tintColor" red="0.97136193510000002" green="0.67824584249999997" blue="0.10124506799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
