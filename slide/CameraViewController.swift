@@ -24,6 +24,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     @IBOutlet weak var confirmationView: UIView!
     @IBOutlet weak var takeVideoButton: UIButton!
     
+    @IBOutlet weak var cameraIsRecording: UIImageView!
     @IBOutlet weak var userDescription: UITextField!
     // location
     @IBOutlet var gpsResult : UILabel!
@@ -72,6 +73,10 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         
         // bind keyboard
         self.userDescription.delegate = self;
+        
+        
+        // camera
+        self.cameraIsRecording.hidden = true
         
         // add tap gesture recognizer
         
@@ -246,8 +251,11 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
                 NSLog("done with long press")
               self.videoRecordingOutput?.stopRecording()
                 NSLog("Done Recording")
+                self.cameraIsRecording.hidden = true
             } else if (sender.state == UIGestureRecognizerState.Began) {
                 NSLog("long press detected")
+                self.cameraIsRecording.hidden = false
+                UIApplication.sharedApplication().statusBarHidden=true
                 var url:NSURL = tempFileUrl()
                 videoRecordingOutput?.startRecordingToOutputFileURL(url, recordingDelegate:delegate)
         }
