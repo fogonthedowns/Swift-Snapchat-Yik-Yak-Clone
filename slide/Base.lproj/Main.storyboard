@@ -305,7 +305,14 @@
                             <outlet property="delegate" destination="POR-F8-INw" id="Z5b-nS-hVJ"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="YBY-CR-1pB"/>
+                    <navigationItem key="navigationItem" id="YBY-CR-1pB">
+                        <barButtonItem key="leftBarButtonItem" image="gear" id="LfX-k4-BQb">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="clickGearButton:" destination="POR-F8-INw" id="prr-OC-hqf"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hsZ-tp-a19" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -362,7 +369,7 @@
         <!--Terms of Service-->
         <scene sceneID="eeF-kW-brv">
             <objects>
-                <viewController id="vrT-9x-60g" sceneMemberID="viewController">
+                <viewController id="vrT-9x-60g" customClass="TosViewController" customModule="slide" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="yYQ-Qw-SMZ"/>
                         <viewControllerLayoutGuide type="bottom" id="fDx-iR-ho0"/>
@@ -374,7 +381,7 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v8t-fF-vtr">
                                 <rect key="frame" x="0.0" y="72" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <mutableString key="text">These Terms and Conditions (the “Terms”) are a legal contract between you and Looped. These Terms explain how you are permitted to use the Looped mobile application and services, as well as the Looped website located www.trylooped.com and any content therein (collectively, the “Services). Unless otherwise specified, all references to the “Services” include the services available through the Looped mobile application and the Looped website, as well as any software that Looped provides to you that allows you to access the Services from a mobile device. By using the Services, you are agreeing to all of the Terms; if you do not agree with any of these Terms, do not access or otherwise use the Services. You may download and/or print a copy of these Terms for you records at: [http://www.trylooped.com/terms].
+                                <string key="text">These Terms and Conditions (the “Terms”) are a legal contract between you and Looped. These Terms explain how you are permitted to use the Looped mobile application and services, as well as the Looped website located www.trylooped.com and any content therein (collectively, the “Services). Unless otherwise specified, all references to the “Services” include the services available through the Looped mobile application and the Looped website, as well as any software that Looped provides to you that allows you to access the Services from a mobile device. By using the Services, you are agreeing to all of the Terms; if you do not agree with any of these Terms, do not access or otherwise use the Services. You may download and/or print a copy of these Terms for you records at: [http://www.trylooped.com/terms].
 
 Important Note: These Terms contain a dispute resolution and arbitration provision, including class action waiver, which affects your rights under these Terms and with respect to any dispute you may have with Looped. You may opt out of the binding individual arbitration and class action waiver as provided below.
 
@@ -506,7 +513,7 @@ General.
 Looped prefers to advise you if we feel you are not complying with these Terms and to recommend any necessary corrective action. However, certain violations of these Terms, as determined by Looped, may result in immediate termination of your access to the Services without prior notice to you. The Federal Arbitration Act, Washington state law and applicable U.S. federal law, without regard to the choice or conflicts of law provisions, will govern these Terms. Foreign laws do not apply. The United Nations on Contracts for the International Sale of Goods and any laws based on the Uniform Computer Information Transactions Act (UCITA) shall not apply to this Agreement. Except for Disputes subject to arbitration as described above, any disputes relating to these Terms or the Services will be heard in the courts located in King County in the State of Washington. If any of these Terms is found to be inconsistent with applicable law, then such term shall be interpreted to reflect the intentions of the parties, and no other terms will be modified. Looped’s failure to enforce any of these Terms is not a waiver of such term. These Terms are the entire agreement between you and Looped and supersede all prior or contemporaneous negotiations, discussions or agreements between you and Looped about the Services. The proprietary rights, disclaimer of warranties, representations made by you, indemnities, limitations of liability and general provisions shall survive any termination of these Terms.
 Contact Us.
 If you have any questions about these Terms or otherwise need to contact Looped for any reason, you can reach us at [http://www.trylooped.com/contact].
-</mutableString>
+</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -521,6 +528,9 @@ If you have any questions about these Terms or otherwise need to contact Looped 
                     <navigationItem key="navigationItem" title="Terms of Service" id="3N1-GN-eV1">
                         <barButtonItem key="leftBarButtonItem" image="back" id="NaZ-sO-jSi">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="goBack:" destination="vrT-9x-60g" id="LmT-i6-NgS"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                 </viewController>
@@ -531,7 +541,7 @@ If you have any questions about these Terms or otherwise need to contact Looped 
         <!--Privacy Policy-->
         <scene sceneID="Pn7-al-tQw">
             <objects>
-                <viewController restorationIdentifier="privacy" storyboardIdentifier="privacy" title="Privacy Policy" id="sbg-U1-xzo" sceneMemberID="viewController">
+                <viewController title="Privacy Policy" id="sbg-U1-xzo" customClass="PrivacyViewController" customModule="slide" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gI6-0F-VGW"/>
                         <viewControllerLayoutGuide type="bottom" id="L1p-fO-JVC"/>
@@ -543,7 +553,7 @@ If you have any questions about these Terms or otherwise need to contact Looped 
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qfx-Pn-Qab">
                                 <rect key="frame" x="32" y="64" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <mutableString key="text">Looped Privacy Policy
+                                <string key="text">Looped Privacy Policy
 
 Last Updated: February 21, 2015
 
@@ -575,7 +585,7 @@ If you have questions about the privacy aspects of our Services or would like to
 
 Changes to this Policy
 
-This Policy is current as of the Effective Date set forth above. We may change this Policy from time to time, so please be sure to check back periodically. We will post any changes to this Policy on our Site, at [http://www.trylooped.com/privacy-policy/]. If we make any changes to this Policy that materially affect our practices with regard to the personal information we have previously collected from you, we will endeavor to provide you with notice in advance of such change by highlighting the change on our Site, or providing notice in our mobile app.</mutableString>
+This Policy is current as of the Effective Date set forth above. We may change this Policy from time to time, so please be sure to check back periodically. We will post any changes to this Policy on our Site, at [http://www.trylooped.com/privacy-policy/]. If we make any changes to this Policy that materially affect our practices with regard to the personal information we have previously collected from you, we will endeavor to provide you with notice in advance of such change by highlighting the change on our Site, or providing notice in our mobile app.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -590,6 +600,9 @@ This Policy is current as of the Effective Date set forth above. We may change t
                     <navigationItem key="navigationItem" title="Privacy Policy" id="pkN-Kv-dBZ">
                         <barButtonItem key="leftBarButtonItem" image="back" id="GCM-R0-BDN">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="backButton:" destination="sbg-U1-xzo" id="pXD-PC-AMX"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                 </viewController>
@@ -863,7 +876,7 @@ This Policy is current as of the Effective Date set forth above. We may change t
         <!--Navigation Controller-->
         <scene sceneID="gAN-16-zgJ">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6II-SI-aZ9" sceneMemberID="viewController">
+                <navigationController restorationIdentifier="privacy" storyboardIdentifier="privacy" automaticallyAdjustsScrollViewInsets="NO" id="6II-SI-aZ9" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="0Do-Xw-lPy">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -891,6 +904,7 @@ This Policy is current as of the Effective Date set forth above. We may change t
         <image name="camera" width="55" height="41"/>
         <image name="cancel" width="68" height="68"/>
         <image name="city" width="65" height="45"/>
+        <image name="gear" width="45" height="45"/>
         <image name="recordButton" width="171" height="171"/>
         <image name="recorddot" width="68" height="68"/>
     </resources>

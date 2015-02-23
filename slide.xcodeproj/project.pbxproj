@@ -21,6 +21,7 @@
 		F16F72B21A901185005A149A /* SharedInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16F72B11A901185005A149A /* SharedInstance.swift */; };
 		F172A1901A7E8C12007E564C /* AWSImageDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = F172A18F1A7E8C12007E564C /* AWSImageDownload.swift */; };
 		F19BC1D71A8070160096356C /* VideoDataToAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19BC1D61A8070160096356C /* VideoDataToAPI.swift */; };
+		F1C3FC0C1A9B051A00040217 /* PrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C3FC0B1A9B051A00040217 /* PrivacyViewController.swift */; };
 		F1D81CA41A7F274A00C0B728 /* CustomNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D81CA31A7F274A00C0B728 /* CustomNavigation.swift */; };
 		F1F2DE731A77F574005B75B0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F2DE721A77F574005B75B0 /* AppDelegate.swift */; };
 		F1F2DE761A77F574005B75B0 /* slide.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F1F2DE741A77F574005B75B0 /* slide.xcdatamodeld */; };
@@ -38,6 +39,7 @@
 		F1F2DEA51A7D5FA2005B75B0 /* VideoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F2DEA41A7D5FA2005B75B0 /* VideoModel.swift */; };
 		F1F2DEA91A7D7F35005B75B0 /* alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F2DEA81A7D7F34005B75B0 /* alamofire.swift */; };
 		F1F2DEAD1A7D8378005B75B0 /* VideoCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F2DEAC1A7D8378005B75B0 /* VideoCellTableViewCell.swift */; };
+		F1F4BB7E1A9B064800790E54 /* TosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F4BB7D1A9B064800790E54 /* TosViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +68,7 @@
 		F16F72B11A901185005A149A /* SharedInstance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedInstance.swift; sourceTree = "<group>"; };
 		F172A18F1A7E8C12007E564C /* AWSImageDownload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AWSImageDownload.swift; sourceTree = "<group>"; };
 		F19BC1D61A8070160096356C /* VideoDataToAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoDataToAPI.swift; sourceTree = "<group>"; };
+		F1C3FC0B1A9B051A00040217 /* PrivacyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivacyViewController.swift; sourceTree = "<group>"; };
 		F1D81CA31A7F274A00C0B728 /* CustomNavigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigation.swift; sourceTree = "<group>"; };
 		F1F2DE6D1A77F574005B75B0 /* slide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = slide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1F2DE711A77F574005B75B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -88,6 +91,7 @@
 		F1F2DEA41A7D5FA2005B75B0 /* VideoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoModel.swift; sourceTree = "<group>"; };
 		F1F2DEA81A7D7F34005B75B0 /* alamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = alamofire.swift; sourceTree = "<group>"; };
 		F1F2DEAC1A7D8378005B75B0 /* VideoCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCellTableViewCell.swift; sourceTree = "<group>"; };
+		F1F4BB7D1A9B064800790E54 /* TosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TosViewController.swift; sourceTree = "<group>"; };
 		FBDF3BF5330EC98E63BC93A2 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -215,6 +219,7 @@
 				F16319C31A907532005B2FC1 /* DistrictsUINavigationController.swift */,
 				F106A0DF1A9448DB006BAEA7 /* CommentsViewController.swift */,
 				F154CA6E1A93BC4900C6076A /* CommentsUINavigationController.swift */,
+				F1C3FC0B1A9B051A00040217 /* PrivacyViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -223,6 +228,7 @@
 			isa = PBXGroup;
 			children = (
 				F1F2DE791A77F574005B75B0 /* Main.storyboard */,
+				F1F4BB7D1A9B064800790E54 /* TosViewController.swift */,
 				F16319BF1A90319D005B2FC1 /* camerabutton.swift */,
 				F1F2DE7C1A77F574005B75B0 /* Images.xcassets */,
 				F1F2DEAC1A7D8378005B75B0 /* VideoCellTableViewCell.swift */,
@@ -399,10 +405,12 @@
 				F1F2DEA91A7D7F35005B75B0 /* alamofire.swift in Sources */,
 				F117D97E1A8E84E0001CEB44 /* DistrictModel.swift in Sources */,
 				F117D9801A8EAD67001CEB44 /* DistrictTableViewCell.swift in Sources */,
+				F1C3FC0C1A9B051A00040217 /* PrivacyViewController.swift in Sources */,
 				F1F2DE731A77F574005B75B0 /* AppDelegate.swift in Sources */,
 				F106A0E01A9448DB006BAEA7 /* CommentsViewController.swift in Sources */,
 				F117D97C1A8E8176001CEB44 /* DistrictsTableViewController.swift in Sources */,
 				F154CA6F1A93BC4900C6076A /* CommentsUINavigationController.swift in Sources */,
+				F1F4BB7E1A9B064800790E54 /* TosViewController.swift in Sources */,
 				F1F2DE761A77F574005B75B0 /* slide.xcdatamodeld in Sources */,
 				F1F2DE9B1A79483A005B75B0 /* APIModel.swift in Sources */,
 				F16319C01A90319D005B2FC1 /* camerabutton.swift in Sources */,
