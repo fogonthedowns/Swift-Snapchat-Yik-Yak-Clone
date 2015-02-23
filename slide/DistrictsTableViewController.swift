@@ -359,6 +359,24 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
         return filePath as String
     }
 
+    @IBAction func clickGearIcon(sender: AnyObject) {
+        
+        func privacy(act:UIAlertAction!) {
+            println("nav to privacy")
+            NSNotificationCenter.defaultCenter().postNotificationName(didClickToNavigateToPrivacy, object: self)
+        }
+        
+        func handler(act:UIAlertAction!) {
+             NSNotificationCenter.defaultCenter().postNotificationName(didClickToNavigateToTos, object: self)
+        }
+        
+        var alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+        alert.addAction(UIAlertAction(title: "Terms of Service", style: .Default, handler: handler))
+        alert.addAction(UIAlertAction(title: "Privacy Policy", style: .Default, handler: privacy))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
+        
+    }
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
