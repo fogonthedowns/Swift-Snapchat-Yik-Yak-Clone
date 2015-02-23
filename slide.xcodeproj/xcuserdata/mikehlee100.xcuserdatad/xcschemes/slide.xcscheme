@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F1F2DE6C1A77F574005B75B0"
-               BuildableName = "Looped.app"
-               BlueprintName = "Looped"
-               ReferencedContainer = "container:Looped.xcodeproj">
+               BuildableName = "slide.app"
+               BlueprintName = "slide"
+               ReferencedContainer = "container:slide.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F1F2DE841A77F574005B75B0"
-               BuildableName = "LoopedTests.xctest"
-               BlueprintName = "LoopedTests"
-               ReferencedContainer = "container:Looped.xcodeproj">
+               BuildableName = "slideTests.xctest"
+               BlueprintName = "slideTests"
+               ReferencedContainer = "container:slide.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -47,9 +47,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F1F2DE841A77F574005B75B0"
-               BuildableName = "LoopedTests.xctest"
-               BlueprintName = "LoopedTests"
-               ReferencedContainer = "container:Looped.xcodeproj">
+               BuildableName = "slideTests.xctest"
+               BlueprintName = "slideTests"
+               ReferencedContainer = "container:slide.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -57,9 +57,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F1F2DE6C1A77F574005B75B0"
-            BuildableName = "Looped.app"
-            BlueprintName = "Looped"
-            ReferencedContainer = "container:Looped.xcodeproj">
+            BuildableName = "slide.app"
+            BlueprintName = "slide"
+            ReferencedContainer = "container:slide.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -72,14 +72,13 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F1F2DE6C1A77F574005B75B0"
-            BuildableName = "Looped.app"
-            BlueprintName = "Looped"
-            ReferencedContainer = "container:Looped.xcodeproj">
+            BuildableName = "slide.app"
+            BlueprintName = "slide"
+            ReferencedContainer = "container:slide.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -91,14 +90,13 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F1F2DE6C1A77F574005B75B0"
-            BuildableName = "Looped.app"
-            BlueprintName = "Looped"
-            ReferencedContainer = "container:Looped.xcodeproj">
+            BuildableName = "slide.app"
+            BlueprintName = "slide"
+            ReferencedContainer = "container:slide.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

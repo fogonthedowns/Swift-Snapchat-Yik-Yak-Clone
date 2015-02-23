@@ -20,8 +20,6 @@
 		F16319C41A907532005B2FC1 /* DistrictsUINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16319C31A907532005B2FC1 /* DistrictsUINavigationController.swift */; };
 		F16F72B21A901185005A149A /* SharedInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16F72B11A901185005A149A /* SharedInstance.swift */; };
 		F172A1901A7E8C12007E564C /* AWSImageDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = F172A18F1A7E8C12007E564C /* AWSImageDownload.swift */; };
-		F18A342D1A9AEF25005DA0F1 /* PrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18A342C1A9AEF25005DA0F1 /* PrivacyViewController.swift */; };
-		F18A342F1A9AEFCE005DA0F1 /* TOSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18A342E1A9AEFCE005DA0F1 /* TOSViewController.swift */; };
 		F19BC1D71A8070160096356C /* VideoDataToAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19BC1D61A8070160096356C /* VideoDataToAPI.swift */; };
 		F1D81CA41A7F274A00C0B728 /* CustomNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D81CA31A7F274A00C0B728 /* CustomNavigation.swift */; };
 		F1F2DE731A77F574005B75B0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F2DE721A77F574005B75B0 /* AppDelegate.swift */; };
@@ -67,11 +65,9 @@
 		F16319C31A907532005B2FC1 /* DistrictsUINavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistrictsUINavigationController.swift; sourceTree = "<group>"; };
 		F16F72B11A901185005A149A /* SharedInstance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedInstance.swift; sourceTree = "<group>"; };
 		F172A18F1A7E8C12007E564C /* AWSImageDownload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AWSImageDownload.swift; sourceTree = "<group>"; };
-		F18A342C1A9AEF25005DA0F1 /* PrivacyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivacyViewController.swift; sourceTree = "<group>"; };
-		F18A342E1A9AEFCE005DA0F1 /* TOSViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TOSViewController.swift; sourceTree = "<group>"; };
 		F19BC1D61A8070160096356C /* VideoDataToAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoDataToAPI.swift; sourceTree = "<group>"; };
 		F1D81CA31A7F274A00C0B728 /* CustomNavigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigation.swift; sourceTree = "<group>"; };
-		F1F2DE6D1A77F574005B75B0 /* Looped.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Looped.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1F2DE6D1A77F574005B75B0 /* slide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = slide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1F2DE711A77F574005B75B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F1F2DE721A77F574005B75B0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1F2DE751A77F574005B75B0 /* slide.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = slide.xcdatamodel; sourceTree = "<group>"; };
@@ -79,7 +75,7 @@
 		F1F2DE7A1A77F574005B75B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F1F2DE7C1A77F574005B75B0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		F1F2DE7F1A77F574005B75B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		F1F2DE851A77F574005B75B0 /* LoopedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LoopedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1F2DE851A77F574005B75B0 /* slideTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = slideTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1F2DE8A1A77F574005B75B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F1F2DE8B1A77F574005B75B0 /* slideTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = slideTests.swift; sourceTree = "<group>"; };
 		F1F2DE951A77F827005B75B0 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -146,8 +142,8 @@
 		F1F2DE6E1A77F574005B75B0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F1F2DE6D1A77F574005B75B0 /* Looped.app */,
-				F1F2DE851A77F574005B75B0 /* LoopedTests.xctest */,
+				F1F2DE6D1A77F574005B75B0 /* slide.app */,
+				F1F2DE851A77F574005B75B0 /* slideTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -211,7 +207,6 @@
 			isa = PBXGroup;
 			children = (
 				F1F2DE981A77FF3A005B75B0 /* CameraViewController.swift */,
-				F18A342C1A9AEF25005DA0F1 /* PrivacyViewController.swift */,
 				F1D81CA31A7F274A00C0B728 /* CustomNavigation.swift */,
 				F1F2DE771A77F574005B75B0 /* ViewController.swift */,
 				F117D97B1A8E8176001CEB44 /* DistrictsTableViewController.swift */,
@@ -220,7 +215,6 @@
 				F16319C31A907532005B2FC1 /* DistrictsUINavigationController.swift */,
 				F106A0DF1A9448DB006BAEA7 /* CommentsViewController.swift */,
 				F154CA6E1A93BC4900C6076A /* CommentsUINavigationController.swift */,
-				F18A342E1A9AEFCE005DA0F1 /* TOSViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -259,9 +253,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		F1F2DE6C1A77F574005B75B0 /* Looped */ = {
+		F1F2DE6C1A77F574005B75B0 /* slide */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F1F2DE8F1A77F574005B75B0 /* Build configuration list for PBXNativeTarget "Looped" */;
+			buildConfigurationList = F1F2DE8F1A77F574005B75B0 /* Build configuration list for PBXNativeTarget "slide" */;
 			buildPhases = (
 				8C9036BE41DA11533741E785 /* Check Pods Manifest.lock */,
 				F1F2DE691A77F574005B75B0 /* Sources */,
@@ -273,14 +267,14 @@
 			);
 			dependencies = (
 			);
-			name = Looped;
+			name = slide;
 			productName = slide;
-			productReference = F1F2DE6D1A77F574005B75B0 /* Looped.app */;
+			productReference = F1F2DE6D1A77F574005B75B0 /* slide.app */;
 			productType = "com.apple.product-type.application";
 		};
-		F1F2DE841A77F574005B75B0 /* LoopedTests */ = {
+		F1F2DE841A77F574005B75B0 /* slideTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F1F2DE921A77F574005B75B0 /* Build configuration list for PBXNativeTarget "LoopedTests" */;
+			buildConfigurationList = F1F2DE921A77F574005B75B0 /* Build configuration list for PBXNativeTarget "slideTests" */;
 			buildPhases = (
 				F1F2DE811A77F574005B75B0 /* Sources */,
 				F1F2DE821A77F574005B75B0 /* Frameworks */,
@@ -291,9 +285,9 @@
 			dependencies = (
 				F1F2DE871A77F574005B75B0 /* PBXTargetDependency */,
 			);
-			name = LoopedTests;
+			name = slideTests;
 			productName = slideTests;
-			productReference = F1F2DE851A77F574005B75B0 /* LoopedTests.xctest */;
+			productReference = F1F2DE851A77F574005B75B0 /* slideTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -314,7 +308,7 @@
 					};
 				};
 			};
-			buildConfigurationList = F1F2DE681A77F574005B75B0 /* Build configuration list for PBXProject "Looped" */;
+			buildConfigurationList = F1F2DE681A77F574005B75B0 /* Build configuration list for PBXProject "slide" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -327,8 +321,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F1F2DE6C1A77F574005B75B0 /* Looped */,
-				F1F2DE841A77F574005B75B0 /* LoopedTests */,
+				F1F2DE6C1A77F574005B75B0 /* slide */,
+				F1F2DE841A77F574005B75B0 /* slideTests */,
 			);
 		};
 /* End PBXProject section */
@@ -394,7 +388,6 @@
 				F1D81CA41A7F274A00C0B728 /* CustomNavigation.swift in Sources */,
 				F1F2DEA01A7ABB4A005B75B0 /* HomeTableViewController.swift in Sources */,
 				F154CA711A93F4A300C6076A /* CommentTableViewCell.swift in Sources */,
-				F18A342F1A9AEFCE005DA0F1 /* TOSViewController.swift in Sources */,
 				F1F2DE781A77F574005B75B0 /* ViewController.swift in Sources */,
 				F1F2DE9E1A797BA9005B75B0 /* UserModel.swift in Sources */,
 				F106A0E21A950963006BAEA7 /* CommentModel.swift in Sources */,
@@ -406,7 +399,6 @@
 				F1F2DEA91A7D7F35005B75B0 /* alamofire.swift in Sources */,
 				F117D97E1A8E84E0001CEB44 /* DistrictModel.swift in Sources */,
 				F117D9801A8EAD67001CEB44 /* DistrictTableViewCell.swift in Sources */,
-				F18A342D1A9AEF25005DA0F1 /* PrivacyViewController.swift in Sources */,
 				F1F2DE731A77F574005B75B0 /* AppDelegate.swift in Sources */,
 				F106A0E01A9448DB006BAEA7 /* CommentsViewController.swift in Sources */,
 				F117D97C1A8E8176001CEB44 /* DistrictsTableViewController.swift in Sources */,
@@ -435,7 +427,7 @@
 /* Begin PBXTargetDependency section */
 		F1F2DE871A77F574005B75B0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = F1F2DE6C1A77F574005B75B0 /* Looped */;
+			target = F1F2DE6C1A77F574005B75B0 /* slide */;
 			targetProxy = F1F2DE861A77F574005B75B0 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -544,7 +536,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = slide/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = Looped;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "slide/S3-bridging-header.h";
 			};
 			name = Debug;
@@ -556,7 +548,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = slide/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = Looped;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "slide/S3-bridging-header.h";
 			};
 			name = Release;
@@ -575,7 +567,7 @@
 				);
 				INFOPLIST_FILE = slideTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = LoopedTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/slide.app/slide";
 			};
 			name = Debug;
@@ -590,7 +582,7 @@
 				);
 				INFOPLIST_FILE = slideTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = LoopedTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/slide.app/slide";
 			};
 			name = Release;
@@ -598,7 +590,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F1F2DE681A77F574005B75B0 /* Build configuration list for PBXProject "Looped" */ = {
+		F1F2DE681A77F574005B75B0 /* Build configuration list for PBXProject "slide" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F1F2DE8D1A77F574005B75B0 /* Debug */,
@@ -607,7 +599,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F1F2DE8F1A77F574005B75B0 /* Build configuration list for PBXNativeTarget "Looped" */ = {
+		F1F2DE8F1A77F574005B75B0 /* Build configuration list for PBXNativeTarget "slide" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F1F2DE901A77F574005B75B0 /* Debug */,
@@ -616,7 +608,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F1F2DE921A77F574005B75B0 /* Build configuration list for PBXNativeTarget "LoopedTests" */ = {
+		F1F2DE921A77F574005B75B0 /* Build configuration list for PBXNativeTarget "slideTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F1F2DE931A77F574005B75B0 /* Debug */,

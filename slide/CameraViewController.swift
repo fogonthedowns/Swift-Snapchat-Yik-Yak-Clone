@@ -24,7 +24,6 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     @IBOutlet weak var confirmationView: UIView!
     @IBOutlet weak var takeVideoButton: UIButton!
     
-    @IBOutlet weak var cameraIsRecording: UIImageView!
     @IBOutlet weak var userDescription: UITextField!
     // location
     @IBOutlet var gpsResult : UILabel!
@@ -66,9 +65,6 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     override func viewDidLoad() {
         super.viewDidLoad()
         UIApplication.sharedApplication().statusBarStyle = .LightContent
-        
-        // camera animation
-        self.cameraIsRecording.hidden = true
         var ItemStatusContext = "com.foo.bar.jz"
         
         // hide big blue bar
@@ -250,12 +246,9 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
                 NSLog("done with long press")
               self.videoRecordingOutput?.stopRecording()
                 NSLog("Done Recording")
-                self.cameraIsRecording.hidden = true
             } else if (sender.state == UIGestureRecognizerState.Began) {
                 NSLog("long press detected")
                 var url:NSURL = tempFileUrl()
-                self.cameraIsRecording.hidden = false
-                UIApplication.sharedApplication().statusBarHidden=true
                 videoRecordingOutput?.startRecordingToOutputFileURL(url, recordingDelegate:delegate)
         }
     }
