@@ -35,6 +35,7 @@ class VideoModel: NSObject {
     // this should probably be moved to the User Model since its a CRUD event, even though its tied to the response
     // function above, processResults(), this probably doesn't matter bc its saving something. This could be made
     // more general by passing a key, to the update field and value of that being updated
+    // called on didRecieveJSONResult
     
     func findOrCreate(districtId:String) {
         var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
@@ -63,6 +64,7 @@ class VideoModel: NSObject {
                 //  set film id to film row
                 managedObject.setValue(self.film, forKey: "film")
                 managedObject.setValue(districtId, forKey: "districtId")
+                println("**************** creating a video with hoodId %@",districtId)
                 
                 // handle errors
                 var error: NSError?
@@ -121,7 +123,7 @@ class VideoModel: NSObject {
                 results = fetchResults
                 
             } else {
-                println("***************** for some reason, no record found.")
+                println("***************** crap, no record found, so create it.")
                 results = []
             } // else
         }

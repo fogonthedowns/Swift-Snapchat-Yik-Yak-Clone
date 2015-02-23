@@ -82,7 +82,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
             // and assign a default, for now its just SF Mission District
             self.hood = "Mission"
             self.title = "Mission"
-            self.hoodId = "54e02f65736134b1010000"
+            self.hoodId = "54e02f65736e6134b1010000"
             self.loadSnaps()
             self.tableView.reloadData()
         } else if (self.title == sharedInstance.hood) {
