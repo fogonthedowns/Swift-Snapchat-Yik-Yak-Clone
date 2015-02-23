@@ -122,7 +122,7 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
                     img: rowAPIresult["coverphoto"].stringValue,
                     id: rowAPIresult["_id"]["$oid"].stringValue
                 )
-                println(rowAPIresult)
+              
                 self.title = rowAPIresult["location"]["city"].stringValue
                 districts.addObject(districtModel)
                 districtModelList = districts
@@ -178,6 +178,8 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
         cell.hood = district.name
         cell.hoodID = district.id
         cell.titleLabel.text = district.name
+        
+        cell.selectionStyle = .None
         
         var results = VideoModel.findByDistrict(district.id)
         self.processFetchResults(results!, key:district.id)

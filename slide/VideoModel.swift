@@ -117,11 +117,11 @@ class VideoModel: NSObject {
         
         if let fetchResults = appDel.managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [NSManagedObject] {
             if fetchResults.count != 0{
-                // NSLog("***************** found film for district id: %@", district)
+                NSLog("***************** found film for district id: %@", district)
                 results = fetchResults
                 
             } else {
-                // println("***************** crap, no record found, so create it.")
+                println("***************** for some reason, no record found.")
                 results = []
             } // else
         }
