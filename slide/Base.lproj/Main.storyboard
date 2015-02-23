@@ -371,7 +371,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v8t-fF-vtr">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v8t-fF-vtr">
                                 <rect key="frame" x="0.0" y="72" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <mutableString key="text">These Terms and Conditions (the “Terms”) are a legal contract between you and Looped. These Terms explain how you are permitted to use the Looped mobile application and services, as well as the Looped website located www.trylooped.com and any content therein (collectively, the “Services). Unless otherwise specified, all references to the “Services” include the services available through the Looped mobile application and the Looped website, as well as any software that Looped provides to you that allows you to access the Services from a mobile device. By using the Services, you are agreeing to all of the Terms; if you do not agree with any of these Terms, do not access or otherwise use the Services. You may download and/or print a copy of these Terms for you records at: [http://www.trylooped.com/terms].
@@ -512,14 +512,90 @@ If you have any questions about these Terms or otherwise need to contact Looped 
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="v8t-fF-vtr" firstAttribute="leading" secondItem="I3X-2d-PEe" secondAttribute="leadingMargin" id="Kyx-Zt-4j7"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="v8t-fF-vtr" secondAttribute="trailing" id="M90-HN-L1Z"/>
+                            <constraint firstItem="v8t-fF-vtr" firstAttribute="top" secondItem="yYQ-Qw-SMZ" secondAttribute="bottom" id="wRf-rB-1qW"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Terms of Service" id="3N1-GN-eV1">
-                        <barButtonItem key="leftBarButtonItem" image="back" id="NaZ-sO-jSi"/>
+                        <barButtonItem key="leftBarButtonItem" image="back" id="NaZ-sO-jSi">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gBy-BO-HFt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="756" y="1493"/>
+        </scene>
+        <!--Privacy Policy-->
+        <scene sceneID="Pn7-al-tQw">
+            <objects>
+                <viewController restorationIdentifier="privacy" storyboardIdentifier="privacy" title="Privacy Policy" id="sbg-U1-xzo" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="gI6-0F-VGW"/>
+                        <viewControllerLayoutGuide type="bottom" id="L1p-fO-JVC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="QnJ-l4-R5d">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qfx-Pn-Qab">
+                                <rect key="frame" x="32" y="64" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <mutableString key="text">Looped Privacy Policy
+
+Last Updated: February 21, 2015
+
+The Looped services and mobile app (collectively, the “Services”) gives users a medium to interact with other Looped users in the same location, in order post and share comments, and to respond to comments posted by others. In this Privacy Policy (“Policy”), we describe how we collect, use, and disclose information that we obtain about users of our Services, which are available via mobile applications offered in the Apple stores. Your use of our Services, and any dispute over privacy, is subject to this Policy and our Terms of Service, including its applicable limitations on damages and the resolution of disputes, which is available at [http://www.trylooped.com/terms] and incorporated by reference into this Policy.
+What Information Do We Collect About You and Why?
+
+Account Information. When you download and use our mobile app, we assign you a username, but we do not collect your name or email address. We also collect the following information:
+Geolocation Data. We ask you to share your location information from your mobile device. If you choose not to, the Services will not function. Location information is used to place you in your local Looped group, and as explained below.
+Your Content and Usage.We collect the content you submit to the Services (posts, replies and votes), as well as information about when you submitted the content, when it was viewed, and other activities.
+Information We Collect Automatically.We may automatically collect the following information about your use Services: access time, device ID, application ID or other unique identifier; domain name, IP address, screen views; geo-location data (with your permission); language information; device name and model; operating system information; your activities within the Services; and the length of time that you are logged in. We may combine this information with other information that we have collected about you.
+Social Media Sites. You can like us on Facebook, follow us on Twitter, and promote us on other social media sites. We collect information about who has liked us or followed us. However, we don’t associate your social media account with your Looped account. You may also share Yaks through Facebook, Twitter, Instagram, and other social media accounts.
+How We Use Your Information.
+
+You cannot control who views your content. So, if you don’t want to share something publicly, don’t post it. Looped is a social network, and the content you post may be shared with and viewable by others. We do not identify you by name or contact information to other Looped users. However, we cannot prevent others from determining your identify from the content you posts or how you share content through third party sites.
+
+Any information that you post, including comments, replies and other information may become public. We cannot control how your information is used by others. Your posts are available to all other users. Users can also freely share any Looped content, no matter who posted it, though other third party sites like Facebook, Twitter and Instagram.
+
+We may disclose the information we collect from you to third party vendors, service providers, contractors or agents who perform functions on our behalf.
+
+If we are acquired by or merged with another company, if substantially all of our assets are transferred to another company, or as part of a bankruptcy proceeding, we may transfer the information we have collected from you to the other company.
+
+We may share the information we gather about you and other users with our third party business partners, including advertisers. For example, if you post content that mentions one of our business partners, we may share that content with them. As noted, we don’t collect name or contact information (unless you post it in your comment or reply).
+
+We also may disclose the information we collect about you in order to comply with the law, a judicial proceeding, court order, subpoena, or other legal process. While we don’t collect your name or contact information, we may share your IP address or other identifier, your location information, or any other information we have collected about you and your device.
+
+We also may disclose the information we collect from you where we believe it is necessary to investigate, prevent, or take action regarding illegal activities, suspected fraud, situations involving potential threats to the safety of any person, violations of our Terms of Use or this Policy, or as evidence in litigation in which Looped is involved.
+
+If you have questions about the privacy aspects of our Services or would like to make a complaint, please contact us at [http://www.trylooped.com/contact].
+
+Changes to this Policy
+
+This Policy is current as of the Effective Date set forth above. We may change this Policy from time to time, so please be sure to check back periodically. We will post any changes to this Policy on our Site, at [http://www.trylooped.com/privacy-policy/]. If we make any changes to this Policy that materially affect our practices with regard to the personal information we have previously collected from you, we will endeavor to provide you with notice in advance of such change by highlighting the change on our Site, or providing notice in our mobile app.</mutableString>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="qfx-Pn-Qab" firstAttribute="leading" secondItem="QnJ-l4-R5d" secondAttribute="leadingMargin" id="HI0-hT-byE"/>
+                            <constraint firstItem="qfx-Pn-Qab" firstAttribute="top" secondItem="gI6-0F-VGW" secondAttribute="bottom" id="i2U-zH-6IX"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="qfx-Pn-Qab" secondAttribute="trailing" id="sQL-7s-twv"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Privacy Policy" id="pkN-Kv-dBZ">
+                        <barButtonItem key="leftBarButtonItem" image="back" id="GCM-R0-BDN">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BEu-hI-crE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="756" y="2179"/>
         </scene>
         <!--Comments View Controller-->
         <scene sceneID="Xxz-jv-LnU">
@@ -762,7 +838,7 @@ If you have any questions about these Terms or otherwise need to contact Looped 
         <!--Navigation Controller-->
         <scene sceneID="rYL-Q0-1yQ">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Lea-yq-6UM" sceneMemberID="viewController">
+                <navigationController restorationIdentifier="tos" storyboardIdentifier="tos" automaticallyAdjustsScrollViewInsets="NO" id="Lea-yq-6UM" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="gyo-fr-QbG">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -783,6 +859,31 @@ If you have any questions about these Terms or otherwise need to contact Looped 
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ugp-Mt-0ew" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-56" y="1493"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="gAN-16-zgJ">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6II-SI-aZ9" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="0Do-Xw-lPy">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.95699429512023926" green="0.61854344606399536" blue="0.087298020720481873" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textShadowColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="sbg-U1-xzo" kind="relationship" relationship="rootViewController" id="0gn-5C-FXs"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="r6I-Cs-zQB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-55" y="2179"/>
         </scene>
     </scenes>
     <resources>
