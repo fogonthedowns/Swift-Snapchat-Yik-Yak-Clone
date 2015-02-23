@@ -13,7 +13,8 @@ let didClickToNavigateBackHome = "com.snapAPI.navigateBackHome"
 let didClickToNavigateToCamera = "com.snapAPI.presentCamera"
 let didClickToNavigateToDistricts = "com.snapAPI.presentDistricts"
 let didClickToNavigateToComments = "com.snapAPI.presentComments"
-
+let didClickToNavigateToPrivacy = "com.snapAPI.presentPrivacy"
+let didClickToNavigateToTos = "com.snapAPI.presentTos"
 
 class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
     
@@ -22,7 +23,9 @@ class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
     var districtsViewController: DistrictsUINavigationController!
     var commentsUINavigationController: CommentsUINavigationController!
     var currentViewController:UIViewController? = nil
-        
+    var privacyUINavigationController:UINavigationController!
+    var TosUINavigationController:UINavigationController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         NSLog("*****************************")
@@ -31,6 +34,8 @@ class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "navigateToCamera", name: didClickToNavigateToCamera, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "navigateToDistricts", name: didClickToNavigateToDistricts, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "navigateToComments", name: didClickToNavigateToComments, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "navigateToPrivacy", name: didClickToNavigateToPrivacy, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "navigateToTos", name: didClickToNavigateToTos, object: nil)
         
         // set UIPageViewControllerDataSource
         self.dataSource = self
@@ -47,6 +52,8 @@ class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
         self.districtsViewController.title = "San Francisco"
         
         self.commentsUINavigationController = self.storyboard?.instantiateViewControllerWithIdentifier("commentsUINavigationController") as? CommentsUINavigationController
+        self.privacyUINavigationController = self.storyboard?.instantiateViewControllerWithIdentifier("privacy") as? UINavigationController
+        self.TosUINavigationController = self.storyboard?.instantiateViewControllerWithIdentifier("tos") as? UINavigationController
         
         // println("Camera has landed!")
         self.currentViewController = self.navViewController
@@ -117,6 +124,16 @@ class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
     func navigateToComments() {
         var navigateToComments : NSArray = [self.commentsUINavigationController]
         self.setViewControllers(navigateToComments, direction: .Forward, animated: true, completion: nil)
+    }
+    
+    func navigateToPrivacy(){
+       var navigateToPrivacy : NSArray = [self.privacyUINavigationController]
+        self.setViewControllers(navigateToPrivacy, direction: .Forward, animated: true, completion: nil)
+    }
+    
+    func navigateToTos(){
+        var navigateToTos : NSArray = [self.TosUINavigationController]
+        self.setViewControllers(navigateToTos, direction: .Forward, animated: true, completion: nil)
     }
     
     /*
