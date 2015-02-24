@@ -527,7 +527,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     // location
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         var locValue:CLLocationCoordinate2D = manager.location.coordinate
-        println("locations = \(locValue.latitude) \(locValue.longitude)")
+        // println("locations = \(locValue.latitude) \(locValue.longitude)")
         sharedInstance.latitude =  String(format: "%f", locValue.latitude)
         sharedInstance.longitute = String(format: "%f", locValue.longitude)
         

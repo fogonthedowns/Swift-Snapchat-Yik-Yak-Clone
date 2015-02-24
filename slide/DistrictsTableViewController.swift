@@ -244,7 +244,7 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
             navigationController?.navigationBarHidden = false
             UIApplication.sharedApplication().statusBarHidden=false;
             self.tableView.rowHeight = 80.0
-             self.tableView.reloadData()
+            self.tableView.reloadData()
         }
         
         // returns nil in the case of last cell
@@ -350,7 +350,11 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
                         }
                     }
                 currentIndex += 1
-                }
+                } else {  // currentIndex < localPlaylist.count
+                   navigationController?.navigationBarHidden = false
+                   self.tableView.rowHeight = 80.0
+                   self.tableView.reloadData()
+                } // currentIndex < localPlaylist.count
             } // if let localPlayList
         } // if self.currentID
     }
