@@ -28,6 +28,7 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
     
     // video list
     var playListHash: NSMutableDictionary = [:]
+    var playerIsLooping = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -232,6 +233,7 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
         if (sender.state == UIGestureRecognizerState.Ended) {
             
             self.userIntendsToWatchVideo = false
+            self.playerIsLooping = false
             self.currentIndex = 1
             println(sender.view)
             println(sender)
@@ -247,68 +249,70 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
             self.tableView.reloadData()
         }
         
-        // returns nil in the case of last cell
-        // but strangely only on EndedState
-        var indexPath = tableView.indexPathForRowAtPoint(locationInView)
-        if (indexPath != nil) && (self.playListHash.count != 0){
-            let cell = self.tableView.cellForRowAtIndexPath(indexPath!) as DistrictTableViewCell
-            if let localPlaylist = self.playListHash[cell.hoodID] as NSMutableArray? {
-                currentID = cell.hoodID
-                println("Long press Block 2 .................");
-                println(localPlaylist.count)
-                if (localPlaylist.count != 0) {
-                    if let filmString:String = localPlaylist[0] as? String {
-                        println(filmString)
-                        let filePath = determineFilePath(filmString)
-                        
-                        // Begin Gesture
-                        if (sender.state == UIGestureRecognizerState.Began) {
+       // if the player is in a loop state, don't even bother starting a new player
+        if (self.playerIsLooping == false) {
+            var indexPath = tableView.indexPathForRowAtPoint(locationInView)
+            if (indexPath != nil) && (self.playListHash.count != 0){
+                let cell = self.tableView.cellForRowAtIndexPath(indexPath!) as DistrictTableViewCell
+                if let localPlaylist = self.playListHash[cell.hoodID] as NSMutableArray? {
+                    currentID = cell.hoodID
+                    println("Long press Block 2 .................");
+                    println(localPlaylist.count)
+                    if (localPlaylist.count != 0) {
+                        if let filmString:String = localPlaylist[0] as? String {
+                            println(filmString)
+                            let filePath = determineFilePath(filmString)
                             
-                            self.tableView.rowHeight = 700.0
-                            self.tableView.reloadRowsAtIndexPaths([indexPath!], withRowAnimation:  UITableViewRowAnimation.None)
-                            self.userIntendsToWatchVideo = true
-                            println("Long press detected.");
-                            // let path = NSBundle.mainBundle().pathForResource("video", ofType:"m4v")
-                            let url = NSURL.fileURLWithPath(filePath)
-                            
-                            self.moviePlayer = MPMoviePlayerController(contentURL: url)
-                            if var player = self.moviePlayer {
-                                navigationController?.navigationBarHidden = true
-                                UIApplication.sharedApplication().statusBarHidden = true
-                                player.view.frame = self.view.bounds
-                                player.prepareToPlay()
-                                player.scalingMode = .AspectFill
-                                player.controlStyle = .None
-                                self.tableView.addSubview(player.view)
-                            }  else if (sender.state == UIGestureRecognizerState.Ended) {
-                                self.tableView.rowHeight = 80.0
+                            // Begin Gesture
+                            if (sender.state == UIGestureRecognizerState.Began) {
+                                // set player is looping, to prevent the capture of more begin states
+                                self.playerIsLooping = true
+                                self.tableView.rowHeight = 700.0
                                 self.tableView.reloadRowsAtIndexPaths([indexPath!], withRowAnimation:  UITableViewRowAnimation.None)
-                                self.userIntendsToWatchVideo = false
-                                self.currentIndex = 1
-                                println("two");
-                                self.moviePlayer.stop()
-                                self.moviePlayer.view.removeFromSuperview()
-                                // self.tableView.reloadData()
-                                navigationController?.navigationBarHidden = false
-                                UIApplication.sharedApplication().statusBarHidden=false;
+                                self.userIntendsToWatchVideo = true
+                                println("Long press detected.");
+                                // let path = NSBundle.mainBundle().pathForResource("video", ofType:"m4v")
+                                let url = NSURL.fileURLWithPath(filePath)
+                                
+                                self.moviePlayer = MPMoviePlayerController(contentURL: url)
+                                if var player = self.moviePlayer {
+                                    navigationController?.navigationBarHidden = true
+                                    UIApplication.sharedApplication().statusBarHidden = true
+                                    player.view.frame = self.view.bounds
+                                    player.prepareToPlay()
+                                    player.scalingMode = .AspectFill
+                                    player.controlStyle = .None
+                                    self.tableView.addSubview(player.view)
+                                }  else if (sender.state == UIGestureRecognizerState.Ended) {
+                                    self.tableView.rowHeight = 80.0
+                                    self.tableView.reloadRowsAtIndexPaths([indexPath!], withRowAnimation:  UITableViewRowAnimation.None)
+                                    self.userIntendsToWatchVideo = false
+                                    self.currentIndex = 1
+                                    println("two");
+                                    self.moviePlayer.stop()
+                                    self.moviePlayer.view.removeFromSuperview()
+                                    // self.tableView.reloadData()
+                                    navigationController?.navigationBarHidden = false
+                                    UIApplication.sharedApplication().statusBarHidden=false;
+                                }
                             }
                         }
-                    }
-                } // if localplaylist?
-            }// playlist Count
-        // HACK
-        } else {
-            self.tableView.rowHeight = 80.0
-            self.tableView.reloadData()
-            println("no index path or no playListHash");
-            if (self.moviePlayer != nil) {
-              self.moviePlayer.stop()
-              self.moviePlayer.view.removeFromSuperview()
-            }
-            // self.tableView.reloadData()
-            navigationController?.navigationBarHidden = false
-            UIApplication.sharedApplication().statusBarHidden=false;
-        }
+                    } // if localplaylist?
+                }// playlist Count
+            // HACK
+            } else {
+                self.tableView.rowHeight = 80.0
+                self.tableView.reloadData()
+                println("no index path or no playListHash");
+                if (self.moviePlayer != nil) {
+                  self.moviePlayer.stop()
+                  self.moviePlayer.view.removeFromSuperview()
+                }
+                // self.tableView.reloadData()
+                navigationController?.navigationBarHidden = false
+                UIApplication.sharedApplication().statusBarHidden=false;
+            } // (indexPath != nil) && (self.playListHash.count != 0)
+        } //(self.playerIsLooping == false)
     }
     
     func switchPlayerOrQuit(){
