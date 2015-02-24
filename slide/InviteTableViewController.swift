@@ -18,6 +18,15 @@ class InviteTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        swiftAddressBook?.requestAccessWithCompletion({ (success, error) -> Void in
+            if success {
+                //do something with swiftAddressBook
+            }
+            else {
+                //no success. Optionally evaluate error
+            }
+        })
+        
     }
 
     override func didReceiveMemoryWarning() {
