@@ -37,7 +37,6 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     var uploadImageURL: NSURL?
     var successCount: NSNumber = 0
     let ItemStatusContext:NSString?
-    var userText:NSString?
 
     // camera
     let captureSession = AVCaptureSession()
@@ -166,7 +165,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         
         
         self.DismissKeyboard()
-        self.sharedInstance.userDescription = self.userDescription.text
+        // self.sharedInstance.userDescription = self.userDescription.text
         self.userDescription.text = ""
         self.stopPreview = true
         if (self.moviePlayer != nil) {
@@ -323,7 +322,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     // so start processing video and segue
     
     @IBAction func pressConfirmVideo(sender: AnyObject) {
-        userText = self.sharedInstance.userDescription
+        self.sharedInstance.userDescription = self.userDescription.text
         UIApplication.sharedApplication().statusBarHidden=false
         self.view.sendSubviewToBack(self.confirmationView)
         self.view.sendSubviewToBack(self.moviePlayer.view)
@@ -412,7 +411,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
                
                     
                   // I'm pretty sure postSnap fails with the bug described in the next comment. Try moving all into a singleton
-                  // let userText:NSString = self.sharedInstance.userDescription
+
                   self.postSnap(self.sharedInstance.latitude,long: self.sharedInstance.longitute,video: self.sharedInstance.lastVideoUploadID, image: self.sharedInstance.lastImgUploadID, description:  self.sharedInstance.userDescription)
                     
                   // TODO Post this right before sendtoAWS, move the above into a singleton, that can function in the background
