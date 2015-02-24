@@ -323,7 +323,7 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
         // When the user is done tidy things up more
         if (self.userIntendsToWatchVideo == false) {
             navigationController?.navigationBarHidden = false
-            UIApplication.sharedApplication().statusBarHidden = false
+            // UIApplication.sharedApplication().statusBarHidden = false
         }
         
         // currentID corresponds to the current cell neighborhood id

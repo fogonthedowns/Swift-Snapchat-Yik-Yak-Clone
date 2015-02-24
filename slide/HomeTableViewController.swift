@@ -54,6 +54,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         self.tableView.rowHeight = 70.0
         let longpress = UILongPressGestureRecognizer(target: self, action: "handleLongPressHome:")
         longpress.minimumPressDuration = 0.35
+        longpress.allowableMovement = CGFloat.max
         tableView.addGestureRecognizer(longpress)
 
         // singleton of session
@@ -224,7 +225,8 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
             println(cell.titleLabel.text!)
             
             if (sender.state == UIGestureRecognizerState.Ended) {
-                // self.tableView.rowHeight = 70.0
+                self.tableView.rowHeight = 70.0
+            
                 println("Long press Ended");
                 self.moviePlayer.stop()
                 self.moviePlayer.view.removeFromSuperview()
@@ -232,7 +234,8 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
                 navigationController?.navigationBarHidden = false
                 UIApplication.sharedApplication().statusBarHidden=false;
             } else if (sender.state == UIGestureRecognizerState.Began) {
-                // self.tableView.rowHeight = 700.0
+                self.tableView.rowHeight = 700.0
+                self.tableView.reloadData()
                 println("Long press detected.");
                 let path = NSBundle.mainBundle().pathForResource("video", ofType:"m4v")
                 let url = NSURL.fileURLWithPath(filePath)
@@ -249,7 +252,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
             }
         // HACK
         } else {
-            // self.tableView.rowHeight = 70.0
+            self.tableView.rowHeight = 70.0
             println("HACK - Long press Ended");
             if (self.moviePlayer != nil) {
               self.moviePlayer.stop()
