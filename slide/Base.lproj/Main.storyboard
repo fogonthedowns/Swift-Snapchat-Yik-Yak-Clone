@@ -140,6 +140,33 @@
             </objects>
             <point key="canvasLocation" x="361.5" y="-77.5"/>
         </scene>
+        <!--Invite Table View Controller-->
+        <scene sceneID="z0K-bf-nQM">
+            <objects>
+                <tableViewController id="qSc-ap-ste" customClass="InviteTableViewController" customModule="Looped" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="VNU-TG-ZfP">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="NtN-No-4CW">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NtN-No-4CW" id="zk7-2R-8ec">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="qSc-ap-ste" id="iTU-Gh-LJU"/>
+                            <outlet property="delegate" destination="qSc-ap-ste" id="ED0-aV-2DZ"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="YqM-Hv-z9b"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VTO-4c-wjn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1951" y="-111"/>
+        </scene>
         <!--Home Table View Controller-->
         <scene sceneID="hoi-bt-jbr">
             <objects>
@@ -897,6 +924,24 @@ This Policy is current as of the Effective Date set forth above. We may change t
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r6I-Cs-zQB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-55" y="2179"/>
+        </scene>
+        <!--InviteUI Navigation Controller-->
+        <scene sceneID="m05-gc-hQI">
+            <objects>
+                <navigationController restorationIdentifier="invite" storyboardIdentifier="invite" automaticallyAdjustsScrollViewInsets="NO" id="auY-fu-TVO" customClass="InviteUINavigationController" customModule="Looped" customModuleProvider="target" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ExG-uv-wC6">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="qSc-ap-ste" kind="relationship" relationship="rootViewController" id="6MU-aC-jhi"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Uwh-80-372" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1113" y="-111"/>
         </scene>
     </scenes>
     <resources>
