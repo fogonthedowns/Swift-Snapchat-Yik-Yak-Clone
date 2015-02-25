@@ -68,10 +68,23 @@ class InviteTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("InviteCell") as InviteUITableViewCell
         let contact: APContact = arraycontacts[indexPath.row] as APContact
         // Configure the cell...
-        cell.phoneNumber.text = self.contactPhones(contact)
+        cell.phoneNumber.text = self.contactName(contact)
         return cell
     }
-
+    
+    
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let indexPath = tableView.indexPathForSelectedRow();
+        let currentCell = tableView.cellForRowAtIndexPath(indexPath!) as InviteUITableViewCell
+        if (currentCell.friendChecked) {
+            currentCell.friendSelected.image = nil
+            currentCell.friendChecked = false
+        } else {
+            currentCell.friendChecked = true
+            currentCell.friendSelected.image = UIImage(named:("starwithvotes"))
+        }
+    }
 
     /*
     // Override to support conditional editing of the table view.
