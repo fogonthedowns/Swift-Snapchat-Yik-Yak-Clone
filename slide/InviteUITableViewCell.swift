@@ -9,8 +9,10 @@
 import UIKit
 
 class InviteUITableViewCell: UITableViewCell {
-
     @IBOutlet weak var friendSelected: UIImageView!
     @IBOutlet weak var phoneNumber: UILabel!
     var friendChecked = false
+    var name:NSString = ""
+    var email:NSMutableArray = []
+    var phone:NSMutableArray! = []
 }

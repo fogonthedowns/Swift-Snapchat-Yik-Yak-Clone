@@ -12,6 +12,8 @@ class InviteTableViewController: UITableViewController {
 
     let addressBook = APAddressBook()
     var arraycontacts:NSArray = []
+    var taggedFriends: NSMutableArray = [] // This is the array that contains friends I'm tagging
+    var friendsList: NSMutableArray = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,6 +70,12 @@ class InviteTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("InviteCell") as InviteUITableViewCell
         let contact: APContact = arraycontacts[indexPath.row] as APContact
         // Configure the cell...
+        var friend = FriendModel(
+            name: self.contactName(contact),
+            phone: self.contactPhones(contact),
+            email: self.contactEmails(contact)
+        )
+        friendsList.addObject(friend)
         cell.phoneNumber.text = self.contactName(contact)
         return cell
     }
@@ -77,10 +85,15 @@ class InviteTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let indexPath = tableView.indexPathForSelectedRow();
         let currentCell = tableView.cellForRowAtIndexPath(indexPath!) as InviteUITableViewCell
+        var friend:AnyObject = friendsList[indexPath!.row]
+        
         if (currentCell.friendChecked) {
             currentCell.friendSelected.image = nil
             currentCell.friendChecked = false
+            taggedFriends.removeObject(friend)
         } else {
+            taggedFriends.addObject(friend)
+            println(taggedFriends)
             currentCell.friendChecked = true
             currentCell.friendSelected.image = UIImage(named:("starwithvotes"))
         }
@@ -143,12 +156,26 @@ class InviteTableViewController: UITableViewController {
         }
     }
     
-    func contactPhones(contact :APContact) -> String {
+    func contactPhones(contact :APContact) -> NSArray {
+        // changed return from string to NSArray
         if let phones = contact.phones {
             let array = phones as NSArray
-            return array.componentsJoinedByString(" ")
+            // return array.componentsJoinedByString(" ")
+            return array
         }
-        return "No phone"
+        return []
+        //return "No phone"
+    }
+    
+    func contactEmails(contact :APContact) -> NSArray {
+        // changed return from string to NSArray
+        if let emails = contact.emails {
+            let array = emails as NSArray
+            // return array.componentsJoinedByString(" ")
+            return array
+        }
+        return []
+        //return "No phone"
     }
 
 }

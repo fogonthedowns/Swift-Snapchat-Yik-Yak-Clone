@@ -44,6 +44,7 @@
 		F1F2DEA91A7D7F35005B75B0 /* alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F2DEA81A7D7F34005B75B0 /* alamofire.swift */; };
 		F1F2DEAD1A7D8378005B75B0 /* VideoCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F2DEAC1A7D8378005B75B0 /* VideoCellTableViewCell.swift */; };
 		F1F4BB7E1A9B064800790E54 /* TosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F4BB7D1A9B064800790E54 /* TosViewController.swift */; };
+		F1FC5E931A9E542F00B637E3 /* friendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FC5E921A9E542F00B637E3 /* friendModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +101,7 @@
 		F1F2DEA81A7D7F34005B75B0 /* alamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = alamofire.swift; sourceTree = "<group>"; };
 		F1F2DEAC1A7D8378005B75B0 /* VideoCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCellTableViewCell.swift; sourceTree = "<group>"; };
 		F1F4BB7D1A9B064800790E54 /* TosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TosViewController.swift; sourceTree = "<group>"; };
+		F1FC5E921A9E542F00B637E3 /* friendModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = friendModel.swift; sourceTree = "<group>"; };
 		FBDF3BF5330EC98E63BC93A2 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -207,6 +209,7 @@
 				F1F2DEA41A7D5FA2005B75B0 /* VideoModel.swift */,
 				F106A0E11A950963006BAEA7 /* CommentModel.swift */,
 				F1F2DE9D1A797BA9005B75B0 /* UserModel.swift */,
+				F1FC5E921A9E542F00B637E3 /* friendModel.swift */,
 				F117D97D1A8E84E0001CEB44 /* DistrictModel.swift */,
 				F172A18F1A7E8C12007E564C /* AWSImageDownload.swift */,
 				F19BC1D61A8070160096356C /* VideoDataToAPI.swift */,
@@ -436,6 +439,7 @@
 				F1F2DE961A77F827005B75B0 /* Constants.swift in Sources */,
 				F16F72B21A901185005A149A /* SharedInstance.swift in Sources */,
 				F1CAD9921A9CF2B800323BEC /* InviteTableViewController.swift in Sources */,
+				F1FC5E931A9E542F00B637E3 /* friendModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
