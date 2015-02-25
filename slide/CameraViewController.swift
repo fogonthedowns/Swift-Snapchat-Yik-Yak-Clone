@@ -320,6 +320,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     
     @IBAction func pressBackButtonfromConfirm(sender: AnyObject) {
         UIApplication.sharedApplication().statusBarHidden=false
+        self.clearTaggedFriends()
         self.DismissKeyboard()
         self.userDescription.text = ""
         self.stopPreview = true
@@ -578,6 +579,13 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         return false;
     }
     
+    func clearTaggedFriends() {
+        self.sharedInstance.taggedFriends = []
+        for friend in self.sharedInstance.friendsList {
+            let friend:FriendModel = friend as FriendModel
+            friend.tagged = false
+        }
+    }
     // this function uses the APIModel() instance apiObject
     // Todo This requires some completion handler 
     // maybe write a success row 

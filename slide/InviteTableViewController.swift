@@ -13,12 +13,12 @@ class InviteTableViewController: UITableViewController {
     let addressBook = APAddressBook()
     var arraycontacts:NSArray = []
     //var taggedFriends: NSMutableArray = [] // This is the array that contains friends I'm tagging
-    var friendsList: NSMutableArray = []
+    
     var sharedInstance = VideoDataToAPI.sharedInstance
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -35,6 +35,7 @@ class InviteTableViewController: UITableViewController {
                 if (contacts != nil) {
                     println(contacts)
                     self.arraycontacts = contacts
+                    self.setupFriendModelData()
                     self.tableView.reloadData()
                 }
                 else if (error != nil) {
@@ -43,7 +44,12 @@ class InviteTableViewController: UITableViewController {
                     alert.show()
                 }
         }) // self.addressBook.loadContacts()
-
+        
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(true)
+        self.tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -69,15 +75,16 @@ class InviteTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("InviteCell") as InviteUITableViewCell
-        let contact: APContact = arraycontacts[indexPath.row] as APContact
-        // Configure the cell...
-        var friend = FriendModel(
-            name: self.contactName(contact),
-            phone: self.contactPhones(contact),
-            email: self.contactEmails(contact)
-        )
-        friendsList.addObject(friend)
-        cell.phoneNumber.text = self.contactName(contact)
+        var friend = self.sharedInstance.friendsList[indexPath.row] as FriendModel
+        cell.phoneNumber.text = friend.name
+
+        println(self.sharedInstance.taggedFriends.count)
+        if (friend.tagged == true) {
+            cell.friendSelected.image = UIImage(named:("starwithvotes"))
+        } else {
+             cell.friendSelected.image = nil
+        }
+        
         return cell
     }
     
@@ -86,13 +93,15 @@ class InviteTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let indexPath = tableView.indexPathForSelectedRow();
         let currentCell = tableView.cellForRowAtIndexPath(indexPath!) as InviteUITableViewCell
-        var friend:FriendModel = friendsList[indexPath!.row] as FriendModel
+        var friend:FriendModel = self.sharedInstance.friendsList[indexPath!.row] as FriendModel
         
-        if (currentCell.friendChecked) {
+        if (friend.tagged == true) {
+            friend.tagged = false
             currentCell.friendSelected.image = nil
             currentCell.friendChecked = false
             sharedInstance.taggedFriends.removeObject(friend)
         } else {
+            friend.tagged = true
             sharedInstance.taggedFriends.addObject(friend)
             currentCell.friendChecked = true
             currentCell.friendSelected.image = UIImage(named:("starwithvotes"))
@@ -182,6 +191,19 @@ class InviteTableViewController: UITableViewController {
         }
         return []
         //return "No phone"
+    }
+    
+    func setupFriendModelData(){
+        for contact in arraycontacts {
+            let contact = contact as APContact
+            // Configure the cell...
+            var friend = FriendModel(
+                name: self.contactName(contact),
+                phone: self.contactPhones(contact),
+                email: self.contactEmails(contact)
+            )
+            self.sharedInstance.friendsList.addObject(friend)
+        }
     }
 
 }
