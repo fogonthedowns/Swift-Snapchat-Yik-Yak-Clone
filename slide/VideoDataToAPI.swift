@@ -24,6 +24,8 @@ class VideoDataToAPI {
     var userDescription: NSString!
     var playList: NSMutableArray = []
     var playListHash: NSMutableDictionary = [:]
+    var taggedFriends: NSMutableArray = []
+    var userIsAddingFriends = false
     
     class var sharedInstance :VideoDataToAPI {
         struct Singleton {

@@ -229,9 +229,9 @@
 				F117D9761A8D39CA001CEB44 /* RootViewController.swift */,
 				F16319C31A907532005B2FC1 /* DistrictsUINavigationController.swift */,
 				F106A0DF1A9448DB006BAEA7 /* CommentsViewController.swift */,
-				F1CAD9931A9CF30500323BEC /* InviteUINavigationController.swift */,
 				F154CA6E1A93BC4900C6076A /* CommentsUINavigationController.swift */,
 				F1C3FC0B1A9B051A00040217 /* PrivacyViewController.swift */,
+				F1CAD9931A9CF30500323BEC /* InviteUINavigationController.swift */,
 				F1CAD9911A9CF2B800323BEC /* InviteTableViewController.swift */,
 			);
 			name = Controller;

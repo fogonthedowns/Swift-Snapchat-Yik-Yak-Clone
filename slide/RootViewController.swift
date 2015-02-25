@@ -11,10 +11,12 @@ import UIKit
 let didFinishUploadPresentNewPage = "com.snapAPI.presentNewPage"
 let didClickToNavigateBackHome = "com.snapAPI.navigateBackHome"
 let didClickToNavigateToCamera = "com.snapAPI.presentCamera"
+let didClickToNavigateBackToCamera = "com.snapAPI.presentBackCamera"
 let didClickToNavigateToDistricts = "com.snapAPI.presentDistricts"
 let didClickToNavigateToComments = "com.snapAPI.presentComments"
 let didClickToNavigateToPrivacy = "com.snapAPI.presentPrivacy"
 let didClickToNavigateToTos = "com.snapAPI.presentTos"
+let didClickToNavigateToFriends = "com.snapAPI.presentFriends"
 
 class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
     
@@ -25,6 +27,7 @@ class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
     var currentViewController:UIViewController? = nil
     var privacyUINavigationController:UINavigationController!
     var TosUINavigationController:UINavigationController!
+    var InvitesUINavigationController:InviteUINavigationController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,11 +35,14 @@ class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "navigateHome", name: didFinishUploadPresentNewPage, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "navigateBackHome", name: didClickToNavigateBackHome, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "navigateToCamera", name: didClickToNavigateToCamera, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "navigateBackToCamera", name: didClickToNavigateBackToCamera, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "navigateToDistricts", name: didClickToNavigateToDistricts, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "navigateToComments", name: didClickToNavigateToComments, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "navigateToPrivacy", name: didClickToNavigateToPrivacy, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "navigateToTos", name: didClickToNavigateToTos, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "navigateToFriends", name: didClickToNavigateToFriends, object: nil)
         
+    
         // set UIPageViewControllerDataSource
         self.dataSource = self
         
@@ -54,6 +60,8 @@ class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
         self.commentsUINavigationController = self.storyboard?.instantiateViewControllerWithIdentifier("commentsUINavigationController") as? CommentsUINavigationController
         self.privacyUINavigationController = self.storyboard?.instantiateViewControllerWithIdentifier("privacy") as? UINavigationController
         self.TosUINavigationController = self.storyboard?.instantiateViewControllerWithIdentifier("tos") as? UINavigationController
+        self.InvitesUINavigationController = self.storyboard?.instantiateViewControllerWithIdentifier("invite") as? InviteUINavigationController
+
         
         // println("Camera has landed!")
         self.currentViewController = self.navViewController
@@ -115,6 +123,11 @@ class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
         var navigateToHome : NSArray = [self.cameraViewController]
         self.setViewControllers(navigateToHome, direction: .Forward, animated: true, completion: nil)
     }
+    
+    func navigateBackToCamera() {
+        var navigateToHome : NSArray = [self.cameraViewController]
+        self.setViewControllers(navigateToHome, direction: .Reverse, animated: true, completion: nil)
+    }
 
     func navigateToDistricts() {
         var navigateToHome : NSArray = [self.districtsViewController]
@@ -134,6 +147,11 @@ class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
     func navigateToTos(){
         var navigateToTos : NSArray = [self.TosUINavigationController]
         self.setViewControllers(navigateToTos, direction: .Forward, animated: true, completion: nil)
+    }
+    
+    func navigateToFriends(){
+        var navigateToFriends : NSArray = [self.InvitesUINavigationController]
+        self.setViewControllers(navigateToFriends, direction: .Forward, animated: true, completion: nil)
     }
     
     /*

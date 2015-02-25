@@ -54,8 +54,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     // camera preview
     var moviePlayer:MPMoviePlayerController!
     var stopPreview:Bool = false
-    
-    
+   
     // user identity
     let userObject = UserModel()
     
@@ -145,6 +144,9 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     
     override func viewDidAppear(animated:Bool) {
         super.viewDidAppear(true)
+        if (self.sharedInstance.userIsAddingFriends) {
+          UIApplication.sharedApplication().statusBarHidden=true
+        }
         if CLLocationManager.locationServicesEnabled() {
             NSLog("\n ******************************viewdidappear startUpdatingLocation()")
             manager.delegate = self
@@ -165,13 +167,17 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         
         
         self.DismissKeyboard()
-        // self.sharedInstance.userDescription = self.userDescription.text
-        self.userDescription.text = ""
-        self.stopPreview = true
-        if (self.moviePlayer != nil) {
-          self.moviePlayer.stop()
-          self.view.sendSubviewToBack(self.confirmationView)
-          self.view.sendSubviewToBack(self.moviePlayer.view)
+        if (sharedInstance.userIsAddingFriends) {
+            
+        } else {
+            // self.sharedInstance.userDescription = self.userDescription.text
+            self.userDescription.text = ""
+            self.stopPreview = true
+            if (self.moviePlayer != nil) {
+              self.moviePlayer.stop()
+              self.view.sendSubviewToBack(self.confirmationView)
+              self.view.sendSubviewToBack(self.moviePlayer.view)
+            }
         }
 
     }
@@ -304,6 +310,10 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
             }
     }
     
+    @IBAction func addFriends(sender: AnyObject) {
+        self.sharedInstance.userIsAddingFriends = true
+        NSNotificationCenter.defaultCenter().postNotificationName(didClickToNavigateToFriends, object: self)
+    }
     // User pressed back button from video preview
     // stop video, stop preview
     // clear views

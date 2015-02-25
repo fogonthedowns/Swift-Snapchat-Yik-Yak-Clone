@@ -381,7 +381,6 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
         func handler(act:UIAlertAction!) {
             NSNotificationCenter.defaultCenter().postNotificationName(didClickToNavigateToTos, object: self)
              }
-        
         var alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
         alert.addAction(UIAlertAction(title: "Terms of Service", style: .Default, handler: handler))
         alert.addAction(UIAlertAction(title: "Privacy Policy", style: .Default, handler: privacy))
