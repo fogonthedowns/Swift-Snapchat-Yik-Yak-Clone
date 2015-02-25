@@ -25,6 +25,7 @@ class VideoDataToAPI {
     var playList: NSMutableArray = []
     var playListHash: NSMutableDictionary = [:]
     var taggedFriends: NSMutableArray = []
+    var friendsList: NSMutableArray = []
     var userIsAddingFriends = false
     
     class var sharedInstance :VideoDataToAPI {

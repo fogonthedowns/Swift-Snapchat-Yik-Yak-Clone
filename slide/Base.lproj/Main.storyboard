@@ -70,7 +70,7 @@
                                     </textField>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="bIS-Xf-75T" firstAttribute="top" secondItem="HeY-DP-swx" secondAttribute="top" constant="9" id="3gG-gJ-eLD"/>
+                                    <constraint firstItem="bIS-Xf-75T" firstAttribute="top" secondItem="HeY-DP-swx" secondAttribute="top" constant="20" id="3gG-gJ-eLD"/>
                                     <constraint firstItem="Z1R-xh-ben" firstAttribute="centerX" secondItem="HeY-DP-swx" secondAttribute="centerX" id="6bu-pd-CYy"/>
                                     <constraint firstItem="Z1R-xh-ben" firstAttribute="leading" secondItem="HeY-DP-swx" secondAttribute="leading" id="74M-MI-UOF"/>
                                     <constraint firstAttribute="trailing" secondItem="bIS-Xf-75T" secondAttribute="trailing" constant="20" id="9tG-mF-fbT"/>

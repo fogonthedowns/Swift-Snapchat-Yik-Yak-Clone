@@ -14,6 +14,7 @@ class FriendModel: NSObject {
     let img: String
     let phone: NSArray
     let email: NSArray
+    var tagged = false
     
     init(name: String, phone:NSArray, email:NSArray) {
         self.name = name
