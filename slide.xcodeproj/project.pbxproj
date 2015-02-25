@@ -21,6 +21,7 @@
 		F16F72B21A901185005A149A /* SharedInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16F72B11A901185005A149A /* SharedInstance.swift */; };
 		F172A1901A7E8C12007E564C /* AWSImageDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = F172A18F1A7E8C12007E564C /* AWSImageDownload.swift */; };
 		F19BC1D71A8070160096356C /* VideoDataToAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19BC1D61A8070160096356C /* VideoDataToAPI.swift */; };
+		F19E9A741A9D4883004EF877 /* InviteUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19E9A731A9D4883004EF877 /* InviteUITableViewCell.swift */; };
 		F1C3FC0C1A9B051A00040217 /* PrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C3FC0B1A9B051A00040217 /* PrivacyViewController.swift */; };
 		F1CAD9921A9CF2B800323BEC /* InviteTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CAD9911A9CF2B800323BEC /* InviteTableViewController.swift */; };
 		F1CAD9941A9CF30500323BEC /* InviteUINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CAD9931A9CF30500323BEC /* InviteUINavigationController.swift */; };
@@ -71,6 +72,7 @@
 		F16F72B11A901185005A149A /* SharedInstance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedInstance.swift; sourceTree = "<group>"; };
 		F172A18F1A7E8C12007E564C /* AWSImageDownload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AWSImageDownload.swift; sourceTree = "<group>"; };
 		F19BC1D61A8070160096356C /* VideoDataToAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoDataToAPI.swift; sourceTree = "<group>"; };
+		F19E9A731A9D4883004EF877 /* InviteUITableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteUITableViewCell.swift; sourceTree = "<group>"; };
 		F1C3FC0B1A9B051A00040217 /* PrivacyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivacyViewController.swift; sourceTree = "<group>"; };
 		F1CAD9911A9CF2B800323BEC /* InviteTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteTableViewController.swift; sourceTree = "<group>"; };
 		F1CAD9931A9CF30500323BEC /* InviteUINavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteUINavigationController.swift; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 				F1F2DEAC1A7D8378005B75B0 /* VideoCellTableViewCell.swift */,
 				F154CA701A93F4A300C6076A /* CommentTableViewCell.swift */,
 				F117D97F1A8EAD67001CEB44 /* DistrictTableViewCell.swift */,
+				F19E9A731A9D4883004EF877 /* InviteUITableViewCell.swift */,
 				F1F2DE7E1A77F574005B75B0 /* LaunchScreen.xib */,
 			);
 			name = View;
@@ -316,6 +319,7 @@
 				TargetAttributes = {
 					F1F2DE6C1A77F574005B75B0 = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = TFQE3TPLXU;
 					};
 					F1F2DE841A77F574005B75B0 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -406,6 +410,7 @@
 				F1F2DE781A77F574005B75B0 /* ViewController.swift in Sources */,
 				F1F2DE9E1A797BA9005B75B0 /* UserModel.swift in Sources */,
 				F106A0E21A950963006BAEA7 /* CommentModel.swift in Sources */,
+				F19E9A741A9D4883004EF877 /* InviteUITableViewCell.swift in Sources */,
 				F1CAD9941A9CF30500323BEC /* InviteUINavigationController.swift in Sources */,
 				F1F2DEA51A7D5FA2005B75B0 /* VideoModel.swift in Sources */,
 				F19BC1D71A8070160096356C /* VideoDataToAPI.swift in Sources */,
@@ -554,6 +559,7 @@
 			baseConfigurationReference = 85C73CE6E418DC9B8ED4F903 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = slide/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = Looped;
@@ -566,6 +572,7 @@
 			baseConfigurationReference = FBDF3BF5330EC98E63BC93A2 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = slide/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = Looped;
@@ -588,7 +595,7 @@
 				INFOPLIST_FILE = slideTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/slide.app/slide";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Looped.app/Looped";
 			};
 			name = Debug;
 		};
@@ -603,7 +610,7 @@
 				INFOPLIST_FILE = slideTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/slide.app/slide";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Looped.app/Looped";
 			};
 			name = Release;
 		};
