@@ -116,6 +116,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
     @IBAction func navigateToCamera(sender: AnyObject) {
         NSNotificationCenter.defaultCenter().postNotificationName(didClickToNavigateToCamera, object: self)
     }
+    
 
     @IBAction func navigateToDistricts(sender: AnyObject) {
         NSNotificationCenter.defaultCenter().postNotificationName(didClickToNavigateToDistricts, object: self)

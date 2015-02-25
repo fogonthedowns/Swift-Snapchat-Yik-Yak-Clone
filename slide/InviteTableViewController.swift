@@ -12,8 +12,9 @@ class InviteTableViewController: UITableViewController {
 
     let addressBook = APAddressBook()
     var arraycontacts:NSArray = []
-    var taggedFriends: NSMutableArray = [] // This is the array that contains friends I'm tagging
+    //var taggedFriends: NSMutableArray = [] // This is the array that contains friends I'm tagging
     var friendsList: NSMutableArray = []
+    var sharedInstance = VideoDataToAPI.sharedInstance
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,9 +91,9 @@ class InviteTableViewController: UITableViewController {
         if (currentCell.friendChecked) {
             currentCell.friendSelected.image = nil
             currentCell.friendChecked = false
-            taggedFriends.removeObject(friend)
+            sharedInstance.taggedFriends.removeObject(friend)
         } else {
-            taggedFriends.addObject(friend)
+            sharedInstance.taggedFriends.addObject(friend)
             currentCell.friendChecked = true
             currentCell.friendSelected.image = UIImage(named:("starwithvotes"))
         }
@@ -142,6 +143,12 @@ class InviteTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    @IBAction func clickBack(sender: AnyObject) {
+        self.sharedInstance.userIsAddingFriends = false
+        NSNotificationCenter.defaultCenter().postNotificationName(didClickToNavigateBackToCamera, object: self)
+    }
+    
     
     func contactName(contact :APContact) -> String {
         if contact.firstName != nil && contact.lastName != nil {

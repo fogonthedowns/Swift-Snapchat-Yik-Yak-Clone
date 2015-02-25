@@ -15,6 +15,11 @@ class InviteUINavigationController: UINavigationController {
 
         // Do any additional setup after loading the view.
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(true)
+        UIApplication.sharedApplication().statusBarHidden=false
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

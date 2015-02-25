@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="auY-fu-TVO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="RIP-oa-5aP">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -21,6 +21,19 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HeY-DP-swx">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bIS-Xf-75T">
+                                        <rect key="frame" x="295" y="9" width="41" height="66"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="46" id="GIr-5C-IvD"/>
+                                            <constraint firstAttribute="height" constant="46" id="rvl-eb-yqD"/>
+                                        </constraints>
+                                        <state key="normal" image="flag">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="addFriends:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="6On-Th-P3L"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9nn-pJ-XCF">
                                         <rect key="frame" x="20" y="20" width="48" height="48"/>
                                         <state key="normal" image="cancel">
@@ -57,8 +70,10 @@
                                     </textField>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="bIS-Xf-75T" firstAttribute="top" secondItem="HeY-DP-swx" secondAttribute="top" constant="9" id="3gG-gJ-eLD"/>
                                     <constraint firstItem="Z1R-xh-ben" firstAttribute="centerX" secondItem="HeY-DP-swx" secondAttribute="centerX" id="6bu-pd-CYy"/>
                                     <constraint firstItem="Z1R-xh-ben" firstAttribute="leading" secondItem="HeY-DP-swx" secondAttribute="leading" id="74M-MI-UOF"/>
+                                    <constraint firstAttribute="trailing" secondItem="bIS-Xf-75T" secondAttribute="trailing" constant="20" id="9tG-mF-fbT"/>
                                     <constraint firstAttribute="centerX" secondItem="lNk-Y2-vme" secondAttribute="centerX" id="EaF-tP-enf"/>
                                     <constraint firstItem="Z1R-xh-ben" firstAttribute="leading" secondItem="lNk-Y2-vme" secondAttribute="leading" id="K4Y-oN-e0M"/>
                                     <constraint firstAttribute="centerY" secondItem="lNk-Y2-vme" secondAttribute="centerY" id="Qi6-GD-JRK"/>
@@ -190,7 +205,14 @@
                             <outlet property="delegate" destination="qSc-ap-ste" id="ED0-aV-2DZ"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="YqM-Hv-z9b"/>
+                    <navigationItem key="navigationItem" id="YqM-Hv-z9b">
+                        <barButtonItem key="leftBarButtonItem" image="back" id="Crh-HS-Tb0">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="clickBack:" destination="qSc-ap-ste" id="Ywh-9D-i1O"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VTO-4c-wjn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -962,6 +984,7 @@ This Policy is current as of the Effective Date set forth above. We may change t
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ExG-uv-wC6">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.9569942951" green="0.61854344610000001" blue="0.087298020719999994" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -978,6 +1001,7 @@ This Policy is current as of the Effective Date set forth above. We may change t
         <image name="camera" width="55" height="41"/>
         <image name="cancel" width="68" height="68"/>
         <image name="city" width="65" height="45"/>
+        <image name="flag" width="41" height="66"/>
         <image name="gear" width="45" height="45"/>
         <image name="recordButton" width="171" height="171"/>
         <image name="recorddot" width="68" height="68"/>
