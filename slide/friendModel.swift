@@ -12,13 +12,13 @@ class FriendModel: NSObject {
     let name: String
     var userId: String
     let img: String
-    let phoneNumbers: NSArray
-    let emailAddresses: NSArray
+    let phone: NSArray
+    let email: NSArray
     
     init(name: String, phone:NSArray, email:NSArray) {
         self.name = name
-        self.phoneNumbers = phone
-        self.emailAddresses = email
+        self.phone = phone
+        self.email = email
         self.userId = ""
         self.img = ""
     }
