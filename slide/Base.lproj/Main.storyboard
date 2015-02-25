@@ -155,7 +155,7 @@
             </objects>
             <point key="canvasLocation" x="361.5" y="-77.5"/>
         </scene>
-        <!--Invite Table View Controller-->
+        <!--Tag Friends-->
         <scene sceneID="z0K-bf-nQM">
             <objects>
                 <tableViewController id="qSc-ap-ste" customClass="InviteTableViewController" customModule="Looped" customModuleProvider="target" sceneMemberID="viewController">
@@ -205,7 +205,7 @@
                             <outlet property="delegate" destination="qSc-ap-ste" id="ED0-aV-2DZ"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="YqM-Hv-z9b">
+                    <navigationItem key="navigationItem" title="Tag Friends" id="YqM-Hv-z9b">
                         <barButtonItem key="leftBarButtonItem" image="back" id="Crh-HS-Tb0">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
@@ -985,6 +985,10 @@ This Policy is current as of the Effective Date set forth above. We may change t
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.9569942951" green="0.61854344610000001" blue="0.087298020719999994" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textShadowColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
