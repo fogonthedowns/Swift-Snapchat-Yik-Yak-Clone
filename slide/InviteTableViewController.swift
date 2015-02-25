@@ -85,7 +85,7 @@ class InviteTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let indexPath = tableView.indexPathForSelectedRow();
         let currentCell = tableView.cellForRowAtIndexPath(indexPath!) as InviteUITableViewCell
-        var friend:AnyObject = friendsList[indexPath!.row]
+        var friend:FriendModel = friendsList[indexPath!.row] as FriendModel
         
         if (currentCell.friendChecked) {
             currentCell.friendSelected.image = nil
@@ -93,7 +93,6 @@ class InviteTableViewController: UITableViewController {
             taggedFriends.removeObject(friend)
         } else {
             taggedFriends.addObject(friend)
-            println(taggedFriends)
             currentCell.friendChecked = true
             currentCell.friendSelected.image = UIImage(named:("starwithvotes"))
         }
