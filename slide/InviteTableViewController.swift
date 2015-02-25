@@ -10,6 +10,9 @@ import UIKit
 
 class InviteTableViewController: UITableViewController {
 
+    let addressBook = APAddressBook()
+    var arraycontacts:NSArray = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -18,15 +21,26 @@ class InviteTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        swiftAddressBook?.requestAccessWithCompletion({ (success, error) -> Void in
-            if success {
-                //do something with swiftAddressBook
-            }
-            else {
-                //no success. Optionally evaluate error
-            }
-        })
-        
+        self.addressBook.fieldsMask = APContactField.Default | APContactField.Thumbnail
+        self.addressBook.sortDescriptors = [NSSortDescriptor(key: "firstName", ascending: true),
+            NSSortDescriptor(key: "lastName", ascending: true)]
+        self.addressBook.filterBlock = {(contact: APContact!) -> Bool in
+            return contact.phones.count > 0
+        }
+        self.addressBook.loadContacts(
+            { (contacts: [AnyObject]!, error: NSError!) in
+                if (contacts != nil) {
+                    println(contacts)
+                    self.arraycontacts = contacts
+                    self.tableView.reloadData()
+                }
+                else if (error != nil) {
+                    let alert = UIAlertView(title: "Error", message: error.localizedDescription,
+                        delegate: nil, cancelButtonTitle: "OK")
+                    alert.show()
+                }
+        }) // self.addressBook.loadContacts()
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -39,27 +53,25 @@ class InviteTableViewController: UITableViewController {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
-        return 0
+        return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return 0
+        println("self.arraycontacts.count")
+        println(self.arraycontacts.count)
+        return self.arraycontacts.count
     }
     
-    
-    
-
-    /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as UITableViewCell
-
+        let cell = tableView.dequeueReusableCellWithIdentifier("InviteCell") as InviteUITableViewCell
+        let contact: APContact = arraycontacts[indexPath.row] as APContact
         // Configure the cell...
-
+        cell.phoneNumber.text = self.contactPhones(contact)
         return cell
     }
-    */
+
 
     /*
     // Override to support conditional editing of the table view.
@@ -105,5 +117,25 @@ class InviteTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    func contactName(contact :APContact) -> String {
+        if contact.firstName != nil && contact.lastName != nil {
+            return "\(contact.firstName) \(contact.lastName)"
+        }
+        else if contact.firstName != nil || contact.lastName != nil {
+            return (contact.firstName != nil) ? "\(contact.firstName)" : "\(contact.lastName)"
+        }
+        else {
+            return "Unnamed contact"
+        }
+    }
+    
+    func contactPhones(contact :APContact) -> String {
+        if let phones = contact.phones {
+            let array = phones as NSArray
+            return array.componentsJoinedByString(" ")
+        }
+        return "No phone"
+    }
 
 }

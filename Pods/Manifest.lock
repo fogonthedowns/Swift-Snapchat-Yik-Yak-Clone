@@ -20,6 +20,9 @@ PODS:
   - AFNetworking/UIKit (2.5.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - APAddressBook/Core (0.1.5)
+  - APAddressBook/Swift (0.1.5):
+    - APAddressBook/Core
   - AWSiOSSDKv2 (2.0.16):
     - AWSiOSSDKv2/AutoScaling (= 2.0.16)
     - AWSiOSSDKv2/AWSCore (= 2.0.16)
@@ -186,11 +189,13 @@ PODS:
   - XMLDictionary (1.4)
 
 DEPENDENCIES:
+  - APAddressBook/Swift
   - AWSiOSSDKv2
   - SGImageCache
 
 SPEC CHECKSUMS:
   AFNetworking: 8bee59492a6ff15d69130efa4d0dc67e0094a52a
+  APAddressBook: 38bddd264b0d547021d14c8fb22ad64c73663b96
   AWSiOSSDKv2: bcf17afda187f45901b07369f1f59bfbc68922bc
   Bolts: 3db0a875235e0c9042b013af13af0f00f79b102c
   FMDB: 0efa188cf0dd1ce82c27a478cd5f5fa245308677
