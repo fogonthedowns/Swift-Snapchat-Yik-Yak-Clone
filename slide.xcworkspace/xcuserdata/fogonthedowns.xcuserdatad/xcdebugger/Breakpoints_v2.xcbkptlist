@@ -90,13 +90,59 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "slide/InviteTableViewController.swift"
-            timestampString = "446600220.461617"
+            timestampString = "446661218.102781"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
             landmarkName = "viewDidAppear(_:)"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "slide/InviteTableViewController.swift"
+            timestampString = "446665199.922151"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "125"
+            endingLineNumber = "125"
+            landmarkName = "filterContentForSearchText(_:scope:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Looped.InviteTableViewController.filterContentForSearchText (Looped.InviteTableViewController)(Swift.String, scope : Swift.String) -&gt; ()"
+                  moduleName = "Looped"
+                  urlString = "file:///Users/fogonthedowns/hack/swift/slide/slide/InviteTableViewController.swift"
+                  timestampString = "446662620.023651"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "124"
+                  endingLineNumber = "124"
+                  offsetFromSymbolStart = "0">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Looped.InviteTableViewController.(filterContentForSearchText (Looped.InviteTableViewController) -&gt; (Swift.String, scope : Swift.String) -&gt; ()).(default argument 1)"
+                  moduleName = "Looped"
+                  urlString = "file:///Users/fogonthedowns/hack/swift/slide/slide/InviteTableViewController.swift"
+                  timestampString = "446662620.023875"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "124"
+                  endingLineNumber = "124"
+                  offsetFromSymbolStart = "0">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

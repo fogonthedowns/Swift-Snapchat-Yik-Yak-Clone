@@ -12,6 +12,7 @@ class InviteTableViewController: UITableViewController, UISearchBarDelegate, UIS
 
     let addressBook = APAddressBook()
     var arraycontacts:NSArray = []
+    var filteredContacts:NSArray = []
    // var filteredCandies = [Candy]()
     //var taggedFriends: NSMutableArray = [] // This is the array that contains friends I'm tagging
     
@@ -69,13 +70,13 @@ class InviteTableViewController: UITableViewController, UISearchBarDelegate, UIS
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        println("self.arraycontacts.count")
-        println(self.arraycontacts.count)
+ 
         return self.arraycontacts.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("InviteCell") as InviteUITableViewCell
+        
+        let cell = self.tableView.dequeueReusableCellWithIdentifier("InviteCell") as InviteUITableViewCell
         var friend = self.sharedInstance.friendsList[indexPath.row] as FriendModel
         cell.phoneNumber.text = friend.name
        
@@ -111,7 +112,36 @@ class InviteTableViewController: UITableViewController, UISearchBarDelegate, UIS
             currentCell.friendSelected.image = UIImage(named:("starwithvotes"))
         }
     }
-
+    
+    
+    
+    /* Search Code
+    Implemented via http://www.raywenderlich.com/76519/add-table-view-search-swift
+    UISearchDisplayControllerDelegate methods
+    */
+    
+    
+    func filterContentForSearchText(searchText: String, scope: String = "All") {
+        var array: [AnyObject] = self.sharedInstance.friendsList
+        let term = array.filter(){
+            return $0.name.hasPrefix(searchText)
+        }
+//        let namePredicate = NSPredicate(format: "SELF.name like %@", searchText)
+//        let term = self.sharedInstance.friendsList.filteredArrayUsingPredicate(namePredicate!)
+        println(term.count)
+    }
+    
+    func searchDisplayController(controller: UISearchDisplayController!, shouldReloadTableForSearchString searchString: String!) -> Bool {
+        self.filterContentForSearchText(searchString)
+        return true
+    }
+    
+    func searchDisplayController(controller: UISearchDisplayController!, shouldReloadTableForSearchScope searchOption: Int) -> Bool {
+        self.filterContentForSearchText(self.searchDisplayController!.searchBar.text)
+        return true
+    }
+    
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
