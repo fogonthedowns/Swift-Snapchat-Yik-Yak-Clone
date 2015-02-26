@@ -111,7 +111,7 @@ class APIModel: NSObject {
                 "lat": lat,
                 "long":long,
                 "description": description,
-                "tags":tags
+                "tagslist":tags
             ]
         ]
         
