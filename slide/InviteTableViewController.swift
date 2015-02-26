@@ -12,10 +12,8 @@ class InviteTableViewController: UITableViewController, UISearchBarDelegate, UIS
 
     let addressBook = APAddressBook()
     var arraycontacts:NSArray = []
-    var filteredContacts:NSArray = []
-   // var filteredCandies = [Candy]()
-    //var taggedFriends: NSMutableArray = [] // This is the array that contains friends I'm tagging
-    
+    // var filteredContacts:NSArray = []
+    var filteredContacts: [AnyObject] = []
     var sharedInstance = VideoDataToAPI.sharedInstance
     
     override func viewDidLoad() {
@@ -70,14 +68,24 @@ class InviteTableViewController: UITableViewController, UISearchBarDelegate, UIS
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
- 
-        return self.arraycontacts.count
+        if tableView == self.searchDisplayController!.searchResultsTableView {
+            return self.filteredContacts.count
+        } else {
+            return self.arraycontacts.count
+        }
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = self.tableView.dequeueReusableCellWithIdentifier("InviteCell") as InviteUITableViewCell
-        var friend = self.sharedInstance.friendsList[indexPath.row] as FriendModel
+        var friend:FriendModel
+        if tableView == self.searchDisplayController!.searchResultsTableView {
+            friend = self.filteredContacts[indexPath.row] as FriendModel
+            println("yo")
+        } else {
+            friend = self.sharedInstance.friendsList[indexPath.row] as FriendModel
+        }
+    
         cell.phoneNumber.text = friend.name
        
        
@@ -98,7 +106,17 @@ class InviteTableViewController: UITableViewController, UISearchBarDelegate, UIS
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let indexPath = tableView.indexPathForSelectedRow();
         let currentCell = tableView.cellForRowAtIndexPath(indexPath!) as InviteUITableViewCell
-        var friend:FriendModel = self.sharedInstance.friendsList[indexPath!.row] as FriendModel
+        
+        var friend:FriendModel
+        if tableView == self.searchDisplayController!.searchResultsTableView {
+            friend = self.filteredContacts[indexPath!.row] as FriendModel
+            println("yo")
+        } else {
+            friend = self.sharedInstance.friendsList[indexPath!.row] as FriendModel
+        }
+        
+        
+        // var friend:FriendModel = self.sharedInstance.friendsList[indexPath!.row] as FriendModel
         
         if (friend.tagged == true) {
             friend.tagged = false
@@ -123,12 +141,10 @@ class InviteTableViewController: UITableViewController, UISearchBarDelegate, UIS
     
     func filterContentForSearchText(searchText: String, scope: String = "All") {
         var array: [AnyObject] = self.sharedInstance.friendsList
-        let term = array.filter(){
+        filteredContacts = array.filter(){
             return $0.name.hasPrefix(searchText)
         }
-//        let namePredicate = NSPredicate(format: "SELF.name like %@", searchText)
-//        let term = self.sharedInstance.friendsList.filteredArrayUsingPredicate(namePredicate!)
-        println(term.count)
+        println(filteredContacts.count)
     }
     
     func searchDisplayController(controller: UISearchDisplayController!, shouldReloadTableForSearchString searchString: String!) -> Bool {
