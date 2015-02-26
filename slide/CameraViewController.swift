@@ -333,7 +333,6 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     
     @IBAction func pressConfirmVideo(sender: AnyObject) {
         self.sharedInstance.userDescription = self.userDescription.text
-        self.clearTaggedFriends()
         UIApplication.sharedApplication().statusBarHidden=false
         self.view.sendSubviewToBack(self.confirmationView)
         self.view.sendSubviewToBack(self.moviePlayer.view)
@@ -423,6 +422,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
                     
                     self.postSnap(self.sharedInstance.latitude,long: self.sharedInstance.longitute,video: self.sharedInstance.lastVideoUploadID, image: self.sharedInstance.lastImgUploadID, description: self.sharedInstance.userDescription, tags:self.processTags(self.sharedInstance.taggedFriends))
                   self.successCount = 0
+                  self.clearTaggedFriends()
                   
                 }
             } // end dispatch_async()
