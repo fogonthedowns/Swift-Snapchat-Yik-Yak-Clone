@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F1F2DE6C1A77F574005B75B0"
-               BuildableName = "slide.app"
+               BuildableName = "Looped.app"
                BlueprintName = "slide"
                ReferencedContainer = "container:slide.xcodeproj">
             </BuildableReference>
@@ -57,7 +57,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F1F2DE6C1A77F574005B75B0"
-            BuildableName = "slide.app"
+            BuildableName = "Looped.app"
             BlueprintName = "slide"
             ReferencedContainer = "container:slide.xcodeproj">
          </BuildableReference>
@@ -76,7 +76,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F1F2DE6C1A77F574005B75B0"
-            BuildableName = "slide.app"
+            BuildableName = "Looped.app"
             BlueprintName = "slide"
             ReferencedContainer = "container:slide.xcodeproj">
          </BuildableReference>
@@ -94,7 +94,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F1F2DE6C1A77F574005B75B0"
-            BuildableName = "slide.app"
+            BuildableName = "Looped.app"
             BlueprintName = "slide"
             ReferencedContainer = "container:slide.xcodeproj">
          </BuildableReference>
