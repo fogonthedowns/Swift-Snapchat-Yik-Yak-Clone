@@ -27,7 +27,7 @@
                                             <constraint firstAttribute="width" constant="46" id="GIr-5C-IvD"/>
                                             <constraint firstAttribute="height" constant="46" id="rvl-eb-yqD"/>
                                         </constraints>
-                                        <state key="normal" image="flag">
+                                        <state key="normal" image="tag">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -1038,10 +1038,10 @@ This Policy is current as of the Effective Date set forth above. We may change t
         <image name="camera" width="55" height="41"/>
         <image name="cancel" width="68" height="68"/>
         <image name="city" width="65" height="45"/>
-        <image name="flag" width="41" height="66"/>
         <image name="gear" width="45" height="45"/>
         <image name="recordButton" width="171" height="171"/>
         <image name="recorddot" width="68" height="68"/>
+        <image name="tag" width="98" height="98"/>
     </resources>
     <color key="tintColor" red="0.97136193510000002" green="0.67824584249999997" blue="0.10124506799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
