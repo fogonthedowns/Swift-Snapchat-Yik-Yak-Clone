@@ -88,11 +88,11 @@ class InviteTableViewController: UITableViewController, UISearchBarDelegate, UIS
         cell.phoneNumber.text = friend.name
        
        
-        if (self.sharedInstance.taggedFriends.count != 0) {
-            println(self.sharedInstance.taggedFriends)
-            var friendly = self.sharedInstance.taggedFriends[0] as FriendModel
-            println(friendly.phoneString)
-        }
+//        if (self.sharedInstance.taggedFriends.count != 0) {
+//            println(self.sharedInstance.taggedFriends)
+//            var friendly = self.sharedInstance.taggedFriends[0] as FriendModel
+//            println(friendly.phoneString)
+//        }
         if (friend.tagged == true) {
             cell.friendSelected.image = UIImage(named:("starwithvotes"))
         } else {
@@ -101,6 +101,7 @@ class InviteTableViewController: UITableViewController, UISearchBarDelegate, UIS
         
         return cell
     }
+    
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let indexPath = tableView.indexPathForSelectedRow();

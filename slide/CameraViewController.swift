@@ -165,7 +165,6 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
             manager.startUpdatingLocation()
         }
         
-        
         self.DismissKeyboard()
         if (sharedInstance.userIsAddingFriends) {
             
@@ -334,6 +333,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     
     @IBAction func pressConfirmVideo(sender: AnyObject) {
         self.sharedInstance.userDescription = self.userDescription.text
+        self.clearTaggedFriends()
         UIApplication.sharedApplication().statusBarHidden=false
         self.view.sendSubviewToBack(self.confirmationView)
         self.view.sendSubviewToBack(self.moviePlayer.view)
@@ -421,7 +421,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
                   // TODO UPLOADED Successfully notification
                   // TODO consider moving away from singleton, and towards db entries, that way we can track success and failure and also handle multiple uploads simultaneously
                     
-                    self.postSnap(self.sharedInstance.latitude,long: self.sharedInstance.longitute,video: self.sharedInstance.lastVideoUploadID, image: self.sharedInstance.lastImgUploadID, description: self.sharedInstance.userDescription, tags:self.sharedInstance.taggedFriends)
+                    self.postSnap(self.sharedInstance.latitude,long: self.sharedInstance.longitute,video: self.sharedInstance.lastVideoUploadID, image: self.sharedInstance.lastImgUploadID, description: self.sharedInstance.userDescription, tags:self.processTags(self.sharedInstance.taggedFriends))
                   self.successCount = 0
                   
                 }
@@ -435,6 +435,16 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         
         self.uploadTask = nil
         
+    }
+    
+    
+    func processTags(friends:NSArray)-> NSString {
+        var theString:String = ""
+        var myFriends:[FriendModel] = friends as [FriendModel]
+        for friend in myFriends {
+            theString = theString + " " + friend.phoneString
+        }
+        return theString
     }
     
     func URLSessionDidFinishEventsForBackgroundURLSession(session: NSURLSession) {
@@ -584,7 +594,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     // Todo This requires some completion handler 
     // maybe write a success row 
     
-    func postSnap(lat:NSString,long:NSString,video:NSString,image:NSString, description:NSString, tags:NSArray) -> Bool {
+    func postSnap(lat:NSString,long:NSString,video:NSString,image:NSString, description:NSString, tags:NSString) -> Bool {
         userObject.apiObject.createSnap(lat,long:long,video:video,image:image, description:description, tags:tags)
         self.userDescription.text = ""
         return true;

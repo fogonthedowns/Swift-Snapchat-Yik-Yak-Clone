@@ -97,9 +97,7 @@ class APIModel: NSObject {
         self.postRequest(requestUrl)
     }
     
-    func createSnap(lat:NSString,long:NSString,video:NSString,image:NSString, description:NSString, tags:NSArray){
-        // tags NSArray of FriendModel objects
-        //append items
+    func createSnap(lat:NSString,long:NSString,video:NSString,image:NSString, description:NSString, tags:NSString){
         println(tags)
         println("Yooooooooooooooooooooooooooooooo")
         let parameters = [
@@ -112,7 +110,8 @@ class APIModel: NSObject {
                 "film": video,
                 "lat": lat,
                 "long":long,
-                "description": description
+                "description": description,
+                "tags":tags
             ]
         ]
         
