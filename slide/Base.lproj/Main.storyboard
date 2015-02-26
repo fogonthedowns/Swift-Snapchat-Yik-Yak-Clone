@@ -51,7 +51,7 @@
                                             <constraint firstAttribute="height" constant="48" id="XJ6-1S-JrT"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="24"/>
-                                        <state key="normal" title="Send">
+                                        <state key="normal" title="Upload">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -155,7 +155,7 @@
             </objects>
             <point key="canvasLocation" x="361.5" y="-77.5"/>
         </scene>
-        <!--Tag Friends-->
+        <!--Invite Table View Controller-->
         <scene sceneID="z0K-bf-nQM">
             <objects>
                 <tableViewController id="qSc-ap-ste" customClass="InviteTableViewController" customModule="Looped" customModuleProvider="target" sceneMemberID="viewController">
@@ -163,6 +163,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="VCa-tf-lxf">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <color key="barTintColor" red="0.9569942951" green="0.61854344610000001" blue="0.087298020719999994" alpha="1" colorSpace="calibratedRGB"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </searchBar>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="InviteCell" rowHeight="65" id="NtN-No-4CW" customClass="InviteUITableViewCell" customModule="Looped" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -205,18 +211,22 @@
                             <outlet property="delegate" destination="qSc-ap-ste" id="ED0-aV-2DZ"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Tag Friends" id="YqM-Hv-z9b">
+                    <navigationItem key="navigationItem" id="YqM-Hv-z9b">
+                        <nil key="title"/>
                         <barButtonItem key="leftBarButtonItem" image="back" id="Crh-HS-Tb0">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="clickBack:" destination="qSc-ap-ste" id="Ywh-9D-i1O"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Upload" id="8n0-vQ-srF">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VTO-4c-wjn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1964" y="-128"/>
+            <point key="canvasLocation" x="1910" y="-128"/>
         </scene>
         <!--Home Table View Controller-->
         <scene sceneID="hoi-bt-jbr">

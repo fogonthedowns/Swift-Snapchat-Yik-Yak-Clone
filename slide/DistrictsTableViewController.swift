@@ -40,7 +40,7 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadDistricts", name: getSnapsBecauseIhaveAUserLoaded, object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "switchPlayerOrQuit", name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "switchPlayerOrQuit", name: MPMoviePlayerPlaybackDidFinishNotification, object: self)
         userObject.findUser();
         
     

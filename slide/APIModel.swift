@@ -97,7 +97,11 @@ class APIModel: NSObject {
         self.postRequest(requestUrl)
     }
     
-    func createSnap(lat:NSString,long:NSString,video:NSString,image:NSString, description:NSString){
+    func createSnap(lat:NSString,long:NSString,video:NSString,image:NSString, description:NSString, tags:NSArray){
+        // tags NSArray of FriendModel objects
+        //append items
+        println(tags)
+        println("Yooooooooooooooooooooooooooooooo")
         let parameters = [
             "device_token":self.userID,
             "access_token": self.accessToken,
@@ -124,7 +128,6 @@ class APIModel: NSObject {
             }
         }
         
-        // self.postRequest(requestUrl)
     }
     
     func createComment(body:NSString, film:NSString){

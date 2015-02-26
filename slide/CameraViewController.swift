@@ -418,16 +418,10 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
                 // post to snap server
                 // video id, user id, lat, long
                 if ( self.successCount.isEqual(2) ) {
-                  // todo UPLOADED Successfully notification
-               
+                  // TODO UPLOADED Successfully notification
+                  // TODO consider moving away from singleton, and towards db entries, that way we can track success and failure and also handle multiple uploads simultaneously
                     
-                  // I'm pretty sure postSnap fails with the bug described in the next comment. Try moving all into a singleton
-
-                  self.postSnap(self.sharedInstance.latitude,long: self.sharedInstance.longitute,video: self.sharedInstance.lastVideoUploadID, image: self.sharedInstance.lastImgUploadID, description:  self.sharedInstance.userDescription)
-                    
-                  // TODO Post this right before sendtoAWS, move the above into a singleton, that can function in the background
-                    
-                  
+                    self.postSnap(self.sharedInstance.latitude,long: self.sharedInstance.longitute,video: self.sharedInstance.lastVideoUploadID, image: self.sharedInstance.lastImgUploadID, description: self.sharedInstance.userDescription, tags:self.sharedInstance.taggedFriends)
                   self.successCount = 0
                   
                 }
@@ -590,8 +584,8 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     // Todo This requires some completion handler 
     // maybe write a success row 
     
-    func postSnap(lat:NSString,long:NSString,video:NSString,image:NSString, description:NSString) -> Bool {
-        userObject.apiObject.createSnap(lat,long:long,video:video,image:image, description:description)
+    func postSnap(lat:NSString,long:NSString,video:NSString,image:NSString, description:NSString, tags:NSArray) -> Bool {
+        userObject.apiObject.createSnap(lat,long:long,video:video,image:image, description:description, tags:tags)
         self.userDescription.text = ""
         return true;
     }
