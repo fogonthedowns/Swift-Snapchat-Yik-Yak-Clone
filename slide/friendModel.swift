@@ -15,11 +15,13 @@ class FriendModel: NSObject {
     let phone: NSArray
     let email: NSArray
     var tagged = false
+    var phoneString: String
     
-    init(name: String, phone:NSArray, email:NSArray) {
+    init(name: String, phone:NSArray, email:NSArray, phoneString:String) {
         self.name = name
         self.phone = phone
         self.email = email
+        self.phoneString = phoneString
         self.userId = ""
         self.img = ""
     }

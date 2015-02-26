@@ -8,10 +8,11 @@
 
 import UIKit
 
-class InviteTableViewController: UITableViewController {
+class InviteTableViewController: UITableViewController, UISearchBarDelegate, UISearchDisplayDelegate {
 
     let addressBook = APAddressBook()
     var arraycontacts:NSArray = []
+   // var filteredCandies = [Candy]()
     //var taggedFriends: NSMutableArray = [] // This is the array that contains friends I'm tagging
     
     var sharedInstance = VideoDataToAPI.sharedInstance
@@ -77,8 +78,13 @@ class InviteTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("InviteCell") as InviteUITableViewCell
         var friend = self.sharedInstance.friendsList[indexPath.row] as FriendModel
         cell.phoneNumber.text = friend.name
-
-        println(self.sharedInstance.taggedFriends.count)
+       
+       
+        if (self.sharedInstance.taggedFriends.count != 0) {
+            println(self.sharedInstance.taggedFriends)
+            var friendly = self.sharedInstance.taggedFriends[0] as FriendModel
+            println(friendly.phoneString)
+        }
         if (friend.tagged == true) {
             cell.friendSelected.image = UIImage(named:("starwithvotes"))
         } else {
@@ -87,8 +93,6 @@ class InviteTableViewController: UITableViewController {
         
         return cell
     }
-    
-    
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let indexPath = tableView.indexPathForSelectedRow();
@@ -182,6 +186,15 @@ class InviteTableViewController: UITableViewController {
         //return "No phone"
     }
     
+    func contactPhonesString(contact :APContact) -> String {
+        if let phones = contact.phones {
+            let array = phones as NSArray
+            return array.componentsJoinedByString(" ")
+        }
+        //return []
+        return "nophone"
+    }
+    
     func contactEmails(contact :APContact) -> NSArray {
         // changed return from string to NSArray
         if let emails = contact.emails {
@@ -200,7 +213,8 @@ class InviteTableViewController: UITableViewController {
             var friend = FriendModel(
                 name: self.contactName(contact),
                 phone: self.contactPhones(contact),
-                email: self.contactEmails(contact)
+                email: self.contactEmails(contact),
+                phoneString: self.contactPhonesString(contact)
             )
             self.sharedInstance.friendsList.addObject(friend)
         }
