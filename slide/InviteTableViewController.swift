@@ -71,7 +71,7 @@ class InviteTableViewController: UITableViewController, UISearchBarDelegate, UIS
         if tableView == self.searchDisplayController!.searchResultsTableView {
             return self.filteredContacts.count
         } else {
-            return self.arraycontacts.count
+            return self.sharedInstance.friendsList.count
         }
     }
     
@@ -81,7 +81,6 @@ class InviteTableViewController: UITableViewController, UISearchBarDelegate, UIS
         var friend:FriendModel
         if tableView == self.searchDisplayController!.searchResultsTableView {
             friend = self.filteredContacts[indexPath.row] as FriendModel
-            println("yo")
         } else {
             friend = self.sharedInstance.friendsList[indexPath.row] as FriendModel
         }
@@ -234,7 +233,7 @@ class InviteTableViewController: UITableViewController, UISearchBarDelegate, UIS
     
     func contactPhonesString(contact :APContact) -> String {
         if let phones = contact.phones {
-            let array = phones as NSArray
+            var array = phones as NSArray
             return array.componentsJoinedByString(" ")
         }
         //return []
@@ -253,16 +252,23 @@ class InviteTableViewController: UITableViewController, UISearchBarDelegate, UIS
     }
     
     func setupFriendModelData(){
+        
         for contact in arraycontacts {
             let contact = contact as APContact
             // Configure the cell...
-            var friend = FriendModel(
-                name: self.contactName(contact),
-                phone: self.contactPhones(contact),
-                email: self.contactEmails(contact),
-                phoneString: self.contactPhonesString(contact)
-            )
-            self.sharedInstance.friendsList.addObject(friend)
+            var name = self.contactName(contact)
+            var phoneString = self.contactPhonesString(contact)
+            if (name == "Unnamed contact") {
+            } else {
+                var info = name + " " + phoneString + ":"
+                var friend = FriendModel(
+                    name: name,
+                    phone: self.contactPhones(contact),
+                    email: self.contactEmails(contact),
+                    phoneString: info
+                )
+                self.sharedInstance.friendsList.addObject(friend)
+            }
         }
     }
 
