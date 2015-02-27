@@ -131,6 +131,14 @@ class InviteTableViewController: UITableViewController, UISearchBarDelegate, UIS
         }
     }
     
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let cell = self.tableView.dequeueReusableCellWithIdentifier("CustomHeader") as CustomHeaderUITableViewCell
+        return cell
+    }
+    
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+    }
     
     
     /* Search Code
