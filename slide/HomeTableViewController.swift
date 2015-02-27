@@ -148,6 +148,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         // println(video.votes)
         var lbl : UILabel? = cell.contentView.viewWithTag(1) as? UILabel
         lbl?.text = video.userDescription
+        lbl?.adjustsFontSizeToFitWidth = true
         if (video.votes > 0) {
             cell.starImage.image = UIImage(named:("starwithvotes"))
             cell.voteCount.text = video.votes.stringValue

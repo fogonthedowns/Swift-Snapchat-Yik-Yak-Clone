@@ -322,7 +322,7 @@
                                                 <constraint firstAttribute="width" constant="20" id="zF6-ca-gHX"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pf1-Yo-G29">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pf1-Yo-G29">
                                             <rect key="frame" x="329" y="46" width="25" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20" id="9Lt-KQ-bDr"/>
@@ -348,23 +348,31 @@
                                             <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" alpha="0.94999999999999996" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="descripton" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="akq-ji-UQu" userLabel="labelOne">
+                                        <label opaque="NO" userInteractionEnabled="NO" alpha="0.94999999999999996" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="descripton" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="akq-ji-UQu" userLabel="labelOne">
                                             <rect key="frame" x="102" y="8" width="265" height="34"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="34" id="UJn-KQ-p1a"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="20"/>
                                             <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="akq-ji-UQu" firstAttribute="leading" secondItem="MtF-wo-daK" secondAttribute="trailing" constant="34" id="0LZ-dm-ETu"/>
                                         <constraint firstItem="qge-iM-bIo" firstAttribute="width" secondItem="joK-7s-x1s" secondAttribute="height" multiplier="53:20" id="2b7-Wp-8MI"/>
                                         <constraint firstItem="MtF-wo-daK" firstAttribute="leading" secondItem="ojj-cd-Mgs" secondAttribute="leadingMargin" id="3Xk-no-sJx"/>
                                         <constraint firstItem="joK-7s-x1s" firstAttribute="top" secondItem="ojj-cd-Mgs" secondAttribute="topMargin" constant="13" id="Ehe-R2-MGC"/>
+                                        <constraint firstItem="akq-ji-UQu" firstAttribute="top" secondItem="ojj-cd-Mgs" secondAttribute="topMargin" id="IY8-ua-gEF"/>
                                         <constraint firstItem="pf1-Yo-G29" firstAttribute="top" secondItem="akq-ji-UQu" secondAttribute="bottom" constant="4" id="L0p-kk-hz9"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="joK-7s-x1s" secondAttribute="trailing" constant="15" id="d64-oc-8pc"/>
                                         <constraint firstItem="qge-iM-bIo" firstAttribute="top" secondItem="ojj-cd-Mgs" secondAttribute="topMargin" id="fOi-t3-3u2"/>
+                                        <constraint firstItem="akq-ji-UQu" firstAttribute="top" secondItem="ojj-cd-Mgs" secondAttribute="topMargin" id="gug-Wk-u8o"/>
                                         <constraint firstItem="hoA-Mt-B7B" firstAttribute="leading" secondItem="MtF-wo-daK" secondAttribute="trailing" constant="26" id="hle-4a-au4"/>
+                                        <constraint firstItem="akq-ji-UQu" firstAttribute="leading" secondItem="MtF-wo-daK" secondAttribute="trailing" constant="34" id="isi-8V-aBs"/>
                                         <constraint firstItem="MtF-wo-daK" firstAttribute="top" secondItem="ojj-cd-Mgs" secondAttribute="topMargin" id="jFM-CQ-Fkm"/>
                                         <constraint firstItem="MtF-wo-daK" firstAttribute="top" secondItem="akq-ji-UQu" secondAttribute="top" id="kce-sg-H8r"/>
+                                        <constraint firstItem="akq-ji-UQu" firstAttribute="trailing" secondItem="ojj-cd-Mgs" secondAttribute="trailingMargin" constant="-35" id="n2p-CT-A0n"/>
                                         <constraint firstItem="MtF-wo-daK" firstAttribute="top" secondItem="hoA-Mt-B7B" secondAttribute="top" id="ppQ-vc-tfS"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="pf1-Yo-G29" secondAttribute="trailing" constant="13" id="rkR-Fv-nMs"/>
                                         <constraint firstItem="MtF-wo-daK" firstAttribute="top" secondItem="qge-iM-bIo" secondAttribute="top" id="tYI-zi-MDO"/>
