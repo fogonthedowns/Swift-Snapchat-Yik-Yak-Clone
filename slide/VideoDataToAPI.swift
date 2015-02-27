@@ -26,7 +26,9 @@ class VideoDataToAPI {
     var playListHash: NSMutableDictionary = [:]
     var taggedFriends: NSMutableArray = []
     var friendsList: NSMutableArray = []
+    var filteredContacts: [AnyObject] = []
     var userIsAddingFriends = false
+    var sharedCell:CustomHeaderUITableViewCell!
     
     class var sharedInstance :VideoDataToAPI {
         struct Singleton {

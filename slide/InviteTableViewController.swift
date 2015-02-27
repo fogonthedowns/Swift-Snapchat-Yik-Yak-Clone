@@ -13,7 +13,7 @@ class InviteTableViewController: UITableViewController, UISearchBarDelegate, UIS
     let addressBook = APAddressBook()
     var arraycontacts:NSArray = []
     // var filteredContacts:NSArray = []
-    var filteredContacts: [AnyObject] = []
+    // var filteredContacts: [AnyObject] = []
     var sharedInstance = VideoDataToAPI.sharedInstance
     var tagsLabel:UILabel?
     
@@ -70,7 +70,8 @@ class InviteTableViewController: UITableViewController, UISearchBarDelegate, UIS
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
         if tableView == self.searchDisplayController!.searchResultsTableView {
-            return self.filteredContacts.count
+            println("I'm always here")
+            return self.sharedInstance.filteredContacts.count
         } else {
             return self.sharedInstance.friendsList.count
         }
@@ -81,19 +82,14 @@ class InviteTableViewController: UITableViewController, UISearchBarDelegate, UIS
         let cell = self.tableView.dequeueReusableCellWithIdentifier("InviteCell") as InviteUITableViewCell
         var friend:FriendModel
         if tableView == self.searchDisplayController!.searchResultsTableView {
-            friend = self.filteredContacts[indexPath.row] as FriendModel
+            friend = self.sharedInstance.filteredContacts[indexPath.row] as FriendModel
         } else {
             friend = self.sharedInstance.friendsList[indexPath.row] as FriendModel
         }
     
         cell.phoneNumber.text = friend.name
-       
-       
-//        if (self.sharedInstance.taggedFriends.count != 0) {
-//            println(self.sharedInstance.taggedFriends)
-//            var friendly = self.sharedInstance.taggedFriends[0] as FriendModel
-//            println(friendly.phoneString)
-//        }
+        self.processTagsLabel(self.sharedInstance.taggedFriends)
+
         if (friend.tagged == true) {
             cell.friendSelected.image = UIImage(named:("starwithvotes"))
         } else {
@@ -110,7 +106,9 @@ class InviteTableViewController: UITableViewController, UISearchBarDelegate, UIS
         
         var friend:FriendModel
         if tableView == self.searchDisplayController!.searchResultsTableView {
-            friend = self.filteredContacts[indexPath!.row] as FriendModel
+            let foundfriend = self.sharedInstance.filteredContacts[indexPath!.row] as FriendModel
+            var arraypoint = filter(self.sharedInstance.friendsList) { $0 as NSObject == foundfriend as FriendModel }
+            friend = arraypoint[0] as FriendModel
             println("yo")
         } else {
             friend = self.sharedInstance.friendsList[indexPath!.row] as FriendModel
@@ -135,15 +133,31 @@ class InviteTableViewController: UITableViewController, UISearchBarDelegate, UIS
     }
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let cell = self.tableView.dequeueReusableCellWithIdentifier("CustomHeader") as CustomHeaderUITableViewCell
-        tagsLabel = cell.tagsLabel
+        self.sharedInstance.sharedCell = self.tableView.dequeueReusableCellWithIdentifier("CustomHeader") as CustomHeaderUITableViewCell
+        tagsLabel = self.sharedInstance.sharedCell.tagsLabel
         tagsLabel?.adjustsFontSizeToFitWidth = true
+        self.processTagsLabel(self.sharedInstance.taggedFriends)
 
-        return cell
+        return self.sharedInstance.sharedCell
     }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        self.processTagsLabel(self.sharedInstance.taggedFriends)
+        self.tableView.reloadData()
+    }
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        self.processTagsLabel(self.sharedInstance.taggedFriends)
+        self.tableView.reloadData()
+    }
+    
+    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+        self.processTagsLabel(self.sharedInstance.taggedFriends)
+        self.tableView.reloadData()
     }
     
     
@@ -155,10 +169,10 @@ class InviteTableViewController: UITableViewController, UISearchBarDelegate, UIS
     
     func filterContentForSearchText(searchText: String, scope: String = "All") {
         var array: [AnyObject] = self.sharedInstance.friendsList
-        filteredContacts = array.filter(){
+        self.sharedInstance.filteredContacts = array.filter(){
             return $0.name.hasPrefix(searchText)
         }
-        println(filteredContacts.count)
+        println(self.sharedInstance.filteredContacts.count)
     }
     
     func searchDisplayController(controller: UISearchDisplayController!, shouldReloadTableForSearchString searchString: String!) -> Bool {
