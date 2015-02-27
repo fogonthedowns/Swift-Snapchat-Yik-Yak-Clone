@@ -113,6 +113,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         // let go it stops
         
         let longpress = UILongPressGestureRecognizer(target: self, action: "longPress:")
+        longpress.minimumPressDuration = 0.10
         self.takeVideoButton.addGestureRecognizer(longpress)
         
         // this notifcation is to determine if a video preview has finished playing
