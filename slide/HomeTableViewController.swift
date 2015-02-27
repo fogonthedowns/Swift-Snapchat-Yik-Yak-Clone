@@ -367,6 +367,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         // if the file exists return, don't start an asynch download
         if NSFileManager.defaultManager().fileExistsAtPath(filePath) {
             // NSLog("FILE ALREADY DOWNLOADED")
+            VideoModel.saveFilmAsDownloaded(s3downloadname)
             return;
         }
         

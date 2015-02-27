@@ -48,10 +48,10 @@ class VideoModel: NSObject {
             if fetchResults.count != 0{
                 NSLog("***************** found film, no need to create %@", self.film)
                 var managedObject = fetchResults[0]
-                println("date %@", managedObject.valueForKey("date"))
-                println("id %@", managedObject.valueForKey("film"))
-                println("bool %@", managedObject.valueForKey("downloaded"))
-                println("hoodId %@", managedObject.valueForKey("districtId"))
+                // println("date %@", managedObject.valueForKey("date"))
+                // println("id %@", managedObject.valueForKey("film"))
+                // println("bool %@", managedObject.valueForKey("downloaded"))
+                // println("hoodId %@", managedObject.valueForKey("districtId"))
             } else {
                 println("***************** creating a new video record")
                 let entity =  NSEntityDescription.entityForName("Video",
