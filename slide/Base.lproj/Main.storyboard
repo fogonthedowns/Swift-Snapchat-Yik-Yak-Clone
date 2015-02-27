@@ -181,8 +181,8 @@
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qXo-Id-u5S">
                                             <rect key="frame" x="400" y="7" width="48" height="48"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="48" id="fns-ap-lb0"/>
-                                                <constraint firstAttribute="width" constant="48" id="qUu-Fg-6ub"/>
+                                                <constraint firstAttribute="height" constant="30" id="fns-ap-lb0"/>
+                                                <constraint firstAttribute="width" constant="30" id="qUu-Fg-6ub"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6fD-L8-fon">
