@@ -90,13 +90,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "slide/InviteTableViewController.swift"
-            timestampString = "446746035.749353"
+            timestampString = "446749417.003587"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "151"
-            endingLineNumber = "151"
-            landmarkName = "filterContentForSearchText(_:scope:)"
-            landmarkType = "5">
+            startingLineNumber = "155"
+            endingLineNumber = "155"
+            landmarkName = "InviteTableViewController"
+            landmarkType = "3">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
@@ -136,11 +136,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "slide/InviteTableViewController.swift"
-            timestampString = "446746035.749353"
+            timestampString = "446749417.003587"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "245"
-            endingLineNumber = "245"
+            startingLineNumber = "249"
+            endingLineNumber = "249"
             landmarkName = "contactPhonesString(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -152,11 +152,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "slide/InviteTableViewController.swift"
-            timestampString = "446746035.749353"
+            timestampString = "446749417.003587"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "245"
-            endingLineNumber = "245"
+            startingLineNumber = "249"
+            endingLineNumber = "249"
             landmarkName = "contactPhonesString(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -168,11 +168,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "slide/InviteTableViewController.swift"
-            timestampString = "446692780.037858"
+            timestampString = "446749066.49934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
             landmarkName = "viewDidLoad()"
             landmarkType = "5">
          </BreakpointContent>

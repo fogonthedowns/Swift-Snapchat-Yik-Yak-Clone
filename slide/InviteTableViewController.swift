@@ -15,6 +15,7 @@ class InviteTableViewController: UITableViewController, UISearchBarDelegate, UIS
     // var filteredContacts:NSArray = []
     var filteredContacts: [AnyObject] = []
     var sharedInstance = VideoDataToAPI.sharedInstance
+    var tagsLabel:UILabel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -123,9 +124,11 @@ class InviteTableViewController: UITableViewController, UISearchBarDelegate, UIS
             currentCell.friendSelected.image = nil
             currentCell.friendChecked = false
             sharedInstance.taggedFriends.removeObject(friend)
+            self.processTagsLabel(sharedInstance.taggedFriends)
         } else {
             friend.tagged = true
             sharedInstance.taggedFriends.addObject(friend)
+            self.processTagsLabel(sharedInstance.taggedFriends)
             currentCell.friendChecked = true
             currentCell.friendSelected.image = UIImage(named:("starwithvotes"))
         }
@@ -133,6 +136,9 @@ class InviteTableViewController: UITableViewController, UISearchBarDelegate, UIS
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let cell = self.tableView.dequeueReusableCellWithIdentifier("CustomHeader") as CustomHeaderUITableViewCell
+        tagsLabel = cell.tagsLabel
+        tagsLabel?.adjustsFontSizeToFitWidth = true
+
         return cell
     }
     
@@ -260,6 +266,16 @@ class InviteTableViewController: UITableViewController, UISearchBarDelegate, UIS
         //return "No phone"
     }
     
+    func processTagsLabel(friends:NSArray)-> NSString {
+        var theString:String = ""
+        var myFriends:[FriendModel] = friends as [FriendModel]
+        for friend in myFriends {
+            theString = theString + " " + friend.name
+        }
+        self.tagsLabel!.text = theString
+        return theString
+    }
+    
     func setupFriendModelData(){
         
         for contact in arraycontacts {
@@ -279,6 +295,6 @@ class InviteTableViewController: UITableViewController, UISearchBarDelegate, UIS
                 self.sharedInstance.friendsList.addObject(friend)
             }
         }
-    }
+    } // setupFriendModelData
 
 }

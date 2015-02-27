@@ -10,8 +10,8 @@ import UIKit
 
 class CustomHeaderUITableViewCell: UITableViewCell {
 
-    @IBOutlet weak var taggedNames: UILabel!
-    
+    @IBOutlet weak var tagsLabel: UILabel!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
