@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "slide/VideoModel.swift"
-            timestampString = "446369189.748164"
+            timestampString = "446758829.74773"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "119"
-            endingLineNumber = "119"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
             landmarkName = "findByDistrict(_:)"
             landmarkType = "5">
          </BreakpointContent>

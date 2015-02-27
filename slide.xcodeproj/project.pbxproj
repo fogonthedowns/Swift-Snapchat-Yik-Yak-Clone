@@ -67,6 +67,7 @@
 		F117D97B1A8E8176001CEB44 /* DistrictsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistrictsTableViewController.swift; sourceTree = "<group>"; };
 		F117D97D1A8E84E0001CEB44 /* DistrictModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistrictModel.swift; sourceTree = "<group>"; };
 		F117D97F1A8EAD67001CEB44 /* DistrictTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistrictTableViewCell.swift; sourceTree = "<group>"; };
+		F12B3BF21AA0FC07001BB967 /* looped 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "looped 2.xcdatamodel"; sourceTree = "<group>"; };
 		F154CA6E1A93BC4900C6076A /* CommentsUINavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsUINavigationController.swift; sourceTree = "<group>"; };
 		F154CA701A93F4A300C6076A /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		F16319BF1A90319D005B2FC1 /* camerabutton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = camerabutton.swift; sourceTree = "<group>"; };
@@ -658,9 +659,10 @@
 		F1F2DE741A77F574005B75B0 /* slide.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				F12B3BF21AA0FC07001BB967 /* looped 2.xcdatamodel */,
 				F1F2DE751A77F574005B75B0 /* slide.xcdatamodel */,
 			);
-			currentVersion = F1F2DE751A77F574005B75B0 /* slide.xcdatamodel */;
+			currentVersion = F12B3BF21AA0FC07001BB967 /* looped 2.xcdatamodel */;
 			path = slide.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

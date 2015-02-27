@@ -299,6 +299,7 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func postFlag() {
+        VideoModel.saveFilmAsFlagged(self.sharedInstance.videoForCommentController.film)
         userObject.apiObject.createFlag(self.sharedInstance.videoForCommentController.film)
     }
     

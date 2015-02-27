@@ -109,13 +109,38 @@ class VideoModel: NSObject {
         }
     } //  saveFilmAsDownloaded()
     
+    class func saveFilmAsFlagged(film:NSString) {
+        var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+        var context: NSManagedObjectContext = appDel.managedObjectContext!
+        var managedObject: NSManagedObject!
+        var fetchRequest = NSFetchRequest(entityName: "Video")
+        fetchRequest.predicate = NSPredicate(format: "film = %@", film)
+        
+        if let fetchResults = appDel.managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [NSManagedObject] {
+            if fetchResults.count != 0{
+                NSLog("***************** found film! updating status %@", film)
+                var managedObject = fetchResults[0]
+                managedObject.setValue(true, forKey: "flagged")
+                context.save(nil)
+            } else {
+                println("***************** crap, no record found, so create it.")
+                // TODO
+                // Create an API endpoint to warn us that something very bad is happening in nature
+                // this could be a general api endpoint, used to report bugs
+                // it could simply accept a string
+                // for the error description
+                // in this case no record found
+            } // else
+        }
+    } //  saveFilmAsFlagged()
+    
     class func findByDistrict(district:NSString) -> NSArray? {
         var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
         var context: NSManagedObjectContext = appDel.managedObjectContext!
         var managedObject: NSManagedObject!
         var results: NSArray?
         var fetchRequest = NSFetchRequest(entityName: "Video")
-        fetchRequest.predicate = NSPredicate(format: "districtId = %@ AND downloaded = %@", district, true)
+        fetchRequest.predicate = NSPredicate(format: "districtId = %@ AND downloaded = %@ AND flagged = %@", district, true, false)
         
         if let fetchResults = appDel.managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [NSManagedObject] {
             if fetchResults.count != 0{
