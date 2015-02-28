@@ -194,9 +194,34 @@ class APIModel: NSObject {
                 println(error)
             }
         }
+    } // voteforSnap()
+    
+    
+    func registerUserwithPhone(phone:NSString){
+        let parameters = [
+            "device_token":self.userID,
+            "access_token": self.accessToken,
+            "token": "17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY",
+            "id": self.apiUserId,
+            "profile":[
+                "phone": phone
+            ]
+        ]
         
-        // self.postRequest(requestUrl)
-    }
+        let requestUrl = "https://www.airimg.com/profiles/update/" + self.apiUserId
+        
+        request(.PUT, requestUrl, parameters: parameters).validate().response { (request, response, data, error) in
+            println(request)
+            println(response)
+            if (error == nil){
+                println("we have assoicated the user with their phone number")
+                didCompleteUploadWithNoErrors
+                NSNotificationCenter.defaultCenter().postNotificationName(getSnapsBecauseIhaveAUserLoaded, object: self)
+            } else {
+                println(error)
+            }
+        }
+    } // registerUserwithPhone()
     
     func postRequest(url:NSString) {
         if var localURL = url as NSString? {
