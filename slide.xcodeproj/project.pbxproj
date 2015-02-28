@@ -73,6 +73,7 @@
 		F16319BF1A90319D005B2FC1 /* camerabutton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = camerabutton.swift; sourceTree = "<group>"; };
 		F16319C31A907532005B2FC1 /* DistrictsUINavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistrictsUINavigationController.swift; sourceTree = "<group>"; };
 		F16F72B11A901185005A149A /* SharedInstance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedInstance.swift; sourceTree = "<group>"; };
+		F1714A9B1AA26AD400C3D80A /* looped 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "looped 3.xcdatamodel"; sourceTree = "<group>"; };
 		F172A18F1A7E8C12007E564C /* AWSImageDownload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AWSImageDownload.swift; sourceTree = "<group>"; };
 		F19BC1D61A8070160096356C /* VideoDataToAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoDataToAPI.swift; sourceTree = "<group>"; };
 		F19E9A731A9D4883004EF877 /* InviteUITableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteUITableViewCell.swift; sourceTree = "<group>"; };
@@ -659,10 +660,11 @@
 		F1F2DE741A77F574005B75B0 /* slide.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				F1714A9B1AA26AD400C3D80A /* looped 3.xcdatamodel */,
 				F12B3BF21AA0FC07001BB967 /* looped 2.xcdatamodel */,
 				F1F2DE751A77F574005B75B0 /* slide.xcdatamodel */,
 			);
-			currentVersion = F12B3BF21AA0FC07001BB967 /* looped 2.xcdatamodel */;
+			currentVersion = F1714A9B1AA26AD400C3D80A /* looped 3.xcdatamodel */;
 			path = slide.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

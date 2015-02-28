@@ -215,6 +215,7 @@ class APIModel: NSObject {
             println(response)
             if (error == nil){
                 println("we have assoicated the user with their phone number")
+                self.updateUser("phone", value: phone)
                 didCompleteUploadWithNoErrors
                 NSNotificationCenter.defaultCenter().postNotificationName(getSnapsBecauseIhaveAUserLoaded, object: self)
             } else {
@@ -294,7 +295,8 @@ class APIModel: NSObject {
                 NSLog("accessToken:%@", accessToken)
                 NSLog("snap row ID:%@", apiUserId)
                 
-                self.updateUser()
+                self.updateUser("apiUserId", value: self.apiUserId)
+                self.updateUser("accessToken", value: self.accessToken)
             }
             
             if (json["success"] != nil){
@@ -309,7 +311,7 @@ class APIModel: NSObject {
     // function above, processResults(), this probably doesn't matter bc its saving something. This could be made
     // more general by passing a key, to the update field and value of that being updated
 
-    func updateUser() {
+    func updateUser(key:String, value:String) {
         var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
         var context: NSManagedObjectContext = appDel.managedObjectContext!
         
@@ -320,8 +322,7 @@ class APIModel: NSObject {
             if fetchResults.count != 0{
                 NSLog("saving access token now :%@", self.accessToken)
                 var managedObject = fetchResults[0]
-                managedObject.setValue(self.apiUserId, forKey: "apiUserId")
-                managedObject.setValue(self.accessToken, forKey: "accessToken")
+                managedObject.setValue(value, forKey: key)
                 context.save(nil)
                 // notification center - Post Notification!
                 NSNotificationCenter.defaultCenter().postNotificationName(getSnapsBecauseIhaveAUserLoaded, object: self)
