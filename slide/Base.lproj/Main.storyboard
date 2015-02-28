@@ -895,17 +895,6 @@ This Policy is current as of the Effective Date set forth above. We may change t
                                         <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DqR-hR-v8A">
-                                        <rect key="frame" x="153" y="57" width="34" height="28"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="11"/>
-                                        <state key="normal" title="report">
-                                            <color key="titleColor" red="0.75672739744186401" green="0.27435645461082458" blue="0.26618057489395142" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="clickReport:" destination="2Q8-eQ-uPE" eventType="touchUpInside" id="ClA-KW-oF2"/>
-                                        </connections>
-                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qcZ-h9-15e">
                                         <rect key="frame" x="102" y="63" width="27" height="16"/>
                                         <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="11"/>
@@ -929,10 +918,8 @@ This Policy is current as of the Effective Date set forth above. We may change t
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="1FD-cy-ul2" firstAttribute="top" secondItem="Yid-gu-KKy" secondAttribute="top" constant="8" id="0J3-zu-9IF"/>
-                                    <constraint firstAttribute="bottom" secondItem="DqR-hR-v8A" secondAttribute="bottom" constant="-6" id="1JH-Op-tMy"/>
                                     <constraint firstItem="yKS-AZ-WXr" firstAttribute="centerX" secondItem="BVj-U0-1Bh" secondAttribute="centerX" id="7VC-mD-nqb"/>
                                     <constraint firstAttribute="bottom" secondItem="qcZ-h9-15e" secondAttribute="bottom" id="ASy-PP-m9l"/>
-                                    <constraint firstItem="DqR-hR-v8A" firstAttribute="leading" secondItem="1FD-cy-ul2" secondAttribute="trailing" constant="85" id="CPK-gD-2Xw"/>
                                     <constraint firstAttribute="trailing" secondItem="yKS-AZ-WXr" secondAttribute="trailing" constant="11" id="DTq-g3-RUX"/>
                                     <constraint firstItem="7uS-bl-sRF" firstAttribute="leading" secondItem="1FD-cy-ul2" secondAttribute="trailing" constant="34" id="KK0-yv-o35"/>
                                     <constraint firstAttribute="trailing" secondItem="BVj-U0-1Bh" secondAttribute="trailing" constant="13" id="KUD-tM-Wl3"/>
@@ -969,6 +956,12 @@ This Policy is current as of the Effective Date set forth above. We may change t
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="clickBackHome:" destination="2Q8-eQ-uPE" id="6oL-OB-WyR"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="flag" id="AIB-Se-hFr">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="clickReport:" destination="2Q8-eQ-uPE" id="XNl-uY-XP8"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1091,6 +1084,7 @@ This Policy is current as of the Effective Date set forth above. We may change t
         <image name="camera" width="55" height="41"/>
         <image name="cancel" width="68" height="68"/>
         <image name="city" width="65" height="45"/>
+        <image name="flag" width="41" height="66"/>
         <image name="gear" width="45" height="45"/>
         <image name="recordButton" width="171" height="171"/>
         <image name="recorddot" width="68" height="68"/>
