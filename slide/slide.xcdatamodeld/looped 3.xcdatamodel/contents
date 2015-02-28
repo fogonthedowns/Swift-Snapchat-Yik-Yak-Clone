@@ -4,6 +4,7 @@
         <attribute name="accessToken" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="apiUserId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="identity" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phone" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Video" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
@@ -13,7 +14,7 @@
         <attribute name="flagged" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
     </entity>
     <elements>
-        <element name="User" positionX="-63" positionY="-18" width="128" height="90"/>
+        <element name="User" positionX="-63" positionY="-18" width="128" height="105"/>
         <element name="Video" positionX="-63" positionY="9" width="128" height="120"/>
     </elements>
 </model>
