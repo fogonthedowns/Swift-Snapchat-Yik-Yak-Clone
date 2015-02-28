@@ -343,17 +343,19 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     // so start processing video and segue
     
     @IBAction func pressConfirmVideo(sender: AnyObject) {
-        UIApplication.sharedApplication().statusBarHidden=false
-        self.view.sendSubviewToBack(self.confirmationView)
-        self.view.sendSubviewToBack(self.moviePlayer.view)
-        // view logic
-        self.stopPreview = true
-        self.moviePlayer.stop()
         self.sendVideo()
     }
     
     // sendVideoProtocol function implementation
     func sendVideo() {
+        UIApplication.sharedApplication().statusBarHidden=false
+        self.sharedInstance.userIsAddingFriends = false
+        self.view.sendSubviewToBack(self.confirmationView)
+        self.view.sendSubviewToBack(self.moviePlayer.view)
+        // view logic
+        self.stopPreview = true
+        self.moviePlayer.stop()
+        
         self.sharedInstance.userDescription = self.userDescription.text
         NSNotificationCenter.defaultCenter().postNotificationName(didClickToNavigateBackHome, object: self)
         let qualityOfServiceClass = QOS_CLASS_BACKGROUND
