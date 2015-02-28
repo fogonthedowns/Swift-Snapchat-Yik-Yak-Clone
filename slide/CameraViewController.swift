@@ -17,7 +17,12 @@ import CoreLocation
 import CoreData
 
 
-class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSessionTaskDelegate, NSURLSessionDataDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, CLLocationManagerDelegate, AVCaptureFileOutputRecordingDelegate, UITextFieldDelegate {
+protocol sendVideoProtocol {
+    func sendVideo()
+}
+
+
+class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSessionTaskDelegate, NSURLSessionDataDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, CLLocationManagerDelegate, AVCaptureFileOutputRecordingDelegate, UITextFieldDelegate, sendVideoProtocol {
     
     // UIView 
     @IBOutlet weak var cameraView: UIView!
@@ -61,6 +66,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     // image processing
     let time = CMTimeMakeWithSeconds(0, 30)
     let size = CGSizeMake(425,355)
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -107,6 +113,10 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         self.session = Static.session;
         userObject.findUser();
         
+        // pass self to sharedInstance so that we can use upload button
+        // via delegate
+        SharedViewData.sharedInstance.cameraViewController = self
+
         // new video code
         // this is used to see if a user is recording a video or not
         // long press, they are recording
@@ -333,23 +343,25 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     // so start processing video and segue
     
     @IBAction func pressConfirmVideo(sender: AnyObject) {
-        self.sharedInstance.userDescription = self.userDescription.text
         UIApplication.sharedApplication().statusBarHidden=false
         self.view.sendSubviewToBack(self.confirmationView)
         self.view.sendSubviewToBack(self.moviePlayer.view)
         // view logic
         self.stopPreview = true
         self.moviePlayer.stop()
+        self.sendVideo()
+    }
+    
+    // sendVideoProtocol function implementation
+    func sendVideo() {
+        self.sharedInstance.userDescription = self.userDescription.text
         NSNotificationCenter.defaultCenter().postNotificationName(didClickToNavigateBackHome, object: self)
-        
         let qualityOfServiceClass = QOS_CLASS_BACKGROUND
         let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
         dispatch_async(backgroundQueue, {
             //println("This is run on the background queue")
             self.processImage()
         })
-        
-        
     }
     
     func processImage(){

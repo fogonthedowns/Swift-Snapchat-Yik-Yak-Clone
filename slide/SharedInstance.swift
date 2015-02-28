@@ -12,7 +12,7 @@ import Foundation
 
 class SharedViewData {
     
-    var currentViewController:UIViewController? = nil
+    var cameraViewController:CameraViewController!
     
     class var sharedInstance :SharedViewData {
         struct Singleton {
