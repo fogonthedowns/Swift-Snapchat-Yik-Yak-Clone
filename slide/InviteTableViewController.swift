@@ -236,6 +236,10 @@ class InviteTableViewController: UITableViewController, UISearchBarDelegate, UIS
         NSNotificationCenter.defaultCenter().postNotificationName(didClickToNavigateBackToCamera, object: self)
     }
     
+    @IBAction func clickUpload(sender: AnyObject) {
+        var delegate:sendVideoProtocol = SharedViewData.sharedInstance.cameraViewController
+        delegate.sendVideo()
+    }
     
     func contactName(contact :APContact) -> String {
         if contact.firstName != nil && contact.lastName != nil {

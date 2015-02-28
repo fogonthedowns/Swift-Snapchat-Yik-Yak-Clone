@@ -262,6 +262,9 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Upload" id="8n0-vQ-srF">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="clickUpload:" destination="qSc-ap-ste" id="1jh-Hr-9s4"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
