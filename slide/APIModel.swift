@@ -22,6 +22,7 @@ class APIModel: NSObject {
     var apiUserId: NSString = ""
     // TODO rename to deviceToken stored as identity
     var userID: NSString = ""
+    var phone: NSString = ""
 
     
     // It doesn't look like Userid is used, rather self.userID is used. This is set by a chain method call apiObject.userid
@@ -87,6 +88,24 @@ class APIModel: NSObject {
                 }
         }
     }
+    
+    
+    func getMyTags(delegate:APIProtocol) {
+        var requestUrl = "https://www.airimg.com/snaps/me?token=17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY&device_token=" + self.userID + "&access_token=" + self.accessToken + "&phone=" + self.phone
+        NSLog("getting districts")
+        
+        request(.GET, requestUrl)
+            .responseJSON { (req, res, json, error) in
+                if(error != nil) {
+                    NSLog("GET Error: \(error)")
+                    println(res)
+                }
+                else {
+                    var json = JSON(json!)
+                    delegate.didReceiveResult(json)
+                }
+        }
+    } // getMyTags()
     
     
     
@@ -292,6 +311,7 @@ class APIModel: NSObject {
                 NSLog(" ----------------------------- found access_token key ----------------------------- ")
                 self.accessToken = json["access_token"].stringValue as NSString
                 self.apiUserId = json["_id"]["$oid"].stringValue as NSString
+                self.phone = json["phone"].stringValue as NSString
                 NSLog("accessToken:%@", accessToken)
                 NSLog("snap row ID:%@", apiUserId)
                 

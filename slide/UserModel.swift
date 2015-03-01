@@ -49,6 +49,10 @@ class UserModel: NSObject {
                 apiObject.userID = userRow.valueForKey("identity") as String!
                 apiObject.accessToken = userRow.valueForKey("accessToken") as String!
                 apiObject.apiUserId = userRow.valueForKey("apiUserId") as String!
+                println(userRow.valueForKey("phone"))
+                if (userRow.valueForKey("phone") != nil) {
+                    apiObject.phone = userRow.valueForKey("phone") as String!
+                }
                 NSLog("User:%@", apiObject.userID)
                 NSLog("User AccessToken:%@", apiObject.accessToken)
                 NSLog("User apiUserId:%@", apiObject.apiUserId)
