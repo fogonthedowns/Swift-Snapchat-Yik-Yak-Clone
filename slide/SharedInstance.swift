@@ -13,6 +13,7 @@ import Foundation
 class SharedViewData {
     
     var cameraViewController:CameraViewController!
+    var homeTableViewController:HomeTableViewController!
     
     class var sharedInstance :SharedViewData {
         struct Singleton {

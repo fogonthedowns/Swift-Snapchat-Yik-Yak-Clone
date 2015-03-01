@@ -14,7 +14,6 @@ import MediaPlayer
 
 protocol APIProtocol {
     func didReceiveResult(results: JSON)
-    // func addResult(results:JSON)
 }
 
 let getSnapsBecauseIhaveAUserLoaded = "com.snapAPI.specialNotificationKey"
@@ -35,8 +34,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
     var videoModelList: NSMutableArray = [] // This is the array that my tableView
     var sharedInstance = VideoDataToAPI.sharedInstance
     var hood:NSString = ""
-    var offset:Int = 0
-    var hoodId:String!
+    var hoodId:String = "me"
     
     let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
     
@@ -49,7 +47,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
                // Receive Notification and call loadSnaps once we have a user
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadSnaps", name: getSnapsBecauseIhaveAUserLoaded, object: nil)
         userObject.findUser();
-    
+        SharedViewData.sharedInstance.homeTableViewController = self
         // Table Row Init
         self.tableView.rowHeight = 70.0
         let longpress = UILongPressGestureRecognizer(target: self, action: "handleLongPressHome:")
@@ -90,8 +88,8 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
             println("title didn't change")
             // TODO ensure that hoodId is set, if we consider a default neighborhood to load for each user
             self.hoodId = sharedInstance.hoodId
-            self.loadSnaps()
-            self.tableView.reloadData()
+            // self.loadSnaps()
+            // self.tableView.reloadData()
         } else {
           self.hood = sharedInstance.hood
           // TODO ensure that hoodId is set, if we consider a default neighborhood to load for each user
@@ -103,9 +101,23 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         
      }
     
-     override func viewDidDisappear(animated: Bool) {
-        super.viewDidDisappear(true)
-        self.offset = 0
+    @IBAction func clickLocal(sender: AnyObject) {
+        var button = sender as UIButton
+        // button.selected = true
+        // button.setTitleColor(UIColor.brownColor(), forState: UIControlState.Normal)
+        if (sharedInstance.hood == nil) {
+            self.title = "Mission"
+        } else {
+          self.title = sharedInstance.hood
+        }
+        self.loadSnaps()
+    }
+    
+    @IBAction func clickMyTags(sender: AnyObject) {
+        self.title = "Videos you are tagged in"
+        // var button = sender as UIButton
+        // button.selected = true
+        userObject.apiObject.getMyTags(self)
     }
     
     override func didReceiveMemoryWarning() {
@@ -127,6 +139,15 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
         return 1
+    }
+    
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let cell = self.tableView.dequeueReusableCellWithIdentifier("CustomHomeCell") as HomeHeaderTableViewCell
+        return cell
+    }
+    
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 55
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -271,7 +292,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         var videos: NSMutableArray = []
         
         for (index: String, rowAPIresult: JSON) in result {
-            
+                // println(result)
                 var videoModel = VideoModel(
                     id: rowAPIresult["film"].stringValue,
                     user: rowAPIresult["userId"].stringValue,
@@ -299,46 +320,6 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
             self.tableView.reloadData()
         })
     }
-    
-    // doesn't work because offset is always reset, or native loadSnaps call returns just 10.
-    // offset is set to zero when we navigate away for other cities case
-    // but poses a problem when we check out a snap
-    // we must reload the snap, to persist the comments between clicks, but the reload calls loadSnaps
-    // its pretty messy
-    
-//    func addResult(result: JSON) {
-//        // local array var used in this function
-//        var videos = videoModelList
-//        
-//        for (index: String, rowAPIresult: JSON) in result {
-//            
-//            var videoModel = VideoModel(
-//                id: rowAPIresult["film"].stringValue,
-//                user: rowAPIresult["userId"].stringValue,
-//                img: rowAPIresult["img"].stringValue,
-//                description: rowAPIresult["description"].stringValue,
-//                votes: rowAPIresult["votes"].count,
-//                comments: processComments(rowAPIresult["comments"]),
-//                voters: processVotes(rowAPIresult["votes"]),
-//                flags: rowAPIresult["flags"].count
-//            )
-//            // TODO
-//            // performacne problem, but a minor one
-//            // could create a mutablearray and share it, with known videos
-//            // to avoid the lookup
-//            videoModel.findOrCreate()
-//            videos.addObject(videoModel)
-//        }
-//        
-//        // Set our array of new models
-//        videoModelList = videos
-//        // Make sure we are on the main thread, and update the UI.
-//        
-//        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-//            // NSLog("refreshing \(self.videoModelList)")
-//            self.tableView.reloadData()
-//        })
-//    }
     
     func processComments(comments:JSON) -> NSMutableDictionary {
         var commentDictionary:NSMutableDictionary = [:]
@@ -494,14 +475,6 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         return filePath
     }
     
-    //    override func scrollViewDidEndDragging(scrollView: UIScrollView,
-    //        willDecelerate decelerate: Bool) {
-    //        if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) {
-    //            println("reach bottom")
-    //            self.loadOffsetSnaps()
-    //        }
-    //    }
-    
     func pullToLoadSnaps(sender:AnyObject)
     {
         self.loadSnaps()
@@ -513,14 +486,11 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         userObject.apiObject.getSnaps(sharedInstance.latitude,long: sharedInstance.longitute, hood: self.hood, delegate:self)
     }
     
-    func loadOffsetSnaps() {
-        offset = offset + 10
-        let offsetAPI = NSNumber(integer:offset)
-        
-        userObject.apiObject.getOffsetSnaps(self.latitude,long: self.longitute, hood: self.hood, offset: offsetAPI, delegate:self)
-        println(offsetAPI)
+    func loadMyTags() {
+        NSLog("Loading videos I'm tagged in called")
+        userObject.apiObject.getMyTags(self)
     }
-    
+
     func vote(video:NSString) {
         userObject.apiObject.voteforSnap(video)
     }
