@@ -19,6 +19,8 @@
 		F16319C01A90319D005B2FC1 /* camerabutton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16319BF1A90319D005B2FC1 /* camerabutton.swift */; };
 		F16319C41A907532005B2FC1 /* DistrictsUINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16319C31A907532005B2FC1 /* DistrictsUINavigationController.swift */; };
 		F16F72B21A901185005A149A /* SharedInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16F72B11A901185005A149A /* SharedInstance.swift */; };
+		F1714A9D1AA2917D00C3D80A /* MeTaggedUITableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1714A9C1AA2917D00C3D80A /* MeTaggedUITableViewController.swift */; };
+		F1714A9F1AA291A600C3D80A /* MeTaggedUINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1714A9E1AA291A600C3D80A /* MeTaggedUINavigationController.swift */; };
 		F172A1901A7E8C12007E564C /* AWSImageDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = F172A18F1A7E8C12007E564C /* AWSImageDownload.swift */; };
 		F19BC1D71A8070160096356C /* VideoDataToAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19BC1D61A8070160096356C /* VideoDataToAPI.swift */; };
 		F19E9A741A9D4883004EF877 /* InviteUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19E9A731A9D4883004EF877 /* InviteUITableViewCell.swift */; };
@@ -74,6 +76,8 @@
 		F16319C31A907532005B2FC1 /* DistrictsUINavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistrictsUINavigationController.swift; sourceTree = "<group>"; };
 		F16F72B11A901185005A149A /* SharedInstance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedInstance.swift; sourceTree = "<group>"; };
 		F1714A9B1AA26AD400C3D80A /* looped 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "looped 3.xcdatamodel"; sourceTree = "<group>"; };
+		F1714A9C1AA2917D00C3D80A /* MeTaggedUITableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeTaggedUITableViewController.swift; sourceTree = "<group>"; };
+		F1714A9E1AA291A600C3D80A /* MeTaggedUINavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeTaggedUINavigationController.swift; sourceTree = "<group>"; };
 		F172A18F1A7E8C12007E564C /* AWSImageDownload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AWSImageDownload.swift; sourceTree = "<group>"; };
 		F19BC1D61A8070160096356C /* VideoDataToAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoDataToAPI.swift; sourceTree = "<group>"; };
 		F19E9A731A9D4883004EF877 /* InviteUITableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteUITableViewCell.swift; sourceTree = "<group>"; };
@@ -237,6 +241,8 @@
 				F1C3FC0B1A9B051A00040217 /* PrivacyViewController.swift */,
 				F1CAD9931A9CF30500323BEC /* InviteUINavigationController.swift */,
 				F1CAD9911A9CF2B800323BEC /* InviteTableViewController.swift */,
+				F1714A9C1AA2917D00C3D80A /* MeTaggedUITableViewController.swift */,
+				F1714A9E1AA291A600C3D80A /* MeTaggedUINavigationController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -444,8 +450,10 @@
 				F1F2DEA31A7ACC65005B75B0 /* SwiftyJSON.swift in Sources */,
 				F1F2DE961A77F827005B75B0 /* Constants.swift in Sources */,
 				F16F72B21A901185005A149A /* SharedInstance.swift in Sources */,
+				F1714A9D1AA2917D00C3D80A /* MeTaggedUITableViewController.swift in Sources */,
 				F1CAD9921A9CF2B800323BEC /* InviteTableViewController.swift in Sources */,
 				F1FC5E931A9E542F00B637E3 /* friendModel.swift in Sources */,
+				F1714A9F1AA291A600C3D80A /* MeTaggedUINavigationController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
