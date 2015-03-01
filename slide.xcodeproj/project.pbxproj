@@ -14,6 +14,7 @@
 		F117D97C1A8E8176001CEB44 /* DistrictsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F117D97B1A8E8176001CEB44 /* DistrictsTableViewController.swift */; };
 		F117D97E1A8E84E0001CEB44 /* DistrictModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F117D97D1A8E84E0001CEB44 /* DistrictModel.swift */; };
 		F117D9801A8EAD67001CEB44 /* DistrictTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F117D97F1A8EAD67001CEB44 /* DistrictTableViewCell.swift */; };
+		F14A870C1AA3838D009AD05B /* colorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14A870B1AA3838D009AD05B /* colorExtension.swift */; };
 		F154CA6F1A93BC4900C6076A /* CommentsUINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F154CA6E1A93BC4900C6076A /* CommentsUINavigationController.swift */; };
 		F154CA711A93F4A300C6076A /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F154CA701A93F4A300C6076A /* CommentTableViewCell.swift */; };
 		F16319C01A90319D005B2FC1 /* camerabutton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16319BF1A90319D005B2FC1 /* camerabutton.swift */; };
@@ -69,6 +70,7 @@
 		F117D97D1A8E84E0001CEB44 /* DistrictModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistrictModel.swift; sourceTree = "<group>"; };
 		F117D97F1A8EAD67001CEB44 /* DistrictTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistrictTableViewCell.swift; sourceTree = "<group>"; };
 		F12B3BF21AA0FC07001BB967 /* looped 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "looped 2.xcdatamodel"; sourceTree = "<group>"; };
+		F14A870B1AA3838D009AD05B /* colorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = colorExtension.swift; sourceTree = "<group>"; };
 		F154CA6E1A93BC4900C6076A /* CommentsUINavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsUINavigationController.swift; sourceTree = "<group>"; };
 		F154CA701A93F4A300C6076A /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		F16319BF1A90319D005B2FC1 /* camerabutton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = camerabutton.swift; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 				F1F2DEA21A7ACC65005B75B0 /* SwiftyJSON.swift */,
 				F1F2DEA81A7D7F34005B75B0 /* alamofire.swift */,
 				F1CAD9951A9CFF0F00323BEC /* SwiftAddressBookWrapper.swift */,
+				F14A870B1AA3838D009AD05B /* colorExtension.swift */,
 			);
 			name = Lib;
 			sourceTree = "<group>";
@@ -418,6 +421,7 @@
 				F1D81CA41A7F274A00C0B728 /* CustomNavigation.swift in Sources */,
 				F1F2DEA01A7ABB4A005B75B0 /* HomeTableViewController.swift in Sources */,
 				F154CA711A93F4A300C6076A /* CommentTableViewCell.swift in Sources */,
+				F14A870C1AA3838D009AD05B /* colorExtension.swift in Sources */,
 				F1F2DE781A77F574005B75B0 /* ViewController.swift in Sources */,
 				F1F2DE9E1A797BA9005B75B0 /* UserModel.swift in Sources */,
 				F106A0E21A950963006BAEA7 /* CommentModel.swift in Sources */,
