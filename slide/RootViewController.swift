@@ -131,6 +131,8 @@ class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
 
     func navigateToDistricts() {
         var navigateToHome : NSArray = [self.districtsViewController]
+//        var hvc = self.navViewController.viewControllers[0] as HomeTableViewController
+//        hvc.myTagsShowing = false
         self.setViewControllers(navigateToHome, direction: .Reverse, animated: true, completion: nil)
     }
     

@@ -85,6 +85,8 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
                 self.hood = "Mission"
                 self.title = "Mission"
                 self.hoodId = "54e02f65736e6134b1010000"
+                self.sharedInstance.hoodId = "54e02f65736e6134b1010000"
+                self.sharedInstance.hood = "Mission"
                 self.loadSnaps()
             } else {
                 // no need for hood, bc its only used in loadSnaps
@@ -93,7 +95,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
                 self.loadMyTags()
             }
             self.tableView.reloadData()
-    
+            
         // User toggles between Mission and Mission
         // or Potrero and Potrero
         } else if (self.title == sharedInstance.hood) {
@@ -106,13 +108,14 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
                 self.hood = sharedInstance.hood
                 self.hoodId = sharedInstance.hoodId
                 self.loadSnaps()
+                self.tableView.reloadData()
+                self.title = self.hood
             } else {
                 self.title = "Videos you are tagged in"
                 self.hoodId = "me"
                 self.loadMyTags()
             }
-          self.tableView.reloadData()
-          self.title = self.hood
+
         }
         
      }
