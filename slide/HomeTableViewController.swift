@@ -146,12 +146,41 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         let cell = self.tableView.dequeueReusableCellWithIdentifier("CustomHomeCell") as HomeHeaderTableViewCell
         var localButton  = cell.localButton
         var myTagsButton  = cell.myTagsButton
+        var border = CALayer()
+        var width = CGFloat(2.0)
         if (myTagsShowing == false) {
             localButton.setTitleColor(UIColor(rgba:"#F6AC32"), forState: .Normal)
             myTagsButton.setTitleColor(UIColor.grayColor(), forState: .Normal)
+            
+            border.borderColor = UIColor(rgba:"#FFFFFF").CGColor
+            border.frame = CGRect(x: 0, y: myTagsButton.frame.size.height - width, width:  myTagsButton.frame.size.width, height: myTagsButton.frame.size.height)
+            border.borderWidth = width
+            myTagsButton.layer.addSublayer(border)
+            myTagsButton.layer.masksToBounds = true
+
+            border.borderColor = UIColor(rgba:"#F6AC32").CGColor
+            border.frame = CGRect(x: 0, y: localButton.frame.size.height - width, width:  localButton.frame.size.width, height: localButton.frame.size.height)
+            border.borderWidth = width
+            localButton.layer.addSublayer(border)
+            localButton.layer.masksToBounds = true
+            
+            
         } else {
             localButton.setTitleColor(UIColor.grayColor(), forState: .Normal)
             myTagsButton.setTitleColor(UIColor(rgba:"#F6AC32"), forState: .Normal)
+            
+            border.borderColor = UIColor(rgba:"#FFFFFF").CGColor
+            border.frame = CGRect(x: 0, y: localButton.frame.size.height - width, width:  localButton.frame.size.width, height: localButton.frame.size.height)
+            border.borderWidth = width
+            localButton.layer.addSublayer(border)
+            localButton.layer.masksToBounds = true
+            
+            border.borderColor = UIColor(rgba:"#F6AC32").CGColor
+            border.frame = CGRect(x: 0, y: myTagsButton.frame.size.height - width, width:  myTagsButton.frame.size.width, height: myTagsButton.frame.size.height)
+            border.borderWidth = width
+            myTagsButton.layer.addSublayer(border)
+            myTagsButton.layer.masksToBounds = true
+            
         }
         return cell
     }

@@ -326,7 +326,7 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" tag="83" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GGE-vF-Tin">
-                                            <rect key="frame" x="201" y="11" width="103" height="30"/>
+                                            <rect key="frame" x="201" y="6" width="103" height="40"/>
                                             <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="19"/>
                                             <state key="normal" title="My Tags">
                                                 <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
