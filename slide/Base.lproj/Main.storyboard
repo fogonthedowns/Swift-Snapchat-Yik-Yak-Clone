@@ -307,7 +307,7 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="L3J-kG-A2W" id="D9O-4b-kh9">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rof-XA-Ewi">
+                                        <button opaque="NO" tag="20" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rof-XA-Ewi">
                                             <rect key="frame" x="90" y="6" width="69" height="40"/>
                                             <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="19"/>
                                             <state key="normal" title="Local">
@@ -325,7 +325,7 @@
                                                 <action selector="clickLocal:" destination="JDP-CG-fzf" eventType="touchUpInside" id="Ee6-fg-vgd"/>
                                             </connections>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GGE-vF-Tin">
+                                        <button opaque="NO" tag="83" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GGE-vF-Tin">
                                             <rect key="frame" x="201" y="11" width="103" height="30"/>
                                             <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="19"/>
                                             <state key="normal" title="My Tags">
@@ -824,7 +824,7 @@ This Policy is current as of the Effective Date set forth above. We may change t
             </objects>
             <point key="canvasLocation" x="756" y="2179"/>
         </scene>
-        <!--Comments View Controller-->
+        <!--Details-->
         <scene sceneID="Xxz-jv-LnU">
             <objects>
                 <viewController id="2Q8-eQ-uPE" customClass="CommentsViewController" customModule="Looped" customModuleProvider="target" sceneMemberID="viewController">
@@ -1001,7 +1001,7 @@ This Policy is current as of the Effective Date set forth above. We may change t
                             <constraint firstItem="6SV-dJ-VRc" firstAttribute="leading" secondItem="uiE-89-cps" secondAttribute="leading" id="u8y-Or-ngf"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="UTD-x1-YLq">
+                    <navigationItem key="navigationItem" title="Details" id="UTD-x1-YLq">
                         <barButtonItem key="leftBarButtonItem" image="back" id="VyG-s3-S6K">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>

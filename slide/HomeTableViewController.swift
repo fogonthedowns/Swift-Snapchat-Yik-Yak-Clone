@@ -35,6 +35,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
     var sharedInstance = VideoDataToAPI.sharedInstance
     var hood:NSString = ""
     var hoodId:String = "me"
+    var myTagsShowing = false
     
     let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
     
@@ -75,6 +76,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
     
      override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(true)
+        
         if (sharedInstance.hood == nil) {
             // TODO default location
             // The user must be able to change this location
@@ -102,15 +104,13 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
      }
     
     @IBAction func clickLocal(sender: AnyObject) {
-        var button = sender as UIButton
-        // button.selected = true
-        // button.setTitleColor(UIColor.brownColor(), forState: UIControlState.Normal)
         if (sharedInstance.hood == nil) {
             self.title = "Mission"
         } else {
           self.title = sharedInstance.hood
         }
         self.loadSnaps()
+        myTagsShowing = false
     }
     
     @IBAction func clickMyTags(sender: AnyObject) {
@@ -118,6 +118,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         // var button = sender as UIButton
         // button.selected = true
         userObject.apiObject.getMyTags(self)
+        myTagsShowing = true
     }
     
     override func didReceiveMemoryWarning() {
@@ -143,6 +144,15 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let cell = self.tableView.dequeueReusableCellWithIdentifier("CustomHomeCell") as HomeHeaderTableViewCell
+        var localButton  = cell.localButton
+        var myTagsButton  = cell.myTagsButton
+        if (myTagsShowing == false) {
+            localButton.setTitleColor(UIColor(rgba:"#F6AC32"), forState: .Normal)
+            myTagsButton.setTitleColor(UIColor.grayColor(), forState: .Normal)
+        } else {
+            localButton.setTitleColor(UIColor.grayColor(), forState: .Normal)
+            myTagsButton.setTitleColor(UIColor(rgba:"#F6AC32"), forState: .Normal)
+        }
         return cell
     }
     
