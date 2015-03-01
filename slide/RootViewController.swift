@@ -69,10 +69,10 @@ class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
         var startingViewControllers : NSArray = [self.cameraViewController]
         self.setViewControllers(startingViewControllers, direction: .Forward, animated: false, completion: nil)
         // println("Hey swab. C'mere. Listen up.")
-        
-        // Do any additional setup after loading the view.
-    }
 
+        
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

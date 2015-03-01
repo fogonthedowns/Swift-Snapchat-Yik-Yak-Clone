@@ -44,6 +44,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         UIApplication.sharedApplication().statusBarStyle = .LightContent
                // Receive Notification and call loadSnaps once we have a user
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadSnaps", name: getSnapsBecauseIhaveAUserLoaded, object: nil)
@@ -75,28 +76,41 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
     }
     
      override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(true)
+        super.viewDidAppear(false)
         
+        // initial load state
+        // first time you load the app we load mission
         if (sharedInstance.hood == nil) {
-            // TODO default location
-            // The user must be able to change this location
-            // and assign a default, for now its just SF Mission District
-            self.hood = "Mission"
-            self.title = "Mission"
-            self.hoodId = "54e02f65736e6134b1010000"
-            self.loadSnaps()
+            if (self.myTagsShowing == false) {
+                self.hood = "Mission"
+                self.title = "Mission"
+                self.hoodId = "54e02f65736e6134b1010000"
+                self.loadSnaps()
+            } else {
+                // no need for hood, bc its only used in loadSnaps
+                self.title = "Videos you are tagged in"
+                self.hoodId = "me"
+                self.loadMyTags()
+            }
             self.tableView.reloadData()
+    
+        // User toggles between Mission and Mission
+        // or Potrero and Potrero
         } else if (self.title == sharedInstance.hood) {
             println("title didn't change")
-            // TODO ensure that hoodId is set, if we consider a default neighborhood to load for each user
             self.hoodId = sharedInstance.hoodId
-            // self.loadSnaps()
-            // self.tableView.reloadData()
+            
+        // User toggles between Two different Districts
         } else {
-          self.hood = sharedInstance.hood
-          // TODO ensure that hoodId is set, if we consider a default neighborhood to load for each user
-          self.hoodId = sharedInstance.hoodId
-          self.loadSnaps()
+            if (self.myTagsShowing == false) {
+                self.hood = sharedInstance.hood
+                self.hoodId = sharedInstance.hoodId
+                self.loadSnaps()
+            } else {
+                self.title = "Videos you are tagged in"
+                self.hoodId = "me"
+                self.loadMyTags()
+            }
           self.tableView.reloadData()
           self.title = self.hood
         }
@@ -117,7 +131,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         self.title = "Videos you are tagged in"
         // var button = sender as UIButton
         // button.selected = true
-        userObject.apiObject.getMyTags(self)
+        self.loadMyTags()
         myTagsShowing = true
     }
     
@@ -132,6 +146,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
     
 
     @IBAction func navigateToDistricts(sender: AnyObject) {
+        self.myTagsShowing = false
         NSNotificationCenter.defaultCenter().postNotificationName(didClickToNavigateToDistricts, object: self)
     }
     // MARK: - Table view data source
@@ -148,6 +163,8 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         var myTagsButton  = cell.myTagsButton
         var border = CALayer()
         var width = CGFloat(2.0)
+        println("called!!! ****************************************************")
+        println( self.myTagsShowing )
         if (myTagsShowing == false) {
             localButton.setTitleColor(UIColor(rgba:"#F6AC32"), forState: .Normal)
             myTagsButton.setTitleColor(UIColor.grayColor(), forState: .Normal)
