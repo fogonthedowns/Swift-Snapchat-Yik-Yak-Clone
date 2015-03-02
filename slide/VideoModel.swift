@@ -166,10 +166,21 @@ class VideoModel: NSObject {
         
         if let fetchResults = appDel.managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [NSManagedObject] {
             if fetchResults.count != 0{
-                NSLog("***************** found film! updating status %@", fetchResults)
+                NSLog("***************** found film! deleting it %@", fetchResults)
                 println(fetchResults.count)
                 for oldRecord in fetchResults {
                     var managedObject = oldRecord
+                    var movieTempString = managedObject.valueForKey("film") as String
+                    let tempDirectoryTemplate = NSTemporaryDirectory().stringByAppendingPathComponent(movieTempString)
+                    let url = NSURL.fileURLWithPath(tempDirectoryTemplate)
+                    println(url)
+                    CameraViewController.excludeFromBackup(tempDirectoryTemplate)
+                    if NSFileManager.defaultManager().fileExistsAtPath(tempDirectoryTemplate) {
+                        println("deleting file from disk")
+                        NSFileManager.defaultManager().removeItemAtPath(tempDirectoryTemplate, error: nil)
+                    } else {
+                        println("can't find file")
+                    }
                     context.deleteObject(managedObject)
                 }
             } else {
