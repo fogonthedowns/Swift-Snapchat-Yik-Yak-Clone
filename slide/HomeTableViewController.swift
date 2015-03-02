@@ -479,7 +479,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         
         let filePath = determineFilePath(sharedInstance.downloadName)
         NSFileManager.defaultManager().moveItemAtURL(location, toURL: NSURL.fileURLWithPath(filePath)!, error: nil)
-
+        CameraViewController.excludeFromBackup(filePath)
         // update UI elements
         // dispatch_async(dispatch_get_main_queue()) {
         // }
@@ -531,7 +531,6 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         
         // NSLog("Completion Handler has been invoked, background download task has finished.");
     }
-    
     
     func checkButtonTapped(sender:AnyObject){
         var btnPos: CGPoint = sender.convertPoint(CGPointZero, toView: self.tableView)

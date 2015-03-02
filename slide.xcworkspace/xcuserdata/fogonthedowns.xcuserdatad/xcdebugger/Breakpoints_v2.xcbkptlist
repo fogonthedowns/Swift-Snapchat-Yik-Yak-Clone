@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "slide/CameraViewController.swift"
-            timestampString = "446929454.538743"
+            timestampString = "447004829.933942"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "340"
-            endingLineNumber = "340"
+            startingLineNumber = "355"
+            endingLineNumber = "355"
             landmarkName = "pressBackButtonfromConfirm(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -218,11 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "slide/HomeTableViewController.swift"
-            timestampString = "446951733.701662"
+            timestampString = "447007036.982439"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "565"
-            endingLineNumber = "565"
+            startingLineNumber = "584"
+            endingLineNumber = "584"
             landmarkName = "loadSnaps()"
             landmarkType = "5">
          </BreakpointContent>

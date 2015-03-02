@@ -122,9 +122,11 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         // long press, they are recording
         // let go it stops
         
+        var tapRecord:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "tapRecord:")
         let longpress = UILongPressGestureRecognizer(target: self, action: "longPress:")
         longpress.minimumPressDuration = 0.10
         self.takeVideoButton.addGestureRecognizer(longpress)
+        self.takeVideoButton.addGestureRecognizer(tapRecord)
         
         // this notifcation is to determine if a video preview has finished playing
         // if so we loop it
@@ -259,6 +261,19 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         // Dispose of any resources that can be recreated.
     }
     
+    func tapRecord(sender:UITapGestureRecognizer!) {
+         UIApplication.sharedApplication().statusBarHidden=false
+        let alertController = UIAlertController(title: "Hold to Record 📼", message: "To record a movie hold the camera button.", preferredStyle: .Alert)
+
+        let cancelAction = UIAlertAction(title: "Ok", style: .Cancel) { (_) in }
+        alertController.addAction(cancelAction)
+//        if captureDevice != nil {
+//            println("Capture device found")
+//            setupCamera()
+//        }
+        self.presentViewController(alertController, animated: true, completion:nil)
+    }
+    
 
     // new
     func longPress(sender:UILongPressGestureRecognizer!) {
@@ -381,15 +396,34 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         let data = UIImagePNGRepresentation(thumb)
         // var directory = NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)[0] as NSString
         var directory = NSTemporaryDirectory()
-        directory = directory + "/img.img"
-        data.writeToFile(directory, atomically: true)
-        var myimg = UIImage(contentsOfFile: directory)
-        self.uploadImageURL = NSURL.fileURLWithPath(directory)
+        var imageFile = directory + "/img.img"
+        data.writeToFile(imageFile, atomically: true)
+        CameraViewController.excludeFromBackup(directory)
+        var myimg = UIImage(contentsOfFile: imageFile)
+        self.uploadImageURL = NSURL.fileURLWithPath(imageFile)
 
         self.dismissViewControllerAnimated(true, completion: {})
         self.uploadFileURL = NSURL.fileURLWithPath(pathString!)
         self.saveImageToAWS()
         self.saveToAWS()
+    }
+    
+    class func excludeFromBackup(savePath:NSString) {
+        var error: NSError? = nil
+        var url = NSURL(fileURLWithPath: savePath)
+        // println(url)
+        // println("********************************")
+        var success = url!.setResourceValue(true, forKey: NSURLIsExcludedFromBackupKey, error: &error)
+        
+        if (!success) {
+            println("we've got a problem")
+        } else {
+            // println("this worked!" )
+        }
+        
+        if (error != nil) {
+          println(error);
+        }
     }
     
     
@@ -419,6 +453,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     func tempFileUrl()->NSURL{
         let tempDirectoryTemplate = NSTemporaryDirectory().stringByAppendingPathComponent("camera.mov")
         let url = NSURL.fileURLWithPath(tempDirectoryTemplate)
+        CameraViewController.excludeFromBackup(tempDirectoryTemplate)
         if NSFileManager.defaultManager().fileExistsAtPath(tempDirectoryTemplate) {
             NSFileManager.defaultManager().removeItemAtPath(tempDirectoryTemplate, error: nil)
         }
