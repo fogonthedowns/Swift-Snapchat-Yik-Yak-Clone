@@ -73,22 +73,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "slide/CameraViewController.swift"
-            timestampString = "447004829.933942"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "355"
-            endingLineNumber = "355"
-            landmarkName = "pressBackButtonfromConfirm(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "slide/InviteTableViewController.swift"
             timestampString = "446842024.374546"
             startingColumnNumber = "9223372036854775807"
@@ -214,16 +198,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "slide/HomeTableViewController.swift"
-            timestampString = "447007036.982439"
+            filePath = "slide/CameraViewController.swift"
+            timestampString = "447011748.043265"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "584"
-            endingLineNumber = "584"
-            landmarkName = "loadSnaps()"
+            startingLineNumber = "360"
+            endingLineNumber = "360"
+            landmarkName = "pressBackButtonfromConfirm(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
