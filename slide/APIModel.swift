@@ -236,7 +236,7 @@ class APIModel: NSObject {
                 println("we have assoicated the user with their phone number")
                 self.updateUser("phone", value: phone)
                 didCompleteUploadWithNoErrors
-                NSNotificationCenter.defaultCenter().postNotificationName(getSnapsBecauseIhaveAUserLoaded, object: self)
+                NSNotificationCenter.defaultCenter().postNotificationName(getMyTagsBecauseIhaveAUserLoaded, object: self)
             } else {
                 println(error)
             }

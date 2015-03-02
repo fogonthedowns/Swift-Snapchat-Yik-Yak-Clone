@@ -94,9 +94,10 @@ class AWSImageDownload: NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate
         
         NSLog("[%@ %@]", reflect(self).summary, __FUNCTION__)
         
-        let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
-        
-        let documentsPath = paths.first as? String
+        // let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+        let paths = NSTemporaryDirectory()
+
+        let documentsPath = paths
         let filePath = documentsPath! + self.downloadKeyName
         NSLog("the filepath let:%@", filePath)
         NSLog("the downloadkename let %@", self.downloadKeyName)
