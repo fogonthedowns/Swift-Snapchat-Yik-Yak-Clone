@@ -117,8 +117,8 @@ class APIModel: NSObject {
     }
     
     func createSnap(lat:NSString,long:NSString,video:NSString,image:NSString, description:NSString, tags:NSString){
-        println(tags)
-        println("Yooooooooooooooooooooooooooooooo")
+        // println(tags)
+        // println("Yooooooooooooooooooooooooooooooo")
         let parameters = [
             "device_token":self.userID,
             "access_token": self.accessToken,

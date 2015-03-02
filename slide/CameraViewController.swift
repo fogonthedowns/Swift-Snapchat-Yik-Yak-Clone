@@ -67,6 +67,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     let time = CMTimeMakeWithSeconds(0, 30)
     let size = CGSizeMake(425,355)
     
+    var backPressed = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,10 +85,10 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         self.cameraIsRecording.hidden = true
         
         // add tap gesture recognizer
-        
         var tap:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
         self.confirmationView.addGestureRecognizer(tap)
         
+        // location
         if CLLocationManager.authorizationStatus() == .NotDetermined {
             NSLog("\n ****************************** NotDetermined()")
             manager.requestWhenInUseAuthorization()
@@ -285,6 +286,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
                 self.cameraIsRecording.hidden = true
             } else if (sender.state == UIGestureRecognizerState.Began) {
                 NSLog("long press detected")
+                self.backPressed = false
                 self.cameraIsRecording.hidden = false
                 UIApplication.sharedApplication().statusBarHidden=true
                 var url:NSURL = tempFileUrl()
@@ -317,6 +319,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
             let pathString = videoFile.relativePath
             
             let url = NSURL.fileURLWithPath(pathString!)
+            println(url)
             self.moviePlayer = MPMoviePlayerController(contentURL: url)
             if var player = self.moviePlayer {
                 // let the preview loop
@@ -332,6 +335,8 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
                 // Back button and send buttons
                 self.view.addSubview(self.confirmationView)
                 self.view.bringSubviewToFront(self.confirmationView)
+            } else {
+                println("Oh Fuckkkk")
             }
     }
     
@@ -343,15 +348,20 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     // stop video, stop preview
     // clear views
     
+    // cancel
     @IBAction func pressBackButtonfromConfirm(sender: AnyObject) {
-        UIApplication.sharedApplication().statusBarHidden=false
-        self.clearTaggedFriends()
-        self.DismissKeyboard()
-        self.userDescription.text = ""
-        self.stopPreview = true
-        self.moviePlayer.stop()
-        self.view.sendSubviewToBack(self.confirmationView)
-        self.view.sendSubviewToBack(self.moviePlayer.view)
+        
+        if (self.backPressed == false) {
+            UIApplication.sharedApplication().statusBarHidden=false
+            self.clearTaggedFriends()
+            self.DismissKeyboard()
+            self.userDescription.text = ""
+            self.stopPreview = true
+            self.moviePlayer.stop()
+            self.view.sendSubviewToBack(self.confirmationView)
+            self.view.sendSubviewToBack(self.moviePlayer.view)
+            self.backPressed = true
+        }
     }
     
     // User pressed confirm video
@@ -451,7 +461,8 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     
     // used in longpress of camera button to make a temp file
     func tempFileUrl()->NSURL{
-        let tempDirectoryTemplate = NSTemporaryDirectory().stringByAppendingPathComponent("camera.mov")
+        var movieTempString = CameraViewController.randomStringWithLength(10) + ".mov"
+        let tempDirectoryTemplate = NSTemporaryDirectory().stringByAppendingPathComponent(movieTempString)
         let url = NSURL.fileURLWithPath(tempDirectoryTemplate)
         CameraViewController.excludeFromBackup(tempDirectoryTemplate)
         if NSFileManager.defaultManager().fileExistsAtPath(tempDirectoryTemplate) {
@@ -641,6 +652,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
             friend.tagged = false
         }
     }
+    
     // this function uses the APIModel() instance apiObject
     // Todo This requires some completion handler 
     // maybe write a success row 
