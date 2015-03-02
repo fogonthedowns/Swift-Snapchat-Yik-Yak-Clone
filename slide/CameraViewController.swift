@@ -379,7 +379,8 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         let imgRef = generator.copyCGImageAtTime(time, actualTime: nil, error: nil)
         let thumb = UIImage(CGImage:imgRef)
         let data = UIImagePNGRepresentation(thumb)
-        var directory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString
+        // var directory = NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)[0] as NSString
+        var directory = NSTemporaryDirectory()
         directory = directory + "/img.img"
         data.writeToFile(directory, atomically: true)
         var myimg = UIImage(contentsOfFile: directory)

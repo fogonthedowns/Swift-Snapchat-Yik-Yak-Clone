@@ -17,13 +17,16 @@ protocol APIProtocol {
 }
 
 let getSnapsBecauseIhaveAUserLoaded = "com.snapAPI.specialNotificationKey"
+let getMyTagsBecauseIhaveAUserLoaded = "com.snapAPI.getTags"
 let didCompleteUploadWithNoErrors = "com.snapAPI.didCompleteUpload"
 
 class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSURLSessionTaskDelegate, NSURLSessionDownloadDelegate, UIPageViewControllerDelegate, APIProtocol {
     let userObject = UserModel()
 
+    @IBOutlet weak var phoneNumberView: UIView!
     @IBOutlet var progressView: UIProgressView!
     @IBOutlet var statusLabel: UILabel!
+    @IBOutlet weak var phoneTextField: UITextField!
     
 
     var session: NSURLSession?
@@ -37,8 +40,9 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
     var hoodId:String = "me"
     var myTagsShowing = false
     
-    let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
-    
+    // let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+    let paths = NSTemporaryDirectory()
+
     // notification
     // var localNotification:UILocalNotification = UILocalNotification()
    
@@ -48,6 +52,8 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         UIApplication.sharedApplication().statusBarStyle = .LightContent
                // Receive Notification and call loadSnaps once we have a user
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadSnaps", name: getSnapsBecauseIhaveAUserLoaded, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadMyTags", name: getMyTagsBecauseIhaveAUserLoaded, object: nil)
+        
         userObject.findUser();
         SharedViewData.sharedInstance.homeTableViewController = self
         // Table Row Init
@@ -77,11 +83,12 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
     
      override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(false)
-        
+        println("viewDidAppear")
         // initial load state
         // first time you load the app we load mission
         if (sharedInstance.hood == nil) {
             if (self.myTagsShowing == false) {
+                  println("1st")
                 self.hood = "Mission"
                 self.title = "Mission"
                 self.hoodId = "54e02f65736e6134b1010000"
@@ -90,8 +97,6 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
                 self.loadSnaps()
             } else {
                 // no need for hood, bc its only used in loadSnaps
-                self.title = "Videos you are tagged in"
-                self.hoodId = "me"
                 self.loadMyTags()
             }
             self.tableView.reloadData()
@@ -101,18 +106,18 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         } else if (self.title == sharedInstance.hood) {
             println("title didn't change")
             self.hoodId = sharedInstance.hoodId
+            self.hood = sharedInstance.hood
             
         // User toggles between Two different Districts
         } else {
+            self.hood = sharedInstance.hood
+            self.hoodId = sharedInstance.hoodId
             if (self.myTagsShowing == false) {
-                self.hood = sharedInstance.hood
-                self.hoodId = sharedInstance.hoodId
                 self.loadSnaps()
+                println("2nd")
                 self.tableView.reloadData()
                 self.title = self.hood
             } else {
-                self.title = "Videos you are tagged in"
-                self.hoodId = "me"
                 self.loadMyTags()
             }
 
@@ -127,15 +132,23 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
           self.title = sharedInstance.hood
         }
         self.loadSnaps()
+        println("3rd")
         myTagsShowing = false
     }
     
     @IBAction func clickMyTags(sender: AnyObject) {
-        self.title = "Videos you are tagged in"
+//        self.title = "Videos you are tagged in"
         // var button = sender as UIButton
         // button.selected = true
         self.loadMyTags()
-        myTagsShowing = true
+
+    }
+    
+    @IBAction func submitPhone(sender: AnyObject) {
+        var number = self.phoneTextField.text as String
+        self.userObject.apiObject.phone = number
+        self.navigationController?.view.sendSubviewToBack(self.phoneNumberView)
+        loadMyTags()
     }
     
     override func didReceiveMemoryWarning() {
@@ -348,6 +361,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
     
     func didReceiveResult(result: JSON) {
         // local array var used in this function
+        println("didReceiveResult")
         var videos: NSMutableArray = []
         
         for (index: String, rowAPIresult: JSON) in result {
@@ -529,25 +543,74 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
     }
     
     func determineFilePath(file:NSString)-> NSString {
-        let documentsPath = paths.first as? String
+        // let documentsPath = paths.first as? String
+        let documentsPath = paths
         let filePath = documentsPath! + "/" + file
         return filePath
     }
     
     func pullToLoadSnaps(sender:AnyObject)
     {
-        self.loadSnaps()
+        if (self.myTagsShowing) {
+            self.loadMyTags()
+        } else {
+            self.loadSnaps()
+            println("4th")
+        }
         self.tableView.reloadData()
         self.refreshControl?.endRefreshing()
     }
     
     func loadSnaps() {
+        println("load snaps called")
         userObject.apiObject.getSnaps(sharedInstance.latitude,long: sharedInstance.longitute, hood: self.hood, delegate:self)
     }
     
     func loadMyTags() {
-        NSLog("Loading videos I'm tagged in called")
-        userObject.apiObject.getMyTags(self)
+        NSLog("loadMyTags()")
+        if (userObject.apiObject.phone == "") {
+          println("no phone")
+            // self.navigationController?.view.addSubview(self.phoneNumberView)
+         //  self.navigationController.view.bringSubviewToFront(self.phoneNumberView)
+            
+            self.alertPopUp()
+            
+        } else {
+            println("yes phone!!!!")
+            self.myTagsShowing = true
+            self.title = "Videos you are tagged in"
+            self.hoodId = "me"
+            userObject.apiObject.getMyTags(self)
+        }
+    }
+    
+    
+    func alertPopUp() {
+        let alertController = UIAlertController(title: "Reveal your tags 👀", message: "To reveal your tags please confirm your phone number", preferredStyle: .Alert)
+        let loginAction = UIAlertAction(title: "Confirm", style: .Default) { (_) in
+            let loginTextField = alertController.textFields![0] as UITextField
+            self.sendPhoneToAPI(loginTextField.text)
+        }
+        loginAction.enabled = false
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (_) in }
+        
+        alertController.addTextFieldWithConfigurationHandler { (textField) in
+            textField.placeholder = "415-555-5555"
+            textField.keyboardType = UIKeyboardType.PhonePad
+            NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: textField, queue: NSOperationQueue.mainQueue()) { (notification) in
+                loginAction.enabled = textField.text != ""
+            }
+        }
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(loginAction)
+        self.presentViewController(alertController, animated: true, completion:nil)
+    }
+    
+    func sendPhoneToAPI(phone:String){
+        userObject.apiObject.phone = phone
+        userObject.apiObject.registerUserwithPhone(userObject.apiObject.phone)
+//        self.loadMyTags()
     }
 
     func vote(video:NSString) {

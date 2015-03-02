@@ -52,6 +52,8 @@ class UserModel: NSObject {
                 println(userRow.valueForKey("phone"))
                 if (userRow.valueForKey("phone") != nil) {
                     apiObject.phone = userRow.valueForKey("phone") as String!
+                } else {
+                    apiObject.phone = ""
                 }
                 NSLog("User:%@", apiObject.userID)
                 NSLog("User AccessToken:%@", apiObject.accessToken)

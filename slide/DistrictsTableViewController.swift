@@ -21,7 +21,9 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
     // movie player code
     var moviePlayer:MPMoviePlayerController!
     var moviePlayerTwo:MPMoviePlayerController!
-    let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+    // let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+    let paths = NSTemporaryDirectory()
+
     var userIntendsToWatchVideo = false
     var currentIndex = 1
     var currentID:String!
@@ -364,7 +366,8 @@ class DistrictsTableViewController: UITableViewController, APIProtocol {
     }
 
     func determineFilePath(file:String)-> String {
-        let documentsPath = paths.first as? String
+        // let documentsPath = paths.first as? String
+        let documentsPath = paths
         let filePath = documentsPath! + "/" + file
         return filePath as String
     }

@@ -29,8 +29,8 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     let sharedInstance = VideoDataToAPI.sharedInstance
     let userObject = UserModel()
     var moviePlayer:MPMoviePlayerController!
-     let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
-    
+     // let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+    let paths = NSTemporaryDirectory()
     var commentModelList: NSMutableArray = [] // This is the array that my tableView
     
     override func viewDidLoad() {
@@ -221,7 +221,8 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     
     
     func determineFilePath(file:NSString)-> NSString {
-        let documentsPath = paths.first as? String
+        // let documentsPath = paths.first as? String
+        let documentsPath = paths
         let filePath = documentsPath! + "/" + file
         return filePath
     } // determineFilePath
