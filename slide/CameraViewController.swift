@@ -268,10 +268,6 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
 
         let cancelAction = UIAlertAction(title: "Ok", style: .Cancel) { (_) in }
         alertController.addAction(cancelAction)
-//        if captureDevice != nil {
-//            println("Capture device found")
-//            setupCamera()
-//        }
         self.presentViewController(alertController, animated: true, completion:nil)
     }
     
@@ -319,7 +315,6 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
             let pathString = videoFile.relativePath
             
             let url = NSURL.fileURLWithPath(pathString!)
-            println(url)
             self.moviePlayer = MPMoviePlayerController(contentURL: url)
             if var player = self.moviePlayer {
                 // let the preview loop
@@ -335,8 +330,6 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
                 // Back button and send buttons
                 self.view.addSubview(self.confirmationView)
                 self.view.bringSubviewToFront(self.confirmationView)
-            } else {
-                println("Oh Fuckkkk")
             }
     }
     
@@ -386,7 +379,6 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         let qualityOfServiceClass = QOS_CLASS_BACKGROUND
         let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
         dispatch_async(backgroundQueue, {
-            //println("This is run on the background queue")
             self.processImage()
         })
     }
@@ -421,14 +413,11 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     class func excludeFromBackup(savePath:NSString) {
         var error: NSError? = nil
         var url = NSURL(fileURLWithPath: savePath)
-        // println(url)
-        // println("********************************")
         var success = url!.setResourceValue(true, forKey: NSURLIsExcludedFromBackupKey, error: &error)
         
         if (!success) {
             println("we've got a problem")
         } else {
-            // println("this worked!" )
         }
         
         if (error != nil) {

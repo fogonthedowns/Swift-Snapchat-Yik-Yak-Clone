@@ -161,12 +161,17 @@ class VideoModel: NSObject {
         var managedObject: NSManagedObject!
         var fetchRequest = NSFetchRequest(entityName: "Video")
         let date = NSCalendar.currentCalendar().dateByAddingUnit(.DayCalendarUnit,
-            value: -2, toDate: NSDate(), options: nil)
+            value: -1, toDate: NSDate(), options: nil)
         fetchRequest.predicate = NSPredicate(format: "date <= %@", date!)
         
         if let fetchResults = appDel.managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [NSManagedObject] {
             if fetchResults.count != 0{
                 NSLog("***************** found film! updating status %@", fetchResults)
+                println(fetchResults.count)
+                for oldRecord in fetchResults {
+                    var managedObject = oldRecord
+                    context.deleteObject(managedObject)
+                }
             } else {
                 println("***************** no films found")
             } // else
