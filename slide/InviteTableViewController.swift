@@ -288,7 +288,11 @@ class InviteTableViewController: UITableViewController, UISearchBarDelegate, UIS
         var theString:String = ""
         var myFriends:[FriendModel] = friends as [FriendModel]
         for friend in myFriends {
-            theString = theString + " " + friend.name
+            if (theString == "") {
+                theString = theString + " " + friend.name
+            } else {
+                theString = theString + ", " + friend.name
+            }
         }
         self.tagsLabel!.text = theString
         return theString

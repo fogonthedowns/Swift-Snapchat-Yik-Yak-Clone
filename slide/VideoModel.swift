@@ -162,7 +162,8 @@ class VideoModel: NSObject {
         var fetchRequest = NSFetchRequest(entityName: "Video")
         let date = NSCalendar.currentCalendar().dateByAddingUnit(.DayCalendarUnit,
             value: -1, toDate: NSDate(), options: nil)
-        fetchRequest.predicate = NSPredicate(format: "date <= %@", date!)
+        fetchRequest.predicate = NSPredicate(format: "downloaded == %@", true)
+        //fetchRequest.predicate = NSPredicate(format: "date <= %@", date!)
         
         if let fetchResults = appDel.managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [NSManagedObject] {
             if fetchResults.count != 0{
