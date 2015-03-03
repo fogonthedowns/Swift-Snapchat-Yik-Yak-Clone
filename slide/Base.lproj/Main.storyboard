@@ -307,8 +307,12 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="L3J-kG-A2W" id="D9O-4b-kh9">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <button opaque="NO" tag="20" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rof-XA-Ewi">
+                                        <button opaque="NO" tag="20" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rof-XA-Ewi">
                                             <rect key="frame" x="90" y="6" width="69" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="69" id="sKT-3J-JdB"/>
+                                                <constraint firstAttribute="height" constant="40" id="zaF-j8-I60"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="19"/>
                                             <state key="normal" title="Local">
                                                 <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -325,8 +329,12 @@
                                                 <action selector="clickLocal:" destination="JDP-CG-fzf" eventType="touchUpInside" id="Ee6-fg-vgd"/>
                                             </connections>
                                         </button>
-                                        <button opaque="NO" tag="83" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GGE-vF-Tin">
+                                        <button opaque="NO" tag="83" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GGE-vF-Tin">
                                             <rect key="frame" x="201" y="6" width="103" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="103" id="96t-Yd-xmE"/>
+                                                <constraint firstAttribute="height" constant="40" id="vQN-II-xN2"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="19"/>
                                             <state key="normal" title="My Tags">
                                                 <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -345,6 +353,11 @@
                                         </button>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstItem="GGE-vF-Tin" firstAttribute="leading" secondItem="rof-XA-Ewi" secondAttribute="trailing" constant="42" id="BDn-yF-f1h"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="GGE-vF-Tin" secondAttribute="trailing" constant="63" id="Tin-uB-roR"/>
+                                        <constraint firstItem="rof-XA-Ewi" firstAttribute="leading" secondItem="D9O-4b-kh9" secondAttribute="leadingMargin" priority="750" constant="82" id="l5w-0M-5Iq"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="localButton" destination="rof-XA-Ewi" id="jYx-q8-0OR"/>
