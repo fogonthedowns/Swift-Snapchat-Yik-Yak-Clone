@@ -23,14 +23,13 @@ class APIModel: NSObject {
     // TODO rename to deviceToken stored as identity
     var userID: NSString = ""
     var phone: NSString = ""
-    var ROOT_URL: NSString = "https://www.airimg.com"
 
     
     // It doesn't look like Userid is used, rather self.userID is used. This is set by a chain method call apiObject.userid
     // from the userObject.findUser() on ViewDidLoad. We always have a user, we find one, and with it from disk and we set
     // the userid, accesstoken and other info
     func getSnaps(lat:NSString,long:NSString, hood:NSString, delegate:APIProtocol) {
-       var requestUrl = self.ROOT_URL + "/snaps"
+       var requestUrl = "https://www.airimg.com/snaps"
         // ?token=17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY&device_token=" + self.userID + "&access_token=" + self.accessToken + "&lat=" + lat + "&long=" + polygon
         NSLog("getting Snaps")
         //        self.getRequest(requestUrl)
@@ -52,7 +51,7 @@ class APIModel: NSObject {
     }
     
     func getOffsetSnaps(lat:NSString,long:NSString, hood:NSString, offset:NSNumber, delegate:APIProtocol) {
-        var requestUrl = self.ROOT_URL + "/snaps"
+        var requestUrl = "https://www.airimg.com/snaps"
         NSLog("getting offset Snaps")
         request(.GET, requestUrl, parameters: ["hood": hood, "lat":lat, "long":long, "token":"17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY","device_token":self.userID, "access_token": self.accessToken, "offset": offset])
             .responseJSON { (req, res, json, error) in
@@ -71,7 +70,7 @@ class APIModel: NSObject {
     }
     
     func getDistricts(lat:NSString,longitude: NSString, delegate:APIProtocol) {
-        var requestUrl = self.ROOT_URL + "/locations?token=17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY&device_token=" + self.userID + "&access_token=" + self.accessToken + "&lat=" + lat + "&long=" + longitude
+        var requestUrl = "https://www.airimg.com/locations?token=17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY&device_token=" + self.userID + "&access_token=" + self.accessToken + "&lat=" + lat + "&long=" + longitude
         NSLog("getting districts")
         
         request(.GET, requestUrl)
@@ -92,7 +91,7 @@ class APIModel: NSObject {
     
     
     func getMyTags(delegate:APIProtocol) {
-        var requestUrl = self.ROOT_URL + "/snaps/me?token=17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY&device_token=" + self.userID + "&access_token=" + self.accessToken + "&phone=" + self.phone
+        var requestUrl = "https://www.airimg.com/snaps/me?token=17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY&device_token=" + self.userID + "&access_token=" + self.accessToken + "&phone=" + self.phone
         NSLog("getting districts")
         
         request(.GET, requestUrl)
@@ -113,7 +112,7 @@ class APIModel: NSObject {
     func createUser(Userid:NSString) {
       NSLog("********************************************** createUser() called with Device Token=%@", Userid)
       userID = Userid
-      var requestUrl = self.ROOT_URL + "/profiles/new?token=17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY&profile[device_token]=" + self.userID +  "&profile[email]=u@u.com&profile[password]=a&profile[os]=ios"
+      var requestUrl = "https://www.airimg.com/profiles/new?token=17975700jDLD5HQtiLbKjwaTkKmZK7zTQO8l5CEmktBzVEAtY&profile[device_token]=" + self.userID +  "&profile[email]=u@u.com&profile[password]=a&profile[os]=ios"
         self.postRequest(requestUrl)
     }
     
@@ -135,7 +134,7 @@ class APIModel: NSObject {
             ]
         ]
         
-        request(.POST, self.ROOT_URL + "/snaps/new", parameters: parameters).validate().response { (request, response, data, error) in
+        request(.POST, "https://www.airimg.com/snaps/new", parameters: parameters).validate().response { (request, response, data, error) in
             println(request)
             println(response)
              if (error == nil){
@@ -159,7 +158,7 @@ class APIModel: NSObject {
             "film": film
         ]
         
-        request(.PUT, self.ROOT_URL + "/snaps/comment", parameters: parameters).validate().response { (request, response, data, error) in
+        request(.PUT, "https://www.airimg.com/snaps/comment", parameters: parameters).validate().response { (request, response, data, error) in
             println(request)
             println(response)
             if (error == nil){
@@ -181,7 +180,7 @@ class APIModel: NSObject {
             "film": film
         ]
         
-        request(.PUT, self.ROOT_URL + "/snaps/flag", parameters: parameters).validate().response { (request, response, data, error) in
+        request(.PUT, "https://www.airimg.com/snaps/flag", parameters: parameters).validate().response { (request, response, data, error) in
             println(request)
             println(response)
             if (error == nil){
@@ -203,7 +202,7 @@ class APIModel: NSObject {
             "film": video
         ]
         
-        request(.PUT, self.ROOT_URL + "/snaps/update", parameters: parameters).validate().response { (request, response, data, error) in
+        request(.PUT, "https://www.airimg.com/snaps/update", parameters: parameters).validate().response { (request, response, data, error) in
             println(request)
             println(response)
             if (error == nil){
@@ -228,7 +227,7 @@ class APIModel: NSObject {
             ]
         ]
         
-        let requestUrl = self.ROOT_URL + "/profiles/update/" + self.apiUserId
+        let requestUrl = "https://www.airimg.com/profiles/update/" + self.apiUserId
         
         request(.PUT, requestUrl, parameters: parameters).validate().response { (request, response, data, error) in
             println(request)
