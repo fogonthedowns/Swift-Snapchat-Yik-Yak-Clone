@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "slide/HomeTableViewController.swift"
-            timestampString = "446951733.701662"
+            timestampString = "447139629.251863"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "379"
-            endingLineNumber = "379"
+            startingLineNumber = "392"
+            endingLineNumber = "392"
             landmarkName = "didReceiveResult(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -170,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "slide/HomeTableViewController.swift"
-            timestampString = "446951733.701662"
+            timestampString = "447139629.251863"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "364"
-            endingLineNumber = "364"
+            startingLineNumber = "377"
+            endingLineNumber = "377"
             landmarkName = "didReceiveResult(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -225,6 +225,52 @@
             endingLineNumber = "188"
             landmarkName = "deleteOldFilms()"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "slide/CameraViewController.swift"
+            timestampString = "447140593.159276"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "268"
+            endingLineNumber = "268"
+            landmarkName = "tapRecord(_:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Looped.CameraViewController.tapRecord (Looped.CameraViewController)(Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.UITapGestureRecognizer&gt;) -&gt; ()"
+                  moduleName = "Looped"
+                  urlString = "file:///Users/fogonthedowns/hack/swift/slide/slide/CameraViewController.swift"
+                  timestampString = "447140593.248048"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "269"
+                  endingLineNumber = "269"
+                  offsetFromSymbolStart = "404">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Looped.CameraViewController.(tapRecord (Looped.CameraViewController) -&gt; (Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.UITapGestureRecognizer&gt;) -&gt; ()).(closure #1)"
+                  moduleName = "Looped"
+                  urlString = "file:///Users/fogonthedowns/hack/swift/slide/slide/CameraViewController.swift"
+                  timestampString = "447140593.249641"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "269"
+                  endingLineNumber = "269"
+                  offsetFromSymbolStart = "16">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
