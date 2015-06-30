@@ -478,7 +478,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
     func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didFinishDownloadingToURL location: NSURL) {
         
         let filePath = determineFilePath(sharedInstance.downloadName)
-        NSFileManager.defaultManager().moveItemAtURL(location, toURL: NSURL.fileURLWithPath(filePath as Stringh)!, error: nil)
+        NSFileManager.defaultManager().moveItemAtURL(location, toURL: NSURL.fileURLWithPath(filePath as String)!, error: nil)
         CameraViewController.excludeFromBackup(filePath)
         // update UI elements
         // dispatch_async(dispatch_get_main_queue()) {
@@ -503,7 +503,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
                     // NSLog("no videos left to process");
                 } else {
                     // videos need to be downloaded, so start another download
-                    self.start(self.sharedInstance.listOfVideosToDo as! load[0] as NSString)
+                    self.start(self.sharedInstance.listOfVideosToDownload[0] as! NSString)
                 }
             }
         } else {
@@ -587,7 +587,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
     func alertPopUp() {
         let alertController = UIAlertController(title: "Reveal your tags 👀", message: "To reveal your tags please confirm your phone number", preferredStyle: .Alert)
         let loginAction = UIAlertAction(title: "Confirm", style: .Default) { (_) in
-            let loginTextField = alertController.textFields![0] as UITextField
+            let loginTextField = alertController.textFields![0] as! UITextField
             self.sendPhoneToAPI(loginTextField.text)
         }
         loginAction.enabled = false
