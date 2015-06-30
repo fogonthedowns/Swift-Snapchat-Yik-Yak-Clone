@@ -71,7 +71,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         }
         
         dispatch_once(&Static.token) {
-            let configuration = NSURLSessionConfiguration.backgroundSessionConfiguration(BackgroundSessionDownloadIdentifier)
+            let configuration = NSURLSessionConfiguration.backgroundSessionConfigurationWithIdentifier("BackgroundSessionDownloadIdentifier")
             Static.session = NSURLSession(configuration: configuration, delegate: self, delegateQueue: nil)
         }
         
@@ -116,7 +116,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
                 self.loadSnaps()
                 println("2nd")
                 self.tableView.reloadData()
-                self.title = self.hood
+                self.title = self.hood as String
             } else {
                 self.loadMyTags()
             }
@@ -174,7 +174,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
     }
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let cell = self.tableView.dequeueReusableCellWithIdentifier("CustomHomeCell") as HomeHeaderTableViewCell
+        let cell = self.tableView.dequeueReusableCellWithIdentifier("CustomHomeCell") as! HomeHeaderTableViewCell
         var localButton  = cell.localButton
         var myTagsButton  = cell.myTagsButton
         var border = CALayer()
@@ -231,8 +231,8 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
-        let cell = tableView.dequeueReusableCellWithIdentifier("VideoCell") as VideoCellTableViewCell
-        let video: VideoModel = videoModelList[indexPath.row] as VideoModel
+        let cell = tableView.dequeueReusableCellWithIdentifier("VideoCell") as! VideoCellTableViewCell
+        let video: VideoModel = videoModelList[indexPath.row] as! VideoModel
         cell.videoModel = video
         // possible point for dictionary integration, key is video.film
         // but how to solve this when there are many districts? many dictionaries?
@@ -297,7 +297,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         
         let indexPath = tableView.indexPathForSelectedRow();
         
-        let currentCell = tableView.cellForRowAtIndexPath(indexPath!) as VideoCellTableViewCell
+        let currentCell = tableView.cellForRowAtIndexPath(indexPath!) as! VideoCellTableViewCell
         sharedInstance.videoForCommentController = currentCell.videoModel
         println(currentCell.videoModel.userDescription)
         println(self.sharedInstance.videoForCommentController.userDescription)
@@ -312,7 +312,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         // but strangely only on EndedState
         var indexPath = tableView.indexPathForRowAtPoint(locationInView)
         if indexPath != nil {
-            let cell = self.tableView.cellForRowAtIndexPath(indexPath!) as VideoCellTableViewCell
+            let cell = self.tableView.cellForRowAtIndexPath(indexPath!) as! VideoCellTableViewCell
             let urlString = cell.titleLabel.text!
             println("Long press Block Home .................");
 
@@ -333,7 +333,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
                 self.tableView.reloadData()
                 println("Long press detected.");
                 let path = NSBundle.mainBundle().pathForResource("video", ofType:"m4v")
-                let url = NSURL.fileURLWithPath(filePath)
+                let url = NSURL.fileURLWithPath(filePath as String)
                 self.moviePlayer = MPMoviePlayerController(contentURL: url)
                 if var player = self.moviePlayer {
                     navigationController?.navigationBarHidden = true
@@ -419,7 +419,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
         
         let filePath = determineFilePath(s3downloadname)
         // if the file exists return, don't start an asynch download
-        if NSFileManager.defaultManager().fileExistsAtPath(filePath) {
+        if NSFileManager.defaultManager().fileExistsAtPath(filePath as String) {
             // NSLog("FILE ALREADY DOWNLOADED")
             VideoModel.saveFilmAsDownloaded(s3downloadname)
             return;
@@ -436,10 +436,10 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
        
         // NSLog("------------------------------- filePath -----------------%@", filePath)
         
-        sharedInstance.downloadName = s3downloadname
+        sharedInstance.downloadName = s3downloadname as String
         let getPreSignedURLRequest = AWSS3GetPreSignedURLRequest()
         getPreSignedURLRequest.bucket = S3BucketName
-        getPreSignedURLRequest.key = s3downloadname
+        getPreSignedURLRequest.key = s3downloadname as String
         getPreSignedURLRequest.HTTPMethod = AWSHTTPMethod.GET
         getPreSignedURLRequest.expires = NSDate(timeIntervalSinceNow: 3600)
         
@@ -448,7 +448,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
             if (task.error != nil) {
                 NSLog("Error: %@", task.error)
             } else {
-                let presignedURL = task.result as NSURL!
+                let presignedURL = task.result as! NSURL!
                 if (presignedURL != nil) {
                     NSLog("download presignedURL is: \n%@", presignedURL)
                     
@@ -478,7 +478,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
     func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didFinishDownloadingToURL location: NSURL) {
         
         let filePath = determineFilePath(sharedInstance.downloadName)
-        NSFileManager.defaultManager().moveItemAtURL(location, toURL: NSURL.fileURLWithPath(filePath)!, error: nil)
+        NSFileManager.defaultManager().moveItemAtURL(location, toURL: NSURL.fileURLWithPath(filePath as Stringh)!, error: nil)
         CameraViewController.excludeFromBackup(filePath)
         // update UI elements
         // dispatch_async(dispatch_get_main_queue()) {
@@ -503,7 +503,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
                     // NSLog("no videos left to process");
                 } else {
                     // videos need to be downloaded, so start another download
-                    self.start(self.sharedInstance.listOfVideosToDownload[0] as NSString)
+                    self.start(self.sharedInstance.listOfVideosToDo as! load[0] as NSString)
                 }
             }
         } else {
@@ -522,7 +522,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
 
     func URLSessionDidFinishEventsForBackgroundURLSession(session: NSURLSession) {
         
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         if ((appDelegate.backgroundDownloadSessionCompletionHandler) != nil) {
             let completionHandler:() = appDelegate.backgroundDownloadSessionCompletionHandler!;
             appDelegate.backgroundDownloadSessionCompletionHandler = nil
@@ -535,7 +535,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
     func checkButtonTapped(sender:AnyObject){
         var btnPos: CGPoint = sender.convertPoint(CGPointZero, toView: self.tableView)
         var indexPath: NSIndexPath = self.tableView.indexPathForRowAtPoint(btnPos)!
-        let video: VideoModel = videoModelList[indexPath.row] as VideoModel
+        let video: VideoModel = videoModelList[indexPath.row] as! VideoModel
         println(video.userDescription)
         self.vote(video.film)
         
@@ -544,7 +544,7 @@ class HomeTableViewController: UITableViewController, NSURLSessionDelegate, NSUR
     func determineFilePath(file:NSString)-> NSString {
         // let documentsPath = paths.first as? String
         let documentsPath = paths
-        let filePath = documentsPath! + "/" + file
+        let filePath = documentsPath! + "/" + (file as String)
         return filePath
     }
     
