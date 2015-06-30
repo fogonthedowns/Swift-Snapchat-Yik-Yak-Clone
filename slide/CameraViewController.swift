@@ -219,7 +219,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
          // add video input
          if captureSession.canAddInput(videoCapture) {
             captureSession.addInput(videoCapture)
-            captureSession.addInput(audioInput as AVCaptureInput)
+            captureSession.addInput(audioInput as! AVCaptureInput)
          }
   
         if err != nil {
@@ -412,7 +412,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     
     class func excludeFromBackup(savePath:NSString) {
         var error: NSError? = nil
-        var url = NSURL(fileURLWithPath: savePath)
+        var url = NSURL(fileURLWithPath: savePath as String)
         var success = url!.setResourceValue(true, forKey: NSURLIsExcludedFromBackupKey, error: &error)
         
         if (!success) {
@@ -450,7 +450,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     
     // used in longpress of camera button to make a temp file
     func tempFileUrl()->NSURL{
-        var movieTempString = CameraViewController.randomStringWithLength(10) + ".mov"
+        var movieTempString = (CameraViewController.randomStringWithLength(10) as String) + ".mov"
         let tempDirectoryTemplate = NSTemporaryDirectory().stringByAppendingPathComponent(movieTempString)
         let url = NSURL.fileURLWithPath(tempDirectoryTemplate)
         CameraViewController.excludeFromBackup(tempDirectoryTemplate)
@@ -491,7 +491,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     
     func processTags(friends:NSArray)-> NSString {
         var theString:String = ""
-        var myFriends:[FriendModel] = friends as [FriendModel]
+        var myFriends:[FriendModel] = friends as! [FriendModel]
         for friend in myFriends {
             theString = theString + " " + friend.phoneString
         }
@@ -500,7 +500,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     
     func URLSessionDidFinishEventsForBackgroundURLSession(session: NSURLSession) {
         
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         if ((appDelegate.backgroundUploadSessionCompletionHandler) != nil) {
             let completionHandler:() = appDelegate.backgroundUploadSessionCompletionHandler!;
             appDelegate.backgroundUploadSessionCompletionHandler = nil
@@ -520,7 +520,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
             NSLog("Error: %@",error!);
         }
         
-        sharedInstance.lastVideoUploadID = CameraViewController.randomStringWithLength(75) + ".mov"
+        sharedInstance.lastVideoUploadID = (CameraViewController.randomStringWithLength(75) as String) + ".mov"
         
         let getPreSignedURLRequest = AWSS3GetPreSignedURLRequest()
         getPreSignedURLRequest.bucket = S3BucketName
@@ -537,7 +537,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
             if (task.error != nil) {
                 NSLog("Error: %@", task.error)
             } else {
-                let presignedURL = task.result as NSURL!
+                let presignedURL = task.result as! NSURL!
                 if (presignedURL != nil) {
                     var request = NSMutableURLRequest(URL: presignedURL)
                     request.cachePolicy = NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData
@@ -559,7 +559,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
             NSLog("Error: %@",error!);
         }
         
-        sharedInstance.lastImgUploadID = CameraViewController.randomStringWithLength(75) + ".png"
+        sharedInstance.lastImgUploadID = (CameraViewController.randomStringWithLength(75) as String) + ".png"
         
         let getPreSignedURLRequest = AWSS3GetPreSignedURLRequest()
         getPreSignedURLRequest.bucket = S3BucketName
@@ -576,7 +576,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
             if (task.error != nil) {
                 NSLog("Error: %@", task.error)
             } else {
-                let presignedURL = task.result as NSURL!
+                let presignedURL = task.result as! NSURL!
                 if (presignedURL != nil) {
                     var request = NSMutableURLRequest(URL: presignedURL)
                     request.cachePolicy = NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData
@@ -601,7 +601,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     
     func locationManager(manager: CLLocationManager!,
         didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        if status == .Authorized || status == .AuthorizedWhenInUse {
+        if status == .AuthorizedWhenInUse {
             NSLog(".Authorized || .AuthorizedWhenInUse block")
             manager.startUpdatingLocation()
             if (manager.location != nil){
@@ -629,7 +629,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
         self.confirmationView.endEditing(true)
     }
     
-    func textFieldShouldReturn(textField: UITextField!) -> Bool {
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
         self.view.endEditing(true);
         return false;
     }
@@ -637,7 +637,7 @@ class CameraViewController: UIViewController, NSURLSessionDelegate, NSURLSession
     func clearTaggedFriends() {
         self.sharedInstance.taggedFriends = []
         for friend in self.sharedInstance.friendsList {
-            let friend:FriendModel = friend as FriendModel
+            let friend:FriendModel = friend as! FriendModel
             friend.tagged = false
         }
     }

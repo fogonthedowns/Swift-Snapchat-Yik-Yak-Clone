@@ -67,7 +67,7 @@ class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
         self.currentViewController = self.navViewController
         // Set starting view controllers
         var startingViewControllers : NSArray = [self.cameraViewController]
-        self.setViewControllers(startingViewControllers, direction: .Forward, animated: false, completion: nil)
+        self.setViewControllers(startingViewControllers as [AnyObject], direction: .Forward, animated: false, completion: nil)
         // println("Hey swab. C'mere. Listen up.")
 
         
@@ -111,49 +111,49 @@ class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
     
     func navigateHome() {
         var navigateToHome : NSArray = [self.navViewController]
-        self.setViewControllers(navigateToHome, direction: .Forward, animated: true, completion: nil)
+        self.setViewControllers(navigateToHome as [AnyObject], direction: .Forward, animated: true, completion: nil)
     }
     
     func navigateBackHome() {
         var navigateToHome : NSArray = [self.navViewController]
-        self.setViewControllers(navigateToHome, direction: .Reverse, animated: true, completion: nil)
+        self.setViewControllers(navigateToHome as [AnyObject], direction: .Reverse, animated: true, completion: nil)
     }
     
     func navigateToCamera() {
         var navigateToHome : NSArray = [self.cameraViewController]
-        self.setViewControllers(navigateToHome, direction: .Forward, animated: true, completion: nil)
+        self.setViewControllers(navigateToHome as [AnyObject], direction: .Forward, animated: true, completion: nil)
     }
     
     func navigateBackToCamera() {
         var navigateToHome : NSArray = [self.cameraViewController]
-        self.setViewControllers(navigateToHome, direction: .Reverse, animated: true, completion: nil)
+        self.setViewControllers(navigateToHome as [AnyObject], direction: .Reverse, animated: true, completion: nil)
     }
 
     func navigateToDistricts() {
         var navigateToHome : NSArray = [self.districtsViewController]
 //        var hvc = self.navViewController.viewControllers[0] as HomeTableViewController
 //        hvc.myTagsShowing = false
-        self.setViewControllers(navigateToHome, direction: .Reverse, animated: true, completion: nil)
+        self.setViewControllers(navigateToHome as [AnyObject], direction: .Reverse, animated: true, completion: nil)
     }
     
     func navigateToComments() {
         var navigateToComments : NSArray = [self.commentsUINavigationController]
-        self.setViewControllers(navigateToComments, direction: .Forward, animated: true, completion: nil)
+        self.setViewControllers(navigateToComments as [AnyObject], direction: .Forward, animated: true, completion: nil)
     }
     
     func navigateToPrivacy(){
        var navigateToPrivacy : NSArray = [self.privacyUINavigationController]
-        self.setViewControllers(navigateToPrivacy, direction: .Forward, animated: true, completion: nil)
+        self.setViewControllers(navigateToPrivacy as [AnyObject], direction: .Forward, animated: true, completion: nil)
     }
     
     func navigateToTos(){
         var navigateToTos : NSArray = [self.TosUINavigationController]
-        self.setViewControllers(navigateToTos, direction: .Forward, animated: true, completion: nil)
+        self.setViewControllers(navigateToTos as [AnyObject], direction: .Forward, animated: true, completion: nil)
     }
     
     func navigateToFriends(){
         var navigateToFriends : NSArray = [self.InvitesUINavigationController]
-        self.setViewControllers(navigateToFriends, direction: .Forward, animated: true, completion: nil)
+        self.setViewControllers(navigateToFriends as [AnyObject], direction: .Forward, animated: true, completion: nil)
     }
     
     /*
