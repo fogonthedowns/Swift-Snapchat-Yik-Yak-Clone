@@ -20,7 +20,7 @@ class UserModel: NSObject {
         println("***************** findUser()")
         //1
         let appDelegate =
-        UIApplication.sharedApplication().delegate as AppDelegate
+        UIApplication.sharedApplication().delegate as! AppDelegate
         
         let managedContext = appDelegate.managedObjectContext!
         
@@ -32,7 +32,7 @@ class UserModel: NSObject {
         
         let fetchedResults =
         managedContext.executeFetchRequest(fetchRequest,
-            error: &error) as [NSManagedObject]?
+            error: &error) as! [NSManagedObject]?
         
         if let results = fetchedResults {
             userModel = results
@@ -42,16 +42,16 @@ class UserModel: NSObject {
                 // No User is found, so we generate a User Identity
                 // it is then passed to saveUser()
                 var randomString = CameraViewController.randomStringWithLength(50)
-                self.saveUser(randomString)
+                self.saveUser(randomString as String)
             } else {
                 println("***************** I Found a user! **********************")
                 var userRow = userModel[0]
-                apiObject.userID = userRow.valueForKey("identity") as String!
-                apiObject.accessToken = userRow.valueForKey("accessToken") as String!
-                apiObject.apiUserId = userRow.valueForKey("apiUserId") as String!
+                apiObject.userID = userRow.valueForKey("identity") as! String!
+                apiObject.accessToken = userRow.valueForKey("accessToken") as! String!
+                apiObject.apiUserId = userRow.valueForKey("apiUserId") as! String!
                 println(userRow.valueForKey("phone"))
                 if (userRow.valueForKey("phone") != nil) {
-                    apiObject.phone = userRow.valueForKey("phone") as String!
+                    apiObject.phone = userRow.valueForKey("phone") as! String!
                 } else {
                     apiObject.phone = ""
                 }
@@ -71,7 +71,7 @@ class UserModel: NSObject {
              println("***************** saveUser()")
             //1
             let appDelegate =
-            UIApplication.sharedApplication().delegate as AppDelegate
+            UIApplication.sharedApplication().delegate as! AppDelegate
     
             let managedContext = appDelegate.managedObjectContext!
     
@@ -94,7 +94,7 @@ class UserModel: NSObject {
             //5
             userModel.append(userName)
             var userRow = userModel[0]
-            apiObject.userID = userRow.valueForKey("identity") as String!
+            apiObject.userID = userRow.valueForKey("identity") as! String!
             self.postUsertoSnapServer()
             NSLog("User:%@", apiObject.userID)
         } // end saveUser() (create new user)

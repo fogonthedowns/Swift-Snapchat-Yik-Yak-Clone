@@ -18,8 +18,8 @@ class VideoDataToAPI {
     var listOfVideosToDownload: NSMutableArray = []
     var videoForCommentController: VideoModel!
     // var userObject = UserModel()
-    var hood: NSString!
-    var hoodId: NSString!
+    var hood: String!
+    var hoodId: String!
     // used for background processing of uploads
     var userDescription: NSString!
     var playList: NSMutableArray = []
